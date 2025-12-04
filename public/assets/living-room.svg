@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="800" viewBox="0 0 1200 800">
+  <defs>
+    <linearGradient id="g" x1="0" x2="0" y1="0" y2="1">
+      <stop offset="0" stop-color="#2b3942" />
+      <stop offset="1" stop-color="#121722" />
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="800" fill="url(#g)" />
+  <!-- simple living room shapes -->
+  <rect x="100" y="450" width="400" height="180" rx="12" fill="#2b2b2b" opacity="0.6" />
+  <rect x="700" y="430" width="380" height="210" rx="12" fill="#343a40" opacity="0.5" />
+  <circle cx="200" cy="300" r="60" fill="#ffd57e" opacity="0.08" />
+  <rect x="520" y="220" width="160" height="12" rx="6" fill="#ffeaa7" opacity="0.06" />
+  <!-- lamp -->
+  <rect x="540" y="240" width="10" height="80" fill="#c7b198" opacity="0.4" />
+</svg>
