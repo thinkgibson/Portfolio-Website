@@ -14,8 +14,10 @@ test.describe('Landing and video scene', () => {
     await link.click();
     await page.waitForURL('**/video');
 
-    // Video page assertions
-    await expect(page.getByText('VIDEO PREVIEW')).toBeVisible();
+    // Video page assertions (allow extra time for client rendering)
+    const preview = page.getByText('VIDEO PREVIEW');
+    await preview.waitFor({ state: 'visible', timeout: 10000 });
+    await expect(preview).toBeVisible();
 
     // VHS tapes are present
     await expect(page.getByText('Neon Nights')).toBeVisible();

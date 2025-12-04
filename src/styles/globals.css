@@ -2,6 +2,17 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Prevent layout overflow and default selection */
+* { box-sizing: border-box; }
+
+html, body, #__next {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+}
+
 /* Global retro palette */
 :root {
   --accent: #ff6b6b;
@@ -62,6 +73,14 @@ body {
   flex-direction: column;
   gap: 0.5rem;
   transform: rotate(-8deg);
+}
+
+/* Prevent text selection while dragging tapes */
+.tape-item, .tape-item * {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 
 /* small utility for paper labels */

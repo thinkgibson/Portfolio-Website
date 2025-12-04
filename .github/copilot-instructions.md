@@ -14,12 +14,16 @@ What an agent should know first
 - Start by opening `GITHUB_COPILOT_RULES.md` at the repository root — it documents how this project expects agent behavior (pre-patch preambles, `apply_patch` usage, `manage_todo_list` expectations).
 - Consult the local toolkit file: `c:\Users\ian\.aitk\instructions\tools.instructions.md` for global tool behavior and available helper tools.
 
-Agent workflow (concise)
+Agent workflow (concise) (STRONGLY ENFORCED)
 ---
 - Use the `manage_todo_list` tool to plan multi-step work. Create a small list, mark one item `in-progress`, mark completed as you finish.
 - Before any modifying tool call (e.g., `apply_patch`, `create_file`), post a one-sentence preamble describing the immediate action.
 - Use `apply_patch` to edit files. Keep diffs minimal and localized; avoid reformatting unrelated code.
 - After making changes, summarize files added/modified and propose the next step (run tests, commit, push).
+  - After making changes, run both unit tests and the Playwright E2E suite locally before committing.
+  - MUST: After any code change, run `npm test` and the Playwright E2E suite (`npm run test:e2e:dev`) locally and record the results in the todo list before creating a commit or PR.
+  - MUST: After making changes, update the version log with a new version entry summarizing changes made.
+  - AUTOMATION: Agents must append a new `Version Log` entry automatically for any code change that has been validated by a passing unit test run and passing Playwright E2E run. Do not wait for explicit user approval before writing this entry; include a concise summary, date, and files changed.
 
 Project-specific patterns & examples
 ---
@@ -75,7 +79,8 @@ Plan should include:
 5. Audio integration  
 6. Accessibility considerations
 7. Concerns about edge cases, integration issues, broken scenarios, risk areas, etc
-8. Unit tests to be created/updated  
+8. Unit tests to be created/updated
+9. E2E tests to be created/updated  
 
 The user must approve before code is generated.
 
@@ -97,7 +102,7 @@ The user must approve before code is generated.
 ### Process
 
 - Every workspace should have a file called "Version Log". Each new build gets a version number and an entry in the Version Log explaining what has changed.
-- Create unit tests and run them with each build. All unit tests must pass before declaring a successful buidl. Every new feature or change should get appropriate unit test coverage. Bug fixes should include a new unit test to ensure the bug has actually been fixed and does not re-break in future builds.
+- Create unit and E2E tests and run them with each build. All tests must pass before declaring a successful build. Every new feature or change should get appropriate test coverage. Bug fixes should include a new test to ensure the bug has actually been fixed and does not re-break in future builds.
 - For any design changes refer to the "Design Style Rules" section in this document
 
 ### Design Style Rules

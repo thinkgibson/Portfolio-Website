@@ -3,3 +3,46 @@ Version Log
 
 1.0.0 - 2025-12-04
 - Initialize repository agent support: add CI workflow, testing scaffold, `package.json`, `tsconfig.json`, `jest` config, example component and test, and update `.github/copilot-instructions.md` with commit message guidance.
+
+1.1.0 - 2025-12-04
+- Add UI: landing page and `/video` scene with a retro CRT TV and a stack of VHS tapes (placeholder labels).
+- Components: `CRT`, `VHSTape`, `TapeStack` under `src/components`.
+- Styling: Tailwind config (`tailwind.config.cjs`), PostCSS (`postcss.config.cjs`) and `src/styles/globals.css` (includes Tailwind directives and custom scene styles).
+- Assets: placeholder backdrop `public/assets/living-room.svg`.
+- Testing: unit tests added for new components (Jest) and Playwright E2E tests (`e2e/*`) + `playwright.config.ts`.
+- Scripts: added `test:e2e:dev` and `test:e2e:ci` to `package.json` for running E2E tests against dev and production builds.
+- Build & verification: installed Playwright browsers, ran unit and E2E suites locally; all tests passed and Next build succeeded.
+- Commit: changes committed on branch `chore/scaffold-clean` and pushed to remote (commit `9bc92b1`).
+
+1.2.0 - 2025-12-04
+- Feature: Add interactive drag-and-drop for VHS tapes on the `/video` scene.
+	- `VHSTape` is now a client component that supports pointer-based dragging and emits move/drop events.
+	- `TapeStack` manages per-tape position state, z-ordering, persistence to `localStorage`, and renders tapes absolutely.
+	- Bounds and snapping: tape movement is clamped to the visible container and snaps to a 10px grid on drop.
+	- Visual polish: lift effect while dragging (scale + shadow) and cursor updates for better affordance.
+
+- Tests & tooling:
+	- Added unit test: `__tests__/TapeDnD.test.tsx` (RTL) to validate drag behavior and persistence.
+	- Added Playwright E2E test: `e2e/tape-dnd.spec.ts` to exercise dragging in a real browser and verify persistence.
+	- Improved existing E2E tests for robustness (targeting, timeouts, focus handling).
+	- Updated Jest configuration and added `tsconfig.jest.json` so TSX tests run under `ts-jest`.
+	- All unit and E2E tests pass locally after fixes.
+
+- Docs & developer workflow:
+	- Updated `.github/copilot-instructions.md` to require running both unit tests and the Playwright E2E suite locally before committing changes.
+
+- Misc: small bug fixes and adjustments to support client-only components, pointer event handling, and test reliability.
+
+1.2.1 - 2025-12-04
+- Fix: pointer capture/release now uses the tape element ref (reliability fix for drag in browsers).
+- UX: Add visual drag feedback to tapes (subtle scale, stronger shadow, grabbing cursor).
+- Tests: made E2E tests more robust (explicit waits for client-rendered content) and fixed/flaked unit tests; added `__tests__/TapeDnD.test.tsx` and `e2e/tape-dnd.spec.ts`.
+- Docs/workflow: made the requirement to run both unit and Playwright E2E tests mandatory in `.github/copilot-instructions.md`.
+- Verification: ran both unit and E2E suites locally — all tests passing after these changes.
+
+1.2.2 - 2025-12-04
+- Fix: ensure click-and-drag with a mouse reliably moves VHS tapes across browsers and test environments.
+	- `VHSTape` now includes a robust mouse-event fallback (window `mousemove`/`mouseup`) and shared drag helpers so drags work even when pointer capture is unreliable.
+	- Added Playwright E2E test `e2e/tape-mouse-drag.spec.ts` which simulates a mouse drag and asserts `localStorage` persistence under `portfolio:tapePositions:v1`.
+	- Improved E2E assertion robustness and re-ran the full suite — all E2E tests passed locally (6/6).
+

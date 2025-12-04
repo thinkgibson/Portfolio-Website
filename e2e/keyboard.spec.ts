@@ -14,8 +14,12 @@ test('keyboard navigation from landing to video page', async ({ page }) => {
   }
   expect(focused).toBeTruthy();
 
-  // Activate the link via keyboard
+  // Activate the link via keyboard by focusing the link element and pressing Enter
+  const link = page.getByRole('link', { name: /Video Page/i });
+  await link.focus();
   await page.keyboard.press('Enter');
   await page.waitForURL('**/video');
-  await expect(page.getByText('VIDEO PREVIEW')).toBeVisible();
+  const preview = page.getByText('VIDEO PREVIEW');
+  await preview.waitFor({ state: 'visible', timeout: 10000 });
+  await expect(preview).toBeVisible();
 });
