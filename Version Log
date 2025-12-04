@@ -1,0 +1,5 @@
+Version Log
+---
+
+1.0.0 - 2025-12-04
+- Initialize repository agent support: add CI workflow, testing scaffold, `package.json`, `tsconfig.json`, `jest` config, example component and test, and update `.github/copilot-instructions.md` with commit message guidance.

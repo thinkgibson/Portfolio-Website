@@ -1,0 +1,30 @@
+{
+  "name": "portfolio-website",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint . --ext .ts,.tsx,.js,.jsx",
+    "typecheck": "tsc --noEmit",
+    "test": "jest"
+  },
+  "dependencies": {
+    "next": "13.x",
+    "react": "18.x",
+    "react-dom": "18.x"
+  },
+  "devDependencies": {
+    "@testing-library/jest-dom": "6.x",
+    "@testing-library/react": "14.x",
+    "@types/jest": "29.x",
+    "@types/react": "18.x",
+    "@types/react-dom": "18.x",
+    "identity-obj-proxy": "3.x",
+    "jest": "29.x",
+    "jest-environment-jsdom": "^29.7.0",
+    "ts-jest": "29.x",
+    "typescript": "5.x"
+  }
+}
