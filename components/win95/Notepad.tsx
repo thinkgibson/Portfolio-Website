@@ -14,28 +14,12 @@ export function Notepad() {
     const [resolveClose, setResolveClose] = useState<((val: boolean) => void) | null>(null);
     const { registerCloseInterceptor, unregisterCloseInterceptor, registerSaveHandler, unregisterSaveHandler } = useOS();
 
-    // Formatting state for highlighting toolbar buttons
+    // Formatting state - tracked purely locally, not synced with selection
     const [activeFormats, setActiveFormats] = useState({
         bold: false,
         italic: false,
         underline: false,
     });
-
-    const updateActiveFormats = useCallback(() => {
-        if (typeof document !== 'undefined') {
-            setActiveFormats({
-                bold: document.queryCommandState("bold"),
-                italic: document.queryCommandState("italic"),
-                underline: document.queryCommandState("underline"),
-            });
-        }
-    }, []);
-
-    useEffect(() => {
-        const update = () => updateActiveFormats();
-        document.addEventListener("selectionchange", update);
-        return () => document.removeEventListener("selectionchange", update);
-    }, [updateActiveFormats]);
 
     // Close interception logic
     const handleCloseRequest = useCallback(() => {
@@ -62,7 +46,6 @@ export function Notepad() {
 
     const handleInput = () => {
         if (!isDirty) setIsDirty(true);
-        updateActiveFormats();
     };
 
     const convertToRTF = (html: string) => {
@@ -121,13 +104,24 @@ export function Notepad() {
         if (resolveClose) resolveClose(false);
     };
 
-    const execCommand = (command: string, value?: string) => {
-        document.execCommand(command, false, value);
-        // Do not force focus back, as it may reset selection/caret position
-        // The onMouseDown(preventDefault) on buttons is sufficient to keep focus
+    const execCommand = (command: "bold" | "italic" | "underline", e: React.MouseEvent) => {
+        e.preventDefault();
+        e.stopPropagation();
+
+        // Ensure editor has focus before executing command
+        if (editorRef.current) {
+            editorRef.current.focus();
+        }
+
+        document.execCommand(command, false);
         setIsDirty(true);
-        // Small delay to let browser update selection/state
-        setTimeout(updateActiveFormats, 10);
+
+        // Toggle local state directly - don't query browser state
+        // This ensures button state only changes on click, not on text selection
+        setActiveFormats(prev => ({
+            ...prev,
+            [command]: !prev[command],
+        }));
     };
 
     return (
@@ -135,24 +129,24 @@ export function Notepad() {
             {/* Notepad Toolbar */}
             <div className="flex items-center gap-1 p-1 border-b border-white shadow-[inset_-1px_-1px_0_0_#808080]">
                 <button
-                    onMouseDown={(e) => { e.preventDefault(); execCommand("bold"); }}
-                    className={`win95-button w-8 h-8 font-bold text-[14px] flex items-center justify-center ${activeFormats.bold ? "win95-beveled-inset bg-gray-200" : ""}`}
+                    onMouseDown={(e) => execCommand("bold", e)}
+                    className={`${activeFormats.bold ? "win95-beveled-inset bg-gray-200" : "win95-button"} w-8 h-8 font-bold text-[14px] flex items-center justify-center`}
                     title="Bold"
                     data-testid="notepad-bold"
                 >
                     B
                 </button>
                 <button
-                    onMouseDown={(e) => { e.preventDefault(); execCommand("italic"); }}
-                    className={`win95-button w-8 h-8 italic text-[14px] font-serif flex items-center justify-center ${activeFormats.italic ? "win95-beveled-inset bg-gray-200" : ""}`}
+                    onMouseDown={(e) => execCommand("italic", e)}
+                    className={`${activeFormats.italic ? "win95-beveled-inset bg-gray-200" : "win95-button"} w-8 h-8 italic text-[14px] font-serif flex items-center justify-center`}
                     title="Italic"
                     data-testid="notepad-italic"
                 >
                     I
                 </button>
                 <button
-                    onMouseDown={(e) => { e.preventDefault(); execCommand("underline"); }}
-                    className={`win95-button w-8 h-8 underline text-[14px] flex items-center justify-center ${activeFormats.underline ? "win95-beveled-inset bg-gray-200" : ""}`}
+                    onMouseDown={(e) => execCommand("underline", e)}
+                    className={`${activeFormats.underline ? "win95-beveled-inset bg-gray-200" : "win95-button"} w-8 h-8 underline text-[14px] flex items-center justify-center`}
                     title="Underline"
                     data-testid="notepad-underline"
                 >
@@ -178,8 +172,6 @@ export function Notepad() {
                         ref={editorRef}
                         contentEditable
                         onInput={handleInput}
-                        onMouseUp={updateActiveFormats}
-                        onKeyUp={updateActiveFormats}
                         className="h-full outline-none text-[14px] leading-tight font-serif whitespace-pre-wrap"
                         data-testid="notepad-editor"
                         spellCheck={false}
