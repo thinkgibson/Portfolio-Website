@@ -54,5 +54,5 @@ After fixing make sure to write unit and playwright tests to cover this issue an
     - Windows should not be able to overlap the bottom taskbar. If a window is dragged to the bottom of the screen it should be stopped at the taskbar. If a window is dragged to the top of the screen it should be stopped at the top of the screen. If a window is dragged to the left or right of the screen it should be stopped at the edge of the screen.
 - [] **Desktop border**  
     - Windows should not be able to be dragged off the screen. If the user drags a window off the screen, it should snap back to the edge of the screen.
-- [] **Unit test error**  
+- [x] **Unit test error**  
     Fix the error that appears in the terminal when running the unit tests as part of the ci-flow. The error is: Error: Not implemented: window.scrollTo...

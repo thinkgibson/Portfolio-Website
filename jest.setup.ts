@@ -14,10 +14,16 @@ Object.defineProperty(window, 'matchMedia', {
     })),
 });
 
-Object.defineProperty(window, 'scrollTo', {
-    writable: true,
-    value: jest.fn(),
-});
+if (typeof window !== 'undefined') {
+    Object.defineProperty(window, 'scrollTo', {
+        writable: true,
+        value: jest.fn().mockImplementation(() => { }),
+    });
+}
+
+if (typeof global !== 'undefined') {
+    (global as any).scrollTo = jest.fn().mockImplementation(() => { });
+}
 
 // Mock ESM modules that cause issues with Jest/JSDOM
 jest.mock('remark', () => ({
