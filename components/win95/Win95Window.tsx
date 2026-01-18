@@ -4,7 +4,7 @@ import React from "react";
 import { motion, useDragControls } from "framer-motion";
 import { X, Minus, Square } from "lucide-react";
 import { useIsMobile } from "../../lib/hooks";
-import { FolderIcon, UserIcon, InboxIcon, ProgramsIcon, MyComputerIcon, NotepadIcon } from "./icons";
+import { FolderIcon, UserIcon, InboxIcon, ProgramsIcon, MyComputerIcon, NotepadIcon, CalculatorIcon, PaintIcon } from "./icons";
 
 const TASKBAR_HEIGHT = 48;
 
@@ -19,7 +19,7 @@ interface Win95WindowProps {
     onPositionChange?: (x: number, y: number) => void;
     isMaximized?: boolean;
     isActive?: boolean;
-    iconType?: "folder" | "about" | "contact" | "projects" | "drive" | "notepad";
+    iconType?: "folder" | "about" | "contact" | "projects" | "drive" | "notepad" | "calculator" | "paint";
     x?: number;
     y?: number;
     width?: string | number;
