@@ -30,7 +30,7 @@ interface OSDesktopProps {
     windows: {
         id: string;
         title: string;
-        iconType: "folder" | "about" | "contact" | "projects" | "drive" | "notepad";
+        iconType: "folder" | "about" | "contact" | "projects" | "drive" | "notepad" | "calculator" | "paint";
         content: React.ReactNode;
         helpContent?: React.ReactNode;
         fullBleed?: boolean;
