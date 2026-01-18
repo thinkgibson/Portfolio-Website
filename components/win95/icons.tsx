@@ -117,3 +117,35 @@ export const NetworkIcon = ({ size = 16, ...props }: IconProps) => (
         <rect x="11" y="2" width="2" height="11" fill="black" />
     </svg>
 );
+
+// Notepad Icon (Notebook + Pencil)
+export const NotepadIcon = ({ size = 32, ...props }: IconProps) => (
+    <svg width={size} height={size} viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
+        {/* Paper stack */}
+        <rect x="6" y="4" width="20" height="24" fill="white" stroke="black" strokeWidth="1" />
+        <line x1="6" y1="8" x2="26" y2="8" stroke="black" strokeWidth="1" />
+        {/* Lines on paper */}
+        <line x1="10" y1="12" x2="22" y2="12" stroke="#D0D0D0" strokeWidth="1" />
+        <line x1="10" y1="16" x2="22" y2="16" stroke="#D0D0D0" strokeWidth="1" />
+        <line x1="10" y1="20" x2="22" y2="20" stroke="#D0D0D0" strokeWidth="1" />
+        <line x1="10" y1="24" x2="22" y2="24" stroke="#D0D0D0" strokeWidth="1" />
+        {/* Pencil */}
+        <rect x="22" y="10" width="4" height="14" fill="#FFFF00" stroke="black" strokeWidth="1" transform="rotate(15 22 10)" />
+        <path d="M25.5 24L24 28L22.5 24" fill="#FFDADA" stroke="black" strokeWidth="1" transform="rotate(15 22 10)" />
+    </svg>
+);
+
+// Floppy Disk Icon (Save)
+export const FloppyIcon = ({ size = 32, ...props }: IconProps) => (
+    <svg width={size} height={size} viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
+        {/* Disk body */}
+        <path d="M4 4H26L28 6V28H4V4Z" fill="#000080" stroke="black" strokeWidth="1" />
+        {/* Metal shutter area */}
+        <rect x="8" y="4" width="14" height="10" fill="#C0C0C0" stroke="black" strokeWidth="1" />
+        <rect x="10" y="6" width="3" height="6" fill="#808080" />
+        {/* Label area */}
+        <rect x="8" y="16" width="16" height="12" fill="white" stroke="black" strokeWidth="1" />
+        <line x1="10" y1="20" x2="22" y2="20" stroke="#D0D0D0" strokeWidth="1" />
+        <line x1="10" y1="24" x2="22" y2="24" stroke="#D0D0D0" strokeWidth="1" />
+    </svg>
+);

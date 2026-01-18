@@ -4,7 +4,7 @@ import React from "react";
 import { motion, useDragControls } from "framer-motion";
 import { X, Minus, Square } from "lucide-react";
 import { useIsMobile } from "../../lib/hooks";
-import { FolderIcon, UserIcon, InboxIcon, ProgramsIcon, MyComputerIcon } from "./icons";
+import { FolderIcon, UserIcon, InboxIcon, ProgramsIcon, MyComputerIcon, NotepadIcon } from "./icons";
 
 const TASKBAR_HEIGHT = 48;
 
@@ -19,13 +19,15 @@ interface Win95WindowProps {
     onPositionChange?: (x: number, y: number) => void;
     isMaximized?: boolean;
     isActive?: boolean;
-    iconType?: "folder" | "about" | "contact" | "projects" | "drive";
+    iconType?: "folder" | "about" | "contact" | "projects" | "drive" | "notepad";
     x?: number;
     y?: number;
     width?: string | number;
     height?: string | number;
     dragConstraints?: React.RefObject<Element> | { left?: number; right?: number; top?: number; bottom?: number };
     onResize?: (width: number, height: number) => void;
+    onSave?: () => void;
+    fullBleed?: boolean;
 }
 
 const TextHighlighter = ({ text, term }: { text: string, term: string }) => {
@@ -131,6 +133,8 @@ export function Win95Window({
     dragConstraints,
     onAbout,
     iconType = "folder",
+    onSave,
+    fullBleed = false,
 }: Win95WindowProps) {
     const isMobile = useIsMobile();
     const dragControls = useDragControls();
@@ -195,7 +199,7 @@ export function Win95Window({
         const handleMouseMove = (moveEvent: PointerEvent) => {
             if (onResize) {
                 const newWidth = Math.max(200, startWidth + (moveEvent.clientX - startX));
-                const newHeight = Math.max(150, startHeight + (moveEvent.clientY - startY));
+                const newHeight = Math.max(250, startHeight + (moveEvent.clientY - startY));
                 onResize(newWidth, newHeight);
             }
         };
@@ -270,6 +274,7 @@ export function Win95Window({
                         {iconType === "contact" && <InboxIcon size={24} />}
                         {iconType === "projects" && <ProgramsIcon size={24} />}
                         {iconType === "drive" && <MyComputerIcon size={24} />}
+                        {iconType === "notepad" && <NotepadIcon size={24} />}
                         {iconType === "folder" && <FolderIcon size={24} />}
                     </div>
                     <span className="text-white text-[13px] font-win95 font-bold whitespace-nowrap overflow-hidden text-ellipsis leading-none mt-0.5">
@@ -320,6 +325,9 @@ export function Win95Window({
                         <div className="absolute top-full left-0 mt-0.5 w-32 bg-win95-gray win95-beveled z-[100] py-0.5">
                             <div className="px-3 py-1 hover:bg-win95-blue-active hover:text-white cursor-default" onClick={() => handleAction(() => onMaximize?.())}>Maximize</div>
                             <div className="px-3 py-1 hover:bg-win95-blue-active hover:text-white cursor-default" onClick={() => handleAction(() => onMinimize?.())}>Minimize</div>
+                            {onSave && (
+                                <div className="px-3 py-1 hover:bg-win95-blue-active hover:text-white cursor-default" onClick={() => handleAction(() => onSave())}>Save</div>
+                            )}
                             <div className="w-full h-[1px] bg-win95-gray-inactive my-0.5" />
                             <div className="px-3 py-1 hover:bg-win95-blue-active hover:text-white cursor-default" onClick={() => handleAction(() => onClose?.())}>Close</div>
                         </div>
@@ -377,7 +385,7 @@ export function Win95Window({
             )}
 
             {/* Content Area */}
-            <div className="win95-beveled-inset bg-white m-1 p-4 overflow-auto scrollbar-win95 flex-grow min-h-[100px] relative">
+            <div className={`flex-grow relative flex flex-col min-h-0 ${fullBleed ? "" : "overflow-hidden win95-beveled-inset bg-white m-1 p-4 overflow-auto scrollbar-win95 min-h-[100px]"}`}>
                 <HighlightResults term={searchTerm}>
                     {children}
                 </HighlightResults>

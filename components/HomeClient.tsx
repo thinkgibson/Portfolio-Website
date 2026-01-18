@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { OSDesktop } from "./win95/OSDesktop";
+import { Notepad } from "./win95/Notepad";
 import { ArrowUpRight, Github, ExternalLink } from "lucide-react";
 
 interface HomeContent {
@@ -197,6 +198,21 @@ export function HomeClient({ content }: { content: HomeContent }) {
                     </div>
                 </div>
             )
+        },
+        {
+            id: "notepad",
+            title: "Notepad.exe",
+            iconType: "notepad",
+            fullBleed: true,
+            width: 600,
+            height: 400,
+            helpContent: (
+                <div className="space-y-2">
+                    <p>This is the <strong>Notepad</strong> application.</p>
+                    <p>You can use it to write and format text using the toolbar icons (Bold, Italic, Underline).</p>
+                </div>
+            ),
+            content: <Notepad />
         }
     ];
 
