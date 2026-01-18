@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">93.02% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>80/86</span>
+                <span class='fraction'>83/83</span>
             </div>
         
             
@@ -37,16 +37,16 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">80% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>4/5</span>
+                <span class='fraction'>4/4</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">93.02% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>80/86</span>
+                <span class='fraction'>83/83</span>
             </div>
         
             
@@ -146,10 +146,8 @@
 <a name='L81'></a><a href='#L81'>81</a>
 <a name='L82'></a><a href='#L82'>82</a>
 <a name='L83'></a><a href='#L83'>83</a>
-<a name='L84'></a><a href='#L84'>84</a>
-<a name='L85'></a><a href='#L85'>85</a>
-<a name='L86'></a><a href='#L86'>86</a>
-<a name='L87'></a><a href='#L87'>87</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L84'></a><a href='#L84'>84</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -180,12 +178,9 @@
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
@@ -224,7 +219,6 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
@@ -238,6 +232,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">"use client";
 &nbsp;
 import React from "react";
+import { motion } from "framer-motion";
 import { FolderIcon, UserIcon, InboxIcon, ProgramsIcon, MyComputerIcon } from "./icons";
 &nbsp;
 interface StartMenuProps {
@@ -263,62 +258,58 @@ export function StartMenu({ items, onItemClick, onReboot, onClose }: StartMenuPr
     };
 &nbsp;
     return (
-        &lt;div
-            className="fixed bottom-12 left-0 w-64 bg-win95-gray win95-beveled z-[110] flex flex-col p-1 shadow-2xl"
-            onMouseLeave={<span class="fstat-no" title="function not covered" >(e) =&gt; {</span>
-<span class="cstat-no" title="statement not covered" >                // Closer check to avoid flickering when moving between menu and taskbar</span>
-<span class="cstat-no" title="statement not covered" >                const rect = e.currentTarget.getBoundingClientRect();</span>
-<span class="cstat-no" title="statement not covered" >                if (e.clientY &lt; rect.top || e.clientX &gt; rect.right || e.clientX &lt; rect.left) {</span>
-<span class="cstat-no" title="statement not covered" >                    // We don't close on mouse leave from bottom because that's where the taskbar is</span>
-<span class="cstat-no" title="statement not covered" >                }</span>
-<span class="cstat-no" title="statement not covered" >            }}</span>
+        &lt;motion.div
+            initial={{ y: 20, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            exit={{ y: 20, opacity: 0 }}
+            transition={{ duration: 0.1 }}
+            className="fixed bottom-12 left-0 z-[150] w-64 bg-win95-gray win95-beveled flex overflow-hidden shadow-[2px_2px_10px_rgba(0,0,0,0.5)] win95-start-menu"
+            data-testid="start-menu"
         &gt;
-            &lt;div className="flex h-full min-h-[300px]"&gt;
-                {/* Sidebar */}
-                &lt;div className="w-8 bg-win95-gray-inactive flex items-end justify-center pb-4 select-none"&gt;
-                    &lt;span
-                        className="text-win95-gray font-win95 font-bold text-lg origin-center -rotate-90 whitespace-nowrap mb-8"
-                        style={{ fontSize: '20px', letterSpacing: '1px' }}
-                    &gt;
-                        &lt;span className="opacity-50"&gt;Windows&lt;/span&gt;95
-                    &lt;/span&gt;
-                &lt;/div&gt;
+            {/* Sidebar */}
+            &lt;div className="w-8 bg-win95-gray-dark flex flex-col justify-end p-1 relative"&gt;
+                &lt;span
+                    className="text-win95-gray font-win95 font-bold text-lg origin-center -rotate-90 whitespace-nowrap mb-8"
+                    style={{ fontSize: '20px', letterSpacing: '1px' }}
+                &gt;
+                    &lt;span className="opacity-50"&gt;Windows&lt;/span&gt;95
+                &lt;/span&gt;
+            &lt;/div&gt;
 &nbsp;
-                {/* Menu Items */}
-                &lt;div className="flex-grow flex flex-col py-1"&gt;
-                    {items.map((item) =&gt; (
-                        &lt;button
-                            key={item.id}
-                            className="flex items-center gap-3 px-3 py-2 hover:bg-win95-blue-active hover:text-white text-left group transition-colors duration-0"
-                            onClick={() =&gt; {
-                                onItemClick(item.id);
-                                onClose();
-                            }}
-                        &gt;
-                            &lt;div className="flex-shrink-0"&gt;
-                                {renderIcon(item.iconType, 28)}
-                            &lt;/div&gt;
-                            &lt;span className="font-win95 text-[13px]"&gt;{item.title}&lt;/span&gt;
-                        &lt;/button&gt;
-                    ))}
-&nbsp;
-                    &lt;div className="my-2 border-t border-win95-gray-inactive border-b border-win95-light mx-1" /&gt;
-&nbsp;
+            {/* Menu Items */}
+            &lt;div className="flex-grow flex flex-col py-1"&gt;
+                {items.map((item) =&gt; (
                     &lt;button
+                        key={item.id}
                         className="flex items-center gap-3 px-3 py-2 hover:bg-win95-blue-active hover:text-white text-left group transition-colors duration-0"
                         onClick={() =&gt; {
-                            onReboot();
+                            onItemClick(item.id);
                             onClose();
                         }}
                     &gt;
-                        &lt;div className="w-7 h-7 flex items-center justify-center"&gt;
-                            &lt;div className="w-5 h-5 border-2 border-win95-dark flex items-center justify-center font-bold text-[10px]"&gt;R&lt;/div&gt;
+                        &lt;div className="flex-shrink-0"&gt;
+                            {renderIcon(item.iconType, 28)}
                         &lt;/div&gt;
-                        &lt;span className="font-win95 text-[13px]"&gt;Reboot...&lt;/span&gt;
+                        &lt;span className="font-win95 text-[13px]"&gt;{item.title}&lt;/span&gt;
                     &lt;/button&gt;
-                &lt;/div&gt;
+                ))}
+&nbsp;
+                &lt;div className="my-2 border-t border-win95-gray-inactive border-b border-win95-light mx-1" /&gt;
+&nbsp;
+                &lt;button
+                    className="flex items-center gap-3 px-3 py-2 hover:bg-win95-blue-active hover:text-white text-left group transition-colors duration-0"
+                    onClick={() =&gt; {
+                        onReboot();
+                        onClose();
+                    }}
+                &gt;
+                    &lt;div className="w-7 h-7 flex items-center justify-center"&gt;
+                        &lt;div className="w-5 h-5 border-2 border-win95-dark flex items-center justify-center font-bold text-[10px]"&gt;R&lt;/div&gt;
+                    &lt;/div&gt;
+                    &lt;span className="font-win95 text-[13px]"&gt;Reboot...&lt;/span&gt;
+                &lt;/button&gt;
             &lt;/div&gt;
-        &lt;/div&gt;
+        &lt;/motion.div&gt;
     );
 }
 &nbsp;</pre></td></tr></table></pre>
@@ -328,7 +319,7 @@ export function StartMenu({ items, onItemClick, onReboot, onClose }: StartMenuPr
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2026-01-18T02:23:21.553Z
+                at 2026-01-18T03:41:38.370Z
             </div>
         <script src="../../prettify.js"></script>
         <script>

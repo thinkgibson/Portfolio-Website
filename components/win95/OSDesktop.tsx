@@ -6,6 +6,7 @@ import { Taskbar } from "./Taskbar";
 import { DesktopIcon } from "./DesktopIcon";
 import { BootSequence } from "./BootSequence";
 import { StartMenu } from "./StartMenu";
+import { AnimatePresence } from "framer-motion";
 
 interface WindowState {
     id: string;
@@ -335,14 +336,16 @@ export function OSDesktop({ windows: initialWindows, skipBoot: propSkipBoot, ski
             </div>
 
             {/* Start Menu */}
-            {isStartMenuOpen && (
-                <StartMenu
-                    items={initialWindows.map(w => ({ id: w.id, title: w.title, iconType: w.iconType }))}
-                    onItemClick={handleOpenWindow}
-                    onReboot={handleReboot}
-                    onClose={() => setIsStartMenuOpen(false)}
-                />
-            )}
+            <AnimatePresence>
+                {isStartMenuOpen && (
+                    <StartMenu
+                        items={initialWindows.map(w => ({ id: w.id, title: w.title, iconType: w.iconType }))}
+                        onItemClick={handleOpenWindow}
+                        onReboot={handleReboot}
+                        onClose={() => setIsStartMenuOpen(false)}
+                    />
+                )}
+            </AnimatePresence>
 
             {/* Windows Container */}
             <div className="absolute inset-0 pointer-events-none">

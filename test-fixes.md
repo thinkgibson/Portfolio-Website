@@ -65,3 +65,24 @@ Updated the assertion in `e2e/tests/font-verification.spec.ts` to expect `13px` 
 ## Verification
 Verified that `verify font-family application` passes on Chromium, Firefox, and WebKit (Desktop and Mobile).
 All 61 project tests are now back to green.
+
+---
+
+# Test Fixes: Firefox Volume Slider Click Handler (2026-01-17)
+
+## Problem
+The Playwright test `volume slider appears and persists value` was failing in Firefox. The slider value wasn't being updated when clicking on the track.
+
+## Root Cause
+Firefox doesn't properly translate click position to input value for vertical range sliders using `WebkitAppearance: 'slider-vertical'`. The hidden input overlaying the track wasn't receiving click events in a way that Firefox could process.
+
+## Solution
+1. Added an explicit `onClick` handler to the slider track div that calculates volume from click position:
+   - Computes click Y position relative to track top
+   - Inverts the percentage (0% at bottom, 100% at top)
+   - Clamps the value between 0 and 100
+2. Added `data-testid="volume-slider-track"` for reliable test targeting
+3. Updated the test to use `getByTestId('volume-slider-track')` instead of brittle CSS class selector
+
+## Verification
+All 5 volume slider tests pass across Chromium, Firefox, and WebKit (Desktop and Mobile).

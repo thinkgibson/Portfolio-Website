@@ -7,7 +7,7 @@
     Add basic functioning games like pong, space invaders, solitaire, and tetris. Focus on minimum viable product - they function and can be played but do not need to be polished or have features like saving, multiple difficulty levels, etc.
 - [x] **Window resize:**  
     Add the ability to resize windows. The window should be able to be resized by dragging the bottom-right corner.
-- [] **Taskbar icons:**  
+- [x] **Taskbar icons:**  
     Add icons to the bottom right taskbar next to the clock. It should include a weather icon, a volume icon, and a network speed icon (ie wifi bars).
 - [] **Right click menu:**  
     Add a right click menu that appears when right clicking on the desktop. It should include options to change the wallpaper, close all windows, and minimize all windows.
@@ -22,6 +22,8 @@
     Add a terminal app that can be opened from the start menu. It should have a command prompt that can be used to open other apps and games. It should also have a help command that can be used to open an ascii version of the help window for that app.
 - [] **Right-click app in bottom taskbar:**  
     When a window is right-clicked in the bottom taskbar it should open a right-click menu that includes options to open the app, close the app, and minimize the app.
+- [] **Sound effects:**  
+    Add sound effects for window actions (open, close, minimize, maximize, etc). Also for clicking the mouse and when the boot animation ends and the desktop is loaded.
 
 # Change:
 - [x] **Fonts:**  

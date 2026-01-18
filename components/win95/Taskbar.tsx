@@ -14,14 +14,20 @@ export function Taskbar({ openWindows, onWindowClick, onStartClick }: TaskbarPro
     const [activeTooltip, setActiveTooltip] = useState<"weather" | "network" | "volume" | null>(null);
     const [weatherData, setWeatherData] = useState<{ temp: number; city: string; description: string; loading: boolean } | null>(null);
     const [ping, setPing] = useState<{ value: number; loading: boolean } | null>(null);
-    const [volume, setVolume] = useState(50);
+    const [volume, setVolume] = useState(() => {
+        if (typeof window !== 'undefined') {
+            const savedVolume = localStorage.getItem("win95-volume");
+            if (savedVolume) return parseInt(savedVolume);
+        }
+        return 50;
+    });
+    const isFirstRender = React.useRef(true);
 
     useEffect(() => {
-        const savedVolume = localStorage.getItem("win95-volume");
-        if (savedVolume) setVolume(parseInt(savedVolume));
-    }, []);
-
-    useEffect(() => {
+        if (isFirstRender.current) {
+            isFirstRender.current = false;
+            return;
+        }
         localStorage.setItem("win95-volume", volume.toString());
     }, [volume]);
 
@@ -168,7 +174,19 @@ export function Taskbar({ openWindows, onWindowClick, onStartClick }: TaskbarPro
 
                 {activeTooltip === "volume" && (
                     <div className="absolute bottom-[calc(100%+8px)] right-6 w-16 h-48 bg-win95-taskbar win95-beveled p-2 z-[130] flex flex-col items-center gap-3">
-                        <div className="flex-grow w-2 bg-white shadow-win95-inset relative group cursor-pointer mt-2">
+                        <div
+                            className="flex-grow w-2 bg-white shadow-win95-inset relative group cursor-pointer mt-2"
+                            onClick={(e) => {
+                                // Calculate volume from click position for Firefox compatibility
+                                const rect = e.currentTarget.getBoundingClientRect();
+                                const clickY = e.clientY - rect.top;
+                                const trackHeight = rect.height;
+                                // Invert because 0% is at bottom, 100% at top
+                                const newVolume = Math.round(100 - (clickY / trackHeight) * 100);
+                                setVolume(Math.max(0, Math.min(100, newVolume)));
+                            }}
+                            data-testid="volume-slider-track"
+                        >
                             <input
                                 type="range"
                                 min="0"
@@ -216,6 +234,7 @@ export function Taskbar({ openWindows, onWindowClick, onStartClick }: TaskbarPro
                         onClick={fetchWeather}
                         className="p-0.5 hover:bg-win95-gray-light active:bg-win95-gray-dark border-none transition-colors"
                         title="Weather"
+                        data-testid="sys-tray-weather"
                     >
                         <WeatherIcon size={18} className="text-black" />
                     </button>
@@ -223,6 +242,7 @@ export function Taskbar({ openWindows, onWindowClick, onStartClick }: TaskbarPro
                         onClick={measurePing}
                         className="p-0.5 hover:bg-win95-gray-light active:bg-win95-gray-dark border-none transition-colors"
                         title="Network"
+                        data-testid="sys-tray-network"
                     >
                         <NetworkIcon size={18} className="text-black" />
                     </button>
@@ -230,6 +250,7 @@ export function Taskbar({ openWindows, onWindowClick, onStartClick }: TaskbarPro
                         onClick={() => setActiveTooltip(activeTooltip === "volume" ? null : "volume")}
                         className={`p-0.5 hover:bg-win95-gray-light active:bg-win95-gray-dark border-none transition-colors ${activeTooltip === "volume" ? "bg-win95-gray-light" : ""}`}
                         title="Volume"
+                        data-testid="sys-tray-volume"
                     >
                         <VolumeIcon size={18} className="text-black" />
                     </button>
