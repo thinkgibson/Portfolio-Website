@@ -1,0 +1,31 @@
+import fs from 'fs';
+import path from 'path';
+import matter from 'gray-matter';
+import { remark } from 'remark';
+import html from 'remark-html';
+
+const contentDirectory = path.join(process.cwd(), 'content');
+
+export async function getHomeContent() {
+    const fullPath = path.join(contentDirectory, 'home.md');
+    const fileContents = fs.readFileSync(fullPath, 'utf8');
+
+    // Use gray-matter to parse the post metadata section
+    const result = matter(fileContents);
+
+    // Use remark to convert markdown into HTML string
+    const processedContent = await remark()
+        .use(html)
+        .process(result.content);
+    const contentHtml = processedContent.toString();
+
+    return {
+        bodyHtml: contentHtml,
+        hero: result.data.hero,
+        about: result.data.about,
+        projects: result.data.projects,
+        skills: result.data.skills,
+        contact: result.data.contact,
+        socials: result.data.socials,
+    };
+}

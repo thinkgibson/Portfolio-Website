@@ -1,0 +1,49 @@
+{
+    "name": "bauhaus-portfolio",
+    "version": "0.1.0",
+    "private": true,
+    "scripts": {
+        "dev": "next dev",
+        "build": "npm run test && next build",
+        "start": "next start",
+        "lint": "next lint",
+        "test": "jest",
+        "test:watch": "jest --watch",
+        "test:coverage": "jest --coverage",
+        "test:e2e": "playwright test",
+        "server:persistent": "node scripts/server-with-timeout.mjs",
+        "ci-flow": "npm run build && npm run test:e2e && npm run server:persistent"
+    },
+    "dependencies": {
+        "clsx": "^2.1.1",
+        "framer-motion": "^11.0.0",
+        "gray-matter": "^4.0.3",
+        "lucide-react": "^0.378.0",
+        "next": "14.2.3",
+        "react": "^18",
+        "react-dom": "^18",
+        "remark": "^15.0.1",
+        "remark-html": "^16.0.1",
+        "tailwind-merge": "^2.3.0"
+    },
+    "devDependencies": {
+        "@playwright/test": "^1.57.0",
+        "@testing-library/jest-dom": "^6.9.1",
+        "@testing-library/react": "^16.3.1",
+        "@types/jest": "^30.0.0",
+        "@types/node": "^20",
+        "@types/react": "^18",
+        "@types/react-dom": "^18",
+        "autoprefixer": "^10.4.23",
+        "eslint": "^8",
+        "eslint-config-next": "14.2.3",
+        "jest": "^30.2.0",
+        "jest-environment-jsdom": "^30.2.0",
+        "jest-html-reporter": "^4.3.0",
+        "postcss": "^8",
+        "start-server-and-test": "^2.1.3",
+        "tailwindcss": "^3.4.1",
+        "ts-node": "^10.9.2",
+        "typescript": "^5"
+    }
+}

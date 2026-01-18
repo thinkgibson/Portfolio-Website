@@ -1,0 +1,42 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --win95-teal: #008080;
+  --win95-gray: #C0C0C0;
+}
+
+@layer base {
+  @font-face {
+    font-family: 'W95FA';
+    src: url('https://db.onlinewebfonts.com/t/202be169dc31d0413e1762c262c62c3f.woff2') format('woff2'),
+      url('https://db.onlinewebfonts.com/t/202be169dc31d0413e1762c262c62c3f.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+  }
+
+  body {
+    @apply bg-win95-teal text-black font-win95 overflow-hidden h-screen;
+    cursor: default;
+    font-size: 12px;
+    -webkit-font-smoothing: none !important;
+    -moz-osx-font-smoothing: unset !important;
+    font-smooth: never !important;
+    text-rendering: optimizeSpeed;
+  }
+}
+
+@layer utilities {
+  .win95-beveled {
+    @apply shadow-win95-outset bg-win95-gray;
+  }
+
+  .win95-beveled-inset {
+    @apply shadow-win95-inset bg-win95-gray;
+  }
+
+  .win95-button {
+    @apply shadow-win95-button bg-win95-gray active:shadow-win95-button-active active:translate-x-[1px] active:translate-y-[1px] px-2 py-1 flex items-center justify-center;
+  }
+}
