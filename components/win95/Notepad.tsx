@@ -139,11 +139,17 @@ export function Notepad() {
         document.execCommand(command, false);
         setIsDirty(true);
 
-        // Toggle the local state immediately for responsive UI
-        setActiveFormats(prev => ({
-            ...prev,
-            [command]: !prev[command],
-        }));
+        // Use requestAnimationFrame to ensure DOM has updated before querying state
+        // This improves WebKit browser compatibility
+        requestAnimationFrame(() => {
+            if (typeof document !== 'undefined') {
+                setActiveFormats({
+                    bold: document.queryCommandState("bold"),
+                    italic: document.queryCommandState("italic"),
+                    underline: document.queryCommandState("underline"),
+                });
+            }
+        });
     };
 
     return (
