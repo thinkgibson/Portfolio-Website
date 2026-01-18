@@ -136,7 +136,7 @@ export function Notepad() {
             <div className="flex items-center gap-1 p-1 border-b border-white shadow-[inset_-1px_-1px_0_0_#808080]">
                 <button
                     onMouseDown={(e) => { e.preventDefault(); execCommand("bold"); }}
-                    className={`win95-button w-8 h-8 font-bold text-[14px] flex items-center justify-center ${activeFormats.bold ? "win95-beveled-inset bg-gray-200" : ""}`}
+                    className={`${activeFormats.bold ? "win95-beveled-inset bg-gray-200" : "win95-button"} w-8 h-8 font-bold text-[14px] flex items-center justify-center`}
                     title="Bold"
                     data-testid="notepad-bold"
                 >
@@ -144,7 +144,7 @@ export function Notepad() {
                 </button>
                 <button
                     onMouseDown={(e) => { e.preventDefault(); execCommand("italic"); }}
-                    className={`win95-button w-8 h-8 italic text-[14px] font-serif flex items-center justify-center ${activeFormats.italic ? "win95-beveled-inset bg-gray-200" : ""}`}
+                    className={`${activeFormats.italic ? "win95-beveled-inset bg-gray-200" : "win95-button"} w-8 h-8 italic text-[14px] font-serif flex items-center justify-center`}
                     title="Italic"
                     data-testid="notepad-italic"
                 >
@@ -152,7 +152,7 @@ export function Notepad() {
                 </button>
                 <button
                     onMouseDown={(e) => { e.preventDefault(); execCommand("underline"); }}
-                    className={`win95-button w-8 h-8 underline text-[14px] flex items-center justify-center ${activeFormats.underline ? "win95-beveled-inset bg-gray-200" : ""}`}
+                    className={`${activeFormats.underline ? "win95-beveled-inset bg-gray-200" : "win95-button"} w-8 h-8 underline text-[14px] flex items-center justify-center`}
                     title="Underline"
                     data-testid="notepad-underline"
                 >

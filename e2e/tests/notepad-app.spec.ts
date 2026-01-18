@@ -96,7 +96,7 @@ test.describe('Notepad Application', () => {
         await window.expectClosed(title);
     });
 
-    test('notepade toolbar buttons change visual state', async ({ desktop, window, page }) => {
+    test('notepad toolbar buttons change visual state', async ({ desktop, window, page }) => {
         const title = 'Notepad.exe';
         await desktop.openIcon(title);
         await window.expectVisible(title);
@@ -105,11 +105,21 @@ test.describe('Notepad Application', () => {
         const editor = winLocator.getByTestId('notepad-editor');
         const boldBtn = winLocator.getByTestId('notepad-bold');
 
+        // Initially, bold button should have win95-button class (not pressed)
+        await expect(boldBtn).toHaveClass(/win95-button/);
+
         await editor.click();
         await boldBtn.click();
         await page.keyboard.type('B');
-        // If this is flaky, we might just skip it in E2E
-        // await expect(boldBtn).toHaveClass(/win95-beveled-inset/);
+
+        // After clicking, bold button should have win95-beveled-inset class (pressed)
+        await expect(boldBtn).toHaveClass(/win95-beveled-inset/);
+
+        // Click bold again to toggle off
+        await boldBtn.click();
+
+        // Now button should be back to win95-button (not pressed)
+        await expect(boldBtn).toHaveClass(/win95-button/);
     });
 
     test('can save via Save button and Save As dialog', async ({ desktop, window, page }) => {
