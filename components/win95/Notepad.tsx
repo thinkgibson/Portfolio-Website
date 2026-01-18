@@ -14,34 +14,12 @@ export function Notepad() {
     const [resolveClose, setResolveClose] = useState<((val: boolean) => void) | null>(null);
     const { registerCloseInterceptor, unregisterCloseInterceptor, registerSaveHandler, unregisterSaveHandler } = useOS();
 
-    // Formatting state - tracked locally for reliability
+    // Formatting state - tracked purely locally, not synced with selection
     const [activeFormats, setActiveFormats] = useState({
         bold: false,
         italic: false,
         underline: false,
     });
-
-    // Sync with document state when selection changes (for cursor movement into formatted text)
-    const syncFormatsWithDocument = useCallback(() => {
-        if (typeof document !== 'undefined' && editorRef.current?.contains(document.activeElement)) {
-            setActiveFormats({
-                bold: document.queryCommandState("bold"),
-                italic: document.queryCommandState("italic"),
-                underline: document.queryCommandState("underline"),
-            });
-        }
-    }, []);
-
-    useEffect(() => {
-        const handleSelectionChange = () => {
-            // Only sync when editor is focused
-            if (editorRef.current?.contains(document.activeElement)) {
-                syncFormatsWithDocument();
-            }
-        };
-        document.addEventListener("selectionchange", handleSelectionChange);
-        return () => document.removeEventListener("selectionchange", handleSelectionChange);
-    }, [syncFormatsWithDocument]);
 
     // Close interception logic
     const handleCloseRequest = useCallback(() => {
@@ -68,7 +46,6 @@ export function Notepad() {
 
     const handleInput = () => {
         if (!isDirty) setIsDirty(true);
-        syncFormatsWithDocument();
     };
 
     const convertToRTF = (html: string) => {
@@ -139,17 +116,12 @@ export function Notepad() {
         document.execCommand(command, false);
         setIsDirty(true);
 
-        // Use requestAnimationFrame to ensure DOM has updated before querying state
-        // This improves WebKit browser compatibility
-        requestAnimationFrame(() => {
-            if (typeof document !== 'undefined') {
-                setActiveFormats({
-                    bold: document.queryCommandState("bold"),
-                    italic: document.queryCommandState("italic"),
-                    underline: document.queryCommandState("underline"),
-                });
-            }
-        });
+        // Toggle local state directly - don't query browser state
+        // This ensures button state only changes on click, not on text selection
+        setActiveFormats(prev => ({
+            ...prev,
+            [command]: !prev[command],
+        }));
     };
 
     return (
@@ -200,8 +172,6 @@ export function Notepad() {
                         ref={editorRef}
                         contentEditable
                         onInput={handleInput}
-                        onMouseUp={syncFormatsWithDocument}
-                        onKeyUp={syncFormatsWithDocument}
                         className="h-full outline-none text-[14px] leading-tight font-serif whitespace-pre-wrap"
                         data-testid="notepad-editor"
                         spellCheck={false}
