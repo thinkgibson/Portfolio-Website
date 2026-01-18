@@ -22,8 +22,8 @@ test.describe('Window Toolbar', () => {
         await page.waitForTimeout(500);
 
         const maximizedBox = await winLocator.boundingBox();
-        expect(maximizedBox?.x).toBeCloseTo(0, -1);
-        expect(maximizedBox?.y).toBeCloseTo(0, -1);
+        expect(maximizedBox?.x).toBeCloseTo(0, 0);
+        expect(maximizedBox?.y).toBeCloseTo(0, 0);
 
         // Close via menu
         await winLocator.getByText('File').click();
@@ -49,7 +49,7 @@ test.describe('Window Toolbar', () => {
         await expect(winLocator.getByText('Find:')).not.toBeVisible();
     });
 
-    test('can open About window', async ({ desktop, window, page }) => {
+    test('can display help content', async ({ desktop, window, page }) => {
         const title = 'About_Me.doc';
         await desktop.openIcon(title);
 
@@ -57,15 +57,13 @@ test.describe('Window Toolbar', () => {
 
         // Open Help menu
         await winLocator.getByText('Help').click();
-        await winLocator.getByText('About...').click();
+        await winLocator.getByText('Contents').click();
 
-        // Check for About window
-        const aboutTitle = `About ${title}`;
-        await window.expectVisible(aboutTitle);
-        await expect(page.locator(`[data-testid="window-about-about_me.doc"]`)).toContainText('Purpose');
+        await expect(winLocator.getByText('Help: About_Me.doc')).toBeVisible();
+        await expect(winLocator.getByText('This window contains the About Me section.')).toBeVisible();
 
-        // Close About window
-        await page.locator(`[data-testid="window-about-about_me.doc"]`).locator('[data-testid="window-close"]').click();
-        await window.expectClosed(aboutTitle);
+        // Go back to content
+        await winLocator.getByText('Back').click();
+        await expect(winLocator.getByText('About Me', { exact: false })).toBeVisible();
     });
 });

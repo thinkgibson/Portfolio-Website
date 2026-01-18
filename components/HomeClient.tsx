@@ -4,6 +4,8 @@ import { useState, useEffect } from "react";
 import { OSDesktop } from "./win95/OSDesktop";
 import { Notepad } from "./win95/Notepad";
 import { ArrowUpRight, Github, ExternalLink } from "lucide-react";
+import { Calculator } from "./win95/Calculator";
+import { Paint } from "./win95/Paint";
 
 interface HomeContent {
     hero: {
@@ -213,6 +215,35 @@ export function HomeClient({ content }: { content: HomeContent }) {
                 </div>
             ),
             content: <Notepad />
+        },
+        {
+            id: "calculator",
+            title: "Calculator.exe",
+            iconType: "calculator",
+            width: 260,
+            height: 360,
+            helpContent: (
+                <div className="space-y-2">
+                    <p>This is the <strong>Calculator</strong> application.</p>
+                    <p>Perform basic arithmetic calculations.</p>
+                </div>
+            ),
+            content: <Calculator />
+        },
+        {
+            id: "paint",
+            title: "Paint.exe",
+            iconType: "paint",
+            width: 700,
+            height: 500,
+            fullBleed: true,
+            helpContent: (
+                <div className="space-y-2">
+                    <p>This is the <strong>Paint</strong> application.</p>
+                    <p>Create simple drawings and save them.</p>
+                </div>
+            ),
+            content: <Paint />
         }
     ];
 
