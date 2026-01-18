@@ -20,7 +20,7 @@ interface WindowState {
     y: number;
     content: React.ReactNode;
     helpContent?: React.ReactNode;
-    iconType: "folder" | "about" | "contact" | "projects" | "drive" | "notepad";
+    iconType: "folder" | "about" | "contact" | "projects" | "drive" | "notepad" | "calculator" | "paint";
     width?: number;
     height?: number;
     fullBleed?: boolean;

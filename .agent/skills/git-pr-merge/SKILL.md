@@ -113,30 +113,42 @@ If the issue number is not found:
    `git branch --show-current`
    *If on `main`, stop and ask the user to switch to a feature branch.*
 
-2. **Commit Changes:** If there are uncommitted changes, prompt the user for a message:
+2. **Commit Changes:** Check for uncommitted changes:
+   `git status --porcelain`
+   If there is output, prompt the user or auto-commit if appropriate:
    `git add . && git commit -m "<user_message>"`
 
-3. **Push & Create PR:** 
+3. **Verify Commits:** Ensure the branch has commits ahead of the base branch:
+   `git log origin/main..HEAD --oneline`
+   *If there is no output, DO NOT proceed. The PR creation will fail.*
+
+4. **Push & Create PR:** 
    `gh pr create --fill --push`
-   *If the command fails because a PR already exists, use `gh pr view --web` to display it, then proceed to Phase 2.*
-4. **Handoff for Review:** Output the PR URL and state:
+   *Critically: Check the output. If the command fails (e.g. "No commits between..."), STOP. Do not proceed to merge.*
+   *If the command fails because a PR already exists, use `gh pr view --web` to display it, then proceed.*
+
+5. **Handoff for Review:** Output the PR URL and state:
    > "I have created the Pull Request here: [URL]. Would you like me to **approve** it (if applicable) and **merge** it now?"
 
 ### **Phase 2: Approval & Merge Execution**
 If the user says "Yes" or "Approved":
 
-1. **Attempt Approval:** Execute `gh pr review --approve`. 
+1. **Verify PR Existence:** Before merging, ensure the PR is open and recognized:
+   `gh pr view --json state,url`
+   *If this fails, do not attempt to merge.*
+
+2. **Attempt Approval:** Execute `gh pr review --approve`. 
    *Note: If the CLI returns an error stating the user cannot approve their own PR, the agent should ignore the error and proceed to the merge.*
 
-2. **Merge the PR:** Perform a standard merge and delete the remote branch:
+3. **Merge the PR:** Perform a standard merge and delete the remote branch:
    `gh pr merge --merge --delete-branch`
    *If the merge fails (e.g., checks pending), ask the user if they want to use `--auto` to merge when checks pass, or wait.*
 
-3. **Switch to Main:** `git checkout main`
+4. **Switch to Main:** `git checkout main`
 
-4. **Sync Local Main:** `git pull origin main`
+5. **Sync Local Main:** `git pull origin main`
 
-5. **Local Cleanup:** Delete the local feature branch:
+6. **Local Cleanup:** Delete the local feature branch:
    `git branch -d <branch_name>`
 
 ### **Final Confirmation**

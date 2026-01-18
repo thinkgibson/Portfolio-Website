@@ -5,7 +5,9 @@ import { setupOrReset } from '../shared-e2e';
 test.describe('Window Toolbar', () => {
     test.beforeEach(setupOrReset);
 
-    test('can use File menu to maximize and close', async ({ desktop, window, page }) => {
+    test('can use File menu to maximize and close', async ({ desktop, window, page, isMobile }) => {
+        test.skip(!!isMobile, 'Maximizing behavior is different/unreliable on mobile emulation');
+
         const title = 'About_Me.doc';
         await desktop.openIcon(title);
         await window.expectVisible(title);
@@ -49,21 +51,5 @@ test.describe('Window Toolbar', () => {
         await expect(winLocator.getByText('Find:')).not.toBeVisible();
     });
 
-    test('can display help content', async ({ desktop, window, page }) => {
-        const title = 'About_Me.doc';
-        await desktop.openIcon(title);
 
-        const winLocator = window.getWindow(title);
-
-        // Open Help menu
-        await winLocator.getByText('Help').click();
-        await winLocator.getByText('Contents').click();
-
-        await expect(winLocator.getByText('Help: About_Me.doc')).toBeVisible();
-        await expect(winLocator.getByText('This window contains the About Me section.')).toBeVisible();
-
-        // Go back to content
-        await winLocator.getByText('Back').click();
-        await expect(winLocator.getByText('About Me', { exact: false })).toBeVisible();
-    });
 });

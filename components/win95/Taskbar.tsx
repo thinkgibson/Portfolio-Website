@@ -1,10 +1,10 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { WindowsLogoIcon, FolderIcon, UserIcon, InboxIcon, ProgramsIcon, MyComputerIcon, WeatherIcon, VolumeIcon, NetworkIcon, NotepadIcon } from "./icons";
+import { WindowsLogoIcon, FolderIcon, UserIcon, InboxIcon, ProgramsIcon, MyComputerIcon, WeatherIcon, VolumeIcon, NetworkIcon, NotepadIcon, CalculatorIcon, PaintIcon } from "./icons";
 
 interface TaskbarProps {
-    openWindows: { id: string; title: string; isActive: boolean; iconType?: "folder" | "about" | "contact" | "projects" | "drive" | "notepad" }[];
+    openWindows: { id: string; title: string; isActive: boolean; iconType?: "folder" | "about" | "contact" | "projects" | "drive" | "notepad" | "calculator" | "paint" }[];
     onWindowClick: (id: string) => void;
     onStartClick: () => void;
 }
@@ -134,6 +134,8 @@ export function Taskbar({ openWindows, onWindowClick, onStartClick }: TaskbarPro
                             {win.iconType === "projects" && <ProgramsIcon size={24} />}
                             {win.iconType === "drive" && <MyComputerIcon size={24} />}
                             {win.iconType === "notepad" && <NotepadIcon size={24} />}
+                            {win.iconType === "calculator" && <CalculatorIcon size={24} />}
+                            {win.iconType === "paint" && <PaintIcon size={24} />}
                             {(!win.iconType || win.iconType === "folder") && <FolderIcon size={24} />}
                         </div>
                         <span className="truncate">{win.title}</span>
