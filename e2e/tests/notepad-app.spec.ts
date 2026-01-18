@@ -104,22 +104,54 @@ test.describe('Notepad Application', () => {
         const winLocator = window.getWindow(title);
         const editor = winLocator.getByTestId('notepad-editor');
         const boldBtn = winLocator.getByTestId('notepad-bold');
+        const italicBtn = winLocator.getByTestId('notepad-italic');
+        const underlineBtn = winLocator.getByTestId('notepad-underline');
 
-        // Initially, bold button should have win95-button class (not pressed)
-        await expect(boldBtn).toHaveClass(/win95-button/);
-
+        // Focus editor first
         await editor.click();
-        await boldBtn.click();
-        await page.keyboard.type('B');
 
-        // After clicking, bold button should have win95-beveled-inset class (pressed)
+        // Initially, all buttons should have win95-button class (not pressed)
+        await expect(boldBtn).toHaveClass(/win95-button/);
+        await expect(italicBtn).toHaveClass(/win95-button/);
+        await expect(underlineBtn).toHaveClass(/win95-button/);
+
+        // Toggle Bold multiple times
+        await boldBtn.click();
         await expect(boldBtn).toHaveClass(/win95-beveled-inset/);
 
-        // Click bold again to toggle off
         await boldBtn.click();
-
-        // Now button should be back to win95-button (not pressed)
         await expect(boldBtn).toHaveClass(/win95-button/);
+
+        await boldBtn.click();
+        await expect(boldBtn).toHaveClass(/win95-beveled-inset/);
+
+        await boldBtn.click();
+        await expect(boldBtn).toHaveClass(/win95-button/);
+
+        // Toggle Italic multiple times
+        await italicBtn.click();
+        await expect(italicBtn).toHaveClass(/win95-beveled-inset/);
+
+        await italicBtn.click();
+        await expect(italicBtn).toHaveClass(/win95-button/);
+
+        await italicBtn.click();
+        await expect(italicBtn).toHaveClass(/win95-beveled-inset/);
+
+        // Toggle Underline multiple times
+        await underlineBtn.click();
+        await expect(underlineBtn).toHaveClass(/win95-beveled-inset/);
+
+        await underlineBtn.click();
+        await expect(underlineBtn).toHaveClass(/win95-button/);
+
+        await underlineBtn.click();
+        await expect(underlineBtn).toHaveClass(/win95-beveled-inset/);
+
+        // Verify buttons toggle independently
+        await expect(boldBtn).toHaveClass(/win95-button/); // Still off from earlier
+        await expect(italicBtn).toHaveClass(/win95-beveled-inset/); // Still on
+        await expect(underlineBtn).toHaveClass(/win95-beveled-inset/); // Still on
     });
 
     test('can save via Save button and Save As dialog', async ({ desktop, window, page }) => {
