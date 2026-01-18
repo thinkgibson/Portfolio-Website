@@ -1,0 +1,1 @@
+﻿Toolbar icons are not highlighted when they are toggled "on": When the user clicks bold, italic, or underline icons and they are "on" the icon should change to make it clear that they are currently active. When the user clicks them again, the icon should change back to its default "off" visual.

@@ -86,3 +86,34 @@ Firefox doesn't properly translate click position to input value for vertical ra
 
 ## Verification
 All 5 volume slider tests pass across Chromium, Firefox, and WebKit (Desktop and Mobile).
+
+---
+
+# Test Fixes: Notepad Focus & Save Dialog (2026-01-18)
+
+## Notepad Toolbar Focus
+
+### Problem
+Notepad unit tests were failing because `document.queryCommandState` was returning false, causing toolbar buttons not to highlight correctly.
+
+### Root Cause
+Clicking toolbar buttons was causing the `contentEditable` div to lose focus before the command state could be queried. The implementation was updated to use `onMouseDown` with `e.preventDefault()`, but the tests were still simulating `click`.
+
+### Solution
+Updated `__tests__/components/win95/Notepad.test.tsx` to simulate `mouseDown` events instead of `click` events, aligning the test behavior with the implementation.
+
+## Save Dialog Visibility
+
+### Problem
+The "Save" E2E test in `notepad-app.spec.ts` was flaky, failing to detect the "Save As" dialog visibility even though it appeared visually.
+
+### Root Cause
+Using `getByText` was potentially ambiguous or flaky in the complex DOM structure containing overlays.
+
+### Solution
+1. Added `data-testid="save-dialog"` to the `SaveDialog` component root.
+2. Updated `notepad-app.spec.ts` to use `getByTestId('save-dialog')` for robust selection.
+
+## Verification
+- Unit Tests: All 8 Notepad tests pass.
+- E2E Tests: All 10 Playwright tests pass (including `save via Save button and Save As dialog`).

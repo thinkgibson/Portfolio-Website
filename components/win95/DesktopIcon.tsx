@@ -1,12 +1,12 @@
 "use client";
 
 import React from "react";
-import { FolderIcon, UserIcon, InboxIcon, ProgramsIcon, MyComputerIcon } from "./icons";
+import { FolderIcon, UserIcon, InboxIcon, ProgramsIcon, MyComputerIcon, NotepadIcon } from "./icons";
 
 interface DesktopIconProps {
     id: string;
     label: string;
-    iconType: "folder" | "about" | "contact" | "projects" | "drive";
+    iconType: "folder" | "about" | "contact" | "projects" | "drive" | "notepad";
     onOpen: (id: string) => void;
     x?: number;
     y?: number;
@@ -20,6 +20,7 @@ export function DesktopIcon({ id, label, iconType, onOpen, x, y }: DesktopIconPr
             case "contact": return <InboxIcon size={size} />;
             case "projects": return <ProgramsIcon size={size} />;
             case "drive": return <MyComputerIcon size={size} />;
+            case "notepad": return <NotepadIcon size={size} />;
             default: return <FolderIcon size={size} />;
         }
     };

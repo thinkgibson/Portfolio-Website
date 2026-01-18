@@ -7,6 +7,7 @@ import { DesktopIcon } from "./DesktopIcon";
 import { BootSequence } from "./BootSequence";
 import { StartMenu } from "./StartMenu";
 import { AnimatePresence } from "framer-motion";
+import { OSProvider, useOS } from "./OSContext";
 
 interface WindowState {
     id: string;
@@ -19,18 +20,20 @@ interface WindowState {
     y: number;
     content: React.ReactNode;
     helpContent?: React.ReactNode;
-    iconType: "folder" | "about" | "contact" | "projects" | "drive";
+    iconType: "folder" | "about" | "contact" | "projects" | "drive" | "notepad";
     width?: number;
     height?: number;
+    fullBleed?: boolean;
 }
 
 interface OSDesktopProps {
     windows: {
         id: string;
         title: string;
-        iconType: "folder" | "about" | "contact" | "projects" | "drive";
+        iconType: "folder" | "about" | "contact" | "projects" | "drive" | "notepad";
         content: React.ReactNode;
         helpContent?: React.ReactNode;
+        fullBleed?: boolean;
     }[];
     skipBoot?: boolean;
     skipWelcome?: boolean;
@@ -40,7 +43,16 @@ import { useIsMobile } from "../../lib/hooks";
 
 const TASKBAR_HEIGHT = 48;
 
-export function OSDesktop({ windows: initialWindows, skipBoot: propSkipBoot, skipWelcome: propSkipWelcome }: OSDesktopProps) {
+export function OSDesktop(props: OSDesktopProps) {
+    return (
+        <OSProvider>
+            <OSDesktopContent {...props} />
+        </OSProvider>
+    );
+}
+
+function OSDesktopContent({ windows: initialWindows, skipBoot: propSkipBoot, skipWelcome: propSkipWelcome }: OSDesktopProps) {
+    const { closeInterceptors, saveHandlers } = useOS();
     const isMobile = useIsMobile();
     const [booting, setBooting] = useState(propSkipBoot !== undefined ? propSkipBoot : process.env.NODE_ENV !== 'test');
     const [openWindows, setOpenWindows] = useState<WindowState[]>([]);
@@ -200,6 +212,7 @@ export function OSDesktop({ windows: initialWindows, skipBoot: propSkipBoot, ski
                     content: winDef.content,
                     helpContent: winDef.helpContent,
                     iconType: winDef.iconType, // Added iconType
+                    fullBleed: winDef.fullBleed,
                 };
                 setOpenWindows(prev => prev.map(w => ({ ...w, isActive: false })).concat(newWin));
                 setActiveWindowId(id);
@@ -212,7 +225,13 @@ export function OSDesktop({ windows: initialWindows, skipBoot: propSkipBoot, ski
         }
     };
 
-    const handleCloseWindow = (id: string) => {
+    const handleCloseWindow = async (id: string) => {
+        const interceptor = closeInterceptors[id];
+        if (interceptor) {
+            const allowed = await interceptor();
+            if (!allowed) return;
+        }
+
         setOpenWindows(prev => prev.filter(w => w.id !== id));
         if (activeWindowId === id) {
             setActiveWindowId(null);
@@ -356,6 +375,8 @@ export function OSDesktop({ windows: initialWindows, skipBoot: propSkipBoot, ski
                         iconType={win.iconType}
                         helpContent={win.helpContent}
                         onClose={() => handleCloseWindow(win.id)}
+                        onSave={saveHandlers[win.id]}
+                        fullBleed={win.fullBleed}
                         onMinimize={() => handleMinimizeWindow(win.id)}
                         onMaximize={() => handleMaximizeWindow(win.id)}
                         onAbout={() => handleAbout(win.id)}
@@ -378,7 +399,7 @@ export function OSDesktop({ windows: initialWindows, skipBoot: propSkipBoot, ski
                         dragConstraints={desktopRef}
                         onResize={(w, h) => handleResizeWindow(win.id, w, h)}
                     >
-                        <div onPointerDown={() => handleSetActive(win.id)}>
+                        <div className="flex-1 flex flex-col min-h-0" onPointerDown={() => handleSetActive(win.id)}>
                             {win.content}
                         </div>
                     </Win95Window>
