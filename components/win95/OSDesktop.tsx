@@ -8,6 +8,8 @@ import { BootSequence } from "./BootSequence";
 import { StartMenu } from "./StartMenu";
 import { AnimatePresence } from "framer-motion";
 import { OSProvider, useOS } from "./OSContext";
+import { ContextMenu } from "./ContextMenu";
+
 
 interface WindowState {
     id: string;
@@ -54,12 +56,14 @@ export function OSDesktop(props: OSDesktopProps) {
 function OSDesktopContent({ windows: initialWindows, skipBoot: propSkipBoot, skipWelcome: propSkipWelcome }: OSDesktopProps) {
     const { closeInterceptors, saveHandlers } = useOS();
     const isMobile = useIsMobile();
-    const [booting, setBooting] = useState(propSkipBoot !== undefined ? propSkipBoot : process.env.NODE_ENV !== 'test');
+    const [booting, setBooting] = useState(propSkipBoot !== undefined ? !propSkipBoot : process.env.NODE_ENV !== 'test');
     const [openWindows, setOpenWindows] = useState<WindowState[]>([]);
     const [activeWindowId, setActiveWindowId] = useState<string | null>(null);
     const [windowPositions, setWindowPositions] = useState<Record<string, { x: number, y: number, width?: number, height?: number }>>({});
     const [isStartMenuOpen, setIsStartMenuOpen] = useState(false);
+    const [contextMenu, setContextMenu] = useState<{ x: number, y: number } | null>(null);
     const desktopRef = React.useRef<HTMLDivElement>(null);
+
 
     // Load window positions from localStorage on mount
     useEffect(() => {
@@ -329,15 +333,45 @@ function OSDesktopContent({ windows: initialWindows, skipBoot: propSkipBoot, ski
         setBooting(true);
     };
 
+    const handleMinimizeAllWindows = () => {
+        setOpenWindows(prev => prev.map(w => ({ ...w, isMinimized: true, isActive: false })));
+        setActiveWindowId(null);
+    };
+
+    const handleCloseAllWindows = async () => {
+        // We filter out windows that have close interceptors for now to avoid multiple prompts
+        // In a real OS, it might prompt for each one, but for simplicity we'll just close what we can
+        const windowsToClose = openWindows.filter(w => !closeInterceptors[w.id]);
+        setOpenWindows(prev => prev.filter(w => closeInterceptors[w.id]));
+        if (activeWindowId && windowsToClose.find(w => w.id === activeWindowId)) {
+            setActiveWindowId(null);
+        }
+
+        // Handle windows with interceptors (optional: could just try to close them all)
+        for (const win of openWindows.filter(w => closeInterceptors[w.id])) {
+            handleCloseWindow(win.id);
+        }
+    };
+
+    const handleContextMenu = (e: React.MouseEvent) => {
+        e.preventDefault();
+        setContextMenu({ x: e.clientX, y: e.clientY });
+    };
+
+
     return (
         <div
             ref={desktopRef}
             className="relative w-screen h-screen overflow-hidden bg-win95-teal"
             data-window-positions={JSON.stringify(windowPositions)}
+            data-testid="desktop-container"
+            onContextMenu={handleContextMenu}
             onClick={() => {
                 if (isStartMenuOpen) setIsStartMenuOpen(false);
+                if (contextMenu) setContextMenu(null);
             }}
         >
+
 
             {booting && <BootSequence onComplete={() => setBooting(false)} />}
 
@@ -421,7 +455,24 @@ function OSDesktopContent({ windows: initialWindows, skipBoot: propSkipBoot, ski
                     onStartClick={() => setIsStartMenuOpen(!isStartMenuOpen)}
                 />
             )}
+
+            <AnimatePresence>
+                {contextMenu && (
+                    <ContextMenu
+                        x={contextMenu.x}
+                        y={contextMenu.y}
+                        onClose={() => setContextMenu(null)}
+                        items={[
+                            { label: "Change wallpaper", action: () => { }, disabled: true },
+                            { label: "Close all windows", action: handleCloseAllWindows },
+                            { label: "Minimize all windows", action: handleMinimizeAllWindows },
+                            { label: "System reboot", action: handleReboot }
+                        ]}
+                    />
+                )}
+            </AnimatePresence>
         </div>
+
     );
 }
 
