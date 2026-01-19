@@ -55,7 +55,7 @@ export function OSDesktop(props: OSDesktopProps) {
 }
 
 function OSDesktopContent({ windows: initialWindows, skipBoot: propSkipBoot, skipWelcome: propSkipWelcome }: OSDesktopProps) {
-    const { closeInterceptors, saveHandlers } = useOS();
+    const { closeInterceptors, saveHandlers, playSound } = useOS();
     const isMobile = useIsMobile();
     const [booting, setBooting] = useState(propSkipBoot !== undefined ? !propSkipBoot : process.env.NODE_ENV !== 'test');
     const [openWindows, setOpenWindows] = useState<WindowState[]>([]);
@@ -162,6 +162,15 @@ function OSDesktopContent({ windows: initialWindows, skipBoot: propSkipBoot, ski
             handleOpenWindow("welcome");
         }
     }, [booting, propSkipWelcome]);
+
+    // Handle global click sound
+    useEffect(() => {
+        const handleClick = () => {
+            playSound("click");
+        };
+        window.addEventListener("mousedown", handleClick);
+        return () => window.removeEventListener("mousedown", handleClick);
+    }, [playSound]);
 
     const handleOpenWindow = (id: string) => {
         const existing = openWindows.find(w => w.id === id);
@@ -365,6 +374,7 @@ function OSDesktopContent({ windows: initialWindows, skipBoot: propSkipBoot, ski
     };
 
     const handleReboot = () => {
+        playSound("shutdown");
         setOpenWindows([]);
         setActiveWindowId(null);
         setIsStartMenuOpen(false);
@@ -419,7 +429,10 @@ function OSDesktopContent({ windows: initialWindows, skipBoot: propSkipBoot, ski
         >
 
 
-            {booting && <BootSequence onComplete={() => setBooting(false)} />}
+            {booting && <BootSequence onComplete={() => {
+                setBooting(false);
+                playSound("boot");
+            }} />}
 
             {/* Desktop Icons */}
             <div className="p-4 grid grid-flow-col grid-rows-[repeat(auto-fill,160px)] gap-4 w-fit h-[calc(100vh-48px)]">

@@ -93,6 +93,7 @@ export function ContextMenu({ x, y, items, onClose, testId = "context-menu", anc
                             item.action();
                             onClose();
                         }}
+                        data-testid={`context-menu-item-${item.label.toLowerCase().replace(/\s+/g, '-')}`}
                     >
                         {item.label}
                     </button>
