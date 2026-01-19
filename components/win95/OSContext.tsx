@@ -13,11 +13,30 @@ interface OSContextType {
     volume: number;
     setVolume: (v: number | ((prev: number) => number)) => void;
     playSound: (eventName: string) => Promise<void>;
+    // Window Management
+    openWindow: (id: string) => void;
+    closeWindow: (id: string) => void | Promise<void>;
+    runningApps: { id: string, title: string }[];
+    availableApps: { id: string, title: string }[];
 }
 
 const OSContext = createContext<OSContextType | undefined>(undefined);
 
-export function OSProvider({ children }: { children: React.ReactNode }) {
+interface OSProviderProps {
+    children: React.ReactNode;
+    onOpenWindow?: (id: string) => void;
+    onCloseWindow?: (id: string) => void;
+    runningApps?: { id: string, title: string }[];
+    availableApps?: { id: string, title: string }[];
+}
+
+export function OSProvider({
+    children,
+    onOpenWindow = () => { },
+    onCloseWindow = () => { },
+    runningApps = [],
+    availableApps = []
+}: OSProviderProps) {
     const [closeInterceptors, setCloseInterceptors] = useState<Record<string, () => Promise<boolean>>>({});
     const [saveHandlers, setSaveHandlers] = useState<Record<string, () => void>>({});
     const [volume, setVolume] = useLocalStorage<number>("win95-volume", 50);
@@ -53,6 +72,19 @@ export function OSProvider({ children }: { children: React.ReactNode }) {
         });
     }, []);
 
+    const openWindow = useCallback((id: string) => {
+        onOpenWindow(id);
+    }, [onOpenWindow]);
+
+    const closeWindow = useCallback(async (id: string) => {
+        const interceptor = closeInterceptors[id];
+        if (interceptor) {
+            const allowed = await interceptor();
+            if (!allowed) return;
+        }
+        onCloseWindow(id);
+    }, [closeInterceptors, onCloseWindow]);
+
     return (
         <OSContext.Provider value={{
             registerCloseInterceptor,
@@ -63,7 +95,11 @@ export function OSProvider({ children }: { children: React.ReactNode }) {
             saveHandlers,
             volume,
             setVolume,
-            playSound
+            playSound,
+            openWindow,
+            closeWindow,
+            runningApps,
+            availableApps
         }}>
             {children}
         </OSContext.Provider>

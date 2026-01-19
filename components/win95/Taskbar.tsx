@@ -1,13 +1,13 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { WindowsLogoIcon, FolderIcon, UserIcon, InboxIcon, ProgramsIcon, MyComputerIcon, WeatherIcon, VolumeIcon, NetworkIcon, NotepadIcon, CalculatorIcon, PaintIcon } from "./icons";
+import { WindowsLogoIcon, FolderIcon, UserIcon, InboxIcon, ProgramsIcon, MyComputerIcon, WeatherIcon, VolumeIcon, NetworkIcon, NotepadIcon, CalculatorIcon, PaintIcon, TerminalIcon } from "./icons";
 import { ContextMenu } from "./ContextMenu";
 import { OSProvider, useOS } from "./OSContext";
 import { AnimatePresence } from "framer-motion";
 
 interface TaskbarProps {
-    openWindows: { id: string; title: string; isActive: boolean; iconType?: "folder" | "about" | "contact" | "projects" | "drive" | "notepad" | "calculator" | "paint" }[];
+    openWindows: { id: string; title: string; isActive: boolean; iconType?: "folder" | "about" | "contact" | "projects" | "drive" | "notepad" | "calculator" | "paint" | "terminal" }[];
     onWindowClick: (id: string) => void;
     onStartClick: () => void;
     onMinimizeWindow: (id: string) => void;
@@ -151,6 +151,7 @@ export function Taskbar({ openWindows, onWindowClick, onStartClick, onMinimizeWi
                             {win.iconType === "notepad" && <NotepadIcon size={24} />}
                             {win.iconType === "calculator" && <CalculatorIcon size={24} />}
                             {win.iconType === "paint" && <PaintIcon size={24} />}
+                            {win.iconType === "terminal" && <TerminalIcon size={24} />}
                             {(!win.iconType || win.iconType === "folder") && <FolderIcon size={24} />}
                         </div>
                         <span className="truncate">{win.title}</span>

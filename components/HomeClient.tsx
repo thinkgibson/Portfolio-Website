@@ -6,6 +6,7 @@ import { Notepad } from "./win95/Notepad";
 import { ArrowUpRight, Github, ExternalLink } from "lucide-react";
 import { Calculator } from "./win95/Calculator";
 import { Paint } from "./win95/Paint";
+import { Terminal } from "./win95/Terminal";
 
 interface HomeContent {
     hero: {
@@ -244,6 +245,20 @@ export function HomeClient({ content }: { content: HomeContent }) {
                 </div>
             ),
             content: <Paint />
+        },
+        {
+            id: "terminal",
+            title: "Command Prompt",
+            iconType: "terminal",
+            width: 500,
+            height: 350,
+            helpContent: (
+                <div className="space-y-2">
+                    <p>This is the <strong>Command Prompt</strong>.</p>
+                    <p>Type commands to interact with the OS. Supported: <code>help</code>, <code>open</code>, <code>list</code>, <code>close</code>, <code>restart</code>.</p>
+                </div>
+            ),
+            content: <Terminal />
         }
     ];
 
