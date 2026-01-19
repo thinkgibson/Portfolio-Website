@@ -52,7 +52,7 @@ describe('OSDesktop Persistence', () => {
         const savedPositions = { 'test-window': { x: 500, y: 500 } };
         localStorage.setItem('win95-window-positions', JSON.stringify(savedPositions));
 
-        render(<OSDesktop windows={mockWindows} skipBoot={false} skipWelcome={true} />);
+        render(<OSDesktop windows={mockWindows} skipBoot={true} skipWelcome={true} />);
 
         // Find the desktop container (it's the first div usually, or we can find it by class)
         // We'll look for an element with the data-window-positions attribute
@@ -65,18 +65,29 @@ describe('OSDesktop Persistence', () => {
     });
 
 
-    it('saves position to localStorage (integration check)', async () => {
-        render(<OSDesktop windows={mockWindows} skipBoot={false} skipWelcome={true} />);
+    it('opens context menu on right click and can close all windows', async () => {
+        render(<OSDesktop windows={mockWindows} skipBoot={true} skipWelcome={true} />);
 
-        // Open test window
+        // Open a window first
         const icon = screen.getByTestId('desktop-icon-test-window');
         fireEvent.click(icon);
+        expect(await screen.findByTestId('window-test-window')).toBeInTheDocument();
 
-        const windowElement = await screen.findByTestId('window-test-window');
-        expect(windowElement).toBeInTheDocument();
+        // Right click on desktop (the container)
+        const desktop = screen.getByTestId('desktop-container');
+        fireEvent.contextMenu(desktop);
 
-        // Note: Testing the actual save to localStorage via drag is hard in JSDOM
-        // because it depends on framer-motion events. We'll rely on our E2E tests
-        // for full drag-and-drop verification.
+        // Check if context menu is open
+        expect(screen.getByTestId('context-menu')).toBeInTheDocument();
+        expect(screen.getByText('Close all windows')).toBeInTheDocument();
+
+        // Click "Close all windows"
+        fireEvent.click(screen.getByText('Close all windows'));
+
+        // Window should be gone
+        const { waitFor } = require('@testing-library/react');
+        await waitFor(() => {
+            expect(screen.queryByTestId('window-test-window')).not.toBeInTheDocument();
+        });
     });
 });
