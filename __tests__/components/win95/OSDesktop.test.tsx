@@ -90,4 +90,36 @@ describe('OSDesktop Persistence', () => {
             expect(screen.queryByTestId('window-test-window')).not.toBeInTheDocument();
         });
     });
+
+    it('opens wallpaper selector from context menu and applies wallpaper', async () => {
+        render(<OSDesktop windows={mockWindows} skipBoot={true} skipWelcome={true} />);
+
+        // Right click on desktop
+        const desktop = screen.getByTestId('desktop-container');
+        fireEvent.contextMenu(desktop);
+
+        // Click "Change wallpaper"
+        fireEvent.click(screen.getByText('Change wallpaper'));
+
+        // Check if selector is open
+        expect(screen.getByTestId('window-display-properties')).toBeInTheDocument();
+        expect(screen.getByText('Clouds')).toBeInTheDocument();
+
+        // Select Clouds
+        const cloudsOption = screen.getByTestId('wallpaper-option-clouds');
+        fireEvent.click(cloudsOption);
+
+        // Click Apply
+        fireEvent.click(screen.getByTestId('wallpaper-apply'));
+
+        // Check if selector is closed
+        expect(screen.queryByText('Display Properties')).not.toBeInTheDocument();
+
+        // Check if wallpaper is applied to desktop style
+        expect(desktop).toHaveStyle({ backgroundImage: 'url(/wallpapers/clouds.png)' });
+
+        // Check if wallpaper is persisted in localStorage
+        const savedWallpaper = JSON.parse(localStorage.getItem('win95-wallpaper') || '{}');
+        expect(savedWallpaper.id).toBe('clouds');
+    });
 });

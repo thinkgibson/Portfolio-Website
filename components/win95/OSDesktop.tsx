@@ -9,6 +9,7 @@ import { StartMenu } from "./StartMenu";
 import { AnimatePresence } from "framer-motion";
 import { OSProvider, useOS } from "./OSContext";
 import { ContextMenu } from "./ContextMenu";
+import { WallpaperSelector, WALLPAPERS, Wallpaper } from "./WallpaperSelector";
 
 
 interface WindowState {
@@ -41,7 +42,7 @@ interface OSDesktopProps {
     skipWelcome?: boolean;
 }
 
-import { useIsMobile } from "../../lib/hooks";
+import { useIsMobile, useLocalStorage } from "../../lib/hooks";
 
 const TASKBAR_HEIGHT = 48;
 
@@ -62,6 +63,7 @@ function OSDesktopContent({ windows: initialWindows, skipBoot: propSkipBoot, ski
     const [windowPositions, setWindowPositions] = useState<Record<string, { x: number, y: number, width?: number, height?: number }>>({});
     const [isStartMenuOpen, setIsStartMenuOpen] = useState(false);
     const [contextMenu, setContextMenu] = useState<{ x: number, y: number } | null>(null);
+    const [wallpaper, setWallpaper] = useLocalStorage<Wallpaper>("win95-wallpaper", WALLPAPERS[0]);
     const desktopRef = React.useRef<HTMLDivElement>(null);
 
 
@@ -326,6 +328,42 @@ function OSDesktopContent({ windows: initialWindows, skipBoot: propSkipBoot, ski
         setActiveWindowId(aboutId);
     };
 
+    const handleOpenWallpaperSelector = () => {
+        const id = "wallpaper-selector";
+        const existing = openWindows.find(w => w.id === id);
+        if (existing) {
+            handleSetActive(id);
+            return;
+        }
+
+        const selectorWin: WindowState = {
+            id,
+            title: "Display Properties",
+            isOpen: true,
+            isMinimized: false,
+            isMaximized: false,
+            isActive: true,
+            x: 150,
+            y: 100,
+            width: 400,
+            height: 450,
+            iconType: "projects",
+            content: (
+                <WallpaperSelector
+                    currentWallpaperId={wallpaper.id}
+                    onApply={(newWallpaper) => {
+                        setWallpaper(newWallpaper);
+                        handleCloseWindow(id);
+                    }}
+                    onCancel={() => handleCloseWindow(id)}
+                />
+            )
+        };
+
+        setOpenWindows(prev => prev.map(w => ({ ...w, isActive: false })).concat(selectorWin));
+        setActiveWindowId(id);
+    };
+
     const handleReboot = () => {
         setOpenWindows([]);
         setActiveWindowId(null);
@@ -362,9 +400,17 @@ function OSDesktopContent({ windows: initialWindows, skipBoot: propSkipBoot, ski
     return (
         <div
             ref={desktopRef}
-            className="relative w-screen h-screen overflow-hidden bg-win95-teal"
+            className="relative w-screen h-screen overflow-hidden"
+            style={{
+                backgroundColor: wallpaper.type === 'color' ? wallpaper.value : '#008080',
+                backgroundImage: wallpaper.type === 'image' ? `url(${wallpaper.value})` : 'none',
+                backgroundSize: wallpaper.id === 'clouds' ? 'cover' : 'auto',
+                backgroundRepeat: 'repeat',
+                backgroundPosition: 'center'
+            }}
             data-window-positions={JSON.stringify(windowPositions)}
             data-testid="desktop-container"
+            data-wallpaper-id={wallpaper.id}
             onContextMenu={handleContextMenu}
             onClick={() => {
                 if (isStartMenuOpen) setIsStartMenuOpen(false);
@@ -468,7 +514,7 @@ function OSDesktopContent({ windows: initialWindows, skipBoot: propSkipBoot, ski
                         onClose={() => setContextMenu(null)}
                         testId="desktop-context-menu"
                         items={[
-                            { label: "Change wallpaper", action: () => { }, disabled: true },
+                            { label: "Change wallpaper", action: handleOpenWallpaperSelector },
                             { label: "Close all windows", action: handleCloseAllWindows },
                             { label: "Minimize all windows", action: handleMinimizeAllWindows },
                             { label: "System reboot", action: handleReboot }
