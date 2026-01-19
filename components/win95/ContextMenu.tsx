@@ -14,10 +14,20 @@ interface ContextMenuProps {
     y: number;
     items: ContextMenuItem[];
     onClose: () => void;
+    testId?: string;
+    anchorY?: 'top' | 'bottom';
 }
 
-export function ContextMenu({ x, y, items, onClose }: ContextMenuProps) {
+export function ContextMenu({ x, y, items, onClose, testId = "context-menu", anchorY = 'top' }: ContextMenuProps) {
     const menuRef = useRef<HTMLDivElement>(null);
+    const [menuHeight, setMenuHeight] = React.useState(0);
+    const useIsomorphicLayoutEffect = typeof window !== 'undefined' ? React.useLayoutEffect : React.useEffect;
+
+    useIsomorphicLayoutEffect(() => {
+        if (menuRef.current) {
+            setMenuHeight(menuRef.current.offsetHeight);
+        }
+    }, [items]);
 
     useEffect(() => {
         const handleClickOutside = (event: MouseEvent) => {
@@ -43,7 +53,17 @@ export function ContextMenu({ x, y, items, onClose }: ContextMenuProps) {
 
     // Ensure the menu doesn't go off screen
     const adjustedX = typeof window !== "undefined" ? Math.min(x, window.innerWidth - 160) : x;
-    const adjustedY = typeof window !== "undefined" ? Math.min(y, window.innerHeight - (items.length * 25 + 10)) : y;
+
+    // Calculate initial Y based on anchor
+    let initialY = y;
+    if (anchorY === 'bottom' && menuHeight > 0) {
+        initialY -= menuHeight;
+    }
+
+    // Constrain Y within viewport
+    const adjustedY = typeof window !== "undefined"
+        ? Math.max(0, Math.min(initialY, window.innerHeight - (menuHeight || items.length * 25 + 10)))
+        : initialY;
 
     return (
         <div
@@ -59,15 +79,15 @@ export function ContextMenu({ x, y, items, onClose }: ContextMenuProps) {
                 style={{ top: adjustedY, left: adjustedX }}
                 className="absolute w-40 bg-win95-gray win95-beveled py-1 shadow-[2px_2px_5px_rgba(0,0,0,0.5)] pointer-events-auto"
                 onClick={(e) => e.stopPropagation()}
-                data-testid="context-menu"
+                data-testid={testId}
             >
                 {items.map((item, index) => (
                     <button
                         key={index}
                         disabled={item.disabled}
                         className={`w-full text-left px-4 py-1 text-[12px] font-win95 flex items-center gap-2 ${item.disabled
-                                ? "text-win95-gray-inactive cursor-default"
-                                : "hover:bg-win95-blue-active hover:text-white"
+                            ? "text-win95-gray-inactive cursor-default"
+                            : "hover:bg-win95-blue-active hover:text-white"
                             }`}
                         onClick={() => {
                             item.action();
