@@ -2,16 +2,23 @@
 
 import React, { useState, useEffect } from "react";
 import { WindowsLogoIcon, FolderIcon, UserIcon, InboxIcon, ProgramsIcon, MyComputerIcon, WeatherIcon, VolumeIcon, NetworkIcon, NotepadIcon, CalculatorIcon, PaintIcon } from "./icons";
+import { ContextMenu } from "./ContextMenu";
+import { AnimatePresence } from "framer-motion";
 
 interface TaskbarProps {
     openWindows: { id: string; title: string; isActive: boolean; iconType?: "folder" | "about" | "contact" | "projects" | "drive" | "notepad" | "calculator" | "paint" }[];
     onWindowClick: (id: string) => void;
     onStartClick: () => void;
+    onMinimizeWindow: (id: string) => void;
+    onCloseWindow: (id: string) => void;
+    onMinimizeAllWindows: () => void;
+    onCloseAllWindows: () => void;
 }
 
-export function Taskbar({ openWindows, onWindowClick, onStartClick }: TaskbarProps) {
+export function Taskbar({ openWindows, onWindowClick, onStartClick, onMinimizeWindow, onCloseWindow, onMinimizeAllWindows, onCloseAllWindows }: TaskbarProps) {
     const [time, setTime] = useState(new Date());
     const [activeTooltip, setActiveTooltip] = useState<"weather" | "network" | "volume" | null>(null);
+    const [taskbarContextMenu, setTaskbarContextMenu] = useState<{ type: 'window' | 'taskbar'; windowId?: string; x: number; y: number } | null>(null);
     const [weatherData, setWeatherData] = useState<{ temp: number; city: string; description: string; loading: boolean } | null>(null);
     const [ping, setPing] = useState<{ value: number; loading: boolean } | null>(null);
     const [volume, setVolume] = useState(() => {
@@ -104,7 +111,18 @@ export function Taskbar({ openWindows, onWindowClick, onStartClick }: TaskbarPro
     };
 
     return (
-        <div className="fixed bottom-0 left-0 right-0 h-12 bg-win95-taskbar win95-beveled flex items-center p-1 z-[120] gap-1 select-none">
+        <div
+            className="fixed bottom-0 left-0 right-0 h-12 bg-win95-taskbar win95-beveled flex items-center p-1 z-[120] gap-1 select-none"
+            onContextMenu={(e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                setTaskbarContextMenu({
+                    type: 'taskbar',
+                    x: e.clientX,
+                    y: e.clientY
+                });
+            }}
+        >
             {/* Start Button */}
             <button
                 onClick={onStartClick}
@@ -124,6 +142,16 @@ export function Taskbar({ openWindows, onWindowClick, onStartClick }: TaskbarPro
                     <button
                         key={win.id}
                         onClick={() => onWindowClick(win.id)}
+                        onContextMenu={(e) => {
+                            e.preventDefault();
+                            e.stopPropagation();
+                            setTaskbarContextMenu({
+                                type: 'window',
+                                windowId: win.id,
+                                x: e.clientX,
+                                y: e.clientY
+                            });
+                        }}
                         className={`${win.isActive ? "win95-beveled-inset bg-win95-gray font-bold" : "win95-button"
                             } px-3 text-[13px] font-win95 flex items-center max-w-[200px] truncate h-full touch-manipulation min-w-[50px] leading-none`}
                         data-testid={`taskbar-item-${win.title.toLowerCase().replace(/\s+/g, '-')}`}
@@ -262,6 +290,25 @@ export function Taskbar({ openWindows, onWindowClick, onStartClick }: TaskbarPro
                     {formatTime(time)}
                 </span>
             </div>
+            <AnimatePresence>
+                {taskbarContextMenu && (
+                    <ContextMenu
+                        x={taskbarContextMenu.x}
+                        y={taskbarContextMenu.y}
+                        onClose={() => setTaskbarContextMenu(null)}
+                        testId="taskbar-context-menu"
+                        anchorY="bottom"
+                        items={taskbarContextMenu.type === 'window' ? [
+                            { label: "Restore", action: () => onWindowClick(taskbarContextMenu.windowId!) },
+                            { label: "Minimize", action: () => onMinimizeWindow(taskbarContextMenu.windowId!) },
+                            { label: "Close", action: () => onCloseWindow(taskbarContextMenu.windowId!) }
+                        ] : [
+                            { label: "Minimize all windows", action: onMinimizeAllWindows },
+                            { label: "Close all windows", action: onCloseAllWindows }
+                        ]}
+                    />
+                )}
+            </AnimatePresence>
         </div>
     );
 }

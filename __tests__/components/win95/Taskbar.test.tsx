@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, screen, fireEvent, act } from '@testing-library/react';
+import { render, screen, fireEvent, act, waitFor } from '@testing-library/react';
 import { Taskbar } from '../../../components/win95/Taskbar';
 import '@testing-library/jest-dom';
 
@@ -29,6 +29,10 @@ describe('Taskbar', () => {
         ],
         onWindowClick: jest.fn(),
         onStartClick: jest.fn(),
+        onMinimizeWindow: jest.fn(),
+        onCloseWindow: jest.fn(),
+        onMinimizeAllWindows: jest.fn(),
+        onCloseAllWindows: jest.fn(),
     };
 
     beforeEach(() => {
@@ -110,5 +114,59 @@ describe('Taskbar', () => {
         expect(await screen.findByText('New York')).toBeInTheDocument();
         expect(screen.getByText('Sunny')).toBeInTheDocument();
         expect(screen.getByText('72°F')).toBeInTheDocument();
+    });
+
+    it('opens context menu on right click of window button', () => {
+        render(<Taskbar {...defaultProps} />);
+        const windowBtn = screen.getByText('Window 2');
+
+        fireEvent.contextMenu(windowBtn);
+
+        expect(screen.getByText('Restore')).toBeInTheDocument();
+        expect(screen.getByText('Minimize')).toBeInTheDocument();
+        expect(screen.getByText('Close')).toBeInTheDocument();
+    });
+
+    it('calls onWindowClick when Restore is clicked in context menu', () => {
+        render(<Taskbar {...defaultProps} />);
+        fireEvent.contextMenu(screen.getByText('Window 2'));
+
+        fireEvent.click(screen.getByText('Restore'));
+
+        expect(defaultProps.onWindowClick).toHaveBeenCalledWith('2');
+    });
+
+    it('calls onMinimizeWindow when Minimize is clicked in context menu', () => {
+        render(<Taskbar {...defaultProps} />);
+        fireEvent.contextMenu(screen.getByText('Window 2'));
+
+        fireEvent.click(screen.getByText('Minimize'));
+
+        expect(defaultProps.onMinimizeWindow).toHaveBeenCalledWith('2');
+    });
+
+    it('calls onCloseWindow when Close is clicked in context menu', () => {
+        render(<Taskbar {...defaultProps} />);
+        fireEvent.contextMenu(screen.getByText('Window 2'));
+
+        fireEvent.click(screen.getByText('Close'));
+
+        expect(defaultProps.onCloseWindow).toHaveBeenCalledWith('2');
+    });
+
+    it('closes context menu when clicking outside', async () => {
+        render(<Taskbar {...defaultProps} />);
+        fireEvent.contextMenu(screen.getByText('Window 2'));
+
+        expect(screen.getByText('Restore')).toBeInTheDocument();
+
+        // Clicking the overlay should close the menu
+        const menu = screen.getByTestId('taskbar-context-menu');
+        const overlay = menu.parentElement!;
+        fireEvent.click(overlay);
+
+        await waitFor(() => {
+            expect(screen.queryByText('Restore')).not.toBeInTheDocument();
+        });
     });
 });

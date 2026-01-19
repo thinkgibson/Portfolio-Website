@@ -453,6 +453,10 @@ function OSDesktopContent({ windows: initialWindows, skipBoot: propSkipBoot, ski
                         }
                     }}
                     onStartClick={() => setIsStartMenuOpen(!isStartMenuOpen)}
+                    onMinimizeWindow={handleMinimizeWindow}
+                    onCloseWindow={handleCloseWindow}
+                    onMinimizeAllWindows={handleMinimizeAllWindows}
+                    onCloseAllWindows={handleCloseAllWindows}
                 />
             )}
 
@@ -462,6 +466,7 @@ function OSDesktopContent({ windows: initialWindows, skipBoot: propSkipBoot, ski
                         x={contextMenu.x}
                         y={contextMenu.y}
                         onClose={() => setContextMenu(null)}
+                        testId="desktop-context-menu"
                         items={[
                             { label: "Change wallpaper", action: () => { }, disabled: true },
                             { label: "Close all windows", action: handleCloseAllWindows },

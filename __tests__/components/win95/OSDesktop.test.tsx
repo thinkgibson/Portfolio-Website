@@ -78,7 +78,7 @@ describe('OSDesktop Persistence', () => {
         fireEvent.contextMenu(desktop);
 
         // Check if context menu is open
-        expect(screen.getByTestId('context-menu')).toBeInTheDocument();
+        expect(screen.getByTestId('desktop-context-menu')).toBeInTheDocument();
         expect(screen.getByText('Close all windows')).toBeInTheDocument();
 
         // Click "Close all windows"
