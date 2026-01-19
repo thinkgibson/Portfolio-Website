@@ -1,0 +1,197 @@
+﻿node.exe : PASS __tests__/lib/utils.test.ts
+At C:\Program Files\nodejs\npx.ps1:29 char:3
++   & $NODE_EXE $NPX_CLI_JS $args
++   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (PASS __tests__/lib/utils.test.ts:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+PASS __tests__/lib/markdown.test.ts
+PASS components/win95/Calculator.test.tsx
+PASS __tests__/components/win95/StartMenu.test.tsx
+PASS __tests__/components/ui/Section.test.tsx
+PASS __tests__/components/win95/DesktopIcon.test.tsx
+PASS components/win95/Paint.test.tsx
+PASS __tests__/components/win95/ContextMenu.test.tsx
+PASS __tests__/components/HomeClient.test.tsx
+PASS __tests__/components/ui/Card.test.tsx
+FAIL __tests__/components/win95/OSDesktop.test.tsx
+  ΓùÅ OSDesktop Persistence ΓÇ║ opens context menu on right click and can close all windows
+
+    TestingLibraryElementError: Unable to find an element by: [data-testid="context-menu"]
+
+    Ignored nodes: comments, script, style
+    [36m<body>[39m
+      [36m<div>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"relative w-screen h-screen overflow-hidden bg-win95-teal"[39m
+          [33mdata-testid[39m=[32m"desktop-container"[39m
+          [33mdata-window-positions[39m=[32m"{\"test\":{\"x\":100,\"y\":50}}"[39m
+        [36m>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m"p-4 grid grid-flow-col grid-rows-[repeat(auto-fill,160px)] gap-4 w-fit h-[calc(100vh-48px)]"[39m
+          [36m>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"flex flex-col items-center justify-center p-2 w-28 h-36 cursor-pointer group select-none active:bg-blue-800/30 touch-manipulation"[39m
+              [33mdata-testid[39m=[32m"desktop-icon-test-window"[39m
+            [36m>[39m
+              [36m<div[39m
+                [33mclass[39m=[32m"mb-2 p-1 group-hover:bg-blue-800/20 rounded-sm"[39m
+              [36m>[39m
+                [36m<svg[39m
+                  [33mfill[39m=[32m"none"[39m
+                  [33mheight[39m=[32m"64"[39m
+                  [33mviewBox[39m=[32m"0 0 32 32"[39m
+                  [33mwidth[39m=[32m"64"[39m
+                  [33mxmlns[39m=[32m"http://www.w3.org/2000/svg"[39m
+                [36m>[39m
+                  [36m<path[39m
+                    [33md[39m=[32m"M4 8H12L14 10H28V24H4V8Z"[39m
+                    [33mfill[39m=[32m"#FFFF00"[39m
+                    [33mstroke[39m=[32m"black"[39m
+                    [33mstroke-width[39m=[32m"1"[39m
+                  [36m/>[39m
+                  [36m<path[39m
+                    [33md[39m=[32m"M4 10V24H28"[39m
+                    [33mstroke[39m=[32m"white"[39m
+                    [33mstroke-opacity[39m=[32m"0.5"[39m
+                    [33mstroke-width[39m=[32m"1"[39m
+                  [36m/>[39m
+                [36m</svg>[39m
+              [36m</div>[39m
+              [36m<span[39m
+                [33mclass[39m=[32m"text-white text-[12px] text-center px-1 font-medium leading-tight drop-shadow-[1px_1px_1px_rgba(0,0,0,0.8)] group-hover:bg-[#000080] group-hover:text-white"[39m
+              [36m>[39m
+                [0mTest Window[0m
+              [36m</span>[39m
+            [36m</div>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"flex flex-col items-center justify-center p-2 w-28 h-36 cursor-pointer group select-none active:bg-blue-800/30 touch-manipulation"[39m
+              [33mdata-testid[39m=[32m"desktop-icon-welcome"[39m
+            [36m>[39m
+              [36m<div[39m
+                [33mclass[39m=[32m"mb-2 p-1 group-hover:bg-blue-800/20 rounded-sm"[39m
+              [36m>[39m
+                [36m<svg[39m
+                  [33mfill[39m=[32m"none"[39m
+                  [33mheight[39m=[32m"64"[39m
+                  [33mviewBox[39m=[32m"0 0 32 32"[39m
+                  [33mwidth[39m=[32m"64"[39m
+                  [33mxmlns[39m=[32m"http://www.w3.org/2000/svg"[39m
+                [36m>[39m
+                  [36m<rect[39m
+                    [33mfill[39m=[32m"#FFD700"[39m
+                    [33mheight[39m=[32m"8"[39m
+                    [33mstroke[39m=[32m"black"[39m
+                    [33mstroke-width[39m=[32m"1"[39m
+                    [33mwidth[39m=[32m"8"[39m
+                    [33mx[39m=[32m"12"[39m
+                    [33my[39m=[32m"6"[39m
+                  [36m/>[39m
+                  [36m<path[39m
+                    [33md[39m=[32m"M8 26V20C8 18 10 16 12 16H20C22 16 24 18 24 20V26H8Z"[39m
+                    [33mfill[39m=[32m"#0000FF"[39m
+                    [33mstroke[39m=[32m"black"[39m
+                    [33mstroke-width[39m=[32m"1"[39m
+                  [36m/>[39m
+                [36m</svg>[39m
+              [36m</div>[39m
+              [36m<span[39m
+                [33mclass[39m=[32m"text-white text-[12px] text-center px-1 font-medium leading-tight drop-shadow-[1px_1px_1px_rgba(0,0,0,0.8)] group-hover:bg-[#000080] group-hover:text-white"[39m
+              [36m>[39m
+                [0mWelcome[0m
+              [36m</span>[39m
+            [36m</div>[39m
+          [36m</div>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m"absolute inset-0 pointer-events-none"[39m
+          [36m>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"win95-beveled absolute flex flex-col pointer-events-auto z-50"[39m
+              [33mdata-testid[39m=[32m"window-test-window"[39m
+              [33mstyle[39m=[32m"padding: 2px; opacity: 0; transform: translateX(100px) translateY(50px) scale(0.95);"[39m
+            [36m>[39m
+              [36m<div[39m
+                [33mclass[39m=[32m"window-titlebar h-8 flex items-center justify-between px-1 cursor-default select-none bg-win95-blue-active"[39m
+                [33mdata-testid[39m=[32m"window-titlebar"[39m
+              [36m>[39m
+                [36m<div[39m
+                  [33mclass[39m=[32m"flex items-center gap-2 ml-0.5 overflow-hidden"[39m
+                [36m>[39m
+                  [36m<div[39m
+                    [33mclass[39m=[32m"flex-shrink-0"[39m
+                  [36m>[39m
+                    [36m<svg[39m
+                      [33mfill[39m=[32m"none"[39m
+                      [33mheight[39m=[32m"24"[39m
+                      [33mviewBox[39m=[32m"0 0 32 32"[39m
+                      [33mwidth[39m=[32m"24"[39m
+                      [33mxmlns[39m=[32m"http://www.w3.org/2000/svg"[39m
+                    [36m>[39m
+                      [36m<path[39m
+                        [33md[39m=[32m"M4 8H12L14 10H28V24H4V8Z"[39m
+                        [33mfill[39m=[32m"#FFFF00"[39m
+                        [33mstroke[39m=[32m"black"[39m
+                        [33mstroke-width[39m=[32m"1"[39m
+                      [36m/>[39m
+                      [36m<path[39m
+                        [33md[39m=[32m"M4 10V24H28"[39m
+                        [33mstroke[39m=[32m"white"[39m
+                        [33mstroke-opacity[39m=[32m"0.5"[39m
+                        [33mstroke-width[39m=[32m"1"[39m
+                      [36m/>[39m
+                    [36m</svg>[39m
+                  [36m</div>[39m
+                  [36m<span[39m
+                    [33mclass[39m=[32m"text-white text-[13px] font-win95 font-bold whitespace-nowrap overflow-hidden text-ellipsis leading-none mt-0.5"[39m
+                  [36m>[39m
+                    [0mTest Window[0m
+                  [36m</span>[39m
+                [36m</div>[39m
+                [36m<div[39m
+                  [33mclass[39m=[32m"flex gap-1 pr-1"[39m
+                [36m>[39m
+                  [36m<button[39m
+                    [33maria-label[39m=[32m"Minimize"[39m
+                    [33mclass[39m=[32m"win95-button w-6 h-6 !p-0 flex items-center justify-center"[39m
+                    [33mdata-testid[39m=[32m"window-minimize"[39m
+                    [33mtitle[39m=[32m"Minimize"[39m
+                  [36m>[39m
+                    [36m<svg[39m
+                      [33mfill[39m=[32m"none"[39m
+                      [33mheight[39m=[32m"16"[39m
+                      [33mviewBox[39m=[32m"0 0 8 8"[39m
+                      [33mwidth[39m=[32m"16"[39m
+                      [33mxmlns[39m=[32m"http://www.w3.org/2000/svg"[39m
+                    [36m>[39m
+                  ...
+
+    [0m [90m 79 |[39m
+     [90m 80 |[39m         [90m// Check if context menu is open[39m
+    [31m[1m>[22m[39m[90m 81 |[39m         expect(screen[33m.[39mgetByTestId([32m'context-menu'[39m))[33m.[39mtoBeInTheDocument()[33m;[39m
+     [90m    |[39m                       [31m[1m^[22m[39m
+     [90m 82 |[39m         expect(screen[33m.[39mgetByText([32m'Close all windows'[39m))[33m.[39mtoBeInTheDocument()[33m;[39m
+     [90m 83 |[39m
+     [90m 84 |[39m         [90m// Click "Close all windows"[39m[0m
+
+      at Object.getElementError (node_modules/@testing-library/dom/dist/config.js:37:19)
+      at node_modules/@testing-library/dom/dist/query-helpers.js:76:38
+      at node_modules/@testing-library/dom/dist/query-helpers.js:52:17
+      at node_modules/@testing-library/dom/dist/query-helpers.js:95:19
+      at Object.getByTestId (__tests__/components/win95/OSDesktop.test.tsx:81:23)
+
+PASS __tests__/components/win95/Icons.test.tsx
+PASS __tests__/components/ui/Typography.test.tsx
+PASS __tests__/components/win95/BootSequence.test.tsx
+PASS __tests__/page.test.tsx
+PASS __tests__/components/layout/Navbar.test.tsx
+PASS __tests__/components/ui/Button.test.tsx
+PASS __tests__/components/win95/Notepad.test.tsx
+PASS __tests__/components/win95/Win95Window.test.tsx
+PASS __tests__/components/win95/Taskbar.test.tsx
+[32mjest-html-reporter >> Report generated (./test-report.html)[0m
+
+Test Suites: 1 failed, 19 passed, 20 total
+Tests:       1 failed, 1 skipped, 110 passed, 112 total
+Snapshots:   0 total
+Time:        1.773 s, estimated 2 s
+Ran all test suites.
