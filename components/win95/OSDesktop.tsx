@@ -23,7 +23,7 @@ interface WindowState {
     y: number;
     content: React.ReactNode;
     helpContent?: React.ReactNode;
-    iconType: "folder" | "about" | "contact" | "projects" | "drive" | "notepad" | "calculator" | "paint";
+    iconType: "folder" | "about" | "contact" | "projects" | "drive" | "notepad" | "calculator" | "paint" | "terminal";
     width?: number;
     height?: number;
     fullBleed?: boolean;
@@ -33,7 +33,7 @@ interface OSDesktopProps {
     windows: {
         id: string;
         title: string;
-        iconType: "folder" | "about" | "contact" | "projects" | "drive" | "notepad" | "calculator" | "paint";
+        iconType: "folder" | "about" | "contact" | "projects" | "drive" | "notepad" | "calculator" | "paint" | "terminal";
         content: React.ReactNode;
         helpContent?: React.ReactNode;
         fullBleed?: boolean;
@@ -46,16 +46,7 @@ import { useIsMobile, useLocalStorage } from "../../lib/hooks";
 
 const TASKBAR_HEIGHT = 48;
 
-export function OSDesktop(props: OSDesktopProps) {
-    return (
-        <OSProvider>
-            <OSDesktopContent {...props} />
-        </OSProvider>
-    );
-}
-
-function OSDesktopContent({ windows: initialWindows, skipBoot: propSkipBoot, skipWelcome: propSkipWelcome }: OSDesktopProps) {
-    const { closeInterceptors, saveHandlers, playSound } = useOS();
+export function OSDesktop({ windows: initialWindows, skipBoot: propSkipBoot, skipWelcome: propSkipWelcome }: OSDesktopProps) {
     const isMobile = useIsMobile();
     const [booting, setBooting] = useState(propSkipBoot !== undefined ? !propSkipBoot : process.env.NODE_ENV !== 'test');
     const [openWindows, setOpenWindows] = useState<WindowState[]>([]);
@@ -65,112 +56,6 @@ function OSDesktopContent({ windows: initialWindows, skipBoot: propSkipBoot, ski
     const [contextMenu, setContextMenu] = useState<{ x: number, y: number } | null>(null);
     const [wallpaper, setWallpaper] = useLocalStorage<Wallpaper>("win95-wallpaper", WALLPAPERS[0]);
     const desktopRef = React.useRef<HTMLDivElement>(null);
-
-
-    // Load window positions from localStorage on mount
-    useEffect(() => {
-        if (typeof window !== 'undefined') {
-            const savedPositions = localStorage.getItem('win95-window-positions');
-            if (savedPositions) {
-                try {
-                    setWindowPositions(JSON.parse(savedPositions));
-                } catch (e) {
-                    console.error('Failed to parse window positions from localStorage', e);
-                }
-            }
-
-            const params = new URLSearchParams(window.location.search);
-            if (params.get('skipBoot') === 'true') {
-                setBooting(false);
-            }
-        }
-    }, []);
-
-    // Save window positions to localStorage whenever they change
-    useEffect(() => {
-        if (typeof window !== 'undefined') {
-            // Update windowPositions with current coordinates of open windows
-            const updatedPositions = { ...windowPositions };
-            let changed = false;
-
-            openWindows.forEach(win => {
-                if (win.x !== undefined && win.y !== undefined) {
-                    const currentPos = updatedPositions[win.id];
-                    if (!currentPos ||
-                        currentPos.x !== win.x ||
-                        currentPos.y !== win.y ||
-                        currentPos.width !== win.width ||
-                        currentPos.height !== win.height) {
-                        updatedPositions[win.id] = {
-                            x: win.x,
-                            y: win.y,
-                            width: win.width,
-                            height: win.height
-                        };
-                        changed = true;
-                    }
-                }
-            });
-
-            if (changed) {
-                setWindowPositions(updatedPositions);
-            }
-
-            if (Object.keys(updatedPositions).length > 0) {
-                localStorage.setItem('win95-window-positions', JSON.stringify(updatedPositions));
-            }
-        }
-    }, [windowPositions, openWindows]);
-
-
-    // Nudge off-screen windows back into viewport on resize
-    useEffect(() => {
-        if (typeof window === 'undefined') return;
-        const handleResize = () => {
-            setOpenWindows(prev => prev.map(w => {
-                if (w.isMaximized) return w;
-
-                if (isMobile) {
-                    // Center on mobile resize
-                    const x = (window.innerWidth * 0.1) / 2; // 5% margin (90% width)
-                    const y = (window.innerHeight * 0.1) / 2; // 5% margin (90% height)
-                    return { ...w, x, y };
-                }
-
-                const maxX = window.innerWidth - 100;
-                const maxY = window.innerHeight - TASKBAR_HEIGHT - 10;
-                const newX = Math.max(0, Math.min(w.x, maxX));
-                const newY = Math.max(0, Math.min(w.y, maxY));
-                if (newX !== w.x || newY !== w.y) {
-                    return { ...w, x: newX, y: newY };
-                }
-                return w;
-            }));
-        };
-        window.addEventListener('resize', handleResize);
-        return () => window.removeEventListener('resize', handleResize);
-    }, [isMobile]);
-
-    // Effect to open Welcome window by default after boot or on load
-    useEffect(() => {
-        let skipWelcome = propSkipWelcome;
-        if (typeof window !== 'undefined' && skipWelcome === undefined) {
-            const params = new URLSearchParams(window.location.search);
-            skipWelcome = params.get('skipWelcome') === 'true';
-        }
-        if (!booting && openWindows.length === 0 && !skipWelcome) {
-            handleOpenWindow("welcome");
-        }
-    }, [booting, propSkipWelcome]);
-
-    // Handle global click sound
-    useEffect(() => {
-        const handleClick = () => {
-            playSound("click");
-        };
-        window.addEventListener("mousedown", handleClick);
-        return () => window.removeEventListener("mousedown", handleClick);
-    }, [playSound]);
 
     const handleOpenWindow = (id: string) => {
         const existing = openWindows.find(w => w.id === id);
@@ -226,7 +111,7 @@ function OSDesktopContent({ windows: initialWindows, skipBoot: propSkipBoot, ski
                     height: pos.height,
                     content: winDef.content,
                     helpContent: winDef.helpContent,
-                    iconType: winDef.iconType, // Added iconType
+                    iconType: winDef.iconType,
                     fullBleed: winDef.fullBleed,
                 };
                 setOpenWindows(prev => prev.map(w => ({ ...w, isActive: false })).concat(newWin));
@@ -240,18 +125,104 @@ function OSDesktopContent({ windows: initialWindows, skipBoot: propSkipBoot, ski
         }
     };
 
-    const handleCloseWindow = async (id: string) => {
-        const interceptor = closeInterceptors[id];
-        if (interceptor) {
-            const allowed = await interceptor();
-            if (!allowed) return;
-        }
-
+    const handleCloseWindow = (id: string) => {
         setOpenWindows(prev => prev.filter(w => w.id !== id));
         if (activeWindowId === id) {
             setActiveWindowId(null);
         }
     };
+
+    // Load window positions from localStorage on mount
+    useEffect(() => {
+        if (typeof window !== 'undefined') {
+            const savedPositions = localStorage.getItem('win95-window-positions');
+            if (savedPositions) {
+                try {
+                    setWindowPositions(JSON.parse(savedPositions));
+                } catch (e) {
+                    console.error('Failed to parse window positions from localStorage', e);
+                }
+            }
+
+            const params = new URLSearchParams(window.location.search);
+            if (params.get('skipBoot') === 'true') {
+                setBooting(false);
+            }
+        }
+    }, []);
+
+    // Save window positions to localStorage whenever they change
+    useEffect(() => {
+        if (typeof window !== 'undefined') {
+            const updatedPositions = { ...windowPositions };
+            let changed = false;
+
+            openWindows.forEach(win => {
+                if (win.x !== undefined && win.y !== undefined) {
+                    const currentPos = updatedPositions[win.id];
+                    if (!currentPos ||
+                        currentPos.x !== win.x ||
+                        currentPos.y !== win.y ||
+                        currentPos.width !== win.width ||
+                        currentPos.height !== win.height) {
+                        updatedPositions[win.id] = {
+                            x: win.x,
+                            y: win.y,
+                            width: win.width,
+                            height: win.height
+                        };
+                        changed = true;
+                    }
+                }
+            });
+
+            if (changed) {
+                setWindowPositions(updatedPositions);
+            }
+
+            if (Object.keys(updatedPositions).length > 0) {
+                localStorage.setItem('win95-window-positions', JSON.stringify(updatedPositions));
+            }
+        }
+    }, [windowPositions, openWindows]);
+
+    // Nudge off-screen windows back into viewport on resize
+    useEffect(() => {
+        if (typeof window === 'undefined') return;
+        const handleResize = () => {
+            setOpenWindows(prev => prev.map(w => {
+                if (w.isMaximized) return w;
+
+                if (isMobile) {
+                    const x = (window.innerWidth * 0.1) / 2;
+                    const y = (window.innerHeight * 0.1) / 2;
+                    return { ...w, x, y };
+                }
+
+                const maxX = window.innerWidth - 100;
+                const maxY = window.innerHeight - TASKBAR_HEIGHT - 10;
+                const newX = Math.max(0, Math.min(w.x, maxX));
+                const newY = Math.max(0, Math.min(w.y, maxY));
+                if (newX !== w.x || newY !== w.y) {
+                    return { ...w, x: newX, y: newY };
+                }
+                return w;
+            }));
+        };
+        window.addEventListener('resize', handleResize);
+        return () => window.removeEventListener('resize', handleResize);
+    }, [isMobile]);
+
+    useEffect(() => {
+        let skipWelcome = propSkipWelcome;
+        if (typeof window !== 'undefined' && skipWelcome === undefined) {
+            const params = new URLSearchParams(window.location.search);
+            skipWelcome = params.get('skipWelcome') === 'true';
+        }
+        if (!booting && openWindows.length === 0 && !skipWelcome) {
+            handleOpenWindow("welcome");
+        }
+    }, [booting, propSkipWelcome]);
 
     const handleMinimizeWindow = (id: string) => {
         setOpenWindows(prev => prev.map(w =>
@@ -330,7 +301,7 @@ function OSDesktopContent({ windows: initialWindows, skipBoot: propSkipBoot, ski
                     </div>
                 </div>
             ),
-            iconType: "about" // Default iconType for about windows
+            iconType: "about"
         };
 
         setOpenWindows(prev => prev.map(w => ({ ...w, isActive: false })).concat(aboutWin));
@@ -373,32 +344,15 @@ function OSDesktopContent({ windows: initialWindows, skipBoot: propSkipBoot, ski
         setActiveWindowId(id);
     };
 
-    const handleReboot = () => {
-        playSound("shutdown");
-        setOpenWindows([]);
-        setActiveWindowId(null);
-        setIsStartMenuOpen(false);
-        setBooting(true);
-    };
 
     const handleMinimizeAllWindows = () => {
         setOpenWindows(prev => prev.map(w => ({ ...w, isMinimized: true, isActive: false })));
         setActiveWindowId(null);
     };
 
-    const handleCloseAllWindows = async () => {
-        // We filter out windows that have close interceptors for now to avoid multiple prompts
-        // In a real OS, it might prompt for each one, but for simplicity we'll just close what we can
-        const windowsToClose = openWindows.filter(w => !closeInterceptors[w.id]);
-        setOpenWindows(prev => prev.filter(w => closeInterceptors[w.id]));
-        if (activeWindowId && windowsToClose.find(w => w.id === activeWindowId)) {
-            setActiveWindowId(null);
-        }
-
-        // Handle windows with interceptors (optional: could just try to close them all)
-        for (const win of openWindows.filter(w => closeInterceptors[w.id])) {
-            handleCloseWindow(win.id);
-        }
+    const handleCloseAllWindows = () => {
+        setOpenWindows([]);
+        setActiveWindowId(null);
     };
 
     const handleContextMenu = (e: React.MouseEvent) => {
@@ -406,6 +360,69 @@ function OSDesktopContent({ windows: initialWindows, skipBoot: propSkipBoot, ski
         setContextMenu({ x: e.clientX, y: e.clientY });
     };
 
+    return (
+        <OSProvider
+            onOpenWindow={handleOpenWindow}
+            onCloseWindow={handleCloseWindow}
+            runningApps={openWindows.map(w => ({ id: w.id, title: w.title }))}
+            availableApps={initialWindows.map(w => ({ id: w.id, title: w.title }))}
+        >
+            <OSDesktopView
+                booting={booting}
+                setBooting={setBooting}
+                wallpaper={wallpaper}
+                windowPositions={windowPositions}
+                setWindowPositions={setWindowPositions}
+                isStartMenuOpen={isStartMenuOpen}
+                setIsStartMenuOpen={setIsStartMenuOpen}
+                contextMenu={contextMenu}
+                setContextMenu={setContextMenu}
+                openWindows={openWindows}
+                setOpenWindows={setOpenWindows}
+                activeWindowId={activeWindowId}
+                handleOpenWindow={handleOpenWindow}
+                handleCloseWindow={handleCloseWindow}
+                handleMinimizeWindow={handleMinimizeWindow}
+                handleMaximizeWindow={handleMaximizeWindow}
+                handleSetActive={handleSetActive}
+                handleResizeWindow={handleResizeWindow}
+                handleAbout={handleAbout}
+                handleOpenWallpaperSelector={handleOpenWallpaperSelector}
+                handleMinimizeAllWindows={handleMinimizeAllWindows}
+                handleCloseAllWindows={handleCloseAllWindows}
+                handleContextMenu={handleContextMenu}
+                initialWindows={initialWindows}
+                desktopRef={desktopRef}
+                isMobile={isMobile}
+            />
+        </OSProvider>
+    );
+}
+
+function OSDesktopView({
+    booting, setBooting, wallpaper, windowPositions, setWindowPositions,
+    isStartMenuOpen, setIsStartMenuOpen, contextMenu, setContextMenu,
+    openWindows, setOpenWindows, activeWindowId,
+    handleOpenWindow, handleCloseWindow, handleMinimizeWindow, handleMaximizeWindow,
+    handleSetActive, handleResizeWindow, handleAbout, handleOpenWallpaperSelector,
+    handleMinimizeAllWindows, handleCloseAllWindows, handleContextMenu,
+    initialWindows, desktopRef, isMobile
+}: any) {
+    const { playSound, closeWindow, saveHandlers } = useOS();
+
+    const handleReboot = async () => {
+        await playSound("shutdown");
+        window.location.reload();
+    };
+
+    // Handle global click sound
+    useEffect(() => {
+        const handleClick = () => {
+            playSound("click");
+        };
+        window.addEventListener("mousedown", handleClick);
+        return () => window.removeEventListener("mousedown", handleClick);
+    }, [playSound]);
 
     return (
         <div
@@ -427,8 +444,6 @@ function OSDesktopContent({ windows: initialWindows, skipBoot: propSkipBoot, ski
                 if (contextMenu) setContextMenu(null);
             }}
         >
-
-
             {booting && <BootSequence onComplete={() => {
                 setBooting(false);
                 playSound("boot");
@@ -436,7 +451,7 @@ function OSDesktopContent({ windows: initialWindows, skipBoot: propSkipBoot, ski
 
             {/* Desktop Icons */}
             <div className="p-4 grid grid-flow-col grid-rows-[repeat(auto-fill,160px)] gap-4 w-fit h-[calc(100vh-48px)]">
-                {initialWindows.map((win, i) => (
+                {initialWindows.map((win: any) => (
                     <DesktopIcon
                         key={win.id}
                         id={win.id}
@@ -451,7 +466,7 @@ function OSDesktopContent({ windows: initialWindows, skipBoot: propSkipBoot, ski
             <AnimatePresence>
                 {isStartMenuOpen && (
                     <StartMenu
-                        items={initialWindows.map(w => ({ id: w.id, title: w.title, iconType: w.iconType }))}
+                        items={initialWindows.map((w: any) => ({ id: w.id, title: w.title, iconType: w.iconType }))}
                         onItemClick={handleOpenWindow}
                         onReboot={handleReboot}
                         onClose={() => setIsStartMenuOpen(false)}
@@ -461,36 +476,32 @@ function OSDesktopContent({ windows: initialWindows, skipBoot: propSkipBoot, ski
 
             {/* Windows Container */}
             <div className="absolute inset-0 pointer-events-none">
-                {openWindows.filter(w => !w.isMinimized).map((win, i) => (
+                {openWindows.filter((w: any) => !w.isMinimized).map((win: any) => (
                     <Win95Window
                         key={win.id}
                         title={win.title}
                         iconType={win.iconType}
                         helpContent={win.helpContent}
-                        onClose={() => handleCloseWindow(win.id)}
+                        onClose={() => closeWindow(win.id)}
                         onSave={saveHandlers[win.id]}
                         fullBleed={win.fullBleed}
                         onMinimize={() => handleMinimizeWindow(win.id)}
                         onMaximize={() => handleMaximizeWindow(win.id)}
                         onAbout={() => handleAbout(win.id)}
-                        onPositionChange={(newX, newY) => {
-                            // Clamp to ensure at least some of the window stays on screen
-                            // Top-left: -10px margin as per test expectation
-                            // Bottom-right: Ensure titlebar is still reachable (e.g., viewport - 100px)
-                            const clampedX = Math.max(-10, Math.min(newX, typeof window !== 'undefined' ? window.innerWidth - 100 : newX));
-                            const clampedY = Math.max(-10, Math.min(newY, typeof window !== 'undefined' ? window.innerHeight - TASKBAR_HEIGHT : newY));
-
-                            setWindowPositions(prev => ({ ...prev, [win.id]: { x: clampedX, y: clampedY } }));
-                            setOpenWindows(prev => prev.map(w => w.id === win.id ? { ...w, x: clampedX, y: clampedY } : w));
+                        onPositionChange={(newX: number, newY: number) => {
+                            const clampedX = Math.max(-10, Math.min(newX, (typeof window !== 'undefined' ? window.innerWidth : 800) - 100));
+                            const clampedY = Math.max(-10, Math.min(newY, (typeof window !== 'undefined' ? window.innerHeight : 600) - TASKBAR_HEIGHT));
+                            setWindowPositions((prev: any) => ({ ...prev, [win.id]: { x: clampedX, y: clampedY } }));
+                            setOpenWindows((prev: any) => prev.map((w: any) => w.id === win.id ? { ...w, x: clampedX, y: clampedY } : w));
                         }}
                         isMaximized={win.isMaximized}
                         isActive={win.isActive}
                         x={win.x}
                         y={win.y}
-                        width={isMobile ? window.innerWidth * 0.9 : (win.width || undefined)}
-                        height={isMobile ? window.innerHeight * 0.9 : (win.height || undefined)}
+                        width={isMobile ? (typeof window !== 'undefined' ? window.innerWidth : 320) * 0.9 : (win.width || undefined)}
+                        height={isMobile ? (typeof window !== 'undefined' ? window.innerHeight : 480) * 0.9 : (win.height || undefined)}
                         dragConstraints={desktopRef}
-                        onResize={(w, h) => handleResizeWindow(win.id, w, h)}
+                        onResize={(w: number, h: number) => handleResizeWindow(win.id, w, h)}
                     >
                         <div className="flex-1 flex flex-col min-h-0" onPointerDown={() => handleSetActive(win.id)}>
                             {win.content}
@@ -502,9 +513,9 @@ function OSDesktopContent({ windows: initialWindows, skipBoot: propSkipBoot, ski
             {/* Taskbar */}
             {!booting && (
                 <Taskbar
-                    openWindows={openWindows.map(w => ({ id: w.id, title: w.title, isActive: w.isActive, iconType: w.iconType }))}
-                    onWindowClick={(id) => {
-                        const win = openWindows.find(w => w.id === id);
+                    openWindows={openWindows.map((w: any) => ({ id: w.id, title: w.title, isActive: w.isActive, iconType: w.iconType }))}
+                    onWindowClick={(id: string) => {
+                        const win = openWindows.find((w: any) => w.id === id);
                         if (win?.isActive) {
                             handleMinimizeWindow(id);
                         } else {
@@ -513,7 +524,7 @@ function OSDesktopContent({ windows: initialWindows, skipBoot: propSkipBoot, ski
                     }}
                     onStartClick={() => setIsStartMenuOpen(!isStartMenuOpen)}
                     onMinimizeWindow={handleMinimizeWindow}
-                    onCloseWindow={handleCloseWindow}
+                    onCloseWindow={(id) => closeWindow(id)}
                     onMinimizeAllWindows={handleMinimizeAllWindows}
                     onCloseAllWindows={handleCloseAllWindows}
                 />
@@ -536,9 +547,10 @@ function OSDesktopContent({ windows: initialWindows, skipBoot: propSkipBoot, ski
                 )}
             </AnimatePresence>
         </div>
-
     );
 }
+
+
 
 
 
