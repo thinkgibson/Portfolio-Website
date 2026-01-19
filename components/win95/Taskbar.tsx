@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from "react";
 import { WindowsLogoIcon, FolderIcon, UserIcon, InboxIcon, ProgramsIcon, MyComputerIcon, WeatherIcon, VolumeIcon, NetworkIcon, NotepadIcon, CalculatorIcon, PaintIcon } from "./icons";
 import { ContextMenu } from "./ContextMenu";
+import { OSProvider, useOS } from "./OSContext";
 import { AnimatePresence } from "framer-motion";
 
 interface TaskbarProps {
@@ -21,22 +22,8 @@ export function Taskbar({ openWindows, onWindowClick, onStartClick, onMinimizeWi
     const [taskbarContextMenu, setTaskbarContextMenu] = useState<{ type: 'window' | 'taskbar'; windowId?: string; x: number; y: number } | null>(null);
     const [weatherData, setWeatherData] = useState<{ temp: number; city: string; description: string; loading: boolean } | null>(null);
     const [ping, setPing] = useState<{ value: number; loading: boolean } | null>(null);
-    const [volume, setVolume] = useState(() => {
-        if (typeof window !== 'undefined') {
-            const savedVolume = localStorage.getItem("win95-volume");
-            if (savedVolume) return parseInt(savedVolume);
-        }
-        return 50;
-    });
+    const { volume, setVolume } = useOS();
     const isFirstRender = React.useRef(true);
-
-    useEffect(() => {
-        if (isFirstRender.current) {
-            isFirstRender.current = false;
-            return;
-        }
-        localStorage.setItem("win95-volume", volume.toString());
-    }, [volume]);
 
     useEffect(() => {
         const timer = setInterval(() => setTime(new Date()), 1000);

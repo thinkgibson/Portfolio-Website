@@ -1,6 +1,7 @@
 "use client";
 
-import React, { createContext, useContext, useState, useCallback } from "react";
+import React, { createContext, useContext, useState, useCallback, useEffect } from "react";
+import { useLocalStorage } from "../../lib/hooks";
 
 interface OSContextType {
     registerCloseInterceptor: (id: string, interceptor: () => Promise<boolean>) => void;
@@ -9,6 +10,9 @@ interface OSContextType {
     registerSaveHandler: (id: string, handler: () => void) => void;
     unregisterSaveHandler: (id: string) => void;
     saveHandlers: Record<string, () => void>;
+    volume: number;
+    setVolume: (v: number | ((prev: number) => number)) => void;
+    playSound: (eventName: string) => Promise<void>;
 }
 
 const OSContext = createContext<OSContextType | undefined>(undefined);
@@ -16,6 +20,14 @@ const OSContext = createContext<OSContextType | undefined>(undefined);
 export function OSProvider({ children }: { children: React.ReactNode }) {
     const [closeInterceptors, setCloseInterceptors] = useState<Record<string, () => Promise<boolean>>>({});
     const [saveHandlers, setSaveHandlers] = useState<Record<string, () => void>>({});
+    const [volume, setVolume] = useLocalStorage<number>("win95-volume", 50);
+
+    const playSound = useCallback(async (eventName: string) => {
+        const { getSoundSystem } = await import("../../lib/soundSystem");
+        const ss = getSoundSystem();
+        ss.setVolume(volume / 100);
+        await ss.playSound(eventName);
+    }, [volume]);
 
     const registerCloseInterceptor = useCallback((id: string, interceptor: () => Promise<boolean>) => {
         setCloseInterceptors(prev => ({ ...prev, [id]: interceptor }));
@@ -48,7 +60,10 @@ export function OSProvider({ children }: { children: React.ReactNode }) {
             closeInterceptors,
             registerSaveHandler,
             unregisterSaveHandler,
-            saveHandlers
+            saveHandlers,
+            volume,
+            setVolume,
+            playSound
         }}>
             {children}
         </OSContext.Provider>
