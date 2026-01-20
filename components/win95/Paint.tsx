@@ -142,7 +142,7 @@ export function Paint() {
             </div>
 
             {/* Canvas Area */}
-            <div className="flex-1 overflow-auto bg-gray-400 p-4 relative">
+            <div className="flex-1 overflow-auto bg-[#808080] p-1 relative scrollbar-win95" style={{ cursor: tool === 'pencil' || tool === 'brush' ? 'crosshair' : 'default' }}>
                 <div className="bg-white shadow-[2px_2px_4px_rgba(0,0,0,0.5)] w-[600px] h-[400px]">
                     <canvas
                         ref={canvasRef}

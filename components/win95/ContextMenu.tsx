@@ -77,7 +77,7 @@ export function ContextMenu({ x, y, items, onClose, testId = "context-menu", anc
                 exit={{ opacity: 0, scale: 0.95 }}
                 transition={{ duration: 0.05 }}
                 style={{ top: adjustedY, left: adjustedX }}
-                className="absolute w-40 bg-win95-gray win95-beveled py-1 shadow-[2px_2px_5px_rgba(0,0,0,0.5)] pointer-events-auto"
+                className="absolute min-w-40 w-auto max-w-64 bg-win95-gray win95-beveled py-1 shadow-[2px_2px_5px_rgba(0,0,0,0.5)] pointer-events-auto"
                 onClick={(e) => e.stopPropagation()}
                 data-testid={testId}
             >

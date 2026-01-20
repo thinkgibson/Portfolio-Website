@@ -138,7 +138,7 @@ export function Notepad() {
                 </button>
                 <button
                     onMouseDown={(e) => execCommand("italic", e)}
-                    className={`${activeFormats.italic ? "win95-beveled-inset bg-gray-200" : "win95-button"} w-8 h-8 italic text-[14px] font-serif flex items-center justify-center`}
+                    className={`${activeFormats.italic ? "win95-beveled-inset bg-gray-200" : "win95-button"} w-8 h-8 italic text-[14px] font-win95 flex items-center justify-center`}
                     title="Italic"
                     data-testid="notepad-italic"
                 >
@@ -162,7 +162,7 @@ export function Notepad() {
                     <FloppyIcon size={20} />
                 </button>
                 <div className="w-[2px] h-6 bg-gray-400 mx-1 border-r border-white" />
-                <span className="text-[12px] px-2 italic text-gray-600">Rich Text Mode</span>
+                <span className="text-[11px] px-2 text-gray-700 font-win95">Rich Text Mode</span>
             </div>
 
             {/* Editing Area */}

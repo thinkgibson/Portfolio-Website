@@ -82,36 +82,80 @@ const HighlightResults = ({ children, term }: { children: React.ReactNode, term:
 };
 
 const MinimizeIcon = () => (
-    <svg width="16" height="16" viewBox="0 0 8 8" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <rect x="1" y="5" width="6" height="2" fill="black" />
+    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect x="2" y="7" width="8" height="3" fill="black" />
     </svg>
 );
 
 const MaximizeIcon = () => (
-    <svg width="16" height="16" viewBox="0 0 8 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
         {/* Outer border */}
-        <rect x="1" y="1" width="6" height="6" fill="black" />
-        {/* Inner white/empty area */}
-        <rect x="2" y="3" width="4" height="3" fill="#C0C0C0" />
+        <rect x="1" y="1" width="10" height="10" stroke="black" strokeWidth="1" />
+        {/* Inner white/empty area is mostly empty, just a border */}
+        <rect x="2" y="3" width="8" height="2" fill="#000080" />
+    </svg>
+);
+
+// Actually, let's keep the icon simple to match the original primitive style but centered
+// The original was viewBox 0 0 8 8 which is hard to center in 16px container if not scaled perfectly
+// Let's use 12x12 aligned to pixel grid
+
+const MaximizeIconUpdated = () => (
+    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect x="1.5" y="1.5" width="9" height="9" stroke="black" strokeWidth="1" />
+        <rect x="2.5" y="2.5" width="7" height="1" fill="black" />
+    </svg>
+);
+// Wait, the original code used rects for pixel perfection. Let's stick to rects but in 12x12 space.
+
+const MaximizeIconFixed = () => (
+    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect x="1" y="1" width="9" height="9" stroke="black" strokeWidth="1" />
+        <rect x="2" y="2" width="7" height="1" fill="black" />
     </svg>
 );
 
 const RestoreIcon = () => (
-    <svg width="16" height="16" viewBox="0 0 8 8" fill="none" xmlns="http://www.w3.org/2000/svg">
-        {/* Back window */}
-        <rect x="2" y="0" width="6" height="5" fill="black" />
-        <rect x="3" y="2" width="4" height="2" fill="#C0C0C0" />
-
-        {/* Front window */}
-        <rect x="0" y="3" width="6" height="5" fill="black" />
-        <rect x="1" y="5" width="4" height="2" fill="#C0C0C0" />
+    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect x="3" y="1" width="8" height="7" fill="white" stroke="black" strokeWidth="1" />
+        <rect x="4" y="2" width="6" height="1" fill="black" />
+        <rect x="1" y="4" width="8" height="7" fill="white" stroke="black" strokeWidth="1" />
+        <rect x="2" y="5" width="6" height="1" fill="black" />
     </svg>
 );
 
 const CloseIcon = () => (
-    <svg width="16" height="16" viewBox="0 0 8 8" fill="none" xmlns="http://www.w3.org/2000/svg">
-        {/* Thick X shape */}
-        <polygon points="1,0 2,0 4,2 6,0 7,0 7,1 5,3 7,5 7,6 6,6 4,4 2,6 1,6 1,5 3,3 1,1" fill="black" />
+    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M2 2l8 8m0-8l-8 8" stroke="black" strokeWidth="1.5" />
+    </svg>
+);
+
+// Re-defining with precise pixel paths for authenticity
+const MinimizeIconFinal = () => (
+    <svg width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect x="2" y="7" width="6" height="2" fill="black" />
+    </svg>
+);
+
+const MaximizeIconFinal = () => (
+    <svg width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect x="1" y="1" width="8" height="8" stroke="black" strokeWidth="1" />
+        <rect x="2" y="2" width="6" height="1" fill="black" />
+    </svg>
+);
+
+const RestoreIconFinal = () => (
+    <svg width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect x="3" y="0" width="7" height="7" fill="white" stroke="black" strokeWidth="1" />
+        <rect x="4" y="1" width="5" height="1" fill="black" />
+        <rect x="0" y="3" width="7" height="7" fill="white" stroke="black" strokeWidth="1" />
+        <rect x="1" y="4" width="5" height="1" fill="black" />
+    </svg>
+);
+
+const CloseIconFinal = () => (
+    <svg width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M1 1L9 9M9 1L1 9" stroke="black" strokeWidth="1.5" />
     </svg>
 );
 
@@ -355,7 +399,7 @@ export function Win95Window({
 
                 <div className="relative">
                     <span
-                        className={`px-1 cursor-default font-bold ${activeMenu === 'Help' ? 'win95-beveled-inset bg-win95-gray' : 'hover:win95-beveled'}`}
+                        className={`px-1 cursor-default ${activeMenu === 'Help' ? 'win95-beveled-inset bg-win95-gray' : 'hover:win95-beveled'}`}
                         onClick={() => toggleMenu('Help')}
                     >
                         Help

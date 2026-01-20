@@ -140,19 +140,19 @@ export function Taskbar({ openWindows, onWindowClick, onStartClick, onMinimizeWi
                             });
                         }}
                         className={`${win.isActive ? "win95-beveled-inset bg-win95-gray font-bold" : "win95-button"
-                            } px-3 text-[13px] font-win95 flex items-center max-w-[200px] truncate h-full touch-manipulation min-w-[50px] leading-none`}
+                            } px-3 text-[13px] font-win95 flex items-center max-w-[150px] truncate h-full touch-manipulation min-w-[80px] leading-none`}
                         data-testid={`taskbar-item-${win.title.toLowerCase().replace(/\s+/g, '-')}`}
                     >
-                        <div className="mr-2 flex-shrink-0">
-                            {win.iconType === "about" && <UserIcon size={24} />}
-                            {win.iconType === "contact" && <InboxIcon size={24} />}
-                            {win.iconType === "projects" && <ProgramsIcon size={24} />}
-                            {win.iconType === "drive" && <MyComputerIcon size={24} />}
-                            {win.iconType === "notepad" && <NotepadIcon size={24} />}
-                            {win.iconType === "calculator" && <CalculatorIcon size={24} />}
-                            {win.iconType === "paint" && <PaintIcon size={24} />}
-                            {win.iconType === "terminal" && <TerminalIcon size={24} />}
-                            {(!win.iconType || win.iconType === "folder") && <FolderIcon size={24} />}
+                        <div className="mr-1.5 flex-shrink-0">
+                            {win.iconType === "about" && <UserIcon size={18} />}
+                            {win.iconType === "contact" && <InboxIcon size={18} />}
+                            {win.iconType === "projects" && <ProgramsIcon size={18} />}
+                            {win.iconType === "drive" && <MyComputerIcon size={18} />}
+                            {win.iconType === "notepad" && <NotepadIcon size={18} />}
+                            {win.iconType === "calculator" && <CalculatorIcon size={18} />}
+                            {win.iconType === "paint" && <PaintIcon size={18} />}
+                            {win.iconType === "terminal" && <TerminalIcon size={18} />}
+                            {(!win.iconType || win.iconType === "folder") && <FolderIcon size={18} />}
                         </div>
                         <span className="truncate">{win.title}</span>
                     </button>
@@ -223,7 +223,7 @@ export function Taskbar({ openWindows, onWindowClick, onStartClick, onMinimizeWi
                             {/* Visual thumb */}
                             <div
                                 className="absolute left-1/2 -translate-x-1/2 w-5 h-3 bg-win95-gray shadow-win95-button border border-black/20"
-                                style={{ bottom: `${volume}%`, transform: 'translate(-50%, 50%)' }}
+                                style={{ bottom: `clamp(0%, ${volume}%, 100%)`, transform: 'translate(-50%, 50%)' }}
                             />
                         </div>
 
@@ -251,27 +251,27 @@ export function Taskbar({ openWindows, onWindowClick, onStartClick, onMinimizeWi
                 <div className="flex gap-2 items-center mr-1">
                     <button
                         onClick={fetchWeather}
-                        className="p-0.5 hover:bg-win95-gray-light active:bg-win95-gray-dark border-none transition-colors"
+                        className="p-0.5 w-6 h-6 flex items-center justify-center hover:bg-win95-gray-light active:bg-win95-gray-dark border-none transition-colors"
                         title="Weather"
                         data-testid="sys-tray-weather"
                     >
-                        <WeatherIcon size={18} className="text-black" />
+                        <WeatherIcon size={16} className="text-black" />
                     </button>
                     <button
                         onClick={measurePing}
-                        className="p-0.5 hover:bg-win95-gray-light active:bg-win95-gray-dark border-none transition-colors"
+                        className="p-0.5 w-6 h-6 flex items-center justify-center hover:bg-win95-gray-light active:bg-win95-gray-dark border-none transition-colors"
                         title="Network"
                         data-testid="sys-tray-network"
                     >
-                        <NetworkIcon size={18} className="text-black" />
+                        <NetworkIcon size={16} className="text-black" />
                     </button>
                     <button
                         onClick={() => setActiveTooltip(activeTooltip === "volume" ? null : "volume")}
-                        className={`p-0.5 hover:bg-win95-gray-light active:bg-win95-gray-dark border-none transition-colors ${activeTooltip === "volume" ? "bg-win95-gray-light" : ""}`}
+                        className={`p-0.5 w-6 h-6 flex items-center justify-center hover:bg-win95-gray-light active:bg-win95-gray-dark border-none transition-colors ${activeTooltip === "volume" ? "bg-win95-gray-light" : ""}`}
                         title="Volume"
                         data-testid="sys-tray-volume"
                     >
-                        <VolumeIcon size={18} className="text-black" />
+                        <VolumeIcon size={16} className="text-black" />
                     </button>
                 </div>
                 <span className="text-[14px] font-win95 font-medium leading-none whitespace-nowrap">
