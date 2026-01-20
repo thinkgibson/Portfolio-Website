@@ -40,13 +40,15 @@ export function StartMenu({ items, onItemClick, onReboot, onClose }: StartMenuPr
             data-testid="start-menu"
         >
             {/* Sidebar */}
-            <div className="w-8 bg-win95-gray-dark flex flex-col justify-end p-1 relative">
-                <span
-                    className="text-win95-gray font-win95 font-bold text-lg origin-center -rotate-90 whitespace-nowrap mb-8"
-                    style={{ fontSize: '20px', letterSpacing: '1px' }}
-                >
-                    <span className="opacity-50">Windows</span>95
-                </span>
+            <div className="w-8 bg-win95-gray-dark relative">
+                <div className="absolute bottom-2 left-0 w-8 flex justify-center">
+                    <span
+                        className="text-win95-gray font-win95 font-bold text-lg origin-center -rotate-90 whitespace-nowrap"
+                        style={{ fontSize: '20px', letterSpacing: '1px' }}
+                    >
+                        <span className="opacity-50">Windows</span>95
+                    </span>
+                </div>
             </div>
 
             {/* Menu Items */}

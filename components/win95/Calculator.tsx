@@ -63,7 +63,7 @@ export function Calculator() {
     return (
         <div className="flex flex-col h-full w-full bg-win95-gray p-1 font-win95">
             {/* Display Screen */}
-            <div className="bg-white border-2 border-win95-gray-shadow p-2 mb-2 text-right font-mono text-xl h-10 flex items-center justify-end overflow-hidden">
+            <div className="bg-white border-2 border-win95-gray-shadow p-1 px-2 mb-2 text-right font-mono text-xl h-10 flex items-center justify-end overflow-hidden">
                 {display}
             </div>
 

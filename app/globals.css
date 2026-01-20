@@ -36,6 +36,34 @@
     @apply shadow-win95-inset bg-win95-gray;
   }
 
+  /* Win95 Scrollbar */
+  .scrollbar-win95::-webkit-scrollbar {
+    width: 16px;
+    height: 16px;
+    background: #c0c0c0;
+  }
+
+  .scrollbar-win95::-webkit-scrollbar-track {
+    background: #e0e0e0;
+  }
+
+  .scrollbar-win95::-webkit-scrollbar-thumb {
+    background: #c0c0c0;
+    border: 2px solid #c0c0c0;
+    box-shadow: inset 1px 1px 0px #ffffff, inset -1px -1px 0px #000000;
+  }
+
+  .scrollbar-win95::-webkit-scrollbar-button {
+    background: #c0c0c0;
+    width: 16px;
+    height: 16px;
+    box-shadow: inset 1px 1px 0px #ffffff, inset -1px -1px 0px #000000;
+  }
+
+  .scrollbar-win95::-webkit-scrollbar-corner {
+    background: #c0c0c0;
+  }
+
   .win95-button {
     @apply shadow-win95-button bg-win95-gray active:shadow-win95-button-active active:translate-x-[1px] active:translate-y-[1px] px-2 py-1 flex items-center justify-center;
   }

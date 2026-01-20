@@ -1,0 +1,75 @@
+# Page snapshot
+
+```yaml
+- generic [active] [ref=e1]:
+  - main [ref=e2]:
+    - generic [ref=e3]:
+      - generic [ref=e4]:
+        - generic [ref=e5] [cursor=pointer]:
+          - img [ref=e7]
+          - generic [ref=e10]: Welcome.txt
+        - generic [ref=e11] [cursor=pointer]:
+          - img [ref=e13]
+          - generic [ref=e16]: About_Me.doc
+        - generic [ref=e17] [cursor=pointer]:
+          - img [ref=e19]
+          - generic [ref=e25]: My_Projects.exe
+        - generic [ref=e26] [cursor=pointer]:
+          - img [ref=e28]
+          - generic [ref=e33]: Contact_Information.txt
+        - generic [ref=e34] [cursor=pointer]:
+          - img [ref=e36]
+          - generic [ref=e45]: My Portfolio (C:)
+        - generic [ref=e46] [cursor=pointer]:
+          - img [ref=e48]
+          - generic [ref=e52]: Notepad.exe
+        - generic [ref=e53] [cursor=pointer]:
+          - img [ref=e55]
+          - generic [ref=e66]: Calculator.exe
+        - generic [ref=e67] [cursor=pointer]:
+          - img [ref=e69]
+          - generic [ref=e76]: Paint.exe
+        - generic [ref=e77] [cursor=pointer]:
+          - img [ref=e79]
+          - generic [ref=e82]: Command Prompt
+      - generic [ref=e83]:
+        - generic [ref=e84]:
+          - generic [ref=e85]:
+            - img [ref=e87]
+            - generic [ref=e90]: Welcome.txt
+          - generic [ref=e91]:
+            - button "Minimize" [ref=e92] [cursor=pointer]:
+              - img [ref=e93]
+            - button "Maximize" [ref=e95] [cursor=pointer]:
+              - img [ref=e96]
+            - button "Close" [ref=e99] [cursor=pointer]:
+              - img [ref=e100]
+        - generic [ref=e102]:
+          - generic [ref=e103]: File
+          - generic [ref=e104]: Search
+          - generic [ref=e105]: Help
+        - generic [ref=e108]:
+          - heading "Content Creator" [level=1] [ref=e109]:
+            - text: Content
+            - text: Creator
+          - paragraph [ref=e110]: YouTube, Twitch, TikTok. Specializing in video editing and livestream production.
+          - button "Learn More" [ref=e112] [cursor=pointer]
+        - img [ref=e114]
+      - generic [ref=e117]:
+        - button "Start" [ref=e118] [cursor=pointer]:
+          - img [ref=e119]
+          - text: Start
+        - button "Welcome.txt" [ref=e126] [cursor=pointer]:
+          - img [ref=e128]
+          - generic [ref=e131]: Welcome.txt
+        - generic [ref=e132]:
+          - generic [ref=e133]:
+            - button "Weather" [ref=e134] [cursor=pointer]:
+              - img [ref=e135]
+            - button "Network" [ref=e138] [cursor=pointer]:
+              - img [ref=e139]
+            - button "Volume" [ref=e144] [cursor=pointer]:
+              - img [ref=e145]
+          - generic [ref=e149]: 07:46 AM
+  - alert [ref=e150]
+```

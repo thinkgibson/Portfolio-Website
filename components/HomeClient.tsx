@@ -187,15 +187,15 @@ export function HomeClient({ content }: { content: HomeContent }) {
             ),
             content: (
                 <div className="grid grid-cols-4 gap-4 p-4 text-center">
-                    <div className="flex flex-col items-center gap-1 cursor-pointer hover:bg-blue-100 p-2 rounded">
+                    <div className="flex flex-col items-center gap-1 cursor-pointer hover:bg-blue-100 p-2">
                         <div className="w-8 h-8 bg-yellow-400 win95-beveled" />
                         <span className="text-[10px]">Windows</span>
                     </div>
-                    <div className="flex flex-col items-center gap-1 cursor-pointer hover:bg-blue-100 p-2 rounded">
+                    <div className="flex flex-col items-center gap-1 cursor-pointer hover:bg-blue-100 p-2">
                         <div className="w-8 h-8 bg-blue-400 win95-beveled" />
                         <span className="text-[10px]">Program Files</span>
                     </div>
-                    <div className="flex flex-col items-center gap-1 cursor-pointer hover:bg-blue-100 p-2 rounded">
+                    <div className="flex flex-col items-center gap-1 cursor-pointer hover:bg-blue-100 p-2">
                         <div className="w-8 h-8 bg-green-400 win95-beveled" />
                         <span className="text-[10px]">My Documents</span>
                     </div>
