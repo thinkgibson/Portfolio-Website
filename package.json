@@ -12,7 +12,8 @@
         "test:coverage": "jest --coverage",
         "test:e2e": "playwright test",
         "server:persistent": "node scripts/server-with-timeout.mjs",
-        "ci-flow": "npm run build && npm run test:e2e && npm run server:persistent"
+        "ci-precheck": "node scripts/ci-precheck.js",
+        "ci-flow": "npm run build && npm run ci-precheck && npm run test:e2e && npm run server:persistent"
     },
     "dependencies": {
         "clsx": "^2.1.1",

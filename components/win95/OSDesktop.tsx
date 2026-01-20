@@ -45,6 +45,8 @@ interface OSDesktopProps {
 import { useIsMobile, useLocalStorage } from "../../lib/hooks";
 
 const TASKBAR_HEIGHT = 48;
+import { reloadPage } from "../../lib/navigation";
+
 
 export function OSDesktop({ windows: initialWindows, skipBoot: propSkipBoot, skipWelcome: propSkipWelcome }: OSDesktopProps) {
     const isMobile = useIsMobile();
@@ -412,7 +414,7 @@ function OSDesktopView({
 
     const handleReboot = async () => {
         await playSound("shutdown");
-        window.location.reload();
+        reloadPage();
     };
 
     // Handle global click sound

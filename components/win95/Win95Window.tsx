@@ -365,6 +365,7 @@ export function Win95Window({
                     <span
                         className={`px-1 cursor-default ${activeMenu === 'File' ? 'win95-beveled-inset bg-win95-gray' : 'hover:win95-beveled'}`}
                         onClick={() => toggleMenu('File')}
+                        data-testid="menu-file"
                     >
                         File
                     </span>
@@ -401,6 +402,7 @@ export function Win95Window({
                     <span
                         className={`px-1 cursor-default ${activeMenu === 'Help' ? 'win95-beveled-inset bg-win95-gray' : 'hover:win95-beveled'}`}
                         onClick={() => toggleMenu('Help')}
+                        data-testid="menu-help"
                     >
                         Help
                     </span>
