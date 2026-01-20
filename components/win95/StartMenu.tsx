@@ -2,13 +2,13 @@
 
 import React from "react";
 import { motion } from "framer-motion";
-import { FolderIcon, UserIcon, InboxIcon, ProgramsIcon, MyComputerIcon, NotepadIcon, CalculatorIcon, PaintIcon, TerminalIcon } from "./icons";
+import { FolderIcon, UserIcon, InboxIcon, ProgramsIcon, MyComputerIcon, NotepadIcon, CalculatorIcon, PaintIcon, TerminalIcon, MusicPlayerIcon } from "./icons";
 
 interface StartMenuProps {
     items: {
         id: string;
         title: string;
-        iconType: "folder" | "about" | "contact" | "projects" | "drive" | "notepad" | "calculator" | "paint" | "terminal";
+        iconType: "folder" | "about" | "contact" | "projects" | "drive" | "notepad" | "calculator" | "paint" | "terminal" | "musicplayer";
     }[];
     onItemClick: (id: string) => void;
     onReboot: () => void;
@@ -26,6 +26,7 @@ export function StartMenu({ items, onItemClick, onReboot, onClose }: StartMenuPr
             case "calculator": return <CalculatorIcon size={size} />;
             case "paint": return <PaintIcon size={size} />;
             case "terminal": return <TerminalIcon size={size} />;
+            case "musicplayer": return <MusicPlayerIcon size={size} />;
             default: return <FolderIcon size={size} />;
         }
     };

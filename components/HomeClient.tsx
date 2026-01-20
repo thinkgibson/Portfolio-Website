@@ -7,6 +7,7 @@ import { ArrowUpRight, Github, ExternalLink } from "lucide-react";
 import { Calculator } from "./win95/Calculator";
 import { Paint } from "./win95/Paint";
 import { Terminal } from "./win95/Terminal";
+import { MusicPlayer } from "./win95/MusicPlayer";
 
 interface HomeContent {
     hero: {
@@ -259,6 +260,20 @@ export function HomeClient({ content }: { content: HomeContent }) {
                 </div>
             ),
             content: <Terminal />
+        },
+        {
+            id: "musicplayer",
+            title: "Media Player",
+            iconType: "musicplayer",
+            width: 350,
+            height: 450,
+            helpContent: (
+                <div className="space-y-2">
+                    <p>This is the <strong>Media Player</strong>.</p>
+                    <p>Listen to audio tracks from the system library.</p>
+                </div>
+            ),
+            content: <MusicPlayer />
         }
     ];
 

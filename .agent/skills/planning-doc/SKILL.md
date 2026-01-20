@@ -92,12 +92,12 @@ Bulleted list of specific features/requirements.
 > Follow the [git-pr-merge skill](file:///path/to/git-pr-merge/SKILL.md) for the complete workflow.
 
 **For GitHub Issues:**
-1. **Create Branch**: `git checkout -b gitissue-{ID}`
-2. **Commit Format**: `git commit -m "feat: description (closes #{ID})"`
+1. **Create Branch**: `git checkout -b gitissue-{ID}/branch-name`
+2. **Commit Format**: `git commit -m "gitissue-{ID}: description"`
 
 **For Generic Requirements:**
-1. **Create Branch**: `git checkout -b feature/{kebab-case-summary}`
-2. **Commit Format**: `git commit -m "feat: description"`
+1. **Create Branch**: `git checkout -b feature/branch-name` or `git checkout -b fix/branch-name`
+2. **Commit Format**: `git commit -m "feat: description"` or `git commit -m "fix: description"`
 
 **Both:**
 3. **Push & Create PR**: `gh pr create --fill --push`
@@ -185,7 +185,12 @@ Common risk categories:
 
 ### Implementation Checklist
 
-- Order steps logically (dependencies first)
+- Order steps logically using these priorities:
+  1. **Shared dependencies first** - Types, interfaces, utilities, constants
+  2. **Core logic second** - Hooks, services, state management
+  3. **Components third** - UI components that consume the above
+  4. **Tests last** - Unit tests, then E2E tests
+- Flag items that can be done in parallel vs must be sequential
 - End with verification step
 - Keep granular enough for progress tracking
 
