@@ -1,5 +1,5 @@
 ---
-name: git-issue
+name: DISABLED git-issue
 description: "Manage and resolve repository issues"
 version: 1.0.0
 ---

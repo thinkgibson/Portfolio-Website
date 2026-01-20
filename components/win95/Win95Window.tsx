@@ -4,7 +4,7 @@ import React from "react";
 import { motion, useDragControls } from "framer-motion";
 import { X, Minus, Square } from "lucide-react";
 import { useIsMobile } from "../../lib/hooks";
-import { FolderIcon, UserIcon, InboxIcon, ProgramsIcon, MyComputerIcon, NotepadIcon, CalculatorIcon, PaintIcon, TerminalIcon } from "./icons";
+import { FolderIcon, UserIcon, InboxIcon, ProgramsIcon, MyComputerIcon, NotepadIcon, CalculatorIcon, PaintIcon, TerminalIcon, MusicPlayerIcon } from "./icons";
 
 const TASKBAR_HEIGHT = 48;
 
@@ -19,7 +19,7 @@ interface Win95WindowProps {
     onPositionChange?: (x: number, y: number) => void;
     isMaximized?: boolean;
     isActive?: boolean;
-    iconType?: "folder" | "about" | "contact" | "projects" | "drive" | "notepad" | "calculator" | "paint" | "terminal";
+    iconType?: "folder" | "about" | "contact" | "projects" | "drive" | "notepad" | "calculator" | "paint" | "terminal" | "musicplayer";
     x?: number;
     y?: number;
     width?: string | number;
@@ -322,6 +322,7 @@ export function Win95Window({
                         {iconType === "calculator" && <CalculatorIcon size={24} />}
                         {iconType === "paint" && <PaintIcon size={24} />}
                         {iconType === "terminal" && <TerminalIcon size={24} />}
+                        {iconType === "musicplayer" && <MusicPlayerIcon size={24} />}
                         {iconType === "folder" && <FolderIcon size={24} />}
                     </div>
                     <span className="text-white text-[13px] font-win95 font-bold whitespace-nowrap overflow-hidden text-ellipsis leading-none mt-0.5">
