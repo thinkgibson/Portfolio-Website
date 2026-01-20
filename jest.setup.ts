@@ -25,6 +25,11 @@ if (typeof global !== 'undefined') {
     (global as any).scrollTo = jest.fn().mockImplementation(() => { });
 }
 
+jest.mock('./lib/navigation', () => ({
+    reloadPage: jest.fn(),
+}));
+
+
 // Mock ESM modules that cause issues with Jest/JSDOM
 jest.mock('remark', () => ({
     remark: jest.fn().mockReturnValue({

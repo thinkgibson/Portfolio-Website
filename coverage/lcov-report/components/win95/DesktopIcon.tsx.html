@@ -25,7 +25,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>45/45</span>
+                <span class='fraction'>46/46</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>45/45</span>
+                <span class='fraction'>46/46</span>
             </div>
         
             
@@ -108,7 +108,8 @@
 <a name='L43'></a><a href='#L43'>43</a>
 <a name='L44'></a><a href='#L44'>44</a>
 <a name='L45'></a><a href='#L45'>45</a>
-<a name='L46'></a><a href='#L46'>46</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L46'></a><a href='#L46'>46</a>
+<a name='L47'></a><a href='#L47'>47</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -123,45 +124,46 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">48x</span>
-<span class="cline-any cline-yes">48x</span>
-<span class="cline-any cline-yes">48x</span>
-<span class="cline-any cline-yes">48x</span>
-<span class="cline-any cline-yes">48x</span>
-<span class="cline-any cline-yes">48x</span>
-<span class="cline-any cline-yes">48x</span>
-<span class="cline-any cline-yes">48x</span>
-<span class="cline-any cline-yes">48x</span>
-<span class="cline-any cline-yes">48x</span>
-<span class="cline-any cline-yes">48x</span>
-<span class="cline-any cline-yes">48x</span>
-<span class="cline-any cline-yes">48x</span>
-<span class="cline-any cline-yes">48x</span>
-<span class="cline-any cline-yes">48x</span>
-<span class="cline-any cline-yes">48x</span>
-<span class="cline-any cline-yes">48x</span>
-<span class="cline-any cline-yes">48x</span>
-<span class="cline-any cline-yes">48x</span>
-<span class="cline-any cline-yes">48x</span>
-<span class="cline-any cline-yes">48x</span>
-<span class="cline-any cline-yes">48x</span>
-<span class="cline-any cline-yes">48x</span>
-<span class="cline-any cline-yes">48x</span>
-<span class="cline-any cline-yes">48x</span>
-<span class="cline-any cline-yes">48x</span>
-<span class="cline-any cline-yes">48x</span>
-<span class="cline-any cline-yes">48x</span>
-<span class="cline-any cline-yes">48x</span>
-<span class="cline-any cline-yes">48x</span>
+<span class="cline-any cline-yes">59x</span>
+<span class="cline-any cline-yes">59x</span>
+<span class="cline-any cline-yes">59x</span>
+<span class="cline-any cline-yes">59x</span>
+<span class="cline-any cline-yes">59x</span>
+<span class="cline-any cline-yes">59x</span>
+<span class="cline-any cline-yes">59x</span>
+<span class="cline-any cline-yes">59x</span>
+<span class="cline-any cline-yes">59x</span>
+<span class="cline-any cline-yes">59x</span>
+<span class="cline-any cline-yes">59x</span>
+<span class="cline-any cline-yes">59x</span>
+<span class="cline-any cline-yes">59x</span>
+<span class="cline-any cline-yes">59x</span>
+<span class="cline-any cline-yes">59x</span>
+<span class="cline-any cline-yes">59x</span>
+<span class="cline-any cline-yes">59x</span>
+<span class="cline-any cline-yes">59x</span>
+<span class="cline-any cline-yes">59x</span>
+<span class="cline-any cline-yes">59x</span>
+<span class="cline-any cline-yes">59x</span>
+<span class="cline-any cline-yes">59x</span>
+<span class="cline-any cline-yes">59x</span>
+<span class="cline-any cline-yes">59x</span>
+<span class="cline-any cline-yes">59x</span>
+<span class="cline-any cline-yes">59x</span>
+<span class="cline-any cline-yes">59x</span>
+<span class="cline-any cline-yes">59x</span>
+<span class="cline-any cline-yes">59x</span>
+<span class="cline-any cline-yes">59x</span>
+<span class="cline-any cline-yes">59x</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">"use client";
 &nbsp;
 import React from "react";
-import { FolderIcon, UserIcon, InboxIcon, ProgramsIcon, MyComputerIcon, NotepadIcon, CalculatorIcon, PaintIcon } from "./icons";
+import { FolderIcon, UserIcon, InboxIcon, ProgramsIcon, MyComputerIcon, NotepadIcon, CalculatorIcon, PaintIcon, TerminalIcon } from "./icons";
 &nbsp;
 interface DesktopIconProps {
     id: string;
     label: string;
-    iconType: "folder" | "about" | "contact" | "projects" | "drive" | "notepad" | "calculator" | "paint";
+    iconType: "folder" | "about" | "contact" | "projects" | "drive" | "notepad" | "calculator" | "paint" | "terminal";
     onOpen: (id: string) =&gt; void;
     x?: number;
     y?: number;
@@ -178,21 +180,22 @@ export function DesktopIcon({ id, label, iconType, onOpen, x, y }: DesktopIconPr
             case "notepad": return &lt;NotepadIcon size={size} /&gt;;
             case "calculator": return &lt;CalculatorIcon size={size} /&gt;;
             case "paint": return &lt;PaintIcon size={size} /&gt;;
+            case "terminal": return &lt;TerminalIcon size={size} /&gt;;
             default: return &lt;FolderIcon size={size} /&gt;;
         }
     };
 &nbsp;
     return (
         &lt;div
-            className="flex flex-col items-center justify-center p-2 w-28 h-36 cursor-pointer group select-none active:bg-blue-800/30 touch-manipulation"
+            className="flex flex-col items-center justify-center p-2 w-32 h-36 cursor-pointer group select-none active:bg-blue-800/30 touch-manipulation"
             onClick={() =&gt; onOpen(id)}
             style={x !== <span class="branch-0 cbranch-no" title="branch not covered" >undefined &amp;&amp; y !== <span class="branch-0 cbranch-no" title="branch not covered" >undefined ? {</span> position: 'absolute', left: x, top: y } : {</span>}}
             data-testid={`desktop-icon-${label.toLowerCase().replace(/\s+/g, '-')}`}
         &gt;
-            &lt;div className="mb-2 p-1 group-hover:bg-blue-800/20 rounded-sm"&gt;
+            &lt;div className="mb-2 p-1 group-hover:bg-blue-800/20"&gt;
                 {renderIcon()}
             &lt;/div&gt;
-            &lt;span className="text-white text-[12px] text-center px-1 font-medium leading-tight drop-shadow-[1px_1px_1px_rgba(0,0,0,0.8)] group-hover:bg-[#000080] group-hover:text-white"&gt;
+            &lt;span className="text-white text-[11px] text-center px-1 font-medium leading-tight drop-shadow-[1px_1px_1px_rgba(0,0,0,0.8)] group-hover:bg-[#000080] group-hover:text-white line-clamp-2 break-words"&gt;
                 {label}
             &lt;/span&gt;
         &lt;/div&gt;
@@ -205,7 +208,7 @@ export function DesktopIcon({ id, label, iconType, onOpen, x, y }: DesktopIconPr
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2026-01-19T20:30:16.275Z
+                at 2026-01-20T15:20:45.192Z
             </div>
         <script src="../../prettify.js"></script>
         <script>

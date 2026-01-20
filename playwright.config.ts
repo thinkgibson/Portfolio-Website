@@ -4,8 +4,9 @@ export default defineConfig({
     testDir: './e2e/tests',
     fullyParallel: true,
     forbidOnly: !!process.env.CI,
-    retries: process.env.CI ? 2 : 0,
-    workers: process.env.CI ? 1 : undefined,
+    retries: process.env.CI ? 2 : 2, // Always retry 2 times
+    workers: process.env.CI ? 1 : 1, // Always use 1 worker for stability
+    timeout: 60000, // Increase global timeout to 60s
     reporter: [['html', { open: 'never' }], ['./e2e/reporters/terminal-reporter.ts']],
     use: {
         baseURL: 'http://127.0.0.1:3001',

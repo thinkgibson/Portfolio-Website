@@ -57,6 +57,7 @@ export function StartMenu({ items, onItemClick, onReboot, onClose }: StartMenuPr
                     <button
                         key={item.id}
                         className="flex items-center gap-3 px-3 py-2 hover:bg-win95-blue-active hover:text-white text-left group transition-colors duration-0"
+                        data-testid={`start-menu-item-${item.id}`}
                         onClick={() => {
                             onItemClick(item.id);
                             onClose();

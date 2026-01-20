@@ -25,7 +25,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>86/86</span>
+                <span class='fraction'>90/90</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>86/86</span>
+                <span class='fraction'>90/90</span>
             </div>
         
             
@@ -149,7 +149,11 @@
 <a name='L84'></a><a href='#L84'>84</a>
 <a name='L85'></a><a href='#L85'>85</a>
 <a name='L86'></a><a href='#L86'>86</a>
-<a name='L87'></a><a href='#L87'>87</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L87'></a><a href='#L87'>87</a>
+<a name='L88'></a><a href='#L88'>88</a>
+<a name='L89'></a><a href='#L89'>89</a>
+<a name='L90'></a><a href='#L90'>90</a>
+<a name='L91'></a><a href='#L91'>91</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -179,6 +183,9 @@
 <span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
@@ -204,6 +211,7 @@
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -239,13 +247,13 @@
 &nbsp;
 import React from "react";
 import { motion } from "framer-motion";
-import { FolderIcon, UserIcon, InboxIcon, ProgramsIcon, MyComputerIcon, NotepadIcon, CalculatorIcon, PaintIcon } from "./icons";
+import { FolderIcon, UserIcon, InboxIcon, ProgramsIcon, MyComputerIcon, NotepadIcon, CalculatorIcon, PaintIcon, TerminalIcon } from "./icons";
 &nbsp;
 interface StartMenuProps {
     items: {
         id: string;
         title: string;
-        iconType: "folder" | "about" | "contact" | "projects" | "drive" | "notepad" | "calculator" | "paint";
+        iconType: "folder" | "about" | "contact" | "projects" | "drive" | "notepad" | "calculator" | "paint" | "terminal";
     }[];
     onItemClick: (id: string) =&gt; void;
     onReboot: () =&gt; void;
@@ -262,6 +270,7 @@ export function StartMenu({ items, onItemClick, onReboot, onClose }: StartMenuPr
             case "notepad": return &lt;NotepadIcon size={size} /&gt;;
             case "calculator": return &lt;CalculatorIcon size={size} /&gt;;
             case "paint": return &lt;PaintIcon size={size} /&gt;;
+            case "terminal": return &lt;TerminalIcon size={size} /&gt;;
             default: return &lt;FolderIcon size={size} /&gt;;
         }
     };
@@ -276,13 +285,15 @@ export function StartMenu({ items, onItemClick, onReboot, onClose }: StartMenuPr
             data-testid="start-menu"
         &gt;
             {/* Sidebar */}
-            &lt;div className="w-8 bg-win95-gray-dark flex flex-col justify-end p-1 relative"&gt;
-                &lt;span
-                    className="text-win95-gray font-win95 font-bold text-lg origin-center -rotate-90 whitespace-nowrap mb-8"
-                    style={{ fontSize: '20px', letterSpacing: '1px' }}
-                &gt;
-                    &lt;span className="opacity-50"&gt;Windows&lt;/span&gt;95
-                &lt;/span&gt;
+            &lt;div className="w-8 bg-win95-gray-dark relative"&gt;
+                &lt;div className="absolute bottom-2 left-0 w-8 flex justify-center"&gt;
+                    &lt;span
+                        className="text-win95-gray font-win95 font-bold text-lg origin-center -rotate-90 whitespace-nowrap"
+                        style={{ fontSize: '20px', letterSpacing: '1px' }}
+                    &gt;
+                        &lt;span className="opacity-50"&gt;Windows&lt;/span&gt;95
+                    &lt;/span&gt;
+                &lt;/div&gt;
             &lt;/div&gt;
 &nbsp;
             {/* Menu Items */}
@@ -291,6 +302,7 @@ export function StartMenu({ items, onItemClick, onReboot, onClose }: StartMenuPr
                     &lt;button
                         key={item.id}
                         className="flex items-center gap-3 px-3 py-2 hover:bg-win95-blue-active hover:text-white text-left group transition-colors duration-0"
+                        data-testid={`start-menu-item-${item.id}`}
                         onClick={() =&gt; {
                             onItemClick(item.id);
                             onClose();
@@ -328,7 +340,7 @@ export function StartMenu({ items, onItemClick, onReboot, onClose }: StartMenuPr
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2026-01-19T20:30:16.275Z
+                at 2026-01-20T15:20:45.192Z
             </div>
         <script src="../../prettify.js"></script>
         <script>

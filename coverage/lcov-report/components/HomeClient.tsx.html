@@ -25,7 +25,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>251/251</span>
+                <span class='fraction'>266/266</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>251/251</span>
+                <span class='fraction'>266/266</span>
             </div>
         
             
@@ -314,7 +314,22 @@
 <a name='L249'></a><a href='#L249'>249</a>
 <a name='L250'></a><a href='#L250'>250</a>
 <a name='L251'></a><a href='#L251'>251</a>
-<a name='L252'></a><a href='#L252'>252</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L252'></a><a href='#L252'>252</a>
+<a name='L253'></a><a href='#L253'>253</a>
+<a name='L254'></a><a href='#L254'>254</a>
+<a name='L255'></a><a href='#L255'>255</a>
+<a name='L256'></a><a href='#L256'>256</a>
+<a name='L257'></a><a href='#L257'>257</a>
+<a name='L258'></a><a href='#L258'>258</a>
+<a name='L259'></a><a href='#L259'>259</a>
+<a name='L260'></a><a href='#L260'>260</a>
+<a name='L261'></a><a href='#L261'>261</a>
+<a name='L262'></a><a href='#L262'>262</a>
+<a name='L263'></a><a href='#L263'>263</a>
+<a name='L264'></a><a href='#L264'>264</a>
+<a name='L265'></a><a href='#L265'>265</a>
+<a name='L266'></a><a href='#L266'>266</a>
+<a name='L267'></a><a href='#L267'>267</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -355,6 +370,21 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
@@ -573,6 +603,7 @@ import { Notepad } from "./win95/Notepad";
 import { ArrowUpRight, Github, ExternalLink } from "lucide-react";
 import { Calculator } from "./win95/Calculator";
 import { Paint } from "./win95/Paint";
+import { Terminal } from "./win95/Terminal";
 &nbsp;
 interface HomeContent {
     hero: {
@@ -753,15 +784,15 @@ export function HomeClient({ content }: { content: HomeContent }) {
             ),
             content: (
                 &lt;div className="grid grid-cols-4 gap-4 p-4 text-center"&gt;
-                    &lt;div className="flex flex-col items-center gap-1 cursor-pointer hover:bg-blue-100 p-2 rounded"&gt;
+                    &lt;div className="flex flex-col items-center gap-1 cursor-pointer hover:bg-blue-100 p-2"&gt;
                         &lt;div className="w-8 h-8 bg-yellow-400 win95-beveled" /&gt;
                         &lt;span className="text-[10px]"&gt;Windows&lt;/span&gt;
                     &lt;/div&gt;
-                    &lt;div className="flex flex-col items-center gap-1 cursor-pointer hover:bg-blue-100 p-2 rounded"&gt;
+                    &lt;div className="flex flex-col items-center gap-1 cursor-pointer hover:bg-blue-100 p-2"&gt;
                         &lt;div className="w-8 h-8 bg-blue-400 win95-beveled" /&gt;
                         &lt;span className="text-[10px]"&gt;Program Files&lt;/span&gt;
                     &lt;/div&gt;
-                    &lt;div className="flex flex-col items-center gap-1 cursor-pointer hover:bg-blue-100 p-2 rounded"&gt;
+                    &lt;div className="flex flex-col items-center gap-1 cursor-pointer hover:bg-blue-100 p-2"&gt;
                         &lt;div className="w-8 h-8 bg-green-400 win95-beveled" /&gt;
                         &lt;span className="text-[10px]"&gt;My Documents&lt;/span&gt;
                     &lt;/div&gt;
@@ -811,6 +842,20 @@ export function HomeClient({ content }: { content: HomeContent }) {
                 &lt;/div&gt;
             ),
             content: &lt;Paint /&gt;
+        },
+        {
+            id: "terminal",
+            title: "Command Prompt",
+            iconType: "terminal",
+            width: 500,
+            height: 350,
+            helpContent: (
+                &lt;div className="space-y-2"&gt;
+                    &lt;p&gt;This is the &lt;strong&gt;Command Prompt&lt;/strong&gt;.&lt;/p&gt;
+                    &lt;p&gt;Type commands to interact with the OS. Supported: &lt;code&gt;help&lt;/code&gt;, &lt;code&gt;open&lt;/code&gt;, &lt;code&gt;list&lt;/code&gt;, &lt;code&gt;close&lt;/code&gt;, &lt;code&gt;restart&lt;/code&gt;.&lt;/p&gt;
+                &lt;/div&gt;
+            ),
+            content: &lt;Terminal /&gt;
         }
     ];
 &nbsp;
@@ -823,7 +868,7 @@ export function HomeClient({ content }: { content: HomeContent }) {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2026-01-19T20:30:16.275Z
+                at 2026-01-20T15:20:45.192Z
             </div>
         <script src="../prettify.js"></script>
         <script>

@@ -1,7 +1,7 @@
 # Add:
 - [x] **Start menu:**  
     Clicking the start button should open a windows 95 style start menu. It should contain links to open the same shortcuts that are on the desktop.
-- [] **Apps:**  
+- [x] **Apps:**  
     Add basic functioning apps like notepad, paint, and calculator. Focus on minimum viable product - they function and can be used but do not need to be polished or have features like saving.
 - [] **Games:**  
     Add basic functioning games like pong, space invaders, solitaire, and tetris. Focus on minimum viable product - they function and can be played but do not need to be polished or have features like saving, multiple difficulty levels, etc.
@@ -9,18 +9,18 @@
     Add the ability to resize windows. The window should be able to be resized by dragging the bottom-right corner.
 - [x] **Taskbar icons:**  
     Add icons to the bottom right taskbar next to the clock. It should include a weather icon, a volume icon, and a network speed icon (ie wifi bars).
-- [] **Right click menu:**  
+- [x] **Right click menu:**  
     Add a right click menu that appears when right clicking on the desktop. It should include options to change the wallpaper, close all windows, and minimize all windows.
-- [] **Animated wallpapers:**  
+- [x] **Animated wallpapers:**  
     Add the ability to change the wallpaper. The wallpapers should be animated and should be able to be changed from the right click menu. Style must match the Windows 95 style.
-- [] **Functioning toolbar buttons:**  
+- [x] **Functioning toolbar buttons:**  
     In each window make the buttons actually work with a dropdown menu of actions:
     - File: Maximize, Minimize, Close
     - Search: Opens searchbox for body text in that window
     - Help: Opens help window with information about that window, its purpose, and how to use it
-- [] **Terminal app:**  
+- [x] **Terminal app:**  
     Add a terminal app that can be opened from the start menu. It should have a command prompt that can be used to open other apps and games. It should also have a help command that can be used to open an ascii version of the help window for that app.
-- [] **Right-click app in bottom taskbar:**  
+- [x] **Right-click app in bottom taskbar:**  
     When a window is right-clicked in the bottom taskbar it should open a right-click menu that includes options to open the app, close the app, and minimize the app.
 - [] **Sound effects:**  
     Add sound effects for window actions (open, close, minimize, maximize, etc). Also for clicking the mouse and when the boot animation ends and the desktop is loaded.
@@ -54,7 +54,7 @@ After fixing make sure to write unit and playwright tests to cover this issue an
     When a window is repositioned, maximized, click maximized again, and then repositioned it incorrectly snaps near the top-right of the desktop. It should reposition as normal without any snapping.
 - [x] **Window collision**  
     - Windows should not be able to overlap the bottom taskbar. If a window is dragged to the bottom of the screen it should be stopped at the taskbar. If a window is dragged to the top of the screen it should be stopped at the top of the screen. If a window is dragged to the left or right of the screen it should be stopped at the edge of the screen.
-- [] **Desktop border**  
+- [x] **Desktop border**  
     - Windows should not be able to be dragged off the screen. If the user drags a window off the screen, it should snap back to the edge of the screen.
 - [x] **Unit test error**  
     Fix the error that appears in the terminal when running the unit tests as part of the ci-flow. The error is: Error: Not implemented: window.scrollTo...
