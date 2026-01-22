@@ -1,0 +1,15 @@
+{
+    "boot": "Alien-light.ogg",
+    "click": "mouse-click-290204.mp3",
+    "shutdown": null,
+    "tracks": [
+        {
+            "title": "Alien Light",
+            "file": "Alien-light.ogg"
+        },
+        {
+            "title": "System Click",
+            "file": "mouse-click-290204.mp3"
+        }
+    ]
+}
