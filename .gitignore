@@ -5,4 +5,24 @@ coverage
 build
 dist
 .DS_Store
+
+# Debug and test output files
 *.log
+*.txt
+!README.txt
+
+# Debug screenshots
+*_debug*.png
+after-*.png
+mobile-debug.png
+notepad_prompt.png
+
+# Test artifacts
+test-results
+playwright-report
+test-report.html
+test-result.json
+
+# Build artifacts
+.swc
+tsconfig.tsbuildinfo

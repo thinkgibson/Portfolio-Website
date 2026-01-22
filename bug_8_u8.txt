@@ -1,1 +1,0 @@
-﻿Fix textbox area: Fix the text box area so that it fills the rest of the window below the toolbar. It should dynamically expand/reduce with window resize and it should allow for multiple lines of text.
