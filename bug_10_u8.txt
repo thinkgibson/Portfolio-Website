@@ -1,3 +1,0 @@
-﻿Fix save icon and behavior: - Change the "save" button to use a floppy disk save icon and not text
-- Also add a Save option to the File menu
-- Change the behavior of the Save logic so that it opens a dialog where the user can name their file and click "Download" or "Cancel". The downloaded file should be in .rtf format to preserve formatting.
