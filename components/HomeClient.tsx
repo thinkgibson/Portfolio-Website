@@ -223,8 +223,8 @@ export function HomeClient({ content }: { content: HomeContent }) {
             id: "calculator",
             title: "Calculator.exe",
             iconType: "calculator",
-            width: 260,
-            height: 360,
+            width: 300,
+            height: 520,
             helpContent: (
                 <div className="space-y-2">
                     <p>This is the <strong>Calculator</strong> application.</p>

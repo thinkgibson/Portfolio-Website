@@ -63,38 +63,38 @@ export function Calculator() {
     return (
         <div className="flex flex-col h-full w-full bg-win95-gray p-1 font-win95">
             {/* Display Screen */}
-            <div className="bg-white border-2 border-win95-gray-shadow p-1 px-2 mb-2 text-right font-mono text-xl h-10 flex items-center justify-end overflow-hidden">
+            <div className="bg-white border-2 border-win95-gray-shadow p-2 mb-2 text-right font-mono text-4xl h-24 flex items-center justify-end overflow-hidden">
                 {display}
             </div>
 
             {/* Buttons Grid */}
-            <div className="grid grid-cols-4 gap-1 p-1 flex-1">
+            <div className="grid grid-cols-4 gap-1 p-0.5 flex-1">
                 {/* Row 1 */}
-                <button className="win95-button font-bold text-red-800 col-span-1" onClick={handleClearClick}>C</button>
-                <button className="win95-button font-bold" onClick={() => handleOperatorClick("/")}>/</button>
-                <button className="win95-button font-bold" onClick={() => handleOperatorClick("*")}>*</button>
-                <button className="win95-button font-bold" onClick={() => handleOperatorClick("-")}>-</button>
+                <button className="win95-button font-bold text-red-800 col-span-1 aspect-square text-3xl" onClick={handleClearClick}>C</button>
+                <button className="win95-button font-bold aspect-square text-3xl" onClick={() => handleOperatorClick("/")}>/</button>
+                <button className="win95-button font-bold aspect-square text-3xl" onClick={() => handleOperatorClick("*")}>*</button>
+                <button className="win95-button font-bold aspect-square text-3xl" onClick={() => handleOperatorClick("-")}>-</button>
 
                 {/* Row 2 */}
-                <button className="win95-button font-bold" onClick={() => handleNumberClick("7")}>7</button>
-                <button className="win95-button font-bold" onClick={() => handleNumberClick("8")}>8</button>
-                <button className="win95-button font-bold" onClick={() => handleNumberClick("9")}>9</button>
-                <button className="win95-button font-bold row-span-2" onClick={() => handleOperatorClick("+")}>+</button>
+                <button className="win95-button font-bold aspect-square text-3xl" onClick={() => handleNumberClick("7")}>7</button>
+                <button className="win95-button font-bold aspect-square text-3xl" onClick={() => handleNumberClick("8")}>8</button>
+                <button className="win95-button font-bold aspect-square text-3xl" onClick={() => handleNumberClick("9")}>9</button>
+                <button className="win95-button font-bold row-span-2 text-3xl" onClick={() => handleOperatorClick("+")}>+</button>
 
                 {/* Row 3 */}
-                <button className="win95-button font-bold" onClick={() => handleNumberClick("4")}>4</button>
-                <button className="win95-button font-bold" onClick={() => handleNumberClick("5")}>5</button>
-                <button className="win95-button font-bold" onClick={() => handleNumberClick("6")}>6</button>
+                <button className="win95-button font-bold aspect-square text-3xl" onClick={() => handleNumberClick("4")}>4</button>
+                <button className="win95-button font-bold aspect-square text-3xl" onClick={() => handleNumberClick("5")}>5</button>
+                <button className="win95-button font-bold aspect-square text-3xl" onClick={() => handleNumberClick("6")}>6</button>
 
                 {/* Row 4 */}
-                <button className="win95-button font-bold" onClick={() => handleNumberClick("1")}>1</button>
-                <button className="win95-button font-bold" onClick={() => handleNumberClick("2")}>2</button>
-                <button className="win95-button font-bold" onClick={() => handleNumberClick("3")}>3</button>
-                <button className="win95-button font-bold row-span-2" onClick={handleEqualClick}>=</button>
+                <button className="win95-button font-bold aspect-square text-3xl" onClick={() => handleNumberClick("1")}>1</button>
+                <button className="win95-button font-bold aspect-square text-3xl" onClick={() => handleNumberClick("2")}>2</button>
+                <button className="win95-button font-bold aspect-square text-3xl" onClick={() => handleNumberClick("3")}>3</button>
+                <button className="win95-button font-bold row-span-2 text-3xl" onClick={handleEqualClick}>=</button>
 
                 {/* Row 5 */}
-                <button className="win95-button font-bold col-span-2" onClick={() => handleNumberClick("0")}>0</button>
-                <button className="win95-button font-bold" onClick={() => handleNumberClick(".")}>.</button>
+                <button className="win95-button font-bold col-span-2 text-3xl" onClick={() => handleNumberClick("0")}>0</button>
+                <button className="win95-button font-bold aspect-square text-3xl" onClick={() => handleNumberClick(".")}>.</button>
             </div>
         </div>
     );
