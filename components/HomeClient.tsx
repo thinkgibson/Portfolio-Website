@@ -8,6 +8,7 @@ import { Calculator } from "./win95/Calculator";
 import { Paint } from "./win95/Paint";
 import { Terminal } from "./win95/Terminal";
 import { MusicPlayer } from "./win95/MusicPlayer";
+import { Documentaries } from "./win95/Documentaries";
 
 interface HomeContent {
     hero: {
@@ -274,6 +275,21 @@ export function HomeClient({ content }: { content: HomeContent }) {
                 </div>
             ),
             content: <MusicPlayer />
+        },
+        {
+            id: "documentaries",
+            title: "Documentaries",
+            iconType: "documentaries",
+            width: 800,
+            height: 600,
+            fullBleed: true,
+            helpContent: (
+                <div className="space-y-2">
+                    <p>This is the <strong>Documentaries</strong> app.</p>
+                    <p>Watch documentaries and videos I've worked on.</p>
+                </div>
+            ),
+            content: <Documentaries />
         }
     ];
 

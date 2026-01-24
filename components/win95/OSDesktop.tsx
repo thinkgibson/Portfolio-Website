@@ -23,7 +23,7 @@ interface WindowState {
     y: number;
     content: React.ReactNode;
     helpContent?: React.ReactNode;
-    iconType: "folder" | "about" | "contact" | "projects" | "drive" | "notepad" | "calculator" | "paint" | "terminal" | "musicplayer";
+    iconType: "folder" | "about" | "contact" | "projects" | "drive" | "notepad" | "calculator" | "paint" | "terminal" | "musicplayer" | "documentaries";
     width?: number;
     height?: number;
     fullBleed?: boolean;
@@ -33,7 +33,7 @@ interface OSDesktopProps {
     windows: {
         id: string;
         title: string;
-        iconType: "folder" | "about" | "contact" | "projects" | "drive" | "notepad" | "calculator" | "paint" | "terminal" | "musicplayer";
+        iconType: "folder" | "about" | "contact" | "projects" | "drive" | "notepad" | "calculator" | "paint" | "terminal" | "musicplayer" | "documentaries";
         content: React.ReactNode;
         helpContent?: React.ReactNode;
         fullBleed?: boolean;
