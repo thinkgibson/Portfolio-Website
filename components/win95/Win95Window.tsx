@@ -28,6 +28,10 @@ interface Win95WindowProps {
     onResize?: (width: number, height: number) => void;
     onSave?: () => void;
     fullBleed?: boolean;
+    lockAspectRatio?: boolean;
+    minWidth?: number;
+    minHeight?: number;
+    canMaximize?: boolean;
 }
 
 const TextHighlighter = ({ text, term }: { text: string, term: string }) => {
@@ -179,6 +183,10 @@ export function Win95Window({
     iconType = "folder",
     onSave,
     fullBleed = false,
+    lockAspectRatio = false,
+    minWidth = 200,
+    minHeight = 250,
+    canMaximize = true,
 }: Win95WindowProps) {
     const isMobile = useIsMobile();
     const dragControls = useDragControls();
@@ -242,8 +250,27 @@ export function Win95Window({
 
         const handleMouseMove = (moveEvent: PointerEvent) => {
             if (onResize) {
-                const newWidth = Math.max(200, startWidth + (moveEvent.clientX - startX));
-                const newHeight = Math.max(250, startHeight + (moveEvent.clientY - startY));
+                let newWidth = Math.max(minWidth, startWidth + (moveEvent.clientX - startX));
+                let newHeight = Math.max(minHeight, startHeight + (moveEvent.clientY - startY));
+
+                if (lockAspectRatio) {
+                    const aspectRatio = startWidth / startHeight;
+                    // Propose new height based on width
+                    newHeight = newWidth / aspectRatio;
+
+                    // If height violates min constraint, cap it and adjust width
+                    if (newHeight < minHeight) {
+                        newHeight = minHeight;
+                        newWidth = newHeight * aspectRatio;
+                    }
+
+                    // After adjustment, if width violates min constraint, cap it and adjust height
+                    if (newWidth < minWidth) {
+                        newWidth = minWidth;
+                        newHeight = newWidth / aspectRatio;
+                    }
+                }
+
                 onResize(newWidth, newHeight);
             }
         };
@@ -308,7 +335,7 @@ export function Win95Window({
             {/* Titlebar */}
             <div
                 onPointerDown={(e) => !isMaximized && dragControls.start(e)}
-                onDoubleClick={onMaximize}
+                onDoubleClick={() => canMaximize && onMaximize?.()}
                 className={`window-titlebar h-8 flex items-center justify-between px-1 cursor-default select-none ${isActive ? "bg-win95-blue-active" : "bg-win95-gray-inactive"}`}
                 data-testid="window-titlebar"
             >
@@ -339,15 +366,17 @@ export function Win95Window({
                     >
                         <MinimizeIcon />
                     </button>
-                    <button
-                        onClick={onMaximize}
-                        className="win95-button w-6 h-6 !p-0 flex items-center justify-center"
-                        data-testid="window-maximize"
-                        title={isMaximized ? "Restore" : "Maximize"}
-                        aria-label={isMaximized ? "Restore" : "Maximize"}
-                    >
-                        {isMaximized ? <RestoreIcon /> : <MaximizeIcon />}
-                    </button>
+                    {canMaximize && (
+                        <button
+                            onClick={onMaximize}
+                            className="win95-button w-6 h-6 !p-0 flex items-center justify-center"
+                            data-testid="window-maximize"
+                            title={isMaximized ? "Restore" : "Maximize"}
+                            aria-label={isMaximized ? "Restore" : "Maximize"}
+                        >
+                            {isMaximized ? <RestoreIcon /> : <MaximizeIcon />}
+                        </button>
+                    )}
                     <button
                         onClick={onClose}
                         className="win95-button w-6 h-6 !p-0 ml-1 flex items-center justify-center"

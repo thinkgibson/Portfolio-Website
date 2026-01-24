@@ -27,6 +27,10 @@ interface WindowState {
     width?: number;
     height?: number;
     fullBleed?: boolean;
+    lockAspectRatio?: boolean;
+    minWidth?: number;
+    minHeight?: number;
+    canMaximize?: boolean;
 }
 
 interface OSDesktopProps {
@@ -37,6 +41,10 @@ interface OSDesktopProps {
         content: React.ReactNode;
         helpContent?: React.ReactNode;
         fullBleed?: boolean;
+        lockAspectRatio?: boolean;
+        minWidth?: number;
+        minHeight?: number;
+        canMaximize?: boolean;
     }[];
     skipBoot?: boolean;
     skipWelcome?: boolean;
@@ -115,6 +123,10 @@ export function OSDesktop({ windows: initialWindows, skipBoot: propSkipBoot, ski
                     helpContent: winDef.helpContent,
                     iconType: winDef.iconType,
                     fullBleed: winDef.fullBleed,
+                    lockAspectRatio: winDef.lockAspectRatio,
+                    minWidth: winDef.minWidth,
+                    minHeight: winDef.minHeight,
+                    canMaximize: winDef.canMaximize,
                 };
                 setOpenWindows(prev => prev.map(w => ({ ...w, isActive: false })).concat(newWin));
                 setActiveWindowId(id);
@@ -487,6 +499,10 @@ function OSDesktopView({
                         onClose={() => closeWindow(win.id)}
                         onSave={saveHandlers[win.id]}
                         fullBleed={win.fullBleed}
+                        lockAspectRatio={win.lockAspectRatio}
+                        minWidth={win.minWidth}
+                        minHeight={win.minHeight}
+                        canMaximize={win.canMaximize}
                         onMinimize={() => handleMinimizeWindow(win.id)}
                         onMaximize={() => handleMaximizeWindow(win.id)}
                         onAbout={() => handleAbout(win.id)}

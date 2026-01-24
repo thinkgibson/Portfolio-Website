@@ -64,8 +64,8 @@ describe('Calculator', () => {
         fireEvent.click(screen.getByText('2'));
         fireEvent.click(screen.getByText('+'));
         fireEvent.click(screen.getByText('3'));
-        fireEvent.click(screen.getByText('*')); // Should calculate 2+3=5 then set op to *
-        expect(screen.getByText('5', { selector: '.bg-white' })).toBeInTheDocument();
+        fireEvent.click(screen.getByText('*')); // Should calculate 2+3=5 internally then show 2+3*
+        expect(screen.getByText('2+3*', { selector: '.bg-white' })).toBeInTheDocument();
         fireEvent.click(screen.getByText('4'));
         fireEvent.click(screen.getByText('='));
         expect(screen.getByText('20', { selector: '.bg-white' })).toBeInTheDocument();
