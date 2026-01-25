@@ -429,14 +429,6 @@ function OSDesktopView({
         reloadPage();
     };
 
-    // Handle global click sound
-    useEffect(() => {
-        const handleClick = () => {
-            playSound("click");
-        };
-        window.addEventListener("mousedown", handleClick);
-        return () => window.removeEventListener("mousedown", handleClick);
-    }, [playSound]);
 
     return (
         <div
@@ -471,7 +463,10 @@ function OSDesktopView({
                         id={win.id}
                         label={win.title}
                         iconType={win.iconType}
-                        onOpen={handleOpenWindow}
+                        onOpen={(id) => {
+                            playSound("click");
+                            handleOpenWindow(id);
+                        }}
                     />
                 ))}
             </div>
@@ -481,7 +476,10 @@ function OSDesktopView({
                 {isStartMenuOpen && (
                     <StartMenu
                         items={initialWindows.map((w: any) => ({ id: w.id, title: w.title, iconType: w.iconType }))}
-                        onItemClick={handleOpenWindow}
+                        onItemClick={(id) => {
+                            playSound("click");
+                            handleOpenWindow(id);
+                        }}
                         onReboot={handleReboot}
                         onClose={() => setIsStartMenuOpen(false)}
                     />
@@ -496,7 +494,10 @@ function OSDesktopView({
                         title={win.title}
                         iconType={win.iconType}
                         helpContent={win.helpContent}
-                        onClose={() => closeWindow(win.id)}
+                        onClose={() => {
+                            playSound("click");
+                            closeWindow(win.id);
+                        }}
                         onSave={saveHandlers[win.id]}
                         fullBleed={win.fullBleed}
                         lockAspectRatio={win.lockAspectRatio}
@@ -533,6 +534,7 @@ function OSDesktopView({
                 <Taskbar
                     openWindows={openWindows.map((w: any) => ({ id: w.id, title: w.title, isActive: w.isActive, iconType: w.iconType }))}
                     onWindowClick={(id: string) => {
+                        playSound("click");
                         const win = openWindows.find((w: any) => w.id === id);
                         if (win?.isActive) {
                             handleMinimizeWindow(id);
@@ -540,7 +542,10 @@ function OSDesktopView({
                             handleOpenWindow(id);
                         }
                     }}
-                    onStartClick={() => setIsStartMenuOpen(!isStartMenuOpen)}
+                    onStartClick={() => {
+                        playSound("click");
+                        setIsStartMenuOpen(!isStartMenuOpen);
+                    }}
                     onMinimizeWindow={handleMinimizeWindow}
                     onCloseWindow={(id) => closeWindow(id)}
                     onMinimizeAllWindows={handleMinimizeAllWindows}

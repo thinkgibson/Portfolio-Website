@@ -30,11 +30,32 @@ describe('OSDesktop Sounds', () => {
         }));
     });
 
-    it('triggers click sound on desktop click', async () => {
+    it('does not trigger click sound on background desktop click', async () => {
         render(<OSDesktop windows={mockWindows} skipBoot={true} skipWelcome={true} />);
 
         const desktop = screen.getByTestId('desktop-container');
         fireEvent.mouseDown(desktop);
+
+        // Should NOT be called for background click anymore
+        expect(mockPlaySound).not.toHaveBeenCalledWith('click');
+    });
+
+    it('triggers click sound on Start Button click', async () => {
+        render(<OSDesktop windows={mockWindows} skipBoot={true} skipWelcome={true} />);
+
+        const startButton = screen.getByTestId('taskbar-start-button');
+        fireEvent.click(startButton);
+
+        await waitFor(() => {
+            expect(mockPlaySound).toHaveBeenCalledWith('click');
+        }, { timeout: 2000 });
+    });
+
+    it('triggers click sound on Desktop Icon click', async () => {
+        render(<OSDesktop windows={mockWindows} skipBoot={true} skipWelcome={true} />);
+
+        const icon = screen.getByTestId('desktop-icon-test-window');
+        fireEvent.click(icon);
 
         await waitFor(() => {
             expect(mockPlaySound).toHaveBeenCalledWith('click');
