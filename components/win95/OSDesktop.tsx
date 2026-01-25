@@ -31,6 +31,7 @@ interface WindowState {
     minWidth?: number;
     minHeight?: number;
     canMaximize?: boolean;
+    children?: WindowState[];
 }
 
 interface OSDesktopProps {
@@ -50,6 +51,7 @@ interface OSDesktopProps {
     skipWelcome?: boolean;
 }
 
+import { Folder } from "./Folder";
 import { useIsMobile, useLocalStorage } from "../../lib/hooks";
 
 const TASKBAR_HEIGHT = 48;
@@ -77,7 +79,19 @@ export function OSDesktop({ windows: initialWindows, skipBoot: propSkipBoot, ski
                 ));
             }
         } else {
-            const winDef = initialWindows.find(w => w.id === id);
+            // Recursive find function
+            const findWindowProps = (id: string, list: any[]): any => {
+                for (const item of list) {
+                    if (item.id === id) return item;
+                    if (item.children) {
+                        const found = findWindowProps(id, item.children);
+                        if (found) return found;
+                    }
+                }
+                return null;
+            };
+
+            const winDef = findWindowProps(id, initialWindows);
             if (winDef) {
                 // Use stored position or calculate new one
                 let pos = windowPositions[id];
@@ -119,7 +133,18 @@ export function OSDesktop({ windows: initialWindows, skipBoot: propSkipBoot, ski
                     y: pos.y,
                     width: pos.width,
                     height: pos.height,
-                    content: winDef.content,
+                    content: winDef.children ? (
+                        <Folder
+                            id={winDef.id}
+                            title={winDef.title}
+                            items={winDef.children.map((child: any) => ({
+                                id: child.id,
+                                title: child.title,
+                                iconType: child.iconType
+                            }))}
+                            onItemClick={(childId) => handleOpenWindow(childId)}
+                        />
+                    ) : winDef.content,
                     helpContent: winDef.helpContent,
                     iconType: winDef.iconType,
                     fullBleed: winDef.fullBleed,

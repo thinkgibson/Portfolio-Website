@@ -25,7 +25,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>301/301</span>
+                <span class='fraction'>321/321</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>301/301</span>
+                <span class='fraction'>321/321</span>
             </div>
         
             
@@ -364,7 +364,27 @@
 <a name='L299'></a><a href='#L299'>299</a>
 <a name='L300'></a><a href='#L300'>300</a>
 <a name='L301'></a><a href='#L301'>301</a>
-<a name='L302'></a><a href='#L302'>302</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L302'></a><a href='#L302'>302</a>
+<a name='L303'></a><a href='#L303'>303</a>
+<a name='L304'></a><a href='#L304'>304</a>
+<a name='L305'></a><a href='#L305'>305</a>
+<a name='L306'></a><a href='#L306'>306</a>
+<a name='L307'></a><a href='#L307'>307</a>
+<a name='L308'></a><a href='#L308'>308</a>
+<a name='L309'></a><a href='#L309'>309</a>
+<a name='L310'></a><a href='#L310'>310</a>
+<a name='L311'></a><a href='#L311'>311</a>
+<a name='L312'></a><a href='#L312'>312</a>
+<a name='L313'></a><a href='#L313'>313</a>
+<a name='L314'></a><a href='#L314'>314</a>
+<a name='L315'></a><a href='#L315'>315</a>
+<a name='L316'></a><a href='#L316'>316</a>
+<a name='L317'></a><a href='#L317'>317</a>
+<a name='L318'></a><a href='#L318'>318</a>
+<a name='L319'></a><a href='#L319'>319</a>
+<a name='L320'></a><a href='#L320'>320</a>
+<a name='L321'></a><a href='#L321'>321</a>
+<a name='L322'></a><a href='#L322'>322</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -408,6 +428,26 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
@@ -872,95 +912,115 @@ export function HomeClient({ content }: { content: HomeContent }) {
             )
         },
         {
-            id: "notepad",
-            title: "Notepad.exe",
-            iconType: "notepad",
+            id: "accessories",
+            title: "Accessories",
+            iconType: "folder",
             fullBleed: true,
-            width: 600,
-            height: 400,
-            helpContent: (
-                &lt;div className="space-y-2"&gt;
-                    &lt;p&gt;This is the &lt;strong&gt;Notepad&lt;/strong&gt; application.&lt;/p&gt;
-                    &lt;p&gt;You can use it to write and format text using the toolbar icons (Bold, Italic, Underline).&lt;/p&gt;
-                &lt;/div&gt;
-            ),
-            content: &lt;Notepad /&gt;
-        },
-        {
-            id: "calculator",
-            title: "Calculator.exe",
-            iconType: "calculator",
-            width: 230,
-            height: 400,
-            lockAspectRatio: true,
-            minWidth: 230,
-            minHeight: 400,
-            canMaximize: false,
-            helpContent: (
-                &lt;div className="space-y-2"&gt;
-                    &lt;p&gt;This is the &lt;strong&gt;Calculator&lt;/strong&gt; application.&lt;/p&gt;
-                    &lt;p&gt;Perform basic arithmetic calculations.&lt;/p&gt;
-                &lt;/div&gt;
-            ),
-            content: &lt;Calculator /&gt;
-        },
-        {
-            id: "paint",
-            title: "Paint.exe",
-            iconType: "paint",
-            width: 700,
-            height: 500,
-            fullBleed: true,
-            helpContent: (
-                &lt;div className="space-y-2"&gt;
-                    &lt;p&gt;This is the &lt;strong&gt;Paint&lt;/strong&gt; application.&lt;/p&gt;
-                    &lt;p&gt;Create simple drawings and save them.&lt;/p&gt;
-                &lt;/div&gt;
-            ),
-            content: &lt;Paint /&gt;
-        },
-        {
-            id: "terminal",
-            title: "Command Prompt",
-            iconType: "terminal",
             width: 500,
-            height: 350,
-            helpContent: (
-                &lt;div className="space-y-2"&gt;
-                    &lt;p&gt;This is the &lt;strong&gt;Command Prompt&lt;/strong&gt;.&lt;/p&gt;
-                    &lt;p&gt;Type commands to interact with the OS. Supported: &lt;code&gt;help&lt;/code&gt;, &lt;code&gt;open&lt;/code&gt;, &lt;code&gt;list&lt;/code&gt;, &lt;code&gt;close&lt;/code&gt;, &lt;code&gt;restart&lt;/code&gt;.&lt;/p&gt;
-                &lt;/div&gt;
-            ),
-            content: &lt;Terminal /&gt;
+            height: 400,
+            children: [
+                {
+                    id: "notepad",
+                    title: "Notepad.exe",
+                    iconType: "notepad",
+                    fullBleed: true,
+                    width: 600,
+                    height: 400,
+                    helpContent: (
+                        &lt;div className="space-y-2"&gt;
+                            &lt;p&gt;This is the &lt;strong&gt;Notepad&lt;/strong&gt; application.&lt;/p&gt;
+                            &lt;p&gt;You can use it to write and format text using the toolbar icons (Bold, Italic, Underline).&lt;/p&gt;
+                        &lt;/div&gt;
+                    ),
+                    content: &lt;Notepad /&gt;
+                },
+                {
+                    id: "calculator",
+                    title: "Calculator.exe",
+                    iconType: "calculator",
+                    width: 230,
+                    height: 400,
+                    lockAspectRatio: true,
+                    minWidth: 230,
+                    minHeight: 400,
+                    canMaximize: false,
+                    helpContent: (
+                        &lt;div className="space-y-2"&gt;
+                            &lt;p&gt;This is the &lt;strong&gt;Calculator&lt;/strong&gt; application.&lt;/p&gt;
+                            &lt;p&gt;Perform basic arithmetic calculations.&lt;/p&gt;
+                        &lt;/div&gt;
+                    ),
+                    content: &lt;Calculator /&gt;
+                },
+                {
+                    id: "paint",
+                    title: "Paint.exe",
+                    iconType: "paint",
+                    width: 700,
+                    height: 500,
+                    fullBleed: true,
+                    helpContent: (
+                        &lt;div className="space-y-2"&gt;
+                            &lt;p&gt;This is the &lt;strong&gt;Paint&lt;/strong&gt; application.&lt;/p&gt;
+                            &lt;p&gt;Create simple drawings and save them.&lt;/p&gt;
+                        &lt;/div&gt;
+                    ),
+                    content: &lt;Paint /&gt;
+                },
+                {
+                    id: "terminal",
+                    title: "Command Prompt",
+                    iconType: "terminal",
+                    width: 500,
+                    height: 350,
+                    helpContent: (
+                        &lt;div className="space-y-2"&gt;
+                            &lt;p&gt;This is the &lt;strong&gt;Command Prompt&lt;/strong&gt;.&lt;/p&gt;
+                            &lt;p&gt;Type commands to interact with the OS. Supported: &lt;code&gt;help&lt;/code&gt;, &lt;code&gt;open&lt;/code&gt;, &lt;code&gt;list&lt;/code&gt;, &lt;code&gt;close&lt;/code&gt;, &lt;code&gt;restart&lt;/code&gt;.&lt;/p&gt;
+                        &lt;/div&gt;
+                    ),
+                    content: &lt;Terminal /&gt;
+                }
+            ]
         },
         {
-            id: "musicplayer",
-            title: "Media Player",
-            iconType: "musicplayer",
-            width: 350,
-            height: 450,
-            helpContent: (
-                &lt;div className="space-y-2"&gt;
-                    &lt;p&gt;This is the &lt;strong&gt;Media Player&lt;/strong&gt;.&lt;/p&gt;
-                    &lt;p&gt;Listen to audio tracks from the system library.&lt;/p&gt;
-                &lt;/div&gt;
-            ),
-            content: &lt;MusicPlayer /&gt;
-        },
-        {
-            id: "documentaries",
-            title: "Documentaries",
-            iconType: "documentaries",
-            width: 800,
-            height: 600,
+            id: "multimedia",
+            title: "Multimedia",
+            iconType: "folder",
             fullBleed: true,
-            helpContent: (
-                &lt;div className="space-y-2"&gt;
-                    &lt;p&gt;This is the &lt;strong&gt;Documentaries&lt;/strong&gt; app.&lt;/p&gt;
-                    &lt;p&gt;Watch documentaries and videos I've worked on.&lt;/p&gt;
-                &lt;/div&gt;
-            ),
-            content: &lt;Documentaries /&gt;
+            width: 500,
+            height: 400,
+            children: [
+                {
+                    id: "musicplayer",
+                    title: "Media Player",
+                    iconType: "musicplayer",
+                    width: 350,
+                    height: 450,
+                    helpContent: (
+                        &lt;div className="space-y-2"&gt;
+                            &lt;p&gt;This is the &lt;strong&gt;Media Player&lt;/strong&gt;.&lt;/p&gt;
+                            &lt;p&gt;Listen to audio tracks from the system library.&lt;/p&gt;
+                        &lt;/div&gt;
+                    ),
+                    content: &lt;MusicPlayer /&gt;
+                },
+                {
+                    id: "documentaries",
+                    title: "Documentaries",
+                    iconType: "documentaries",
+                    width: 800,
+                    height: 600,
+                    fullBleed: true,
+                    helpContent: (
+                        &lt;div className="space-y-2"&gt;
+                            &lt;p&gt;This is the &lt;strong&gt;Documentaries&lt;/strong&gt; app.&lt;/p&gt;
+                            &lt;p&gt;Watch documentaries and videos I've worked on.&lt;/p&gt;
+                        &lt;/div&gt;
+                    ),
+                    content: &lt;Documentaries /&gt;
+                }
+            ]
         }
     ];
 &nbsp;
@@ -973,7 +1033,7 @@ export function HomeClient({ content }: { content: HomeContent }) {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2026-01-25T00:33:08.798Z
+                at 2026-01-25T16:01:25.494Z
             </div>
         <script src="../prettify.js"></script>
         <script>

@@ -11,10 +11,19 @@ test.describe('Terminal App', () => {
         // Click Start button
         await page.click('[data-testid="taskbar-start-button"]');
 
-        // Find Terminal entry in the list
-        const terminalButton = page.locator('button:has-text("Command Prompt")');
+        // Open Accessories folder from Start Menu
+        const accessoriesButton = page.locator('[data-testid="start-menu-item-accessories"]');
+        await expect(accessoriesButton).toBeVisible();
+        await accessoriesButton.click();
+
+        // Check if Accessories window is open
+        const accessoriesWindow = page.locator('[data-testid="window-accessories"]');
+        await expect(accessoriesWindow).toBeVisible();
+
+        // Find Terminal icon inside the window
+        const terminalButton = accessoriesWindow.locator('[data-testid="desktop-icon-command-prompt"]');
         await expect(terminalButton).toBeVisible();
-        await terminalButton.click();
+        await terminalButton.dblclick();
 
         // Check if terminal window is open
         await expect(page.locator('[data-testid="window-command-prompt"]')).toBeVisible();
@@ -22,9 +31,11 @@ test.describe('Terminal App', () => {
     });
 
     test('can list running apps', async ({ page }) => {
-        // Open terminal
+        // Open terminal via Start Menu -> Accessories -> Command Prompt
         await page.click('[data-testid="taskbar-start-button"]');
-        await page.locator('button:has-text("Command Prompt")').click();
+        await page.locator('[data-testid="start-menu-item-accessories"]').click();
+        await expect(page.locator('[data-testid="window-accessories"]')).toBeVisible();
+        await page.locator('[data-testid="window-accessories"] [data-testid="desktop-icon-command-prompt"]').dblclick();
 
         // Type list and press enter
         const input = page.locator('.custom-terminal input');
@@ -39,7 +50,9 @@ test.describe('Terminal App', () => {
     test('can open and close notepad from terminal', async ({ page }) => {
         // Open terminal
         await page.click('[data-testid="taskbar-start-button"]');
-        await page.locator('button:has-text("Command Prompt")').click();
+        await page.locator('[data-testid="start-menu-item-accessories"]').click();
+        await expect(page.locator('[data-testid="window-accessories"]')).toBeVisible();
+        await page.locator('[data-testid="window-accessories"] [data-testid="desktop-icon-command-prompt"]').dblclick();
 
         // Open notepad
         const input = page.locator('.custom-terminal input');
@@ -60,7 +73,9 @@ test.describe('Terminal App', () => {
     test('shows help command output', async ({ page }) => {
         // Open terminal
         await page.click('[data-testid="taskbar-start-button"]');
-        await page.locator('button:has-text("Command Prompt")').click();
+        await page.locator('[data-testid="start-menu-item-accessories"]').click();
+        await expect(page.locator('[data-testid="window-accessories"]')).toBeVisible();
+        await page.locator('[data-testid="window-accessories"] [data-testid="desktop-icon-command-prompt"]').dblclick();
 
         const input = page.locator('.custom-terminal input');
         await input.fill('help');

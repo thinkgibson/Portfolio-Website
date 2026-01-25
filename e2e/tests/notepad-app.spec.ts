@@ -8,7 +8,10 @@ test.describe('Notepad Application', () => {
     test('can open notepad and type text', async ({ desktop, window, page }) => {
         const title = 'Notepad.exe';
 
-        // Open Notepad
+        // Open Notepad (inside Accessories)
+        await desktop.openIcon('Accessories');
+        await window.expectVisible('Accessories');
+
         await desktop.openIcon(title);
         await window.expectVisible(title);
 
@@ -24,6 +27,8 @@ test.describe('Notepad Application', () => {
 
     test('can apply formatting via toolbar', async ({ desktop, window, page }) => {
         const title = 'Notepad.exe';
+        await desktop.openIcon('Accessories');
+        await window.expectVisible('Accessories');
         await desktop.openIcon(title);
         await window.expectVisible(title);
 
@@ -64,6 +69,8 @@ test.describe('Notepad Application', () => {
 
     test('prompts to save when closing with changes', async ({ desktop, window, page }) => {
         const title = 'Notepad.exe';
+        await desktop.openIcon('Accessories');
+        await window.expectVisible('Accessories');
         await desktop.openIcon(title);
         await window.expectVisible(title);
 
@@ -98,6 +105,8 @@ test.describe('Notepad Application', () => {
 
     test('notepad toolbar buttons change visual state', async ({ desktop, window, page }) => {
         const title = 'Notepad.exe';
+        await desktop.openIcon('Accessories');
+        await window.expectVisible('Accessories');
         await desktop.openIcon(title);
         await window.expectVisible(title);
 
@@ -157,6 +166,8 @@ test.describe('Notepad Application', () => {
     test('can save via Save button and Save As dialog', async ({ desktop, window, page }) => {
         page.on('console', msg => console.log(msg.text()));
         const title = 'Notepad.exe';
+        await desktop.openIcon('Accessories');
+        await window.expectVisible('Accessories');
         await desktop.openIcon(title);
         await window.expectVisible(title);
 

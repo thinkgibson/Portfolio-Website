@@ -205,95 +205,115 @@ export function HomeClient({ content }: { content: HomeContent }) {
             )
         },
         {
-            id: "notepad",
-            title: "Notepad.exe",
-            iconType: "notepad",
+            id: "accessories",
+            title: "Accessories",
+            iconType: "folder",
             fullBleed: true,
-            width: 600,
-            height: 400,
-            helpContent: (
-                <div className="space-y-2">
-                    <p>This is the <strong>Notepad</strong> application.</p>
-                    <p>You can use it to write and format text using the toolbar icons (Bold, Italic, Underline).</p>
-                </div>
-            ),
-            content: <Notepad />
-        },
-        {
-            id: "calculator",
-            title: "Calculator.exe",
-            iconType: "calculator",
-            width: 230,
-            height: 400,
-            lockAspectRatio: true,
-            minWidth: 230,
-            minHeight: 400,
-            canMaximize: false,
-            helpContent: (
-                <div className="space-y-2">
-                    <p>This is the <strong>Calculator</strong> application.</p>
-                    <p>Perform basic arithmetic calculations.</p>
-                </div>
-            ),
-            content: <Calculator />
-        },
-        {
-            id: "paint",
-            title: "Paint.exe",
-            iconType: "paint",
-            width: 700,
-            height: 500,
-            fullBleed: true,
-            helpContent: (
-                <div className="space-y-2">
-                    <p>This is the <strong>Paint</strong> application.</p>
-                    <p>Create simple drawings and save them.</p>
-                </div>
-            ),
-            content: <Paint />
-        },
-        {
-            id: "terminal",
-            title: "Command Prompt",
-            iconType: "terminal",
             width: 500,
-            height: 350,
-            helpContent: (
-                <div className="space-y-2">
-                    <p>This is the <strong>Command Prompt</strong>.</p>
-                    <p>Type commands to interact with the OS. Supported: <code>help</code>, <code>open</code>, <code>list</code>, <code>close</code>, <code>restart</code>.</p>
-                </div>
-            ),
-            content: <Terminal />
+            height: 400,
+            children: [
+                {
+                    id: "notepad",
+                    title: "Notepad.exe",
+                    iconType: "notepad",
+                    fullBleed: true,
+                    width: 600,
+                    height: 400,
+                    helpContent: (
+                        <div className="space-y-2">
+                            <p>This is the <strong>Notepad</strong> application.</p>
+                            <p>You can use it to write and format text using the toolbar icons (Bold, Italic, Underline).</p>
+                        </div>
+                    ),
+                    content: <Notepad />
+                },
+                {
+                    id: "calculator",
+                    title: "Calculator.exe",
+                    iconType: "calculator",
+                    width: 230,
+                    height: 400,
+                    lockAspectRatio: true,
+                    minWidth: 230,
+                    minHeight: 400,
+                    canMaximize: false,
+                    helpContent: (
+                        <div className="space-y-2">
+                            <p>This is the <strong>Calculator</strong> application.</p>
+                            <p>Perform basic arithmetic calculations.</p>
+                        </div>
+                    ),
+                    content: <Calculator />
+                },
+                {
+                    id: "paint",
+                    title: "Paint.exe",
+                    iconType: "paint",
+                    width: 700,
+                    height: 500,
+                    fullBleed: true,
+                    helpContent: (
+                        <div className="space-y-2">
+                            <p>This is the <strong>Paint</strong> application.</p>
+                            <p>Create simple drawings and save them.</p>
+                        </div>
+                    ),
+                    content: <Paint />
+                },
+                {
+                    id: "terminal",
+                    title: "Command Prompt",
+                    iconType: "terminal",
+                    width: 500,
+                    height: 350,
+                    helpContent: (
+                        <div className="space-y-2">
+                            <p>This is the <strong>Command Prompt</strong>.</p>
+                            <p>Type commands to interact with the OS. Supported: <code>help</code>, <code>open</code>, <code>list</code>, <code>close</code>, <code>restart</code>.</p>
+                        </div>
+                    ),
+                    content: <Terminal />
+                }
+            ]
         },
         {
-            id: "musicplayer",
-            title: "Media Player",
-            iconType: "musicplayer",
-            width: 350,
-            height: 450,
-            helpContent: (
-                <div className="space-y-2">
-                    <p>This is the <strong>Media Player</strong>.</p>
-                    <p>Listen to audio tracks from the system library.</p>
-                </div>
-            ),
-            content: <MusicPlayer />
-        },
-        {
-            id: "documentaries",
-            title: "Documentaries",
-            iconType: "documentaries",
-            width: 800,
-            height: 600,
+            id: "multimedia",
+            title: "Multimedia",
+            iconType: "folder",
             fullBleed: true,
-            helpContent: (
-                <div className="space-y-2">
-                    <p>This is the <strong>Documentaries</strong> app.</p>
-                    <p>Watch documentaries and videos I've worked on.</p>
-                </div>
-            ),
-            content: <Documentaries />
+            width: 500,
+            height: 400,
+            children: [
+                {
+                    id: "musicplayer",
+                    title: "Media Player",
+                    iconType: "musicplayer",
+                    width: 350,
+                    height: 450,
+                    helpContent: (
+                        <div className="space-y-2">
+                            <p>This is the <strong>Media Player</strong>.</p>
+                            <p>Listen to audio tracks from the system library.</p>
+                        </div>
+                    ),
+                    content: <MusicPlayer />
+                },
+                {
+                    id: "documentaries",
+                    title: "Documentaries",
+                    iconType: "documentaries",
+                    width: 800,
+                    height: 600,
+                    fullBleed: true,
+                    helpContent: (
+                        <div className="space-y-2">
+                            <p>This is the <strong>Documentaries</strong> app.</p>
+                            <p>Watch documentaries and videos I've worked on.</p>
+                        </div>
+                    ),
+                    content: <Documentaries />
+                }
+            ]
         }
     ];
 

@@ -5,8 +5,10 @@ import { setupOrReset } from '../shared-e2e';
 test.describe('Taskbar Context Menu', () => {
     test.beforeEach(setupOrReset);
 
-    test('right-click taskbar item shows context menu with expected options', async ({ page, desktop }) => {
+    test('right-click taskbar item shows context menu with expected options', async ({ page, desktop, window }) => {
         // Open Notepad
+        await desktop.openIcon('Accessories');
+        await window.expectVisible('Accessories');
         await desktop.openIcon('Notepad.exe');
         const taskbarItem = desktop.getTaskbarItem('Notepad.exe');
         await expect(taskbarItem).toBeVisible();
@@ -22,6 +24,8 @@ test.describe('Taskbar Context Menu', () => {
     });
 
     test('context menu "Minimize" minimizes the window', async ({ page, desktop, window }) => {
+        await desktop.openIcon('Accessories');
+        await window.expectVisible('Accessories');
         await desktop.openIcon('Notepad.exe');
         const taskbarItem = desktop.getTaskbarItem('Notepad.exe');
 
@@ -37,6 +41,8 @@ test.describe('Taskbar Context Menu', () => {
     });
 
     test('context menu "Restore" restores a minimized window', async ({ page, desktop, window }) => {
+        await desktop.openIcon('Accessories');
+        await window.expectVisible('Accessories');
         await desktop.openIcon('Notepad.exe');
         const taskbarItem = desktop.getTaskbarItem('Notepad.exe');
 
@@ -56,6 +62,8 @@ test.describe('Taskbar Context Menu', () => {
     });
 
     test('context menu "Close" closes the window', async ({ page, desktop, window }) => {
+        await desktop.openIcon('Accessories');
+        await window.expectVisible('Accessories');
         await desktop.openIcon('Notepad.exe');
         const taskbarItem = desktop.getTaskbarItem('Notepad.exe');
 
@@ -69,7 +77,9 @@ test.describe('Taskbar Context Menu', () => {
         await expect(taskbarItem).not.toBeVisible();
     });
 
-    test('clicking outside closes the context menu', async ({ page, desktop }) => {
+    test('clicking outside closes the context menu', async ({ page, desktop, window }) => {
+        await desktop.openIcon('Accessories');
+        await window.expectVisible('Accessories');
         await desktop.openIcon('Notepad.exe');
         const taskbarItem = desktop.getTaskbarItem('Notepad.exe');
 

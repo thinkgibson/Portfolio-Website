@@ -9,7 +9,15 @@ test.describe('Music Player App', () => {
     });
 
     test('should open Media Player from desktop', async ({ page }) => {
-        const musicIcon = page.getByTestId('desktop-icon-media-player');
+        // Open Multimedia folder
+        const multimediaIcon = page.getByTestId('desktop-icon-multimedia');
+        await multimediaIcon.dblclick();
+
+        const folderWindow = page.getByTestId('window-multimedia');
+        await expect(folderWindow).toBeVisible();
+
+        // Open Media Player from inside the folder
+        const musicIcon = folderWindow.getByTestId('desktop-icon-media-player');
         await musicIcon.dblclick();
 
         const window = page.getByTestId('window-media-player');
@@ -21,17 +29,28 @@ test.describe('Music Player App', () => {
         // Open Start Menu
         await page.getByTestId('taskbar-start-button').click();
 
-        // Find and click Media Player in Programs/Items
-        const menuItem = page.getByTestId('start-menu-item-musicplayer');
+        // Click Multimedia folder (folders are now top-level items)
+        const menuItem = page.getByTestId('start-menu-item-multimedia');
         await expect(menuItem).toBeVisible();
         await menuItem.click();
+
+        // Folder window should open
+        const folderWindow = page.getByTestId('window-multimedia');
+        await expect(folderWindow).toBeVisible();
+
+        // Open Media Player from inside the folder
+        const musicIcon = folderWindow.getByTestId('desktop-icon-media-player');
+        await musicIcon.dblclick();
 
         const window = page.getByTestId('window-media-player');
         await expect(window).toBeVisible();
     });
 
     test('should toggle play/pause state', async ({ page }) => {
-        // Open the app
+        // Open the app via folder
+        await page.getByTestId('desktop-icon-multimedia').dblclick();
+        await expect(page.getByTestId('window-multimedia')).toBeVisible();
+
         await page.getByTestId('desktop-icon-media-player').dblclick();
         const window = page.getByTestId('window-media-player');
         await expect(window).toBeVisible();
@@ -55,6 +74,10 @@ test.describe('Music Player App', () => {
     });
 
     test('should stop playback', async ({ page }) => {
+        // Open the app via folder
+        await page.getByTestId('desktop-icon-multimedia').dblclick();
+        await expect(page.getByTestId('window-multimedia')).toBeVisible();
+
         await page.getByTestId('desktop-icon-media-player').dblclick();
         const window = page.getByTestId('window-media-player');
         await expect(window).toBeVisible();
