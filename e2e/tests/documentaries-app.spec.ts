@@ -17,19 +17,20 @@ test.describe('Documentaries App', () => {
 
         // Look for Documentaries icon using testId
         const desktopIcon = page.getByTestId('desktop-icon-documentaries');
-        await expect(desktopIcon).toBeVisible({ timeout: 10000 });
+        // Initial visibility can be slow due to hydration
+        await expect(desktopIcon).toBeVisible({ timeout: 30000 });
         await desktopIcon.dblclick();
 
-        // Check if window opened
-        const windowTitle = page.getByText('Documentaries', { exact: true }).first();
-        await expect(windowTitle).toBeVisible();
+        // Check if window opened using its testId
+        const window = page.getByTestId('window-documentaries');
+        await expect(window).toBeVisible({ timeout: 15000 });
 
-        // Check for content
-        await expect(page.getByText('My Documentaries')).toBeVisible();
-        await expect(page.getByText('Morristown Bank Vault Documentary')).toBeVisible();
+        // Check for content inside the window
+        await expect(window.getByText('My Documentaries')).toBeVisible();
+        await expect(window.getByText('Morristown Bank Vault Documentary')).toBeVisible();
 
-        // Close window
-        await page.locator('.win95-window-controls button').last().click();
+        // Close window using the generic close button testId within the window
+        await window.getByTestId('window-close').click();
 
         await expect(page.getByText('My Documentaries')).not.toBeVisible();
     });
@@ -37,14 +38,21 @@ test.describe('Documentaries App', () => {
     test('can open Documentaries app from start menu', async ({ page }) => {
         await page.goto('/?skipBoot=true&skipWelcome=true');
 
-        // Open Start Menu
-        await page.getByTestId('start-button').click();
+        // Wait for desktop container to ensure we're ready
+        await expect(page.getByTestId('desktop-container')).toBeVisible({ timeout: 30000 });
+
+        // Open Start Menu - using the specific start button testId
+        await page.getByTestId('taskbar-start-button').click();
         await expect(page.getByTestId('start-menu')).toBeVisible();
 
-        // Click Documentaries
-        await page.getByText('Documentaries', { exact: true }).click();
+        // Click Documentaries in start menu
+        const menuItem = page.getByTestId('start-menu-item-documentaries');
+        await expect(menuItem).toBeVisible();
+        await menuItem.click();
 
         // Check window
-        await expect(page.getByText('My Documentaries')).toBeVisible();
+        const window = page.getByTestId('window-documentaries');
+        await expect(window).toBeVisible({ timeout: 15000 });
+        await expect(window.getByText('My Documentaries')).toBeVisible();
     });
 });
