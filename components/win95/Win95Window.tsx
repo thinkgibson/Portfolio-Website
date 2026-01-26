@@ -32,6 +32,7 @@ interface Win95WindowProps {
     minWidth?: number;
     minHeight?: number;
     canMaximize?: boolean;
+    onFocus?: () => void;
 }
 
 const TextHighlighter = ({ text, term }: { text: string, term: string }) => {
@@ -187,6 +188,7 @@ export function Win95Window({
     minWidth = 200,
     minHeight = 250,
     canMaximize = true,
+    onFocus,
 }: Win95WindowProps) {
     const isMobile = useIsMobile();
     const dragControls = useDragControls();
@@ -336,7 +338,10 @@ export function Win95Window({
         >
             {/* Titlebar */}
             <div
-                onPointerDown={(e) => !isMaximized && dragControls.start(e)}
+                onPointerDown={(e) => {
+                    onFocus?.();
+                    !isMaximized && dragControls.start(e);
+                }}
                 onDoubleClick={() => canMaximize && onMaximize?.()}
                 className={`window-titlebar h-8 flex items-center justify-between px-1 cursor-default select-none ${isActive ? "bg-win95-blue-active" : "bg-win95-gray-inactive"}`}
                 data-testid="window-titlebar"
