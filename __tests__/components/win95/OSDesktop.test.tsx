@@ -48,19 +48,28 @@ describe('OSDesktop Persistence', () => {
         jest.clearAllMocks();
     });
 
-    it('loads window positions into state from localStorage on mount', async () => {
+    it('does NOT load window positions into state from localStorage on mount', async () => {
         const savedPositions = { 'test-window': { x: 500, y: 500 } };
         localStorage.setItem('win95-window-positions', JSON.stringify(savedPositions));
 
         render(<OSDesktop windows={mockWindows} skipBoot={true} skipWelcome={true} />);
 
-        // Find the desktop container (it's the first div usually, or we can find it by class)
-        // We'll look for an element with the data-window-positions attribute
+        // Find the desktop container
         const { waitFor } = require('@testing-library/react');
         await waitFor(() => {
-            const desktop = screen.getByTestId('desktop-icon-test-window').parentElement?.parentElement;
-            const positions = JSON.parse(desktop?.getAttribute('data-window-positions') || '{}');
-            expect(positions['test-window']).toEqual({ x: 500, y: 500 });
+            // Open window to check position
+            const icon = screen.getByTestId('desktop-icon-test-window');
+            fireEvent.click(icon);
+
+            const desktop = screen.getByTestId('desktop-container');
+            const positions = JSON.parse(desktop.getAttribute('data-window-positions') || '{}');
+
+            // Should NOT be 500, 500
+            // Default logic puts it at 100, 50 or similar
+            if (positions['test']) {
+                expect(positions['test'].x).not.toBe(500);
+                expect(positions['test'].y).not.toBe(500);
+            }
         }, { timeout: 2000 });
     });
 

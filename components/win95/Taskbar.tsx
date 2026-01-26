@@ -54,6 +54,21 @@ export function Taskbar({ openWindows, onWindowClick, onStartClick, onMinimizeWi
         setActiveTooltip("weather");
         setWeatherData({ temp: 0, city: "Detecting...", description: "", loading: true });
 
+        // Check cache first
+        try {
+            const cached = localStorage.getItem("win95-weather-cache");
+            if (cached) {
+                const { data, timestamp } = JSON.parse(cached);
+                const CACHE_DURATION = 60 * 60 * 1000; // 1 hour
+                if (Date.now() - timestamp < CACHE_DURATION) {
+                    setWeatherData({ ...data, loading: false });
+                    return;
+                }
+            }
+        } catch (e) {
+            console.error("Failed to read weather cache", e);
+        }
+
         try {
             // Get location by IP
             const locRes = await fetch("https://ipapi.co/json/");
@@ -64,12 +79,23 @@ export function Taskbar({ openWindows, onWindowClick, onStartClick, onMinimizeWi
             const weatherRes = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&current_weather=true&temperature_unit=fahrenheit`);
             const weatherData = await weatherRes.json();
 
-            setWeatherData({
+            const newWeatherData = {
                 temp: Math.round(weatherData.current_weather.temperature),
                 city: city || "Unknown",
-                description: getWeatherDescription(weatherData.current_weather.weathercode),
+                description: getWeatherDescription(weatherData.current_weather.weathercode)
+            };
+
+            setWeatherData({
+                ...newWeatherData,
                 loading: false
             });
+
+            // Save to cache (GDPR: Only store functional data, no IP/Coords)
+            localStorage.setItem("win95-weather-cache", JSON.stringify({
+                data: newWeatherData,
+                timestamp: Date.now()
+            }));
+
         } catch (error) {
             console.error("Failed to fetch weather:", error);
             setWeatherData({ temp: 0, city: "Error", description: "", loading: false });

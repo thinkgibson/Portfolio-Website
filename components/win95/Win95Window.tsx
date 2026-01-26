@@ -250,8 +250,10 @@ export function Win95Window({
 
         const handleMouseMove = (moveEvent: PointerEvent) => {
             if (onResize) {
-                let newWidth = Math.max(minWidth, startWidth + (moveEvent.clientX - startX));
-                let newHeight = Math.max(minHeight, startHeight + (moveEvent.clientY - startY));
+                const currentX = moveEvent.clientX ?? 0;
+                const currentY = moveEvent.clientY ?? 0;
+                let newWidth = Math.max(minWidth, startWidth + (currentX - startX));
+                let newHeight = Math.max(minHeight, startHeight + (currentY - startY));
 
                 if (lockAspectRatio) {
                     const aspectRatio = startWidth / startHeight;
