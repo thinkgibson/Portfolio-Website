@@ -96,19 +96,7 @@ export function OSDesktop({ windows: initialWindows, skipBoot: propSkipBoot, ski
                 // Use stored position or calculate new one
                 let pos = windowPositions[id];
 
-                // Fallback to localStorage if state is not yet loaded (e.g., initial mount)
-                if (!pos && typeof window !== 'undefined') {
-                    try {
-                        const saved = localStorage.getItem('win95-window-positions');
-                        if (saved) {
-                            const parsed = JSON.parse(saved);
-                            const normalizedId = id.toLowerCase();
-                            if (parsed[normalizedId]) pos = parsed[normalizedId];
-                        }
-                    } catch (e) {
-                        console.error('Failed to read from localStorage in handleOpenWindow', e);
-                    }
-                }
+                // Fallback to localStorage removed for ephemeral window states
 
                 if (isMobile) {
                     // Constant centering on mobile
@@ -171,59 +159,15 @@ export function OSDesktop({ windows: initialWindows, skipBoot: propSkipBoot, ski
         }
     };
 
-    // Load window positions from localStorage on mount
+    // Window positions are now ephemeral and not saved to localStorage per request
     useEffect(() => {
         if (typeof window !== 'undefined') {
-            const savedPositions = localStorage.getItem('win95-window-positions');
-            if (savedPositions) {
-                try {
-                    setWindowPositions(JSON.parse(savedPositions));
-                } catch (e) {
-                    console.error('Failed to parse window positions from localStorage', e);
-                }
-            }
-
             const params = new URLSearchParams(window.location.search);
             if (params.get('skipBoot') === 'true') {
                 setBooting(false);
             }
         }
-    }, []);
-
-    // Save window positions to localStorage whenever they change
-    useEffect(() => {
-        if (typeof window !== 'undefined') {
-            const updatedPositions = { ...windowPositions };
-            let changed = false;
-
-            openWindows.forEach(win => {
-                if (win.x !== undefined && win.y !== undefined) {
-                    const currentPos = updatedPositions[win.id];
-                    if (!currentPos ||
-                        currentPos.x !== win.x ||
-                        currentPos.y !== win.y ||
-                        currentPos.width !== win.width ||
-                        currentPos.height !== win.height) {
-                        updatedPositions[win.id] = {
-                            x: win.x,
-                            y: win.y,
-                            width: win.width,
-                            height: win.height
-                        };
-                        changed = true;
-                    }
-                }
-            });
-
-            if (changed) {
-                setWindowPositions(updatedPositions);
-            }
-
-            if (Object.keys(updatedPositions).length > 0) {
-                localStorage.setItem('win95-window-positions', JSON.stringify(updatedPositions));
-            }
-        }
-    }, [windowPositions, openWindows]);
+    }, [propSkipBoot]);
 
     // Nudge off-screen windows back into viewport on resize
     useEffect(() => {
