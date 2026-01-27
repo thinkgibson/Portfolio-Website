@@ -2,11 +2,12 @@
 
 import React from "react";
 import { FolderIcon, UserIcon, InboxIcon, ProgramsIcon, MyComputerIcon, NotepadIcon, CalculatorIcon, PaintIcon, TerminalIcon, MusicPlayerIcon, DocumentariesIcon } from "./icons";
+import { IconType } from "../../lib/types";
 
 interface DesktopIconProps {
     id: string;
     label: string;
-    iconType: "folder" | "about" | "contact" | "projects" | "drive" | "notepad" | "calculator" | "paint" | "terminal" | "musicplayer" | "documentaries";
+    iconType: IconType;
     onOpen: (id: string) => void;
     x?: number;
     y?: number;

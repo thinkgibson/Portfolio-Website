@@ -12,47 +12,25 @@ import { ContextMenu } from "./ContextMenu";
 import { WallpaperSelector, WALLPAPERS, Wallpaper } from "./WallpaperSelector";
 
 
-interface WindowState {
-    id: string;
-    title: string;
+import { AppDefinition, IconType } from "../../lib/types";
+import { Folder } from "./Folder";
+import { useIsMobile, useLocalStorage } from "../../lib/hooks";
+
+interface RuntimeWindow extends AppDefinition {
     isOpen: boolean;
     isMinimized: boolean;
     isMaximized: boolean;
     isActive: boolean;
+    // Overriding x/y from AppDefinition to be mandatory in runtime if open
     x: number;
     y: number;
-    content: React.ReactNode;
-    helpContent?: React.ReactNode;
-    iconType: "folder" | "about" | "contact" | "projects" | "drive" | "notepad" | "calculator" | "paint" | "terminal" | "musicplayer" | "documentaries";
-    width?: number;
-    height?: number;
-    fullBleed?: boolean;
-    lockAspectRatio?: boolean;
-    minWidth?: number;
-    minHeight?: number;
-    canMaximize?: boolean;
-    children?: WindowState[];
 }
 
 interface OSDesktopProps {
-    windows: {
-        id: string;
-        title: string;
-        iconType: "folder" | "about" | "contact" | "projects" | "drive" | "notepad" | "calculator" | "paint" | "terminal" | "musicplayer" | "documentaries";
-        content: React.ReactNode;
-        helpContent?: React.ReactNode;
-        fullBleed?: boolean;
-        lockAspectRatio?: boolean;
-        minWidth?: number;
-        minHeight?: number;
-        canMaximize?: boolean;
-    }[];
+    windows: AppDefinition[];
     skipBoot?: boolean;
     skipWelcome?: boolean;
 }
-
-import { Folder } from "./Folder";
-import { useIsMobile, useLocalStorage } from "../../lib/hooks";
 
 const TASKBAR_HEIGHT = 48;
 import { reloadPage } from "../../lib/navigation";
@@ -61,7 +39,7 @@ import { reloadPage } from "../../lib/navigation";
 export function OSDesktop({ windows: initialWindows, skipBoot: propSkipBoot, skipWelcome: propSkipWelcome }: OSDesktopProps) {
     const isMobile = useIsMobile();
     const [booting, setBooting] = useState(propSkipBoot !== undefined ? !propSkipBoot : process.env.NODE_ENV !== 'test');
-    const [openWindows, setOpenWindows] = useState<WindowState[]>([]);
+    const [openWindows, setOpenWindows] = useState<RuntimeWindow[]>([]);
     const [activeWindowId, setActiveWindowId] = useState<string | null>(null);
     const [windowPositions, setWindowPositions] = useState<Record<string, { x: number, y: number, width?: number, height?: number }>>({});
     const [isStartMenuOpen, setIsStartMenuOpen] = useState(false);
@@ -80,7 +58,7 @@ export function OSDesktop({ windows: initialWindows, skipBoot: propSkipBoot, ski
             }
         } else {
             // Recursive find function
-            const findWindowProps = (id: string, list: any[]): any => {
+            const findWindowProps = (id: string, list: AppDefinition[]): AppDefinition | null => {
                 for (const item of list) {
                     if (item.id === id) return item;
                     if (item.children) {
@@ -111,7 +89,7 @@ export function OSDesktop({ windows: initialWindows, skipBoot: propSkipBoot, ski
                     pos = { x: 100 + offset, y: 50 + offset };
                 }
 
-                const newWin: WindowState = {
+                const newWin: RuntimeWindow = {
                     ...winDef,
                     isOpen: true,
                     isMinimized: false,
@@ -127,8 +105,8 @@ export function OSDesktop({ windows: initialWindows, skipBoot: propSkipBoot, ski
                             title={winDef.title}
                             items={winDef.children.map((child: any) => ({
                                 id: child.id,
-                                title: child.title,
-                                iconType: child.iconType
+                                title: child.title || "",
+                                iconType: child.iconType || "folder"
                             }))}
                             onItemClick={(childId) => handleOpenWindow(childId)}
                         />
@@ -264,7 +242,7 @@ export function OSDesktop({ windows: initialWindows, skipBoot: propSkipBoot, ski
             return;
         }
 
-        const aboutWin: WindowState = {
+        const aboutWin: RuntimeWindow = {
             id: aboutId,
             title: `About ${currentWin.title}`,
             isOpen: true,
@@ -313,7 +291,7 @@ export function OSDesktop({ windows: initialWindows, skipBoot: propSkipBoot, ski
             return;
         }
 
-        const selectorWin: WindowState = {
+        const selectorWin: RuntimeWindow = {
             id,
             title: "Display Properties",
             isOpen: true,
