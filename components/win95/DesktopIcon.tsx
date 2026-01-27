@@ -1,6 +1,6 @@
 "use client";
 
-import { iconRegistry } from "../Icons/registry";
+import { DynamicIcon } from "../Icons/DynamicIcon";
 import { IconType } from "../../lib/types";
 
 interface DesktopIconProps {
@@ -14,10 +14,6 @@ interface DesktopIconProps {
 }
 
 export function DesktopIcon({ id, label, iconType, onOpen, x, y, textColor = "text-white" }: DesktopIconProps) {
-    const renderIcon = () => {
-        const IconComponent = iconRegistry[iconType] || iconRegistry["folder"];
-        return <IconComponent size={64} />;
-    };
 
     return (
         <div
@@ -27,7 +23,7 @@ export function DesktopIcon({ id, label, iconType, onOpen, x, y, textColor = "te
             data-testid={`desktop-icon-${label.toLowerCase().replace(/\s+/g, '-')}`}
         >
             <div className="mb-2 p-1 group-hover:bg-blue-800/20">
-                {renderIcon()}
+                <DynamicIcon iconType={iconType} size={64} />
             </div>
             {/* Label */}
             <span className={`${textColor} text-[12px] font-win95 mt-1 px-1 bg-transparent group-hover:bg-win95-blue-active group-hover:text-white group-focus:bg-win95-blue-active group-focus:text-white whitespace-normal break-words leading-tight shadow-sm`}>

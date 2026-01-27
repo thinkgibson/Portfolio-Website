@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import { WindowsLogoIcon, WeatherIcon, VolumeIcon, NetworkIcon } from "../Icons";
-import { iconRegistry } from "../Icons/registry";
+import { DynamicIcon } from "../Icons/DynamicIcon";
 import { ContextMenu } from "./ContextMenu";
 import { OSProvider, useOS } from "./OSContext";
 import { AnimatePresence } from "framer-motion";
@@ -172,11 +172,7 @@ export function Taskbar({ openWindows, onWindowClick, onStartClick, onMinimizeWi
                         data-testid={`taskbar-item-${win.title.toLowerCase().replace(/\s+/g, '-')}`}
                     >
                         <div className="mr-1.5 flex-shrink-0">
-                            {(() => {
-                                const type = win.iconType || "folder";
-                                const IconComponent = iconRegistry[type] || iconRegistry["folder"];
-                                return <IconComponent size={18} />;
-                            })()}
+                            <DynamicIcon iconType={win.iconType || "folder"} size={18} />
                         </div>
                         <span className="truncate">{win.title}</span>
                     </button>

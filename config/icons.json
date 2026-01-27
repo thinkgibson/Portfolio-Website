@@ -1,47 +1,18 @@
 {
-    "mycomputer": {
-        "description": "My Computer / Drive Icon"
-    },
-    "folder": {
-        "description": "Standard Folder Icon"
-    },
-    "inbox": {
-        "description": "Inbox / Contact Icon"
-    },
-    "user": {
-        "description": "User / About Icon"
-    },
-    "programs": {
-        "description": "Programs / Projects Icon"
-    },
-    "notepad": {
-        "description": "Notepad Application Icon"
-    },
-    "calculator": {
-        "description": "Calculator Application Icon"
-    },
-    "paint": {
-        "description": "Paint Application Icon"
-    },
-    "terminal": {
-        "description": "Command Prompt / Terminal Icon"
-    },
-    "musicplayer": {
-        "description": "Media Player Icon"
-    },
-    "documentaries": {
-        "description": "Documentaries / Video Icon"
-    },
-    "about": {
-        "description": "Alternative key for User/About"
-    },
-    "contact": {
-        "description": "Alternative key for Inbox/Contact"
-    },
-    "projects": {
-        "description": "Alternative key for Programs/Projects"
-    },
-    "drive": {
-        "description": "Alternative key for MyComputer/Drive"
-    }
+    "mycomputer": null,
+    "folder": null,
+    "inbox": null,
+    "user": null,
+    "programs": null,
+    "notepad": null,
+    "calculator": null,
+    "paint": null,
+    "terminal": null,
+    "musicplayer": null,
+    "documentaries": null,
+    "about": null,
+    "contact": null,
+    "projects": null,
+    "drive": null,
+    "floppy": null
 }

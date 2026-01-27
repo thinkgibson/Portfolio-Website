@@ -4,7 +4,7 @@ import React from "react";
 import { motion, useDragControls } from "framer-motion";
 import { X, Minus, Square } from "lucide-react";
 import { useIsMobile } from "../../lib/hooks";
-import { iconRegistry } from "../Icons/registry";
+import { DynamicIcon } from "../Icons/DynamicIcon";
 
 const TASKBAR_HEIGHT = 48;
 
@@ -348,10 +348,7 @@ export function Win95Window({
             >
                 <div className="flex items-center gap-2 ml-0.5 overflow-hidden">
                     <div className="flex-shrink-0">
-                        {(() => {
-                            const IconComponent = iconRegistry[iconType] || iconRegistry["folder"];
-                            return <IconComponent size={24} />;
-                        })()}
+                        <DynamicIcon iconType={iconType || "folder"} size={24} />
                     </div>
                     <span className="text-white text-[13px] font-win95 font-bold whitespace-nowrap overflow-hidden text-ellipsis leading-none mt-0.5">
                         {title}

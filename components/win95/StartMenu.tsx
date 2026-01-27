@@ -2,7 +2,7 @@
 
 import React from "react";
 import { motion } from "framer-motion";
-import { iconRegistry } from "../Icons/registry";
+import { DynamicIcon } from "../Icons/DynamicIcon";
 import { IconType } from "../../lib/types";
 
 interface StartMenuProps {
@@ -17,10 +17,6 @@ interface StartMenuProps {
 }
 
 export function StartMenu({ items, onItemClick, onReboot, onClose }: StartMenuProps) {
-    const renderIcon = (iconType: IconType, size: number = 24) => {
-        const IconComponent = iconRegistry[iconType] || iconRegistry["folder"];
-        return <IconComponent size={size} />;
-    };
 
     return (
         <motion.div
@@ -56,7 +52,7 @@ export function StartMenu({ items, onItemClick, onReboot, onClose }: StartMenuPr
                         }}
                     >
                         <div className="flex-shrink-0">
-                            {renderIcon(item.iconType, 28)}
+                            <DynamicIcon iconType={item.iconType} size={28} />
                         </div>
                         <span className="font-win95 text-[13px]">{item.title}</span>
                     </button>
