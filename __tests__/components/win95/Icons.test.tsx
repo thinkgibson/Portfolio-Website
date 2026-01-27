@@ -1,6 +1,6 @@
 import React from 'react';
 import { render } from '@testing-library/react';
-import * as Icons from '../../../components/win95/icons';
+import * as Icons from '../../../components/Icons';
 import '@testing-library/jest-dom';
 
 describe('Win95 Icons', () => {

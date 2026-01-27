@@ -25,28 +25,28 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>92/92</span>
+                <span class='fraction'>78/78</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>5/5</span>
-            </div>
-        
-            
-            <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
-                <span class="quiet">Functions</span>
                 <span class='fraction'>4/4</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
+                <span class="quiet">Functions</span>
+                <span class='fraction'>3/3</span>
+            </div>
+        
+            
+            <div class='fl pad1y space-right2'>
+                <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>92/92</span>
+                <span class='fraction'>78/78</span>
             </div>
         
             
@@ -141,21 +141,7 @@
 <a name='L76'></a><a href='#L76'>76</a>
 <a name='L77'></a><a href='#L77'>77</a>
 <a name='L78'></a><a href='#L78'>78</a>
-<a name='L79'></a><a href='#L79'>79</a>
-<a name='L80'></a><a href='#L80'>80</a>
-<a name='L81'></a><a href='#L81'>81</a>
-<a name='L82'></a><a href='#L82'>82</a>
-<a name='L83'></a><a href='#L83'>83</a>
-<a name='L84'></a><a href='#L84'>84</a>
-<a name='L85'></a><a href='#L85'>85</a>
-<a name='L86'></a><a href='#L86'>86</a>
-<a name='L87'></a><a href='#L87'>87</a>
-<a name='L88'></a><a href='#L88'>88</a>
-<a name='L89'></a><a href='#L89'>89</a>
-<a name='L90'></a><a href='#L90'>90</a>
-<a name='L91'></a><a href='#L91'>91</a>
-<a name='L92'></a><a href='#L92'>92</a>
-<a name='L93'></a><a href='#L93'>93</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L79'></a><a href='#L79'>79</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -173,21 +159,7 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-yes">7x</span>
-<span class="cline-any cline-yes">7x</span>
-<span class="cline-any cline-yes">7x</span>
-<span class="cline-any cline-yes">7x</span>
-<span class="cline-any cline-yes">7x</span>
-<span class="cline-any cline-yes">7x</span>
-<span class="cline-any cline-yes">7x</span>
-<span class="cline-any cline-yes">7x</span>
-<span class="cline-any cline-yes">7x</span>
-<span class="cline-any cline-yes">7x</span>
-<span class="cline-any cline-yes">7x</span>
-<span class="cline-any cline-yes">7x</span>
-<span class="cline-any cline-yes">7x</span>
-<span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-yes">4x</span>
@@ -251,13 +223,14 @@
 &nbsp;
 import React from "react";
 import { motion } from "framer-motion";
-import { FolderIcon, UserIcon, InboxIcon, ProgramsIcon, MyComputerIcon, NotepadIcon, CalculatorIcon, PaintIcon, TerminalIcon, MusicPlayerIcon, DocumentariesIcon } from "./icons";
+import { DynamicIcon } from "../Icons/DynamicIcon";
+import { IconType } from "../../lib/types";
 &nbsp;
 interface StartMenuProps {
     items: {
         id: string;
         title: string;
-        iconType: "folder" | "about" | "contact" | "projects" | "drive" | "notepad" | "calculator" | "paint" | "terminal" | "musicplayer" | "documentaries";
+        iconType: IconType;
     }[];
     onItemClick: (id: string) =&gt; void;
     onReboot: () =&gt; void;
@@ -265,21 +238,6 @@ interface StartMenuProps {
 }
 &nbsp;
 export function StartMenu({ items, onItemClick, onReboot, onClose }: StartMenuProps) {
-    const renderIcon = (iconType: string, size: number = 24) =&gt; {
-        switch (iconType) {
-            case "about": return &lt;UserIcon size={size} /&gt;;
-            case "contact": return &lt;InboxIcon size={size} /&gt;;
-            case "projects": return &lt;ProgramsIcon size={size} /&gt;;
-            case "drive": return &lt;MyComputerIcon size={size} /&gt;;
-            case "notepad": return &lt;NotepadIcon size={size} /&gt;;
-            case "calculator": return &lt;CalculatorIcon size={size} /&gt;;
-            case "paint": return &lt;PaintIcon size={size} /&gt;;
-            case "terminal": return &lt;TerminalIcon size={size} /&gt;;
-            case "musicplayer": return &lt;MusicPlayerIcon size={size} /&gt;;
-            case "documentaries": return &lt;DocumentariesIcon size={size} /&gt;;
-            default: return &lt;FolderIcon size={size} /&gt;;
-        }
-    };
 &nbsp;
     return (
         &lt;motion.div
@@ -315,7 +273,7 @@ export function StartMenu({ items, onItemClick, onReboot, onClose }: StartMenuPr
                         }}
                     &gt;
                         &lt;div className="flex-shrink-0"&gt;
-                            {renderIcon(item.iconType, 28)}
+                            &lt;DynamicIcon iconType={item.iconType} size={28} /&gt;
                         &lt;/div&gt;
                         &lt;span className="font-win95 text-[13px]"&gt;{item.title}&lt;/span&gt;
                     &lt;/button&gt;
@@ -346,7 +304,7 @@ export function StartMenu({ items, onItemClick, onReboot, onClose }: StartMenuPr
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2026-01-26T13:53:19.052Z
+                at 2026-01-27T15:55:02.935Z
             </div>
         <script src="../../prettify.js"></script>
         <script>

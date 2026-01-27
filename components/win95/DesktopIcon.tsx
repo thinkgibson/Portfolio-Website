@@ -1,12 +1,12 @@
 "use client";
 
-import React from "react";
-import { FolderIcon, UserIcon, InboxIcon, ProgramsIcon, MyComputerIcon, NotepadIcon, CalculatorIcon, PaintIcon, TerminalIcon, MusicPlayerIcon, DocumentariesIcon } from "./icons";
+import { DynamicIcon } from "../Icons/DynamicIcon";
+import { IconType } from "../../lib/types";
 
 interface DesktopIconProps {
     id: string;
     label: string;
-    iconType: "folder" | "about" | "contact" | "projects" | "drive" | "notepad" | "calculator" | "paint" | "terminal" | "musicplayer" | "documentaries";
+    iconType: IconType;
     onOpen: (id: string) => void;
     x?: number;
     y?: number;
@@ -14,22 +14,6 @@ interface DesktopIconProps {
 }
 
 export function DesktopIcon({ id, label, iconType, onOpen, x, y, textColor = "text-white" }: DesktopIconProps) {
-    const renderIcon = () => {
-        const size = 64;
-        switch (iconType) {
-            case "about": return <UserIcon size={size} />;
-            case "contact": return <InboxIcon size={size} />;
-            case "projects": return <ProgramsIcon size={size} />;
-            case "drive": return <MyComputerIcon size={size} />;
-            case "notepad": return <NotepadIcon size={size} />;
-            case "calculator": return <CalculatorIcon size={size} />;
-            case "paint": return <PaintIcon size={size} />;
-            case "terminal": return <TerminalIcon size={size} />;
-            case "musicplayer": return <MusicPlayerIcon size={size} />;
-            case "documentaries": return <DocumentariesIcon size={size} />;
-            default: return <FolderIcon size={size} />;
-        }
-    };
 
     return (
         <div
@@ -39,10 +23,10 @@ export function DesktopIcon({ id, label, iconType, onOpen, x, y, textColor = "te
             data-testid={`desktop-icon-${label.toLowerCase().replace(/\s+/g, '-')}`}
         >
             <div className="mb-2 p-1 group-hover:bg-blue-800/20">
-                {renderIcon()}
+                <DynamicIcon iconType={iconType} size={64} />
             </div>
             {/* Label */}
-            <span className={`${textColor} text-[12px] font-win95 mt-1 px-1 bg-transparent group-hover:bg-win95-blue-active group-hover:text-white group-focus:bg-win95-blue-active group-focus:text-white whitespace-normal break-words leading-tight shadow-sm`}>
+            <span className={`${textColor} text-[12px] font-win95 mt-1 px-1 bg-transparent group-hover:bg-win95-blue-active group-hover:text-white group-focus:bg-win95-blue-active group-focus:text-white whitespace-normal break-words leading-tight shadow-sm line-clamp-2 text-center`}>
                 {label}
             </span>
         </div>

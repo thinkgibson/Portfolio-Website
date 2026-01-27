@@ -4,7 +4,7 @@ import React from "react";
 import { motion, useDragControls } from "framer-motion";
 import { X, Minus, Square } from "lucide-react";
 import { useIsMobile } from "../../lib/hooks";
-import { FolderIcon, UserIcon, InboxIcon, ProgramsIcon, MyComputerIcon, NotepadIcon, CalculatorIcon, PaintIcon, TerminalIcon, MusicPlayerIcon } from "./icons";
+import { DynamicIcon } from "../Icons/DynamicIcon";
 
 const TASKBAR_HEIGHT = 48;
 
@@ -19,7 +19,7 @@ interface Win95WindowProps {
     onPositionChange?: (x: number, y: number) => void;
     isMaximized?: boolean;
     isActive?: boolean;
-    iconType?: "folder" | "about" | "contact" | "projects" | "drive" | "notepad" | "calculator" | "paint" | "terminal" | "musicplayer";
+    iconType?: import("../../lib/types").IconType;
     x?: number;
     y?: number;
     width?: string | number;
@@ -348,16 +348,7 @@ export function Win95Window({
             >
                 <div className="flex items-center gap-2 ml-0.5 overflow-hidden">
                     <div className="flex-shrink-0">
-                        {iconType === "about" && <UserIcon size={24} />}
-                        {iconType === "contact" && <InboxIcon size={24} />}
-                        {iconType === "projects" && <ProgramsIcon size={24} />}
-                        {iconType === "drive" && <MyComputerIcon size={24} />}
-                        {iconType === "notepad" && <NotepadIcon size={24} />}
-                        {iconType === "calculator" && <CalculatorIcon size={24} />}
-                        {iconType === "paint" && <PaintIcon size={24} />}
-                        {iconType === "terminal" && <TerminalIcon size={24} />}
-                        {iconType === "musicplayer" && <MusicPlayerIcon size={24} />}
-                        {iconType === "folder" && <FolderIcon size={24} />}
+                        <DynamicIcon iconType={iconType || "folder"} size={24} />
                     </div>
                     <span className="text-white text-[13px] font-win95 font-bold whitespace-nowrap overflow-hidden text-ellipsis leading-none mt-0.5">
                         {title}
@@ -400,7 +391,7 @@ export function Win95Window({
             <div className="bg-win95-gray px-1 py-0.5 border-b border-win95-gray-inactive text-[12px] font-win95 flex gap-3 select-none leading-none relative">
                 <div className="relative">
                     <span
-                        className={`px-1 cursor-default ${activeMenu === 'File' ? 'win95-beveled-inset bg-win95-gray' : 'hover:win95-beveled'}`}
+                        className={`px-1 cursor-default font-normal ${activeMenu === 'File' ? 'win95-beveled-inset bg-win95-gray' : 'hover:win95-beveled'}`}
                         onClick={() => toggleMenu('File')}
                         data-testid="menu-file"
                     >
@@ -421,7 +412,7 @@ export function Win95Window({
 
                 <div className="relative">
                     <span
-                        className={`px-1 cursor-default ${activeMenu === 'Search' ? 'win95-beveled-inset bg-win95-gray' : 'hover:win95-beveled'}`}
+                        className={`px-1 cursor-default font-normal ${activeMenu === 'Search' ? 'win95-beveled-inset bg-win95-gray' : 'hover:win95-beveled'}`}
                         onClick={() => toggleMenu('Search')}
                     >
                         Search
@@ -437,7 +428,7 @@ export function Win95Window({
 
                 <div className="relative">
                     <span
-                        className={`px-1 cursor-default ${activeMenu === 'Help' ? 'win95-beveled-inset bg-win95-gray' : 'hover:win95-beveled'}`}
+                        className={`px-1 cursor-default font-normal ${activeMenu === 'Help' ? 'win95-beveled-inset bg-win95-gray' : 'hover:win95-beveled'}`}
                         onClick={() => toggleMenu('Help')}
                         data-testid="menu-help"
                     >

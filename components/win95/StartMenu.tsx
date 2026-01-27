@@ -2,13 +2,14 @@
 
 import React from "react";
 import { motion } from "framer-motion";
-import { FolderIcon, UserIcon, InboxIcon, ProgramsIcon, MyComputerIcon, NotepadIcon, CalculatorIcon, PaintIcon, TerminalIcon, MusicPlayerIcon, DocumentariesIcon } from "./icons";
+import { DynamicIcon } from "../Icons/DynamicIcon";
+import { IconType } from "../../lib/types";
 
 interface StartMenuProps {
     items: {
         id: string;
         title: string;
-        iconType: "folder" | "about" | "contact" | "projects" | "drive" | "notepad" | "calculator" | "paint" | "terminal" | "musicplayer" | "documentaries";
+        iconType: IconType;
     }[];
     onItemClick: (id: string) => void;
     onReboot: () => void;
@@ -16,21 +17,6 @@ interface StartMenuProps {
 }
 
 export function StartMenu({ items, onItemClick, onReboot, onClose }: StartMenuProps) {
-    const renderIcon = (iconType: string, size: number = 24) => {
-        switch (iconType) {
-            case "about": return <UserIcon size={size} />;
-            case "contact": return <InboxIcon size={size} />;
-            case "projects": return <ProgramsIcon size={size} />;
-            case "drive": return <MyComputerIcon size={size} />;
-            case "notepad": return <NotepadIcon size={size} />;
-            case "calculator": return <CalculatorIcon size={size} />;
-            case "paint": return <PaintIcon size={size} />;
-            case "terminal": return <TerminalIcon size={size} />;
-            case "musicplayer": return <MusicPlayerIcon size={size} />;
-            case "documentaries": return <DocumentariesIcon size={size} />;
-            default: return <FolderIcon size={size} />;
-        }
-    };
 
     return (
         <motion.div
@@ -66,7 +52,7 @@ export function StartMenu({ items, onItemClick, onReboot, onClose }: StartMenuPr
                         }}
                     >
                         <div className="flex-shrink-0">
-                            {renderIcon(item.iconType, 28)}
+                            <DynamicIcon iconType={item.iconType} size={28} />
                         </div>
                         <span className="font-win95 text-[13px]">{item.title}</span>
                     </button>

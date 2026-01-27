@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">93.04% </span>
+                <span class="strong">92.37% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>455/489</span>
+                <span class='fraction'>448/485</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">81.52% </span>
+                <span class="strong">80.64% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>75/92</span>
+                <span class='fraction'>75/93</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">93.04% </span>
+                <span class="strong">92.37% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>455/489</span>
+                <span class='fraction'>448/485</span>
             </div>
         
             
@@ -548,11 +548,8 @@
 <a name='L483'></a><a href='#L483'>483</a>
 <a name='L484'></a><a href='#L484'>484</a>
 <a name='L485'></a><a href='#L485'>485</a>
-<a name='L486'></a><a href='#L486'>486</a>
-<a name='L487'></a><a href='#L487'>487</a>
-<a name='L488'></a><a href='#L488'>488</a>
-<a name='L489'></a><a href='#L489'>489</a>
-<a name='L490'></a><a href='#L490'>490</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L486'></a><a href='#L486'>486</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -718,6 +715,7 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">40x</span>
 <span class="cline-any cline-yes">40x</span>
 <span class="cline-any cline-yes">40x</span>
 <span class="cline-any cline-yes">40x</span>
@@ -891,15 +889,9 @@
 <span class="cline-any cline-yes">40x</span>
 <span class="cline-any cline-yes">40x</span>
 <span class="cline-any cline-yes">40x</span>
-<span class="cline-any cline-yes">40x</span>
-<span class="cline-any cline-yes">40x</span>
-<span class="cline-any cline-yes">40x</span>
-<span class="cline-any cline-yes">40x</span>
-<span class="cline-any cline-yes">40x</span>
-<span class="cline-any cline-yes">40x</span>
-<span class="cline-any cline-yes">40x</span>
-<span class="cline-any cline-yes">40x</span>
-<span class="cline-any cline-yes">40x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-yes">40x</span>
 <span class="cline-any cline-yes">40x</span>
 <span class="cline-any cline-yes">40x</span>
@@ -1047,7 +1039,7 @@ import React from "react";
 import { motion, useDragControls } from "framer-motion";
 import { X, Minus, Square } from "lucide-react";
 import { useIsMobile } from "../../lib/hooks";
-import { FolderIcon, UserIcon, InboxIcon, ProgramsIcon, MyComputerIcon, NotepadIcon, CalculatorIcon, PaintIcon, TerminalIcon, MusicPlayerIcon } from "./icons";
+import { DynamicIcon } from "../Icons/DynamicIcon";
 &nbsp;
 const TASKBAR_HEIGHT = 48;
 &nbsp;
@@ -1062,7 +1054,7 @@ interface Win95WindowProps {
     onPositionChange?: (x: number, y: number) =&gt; void;
     isMaximized?: boolean;
     isActive?: boolean;
-    iconType?: "folder" | "about" | "contact" | "projects" | "drive" | "notepad" | "calculator" | "paint" | "terminal" | "musicplayer";
+    iconType?: import("../../lib/types").IconType;
     x?: number;
     y?: number;
     width?: string | number;
@@ -1075,6 +1067,7 @@ interface Win95WindowProps {
     minWidth?: number;
     minHeight?: number;
     canMaximize?: boolean;
+    onFocus?: () =&gt; void;
 }
 &nbsp;
 const TextHighlighter = ({ text, term }: { text: string, term: string }) =&gt; {
@@ -1230,6 +1223,7 @@ export function Win95Window({
     minWidth = 200,
     minHeight = 250,
     canMaximize = true,
+    onFocus,
 }: Win95WindowProps) {
     const isMobile = useIsMobile();
     const dragControls = useDragControls();
@@ -1379,23 +1373,17 @@ export function Win95Window({
         &gt;
             {/* Titlebar */}
             &lt;div
-                onPointerDown={<span class="fstat-no" title="function not covered" >(e) =&gt; !isMaximized &amp;&amp; dragControls.start(e)}</span>
+                onPointerDown={<span class="fstat-no" title="function not covered" >(e) =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >                    onFocus?.();</span>
+<span class="cstat-no" title="statement not covered" >                    !isMaximized &amp;&amp; dragControls.start(e);</span>
+<span class="cstat-no" title="statement not covered" >                }}</span>
                 onDoubleClick={<span class="fstat-no" title="function not covered" >() =&gt; canMaximize &amp;&amp; onMaximize?.()}</span>
                 className={`window-titlebar h-8 flex items-center justify-between px-1 cursor-default select-none ${isActive ? <span class="branch-0 cbranch-no" title="branch not covered" >"bg-win95-blue-active" : "bg-win95-gray-inactive"}`</span>}
                 data-testid="window-titlebar"
             &gt;
                 &lt;div className="flex items-center gap-2 ml-0.5 overflow-hidden"&gt;
                     &lt;div className="flex-shrink-0"&gt;
-                        {iconType === "about" &amp;&amp; &lt;UserIcon size={24} /&gt;}
-                        {iconType === "contact" &amp;&amp; &lt;InboxIcon size={24} /&gt;}
-                        {iconType === "projects" &amp;&amp; &lt;ProgramsIcon size={24} /&gt;}
-                        {iconType === "drive" &amp;&amp; &lt;MyComputerIcon size={24} /&gt;}
-                        {iconType === "notepad" &amp;&amp; &lt;NotepadIcon size={24} /&gt;}
-                        {iconType === "calculator" &amp;&amp; &lt;CalculatorIcon size={24} /&gt;}
-                        {iconType === "paint" &amp;&amp; &lt;PaintIcon size={24} /&gt;}
-                        {iconType === "terminal" &amp;&amp; &lt;TerminalIcon size={24} /&gt;}
-                        {iconType === "musicplayer" &amp;&amp; &lt;MusicPlayerIcon size={24} /&gt;}
-                        {iconType === "folder" &amp;&amp; &lt;FolderIcon size={24} /&gt;}
+                        &lt;DynamicIcon iconType={<span class="branch-0 cbranch-no" title="branch not covered" >iconType || "folder"} s</span>ize={24} /&gt;
                     &lt;/div&gt;
                     &lt;span className="text-white text-[13px] font-win95 font-bold whitespace-nowrap overflow-hidden text-ellipsis leading-none mt-0.5"&gt;
                         {title}
@@ -1438,7 +1426,7 @@ export function Win95Window({
             &lt;div className="bg-win95-gray px-1 py-0.5 border-b border-win95-gray-inactive text-[12px] font-win95 flex gap-3 select-none leading-none relative"&gt;
                 &lt;div className="relative"&gt;
                     &lt;span
-                        className={`px-1 cursor-default ${activeMenu === 'File' ? 'win95-beveled-inset bg-win95-gray' : 'hover:win95-beveled'}`}
+                        className={`px-1 cursor-default font-normal ${activeMenu === 'File' ? 'win95-beveled-inset bg-win95-gray' : 'hover:win95-beveled'}`}
                         onClick={() =&gt; toggleMenu('File')}
                         data-testid="menu-file"
                     &gt;
@@ -1459,7 +1447,7 @@ export function Win95Window({
 &nbsp;
                 &lt;div className="relative"&gt;
                     &lt;span
-                        className={`px-1 cursor-default ${activeMenu === 'Search' ? 'win95-beveled-inset bg-win95-gray' : 'hover:win95-beveled'}`}
+                        className={`px-1 cursor-default font-normal ${activeMenu === 'Search' ? 'win95-beveled-inset bg-win95-gray' : 'hover:win95-beveled'}`}
                         onClick={() =&gt; toggleMenu('Search')}
                     &gt;
                         Search
@@ -1475,7 +1463,7 @@ export function Win95Window({
 &nbsp;
                 &lt;div className="relative"&gt;
                     &lt;span
-                        className={`px-1 cursor-default ${activeMenu === 'Help' ? 'win95-beveled-inset bg-win95-gray' : 'hover:win95-beveled'}`}
+                        className={`px-1 cursor-default font-normal ${activeMenu === 'Help' ? 'win95-beveled-inset bg-win95-gray' : 'hover:win95-beveled'}`}
                         onClick={() =&gt; toggleMenu('Help')}
                         data-testid="menu-help"
                     &gt;
@@ -1537,7 +1525,7 @@ export function Win95Window({
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2026-01-26T13:53:19.052Z
+                at 2026-01-27T15:55:02.935Z
             </div>
         <script src="../../prettify.js"></script>
         <script>

@@ -10,6 +10,11 @@ test.describe('Window Persistence', () => {
         const log = (msg: string) => fs.appendFileSync('test_debug.txt', msg + '\n');
         log('Starting test...');
 
+        // Skip on mobile since dragging is disabled
+        if (test.info().project.name.toLowerCase().includes('mobile')) {
+            test.skip();
+        }
+
         // 1. Navigate to desktop (skip boot)
         await page.goto('/?skipBoot=true');
         log('Navigated to /?skipBoot=true');

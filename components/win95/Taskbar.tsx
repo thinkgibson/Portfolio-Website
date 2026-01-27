@@ -1,13 +1,15 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { WindowsLogoIcon, FolderIcon, UserIcon, InboxIcon, ProgramsIcon, MyComputerIcon, WeatherIcon, VolumeIcon, NetworkIcon, NotepadIcon, CalculatorIcon, PaintIcon, TerminalIcon } from "./icons";
+import { WindowsLogoIcon, WeatherIcon, VolumeIcon, NetworkIcon } from "../Icons";
+import { DynamicIcon } from "../Icons/DynamicIcon";
 import { ContextMenu } from "./ContextMenu";
 import { OSProvider, useOS } from "./OSContext";
 import { AnimatePresence } from "framer-motion";
+import { IconType } from "../../lib/types";
 
 interface TaskbarProps {
-    openWindows: { id: string; title: string; isActive: boolean; iconType?: "folder" | "about" | "contact" | "projects" | "drive" | "notepad" | "calculator" | "paint" | "terminal" }[];
+    openWindows: { id: string; title: string; isActive: boolean; iconType?: IconType }[];
     onWindowClick: (id: string) => void;
     onStartClick: () => void;
     onMinimizeWindow: (id: string) => void;
@@ -170,15 +172,7 @@ export function Taskbar({ openWindows, onWindowClick, onStartClick, onMinimizeWi
                         data-testid={`taskbar-item-${win.title.toLowerCase().replace(/\s+/g, '-')}`}
                     >
                         <div className="mr-1.5 flex-shrink-0">
-                            {win.iconType === "about" && <UserIcon size={18} />}
-                            {win.iconType === "contact" && <InboxIcon size={18} />}
-                            {win.iconType === "projects" && <ProgramsIcon size={18} />}
-                            {win.iconType === "drive" && <MyComputerIcon size={18} />}
-                            {win.iconType === "notepad" && <NotepadIcon size={18} />}
-                            {win.iconType === "calculator" && <CalculatorIcon size={18} />}
-                            {win.iconType === "paint" && <PaintIcon size={18} />}
-                            {win.iconType === "terminal" && <TerminalIcon size={18} />}
-                            {(!win.iconType || win.iconType === "folder") && <FolderIcon size={18} />}
+                            <DynamicIcon iconType={win.iconType || "folder"} size={18} />
                         </div>
                         <span className="truncate">{win.title}</span>
                     </button>

@@ -4,7 +4,7 @@ import React, { useRef, useState, useEffect, useCallback } from "react";
 import { MessageBox } from "./MessageBox";
 import { SaveDialog } from "./SaveDialog";
 import { useOS } from "./OSContext";
-import { FloppyIcon } from "./icons";
+import { FloppyIcon } from "../Icons";
 
 export function Notepad() {
     const editorRef = useRef<HTMLDivElement>(null);
