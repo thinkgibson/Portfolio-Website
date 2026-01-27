@@ -7,6 +7,7 @@ import { Paint } from "../components/win95/Paint";
 import { Terminal } from "../components/win95/Terminal";
 import { MusicPlayer } from "../components/win95/MusicPlayer";
 import { Documentaries } from "../components/win95/Documentaries";
+import { JobHistory } from "../components/win95/JobHistory";
 import { Github, ExternalLink } from "lucide-react";
 
 export const getAppsConfig = (content: HomeContent): AppDefinition[] => {
@@ -116,6 +117,18 @@ export const getAppsConfig = (content: HomeContent): AppDefinition[] => {
                     </div>
                 </div>
             )
+        },
+        {
+            id: "job-history",
+            title: "Job History",
+            iconType: "job-history",
+            helpContent: (
+                <div className="space-y-2">
+                    <p>This is the <strong>Job History</strong> viewer.</p>
+                    <p>It displays a timeline of my professional experience and skills.</p>
+                </div>
+            ),
+            content: <JobHistory data={content.jobHistory} />
         },
         {
             id: "contact",

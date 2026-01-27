@@ -26,3 +26,5 @@ test-result.json
 # Build artifacts
 .swc
 tsconfig.tsbuildinfo
+
+out
