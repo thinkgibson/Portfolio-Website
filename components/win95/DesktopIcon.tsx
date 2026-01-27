@@ -26,7 +26,7 @@ export function DesktopIcon({ id, label, iconType, onOpen, x, y, textColor = "te
                 <DynamicIcon iconType={iconType} size={64} />
             </div>
             {/* Label */}
-            <span className={`${textColor} text-[12px] font-win95 mt-1 px-1 bg-transparent group-hover:bg-win95-blue-active group-hover:text-white group-focus:bg-win95-blue-active group-focus:text-white whitespace-normal break-words leading-tight shadow-sm`}>
+            <span className={`${textColor} text-[12px] font-win95 mt-1 px-1 bg-transparent group-hover:bg-win95-blue-active group-hover:text-white group-focus:bg-win95-blue-active group-focus:text-white whitespace-normal break-words leading-tight shadow-sm line-clamp-2 text-center`}>
                 {label}
             </span>
         </div>

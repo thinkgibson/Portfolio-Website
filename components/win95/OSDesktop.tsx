@@ -335,12 +335,26 @@ export function OSDesktop({ windows: initialWindows, skipBoot: propSkipBoot, ski
         setContextMenu({ x: e.clientX, y: e.clientY });
     };
 
+    // Flatten all apps for OSProvider's availableApps
+    const getAllApps = (list: AppDefinition[]): { id: string, title: string }[] => {
+        let apps: { id: string, title: string }[] = [];
+        for (const item of list) {
+            apps.push({ id: item.id, title: item.title });
+            if (item.children) {
+                apps = [...apps, ...getAllApps(item.children)];
+            }
+        }
+        return apps;
+    };
+
+    const availableApps = getAllApps(initialWindows);
+
     return (
         <OSProvider
             onOpenWindow={handleOpenWindow}
             onCloseWindow={handleCloseWindow}
             runningApps={openWindows.map(w => ({ id: w.id, title: w.title }))}
-            availableApps={initialWindows.map(w => ({ id: w.id, title: w.title }))}
+            availableApps={availableApps}
         >
             <OSDesktopView
                 booting={booting}

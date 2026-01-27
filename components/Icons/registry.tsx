@@ -23,4 +23,5 @@ export const iconRegistry: Record<IconType, React.ComponentType<Icons.IconProps>
     "contact": Icons.InboxIcon,
     "projects": Icons.ProgramsIcon,
     "drive": Icons.MyComputerIcon,
+    "floppy": Icons.FloppyIcon,
 };

@@ -22,9 +22,9 @@ test.describe('Desktop Folders', () => {
         await expect(window).toContainText('Accessories');
 
         // Check contents
-        await expect(window.getByTestId('desktop-icon-notepad')).toBeVisible();
-        await expect(window.getByTestId('desktop-icon-calculator')).toBeVisible();
-        await expect(window.getByTestId('desktop-icon-paint')).toBeVisible();
+        await expect(window.getByTestId('desktop-icon-notepad.exe')).toBeVisible();
+        await expect(window.getByTestId('desktop-icon-calculator.exe')).toBeVisible();
+        await expect(window.getByTestId('desktop-icon-paint.exe')).toBeVisible();
         await expect(window.getByTestId('desktop-icon-command-prompt')).toBeVisible();
     });
 
@@ -35,7 +35,7 @@ test.describe('Desktop Folders', () => {
         const window = page.getByTestId('window-accessories');
         await expect(window).toBeVisible();
 
-        const notepad = window.getByTestId('desktop-icon-notepad');
+        const notepad = window.getByTestId('desktop-icon-notepad.exe');
         await notepad.dblclick();
 
         const notepadWindow = page.getByTestId('window-notepad.exe');
