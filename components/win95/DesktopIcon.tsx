@@ -1,7 +1,6 @@
 "use client";
 
-import React from "react";
-import { FolderIcon, UserIcon, InboxIcon, ProgramsIcon, MyComputerIcon, NotepadIcon, CalculatorIcon, PaintIcon, TerminalIcon, MusicPlayerIcon, DocumentariesIcon } from "./icons";
+import { iconRegistry } from "../Icons/registry";
 import { IconType } from "../../lib/types";
 
 interface DesktopIconProps {
@@ -16,20 +15,8 @@ interface DesktopIconProps {
 
 export function DesktopIcon({ id, label, iconType, onOpen, x, y, textColor = "text-white" }: DesktopIconProps) {
     const renderIcon = () => {
-        const size = 64;
-        switch (iconType) {
-            case "about": return <UserIcon size={size} />;
-            case "contact": return <InboxIcon size={size} />;
-            case "projects": return <ProgramsIcon size={size} />;
-            case "drive": return <MyComputerIcon size={size} />;
-            case "notepad": return <NotepadIcon size={size} />;
-            case "calculator": return <CalculatorIcon size={size} />;
-            case "paint": return <PaintIcon size={size} />;
-            case "terminal": return <TerminalIcon size={size} />;
-            case "musicplayer": return <MusicPlayerIcon size={size} />;
-            case "documentaries": return <DocumentariesIcon size={size} />;
-            default: return <FolderIcon size={size} />;
-        }
+        const IconComponent = iconRegistry[iconType] || iconRegistry["folder"];
+        return <IconComponent size={64} />;
     };
 
     return (

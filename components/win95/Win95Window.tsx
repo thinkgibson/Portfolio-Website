@@ -4,7 +4,7 @@ import React from "react";
 import { motion, useDragControls } from "framer-motion";
 import { X, Minus, Square } from "lucide-react";
 import { useIsMobile } from "../../lib/hooks";
-import { FolderIcon, UserIcon, InboxIcon, ProgramsIcon, MyComputerIcon, NotepadIcon, CalculatorIcon, PaintIcon, TerminalIcon, MusicPlayerIcon } from "./icons";
+import { iconRegistry } from "../Icons/registry";
 
 const TASKBAR_HEIGHT = 48;
 
@@ -19,7 +19,7 @@ interface Win95WindowProps {
     onPositionChange?: (x: number, y: number) => void;
     isMaximized?: boolean;
     isActive?: boolean;
-    iconType?: "folder" | "about" | "contact" | "projects" | "drive" | "notepad" | "calculator" | "paint" | "terminal" | "musicplayer";
+    iconType?: import("../../lib/types").IconType;
     x?: number;
     y?: number;
     width?: string | number;
@@ -348,16 +348,10 @@ export function Win95Window({
             >
                 <div className="flex items-center gap-2 ml-0.5 overflow-hidden">
                     <div className="flex-shrink-0">
-                        {iconType === "about" && <UserIcon size={24} />}
-                        {iconType === "contact" && <InboxIcon size={24} />}
-                        {iconType === "projects" && <ProgramsIcon size={24} />}
-                        {iconType === "drive" && <MyComputerIcon size={24} />}
-                        {iconType === "notepad" && <NotepadIcon size={24} />}
-                        {iconType === "calculator" && <CalculatorIcon size={24} />}
-                        {iconType === "paint" && <PaintIcon size={24} />}
-                        {iconType === "terminal" && <TerminalIcon size={24} />}
-                        {iconType === "musicplayer" && <MusicPlayerIcon size={24} />}
-                        {iconType === "folder" && <FolderIcon size={24} />}
+                        {(() => {
+                            const IconComponent = iconRegistry[iconType] || iconRegistry["folder"];
+                            return <IconComponent size={24} />;
+                        })()}
                     </div>
                     <span className="text-white text-[13px] font-win95 font-bold whitespace-nowrap overflow-hidden text-ellipsis leading-none mt-0.5">
                         {title}
