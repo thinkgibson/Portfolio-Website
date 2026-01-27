@@ -30,6 +30,18 @@ export interface HomeContent {
         email: string;
     };
     bodyHtml: string;
+    jobHistory: JobHistory;
+}
+
+export interface JobHistory {
+    jobs: {
+        id: string;
+        title: string;
+        company: string;
+        date: string;
+        description: string;
+        skills: string[];
+    }[];
 }
 
 export type IconType =
@@ -43,7 +55,9 @@ export type IconType =
     | "paint"
     | "terminal"
     | "musicplayer"
-    | "documentaries";
+    | "musicplayer"
+    | "documentaries"
+    | "job-history";
 
 export interface AppDefinition {
     id: string;
