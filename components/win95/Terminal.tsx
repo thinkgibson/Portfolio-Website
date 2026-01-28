@@ -143,6 +143,7 @@ export function Terminal({ }: TerminalProps) {
                     onChange={(e) => setInput(e.target.value)}
                     onKeyDown={handleKeyDown}
                     className="bg-transparent border-none outline-none text-white font-win95-mono flex-grow p-0 caret-[#00FF00]"
+                    data-testid="terminal-input"
                     autoFocus
                 />
             </div>

@@ -8,6 +8,7 @@ import { Terminal } from "../components/win95/Terminal";
 import { MusicPlayer } from "../components/win95/MusicPlayer";
 import { Documentaries } from "../components/win95/Documentaries";
 import { JobHistory } from "../components/win95/JobHistory";
+import { Skills } from "../components/win95/Skills";
 import { Github, ExternalLink } from "lucide-react";
 
 export const getAppsConfig = (content: HomeContent): AppDefinition[] => {
@@ -129,6 +130,18 @@ export const getAppsConfig = (content: HomeContent): AppDefinition[] => {
                 </div>
             ),
             content: <JobHistory data={content.jobHistory} />
+        },
+        {
+            id: "skills",
+            title: "My Skills",
+            iconType: "skills",
+            helpContent: (
+                <div className="space-y-2">
+                    <p>This is the <strong>Skills</strong> viewer.</p>
+                    <p>It displays my technical expertise categorized by area.</p>
+                </div>
+            ),
+            content: <Skills data={content.skillsData} />
         },
         {
             id: "contact",

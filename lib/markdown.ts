@@ -24,6 +24,11 @@ export async function getHomeContent() {
     const jobHistoryContents = fs.readFileSync(jobHistoryPath, 'utf8');
     const jobHistoryResult = matter(jobHistoryContents);
 
+    // Load Skills content
+    const skillsPath = path.join(contentDirectory, 'skills.md');
+    const skillsContents = fs.readFileSync(skillsPath, 'utf8');
+    const skillsResult = matter(skillsContents);
+
     return {
         bodyHtml: contentHtml,
         hero: result.data.hero,
@@ -33,5 +38,6 @@ export async function getHomeContent() {
         contact: result.data.contact,
         socials: result.data.socials,
         jobHistory: jobHistoryResult.data as any,
+        skillsData: skillsResult.data as any,
     };
 }

@@ -8,14 +8,14 @@ test.describe('Job History App', () => {
 
     test('should open Job History from desktop', async ({ page }) => {
         // Look for the desktop icon
-        const desktopIcon = page.locator('[data-testid="desktop-icon-job-history"]');
+        const desktopIcon = page.getByTestId('desktop-icon-job-history');
         await expect(desktopIcon).toBeVisible();
 
         // Double click to open
         await desktopIcon.dblclick();
 
         // Check if window is open
-        const window = page.locator('[data-testid="window-job-history"]');
+        const window = page.getByTestId('window-job-history');
         await expect(window).toBeVisible();
 
         // Check for content
@@ -25,20 +25,30 @@ test.describe('Job History App', () => {
     });
 
     test('should open Job History from terminal', async ({ page }) => {
-        // Open terminal first
-        const terminalIcon = page.locator('[data-testid="desktop-icon-terminal"]');
+        // Open Accessories folder first
+        const accessoriesIcon = page.getByTestId('desktop-icon-accessories');
+        await expect(accessoriesIcon).toBeVisible();
+        await accessoriesIcon.dblclick();
+
+        const accessoriesWindow = page.getByTestId('window-accessories');
+        await expect(accessoriesWindow).toBeVisible();
+
+        // Open terminal from Accessories
+        const terminalIcon = accessoriesWindow.getByTestId('desktop-icon-command-prompt');
+        await expect(terminalIcon).toBeVisible();
         await terminalIcon.dblclick();
 
-        const terminalWindow = page.locator('.win95-window[data-window-title="Command Prompt"]');
+        const terminalWindow = page.getByTestId('window-command-prompt');
         await expect(terminalWindow).toBeVisible();
 
-        // Type open command
-        const input = terminalWindow.locator('input');
+        // Type open command using the standardized terminal-input test id
+        const input = terminalWindow.getByTestId('terminal-input');
+        await expect(input).toBeVisible();
         await input.fill('open job-history');
         await input.press('Enter');
 
         // Check if Job History window opens
-        const jobWindow = page.locator('[data-testid="window-job-history"]');
+        const jobWindow = page.getByTestId('window-job-history');
         await expect(jobWindow).toBeVisible();
     });
 });
