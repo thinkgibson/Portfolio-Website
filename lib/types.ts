@@ -31,6 +31,14 @@ export interface HomeContent {
     };
     bodyHtml: string;
     jobHistory: JobHistory;
+    skillsData: SkillsData;
+}
+
+export interface SkillsData {
+    categories: {
+        name: string;
+        skills: string[];
+    }[];
 }
 
 export interface JobHistory {
@@ -45,19 +53,24 @@ export interface JobHistory {
 }
 
 export type IconType =
+    | "mycomputer"
     | "folder"
-    | "about"
-    | "contact"
-    | "projects"
-    | "drive"
+    | "inbox"
+    | "user"
+    | "programs"
     | "notepad"
     | "calculator"
     | "paint"
     | "terminal"
     | "musicplayer"
-    | "musicplayer"
     | "documentaries"
-    | "job-history";
+    | "about"
+    | "contact"
+    | "projects"
+    | "drive"
+    | "floppy"
+    | "job-history"
+    | "skills";
 
 export interface AppDefinition {
     id: string;

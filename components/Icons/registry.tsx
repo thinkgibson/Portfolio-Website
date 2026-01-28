@@ -2,8 +2,7 @@ import React from "react";
 import * as Icons from "./index";
 import iconsConfig from "../../config/icons.json";
 
-// Derive IconType from the keys in icons.json
-export type IconType = keyof typeof iconsConfig;
+import { IconType } from "../../lib/types";
 
 // Map JSON keys to React Components
 export const iconRegistry: Record<IconType, React.ComponentType<Icons.IconProps>> = {
@@ -25,4 +24,5 @@ export const iconRegistry: Record<IconType, React.ComponentType<Icons.IconProps>
     "drive": Icons.MyComputerIcon,
     "floppy": Icons.FloppyIcon,
     "job-history": Icons.NotepadIcon,
+    "skills": Icons.NotepadIcon,
 };
