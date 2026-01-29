@@ -45,6 +45,7 @@ export interface Video {
 export interface VideoData {
     documentaries: Video[];
     livestreams: Video[];
+    essays: Video[];
 }
 
 export interface SkillsData {
@@ -77,6 +78,7 @@ export type IconType =
     | "terminal"
     | "musicplayer"
     | "documentaries"
+    | "video-essays"
     | "livestreams"
     | "about"
     | "contact"
