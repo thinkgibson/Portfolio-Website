@@ -52,9 +52,10 @@ function parseFeaturedVideos() {
     const fileContents = fs.readFileSync(fullPath, 'utf8');
 
     const lines = fileContents.split('\n');
-    const videoData: { documentaries: any[], livestreams: any[] } = {
+    const videoData: { documentaries: any[], livestreams: any[], essays: any[] } = {
         documentaries: [],
-        livestreams: []
+        livestreams: [],
+        essays: []
     };
 
     let currentSection: 'documentaries' | 'essays' | 'livestreams' | null = null;
@@ -74,7 +75,7 @@ function parseFeaturedVideos() {
             continue;
         }
 
-        if (!currentSection || currentSection === 'essays') continue;
+        if (!currentSection) continue;
 
         if (line.startsWith('### ')) {
             if (currentVideo) {
@@ -111,7 +112,7 @@ function parseFeaturedVideos() {
         }
     }
 
-    if (currentVideo && currentSection && currentSection !== 'essays') {
+    if (currentVideo && currentSection) {
         videoData[currentSection].push(currentVideo);
     }
 

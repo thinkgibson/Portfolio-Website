@@ -16,7 +16,7 @@ All work that results in code changes (i.e. not documentation, not planning, not
     - Use requirements-interview skill
     - Skip if requirements are already well-defined
 
-3. Create planning doc
+3. MUST CREATE A PLANNING DOC
     - Use planning-doc skill
 
 4. Ask user for approval of planning doc

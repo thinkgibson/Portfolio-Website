@@ -7,6 +7,7 @@ import { Paint } from "../components/win95/Paint";
 import { Terminal } from "../components/win95/Terminal";
 import { MusicPlayer } from "../components/win95/MusicPlayer";
 import { Documentaries } from "../components/win95/Documentaries";
+import { VideoEssays } from "../components/win95/VideoEssays";
 import { Livestreams } from "../components/win95/Livestreams";
 import { JobHistory } from "../components/win95/JobHistory";
 import { Skills } from "../components/win95/Skills";
@@ -317,6 +318,21 @@ export const getAppsConfig = (content: HomeContent): AppDefinition[] => {
                         </div>
                     ),
                     content: <Documentaries videos={content.videoData.documentaries} />
+                },
+                {
+                    id: "video-essays",
+                    title: "Video Essays",
+                    iconType: "video-essays",
+                    width: 800,
+                    height: 600,
+                    fullBleed: true,
+                    helpContent: (
+                        <div className="space-y-2">
+                            <p>This is the <strong>Video Essays</strong> app.</p>
+                            <p>Watch video essays I've produced.</p>
+                        </div>
+                    ),
+                    content: <VideoEssays videos={content.videoData.essays} />
                 },
                 {
                     id: "livestreams",

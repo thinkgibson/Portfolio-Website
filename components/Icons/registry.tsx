@@ -17,6 +17,7 @@ export const iconRegistry: Record<IconType, React.ComponentType<Icons.IconProps>
     "terminal": Icons.TerminalIcon,
     "musicplayer": Icons.MusicPlayerIcon,
     "documentaries": Icons.DocumentariesIcon,
+    "video-essays": Icons.VideoEssaysIcon,
     "livestreams": Icons.LivestreamsIcon,
     // Aliases/Duplicates as per original intent or fallback
     "about": Icons.UserIcon,
