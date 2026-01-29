@@ -29,7 +29,6 @@ jest.mock('./lib/navigation', () => ({
     reloadPage: jest.fn(),
 }));
 
-
 // Mock ESM modules that cause issues with Jest/JSDOM
 jest.mock('remark', () => ({
     remark: jest.fn().mockReturnValue({
@@ -44,3 +43,29 @@ jest.mock('remark-html', () => ({
     __esModule: true,
     default: jest.fn()
 }));
+
+// Mock ResizeObserver
+global.ResizeObserver = class ResizeObserver {
+    observe() { }
+    unobserve() { }
+    disconnect() { }
+};
+
+// Mock HTMLMediaElement.play
+Object.defineProperty(global.window.HTMLMediaElement.prototype, 'play', {
+    configurable: true,
+    // Define the property getter
+    get() {
+        return () => {
+            return Promise.resolve();
+        };
+    },
+});
+
+// Mock fetch
+global.fetch = jest.fn(() =>
+    Promise.resolve({
+        ok: true,
+        json: () => Promise.resolve({}),
+    })
+) as jest.Mock;

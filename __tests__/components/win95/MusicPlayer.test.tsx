@@ -24,23 +24,27 @@ describe("MusicPlayer", () => {
         );
     };
 
-    it("renders the player with no track selected initially", () => {
+    it("renders the player with no track selected initially", async () => {
         renderWithContext();
         expect(screen.getByText(/No Track Selected/i)).toBeInTheDocument();
+        // Wait for fetch to resolve to avoid act() warning
+        await screen.findAllByText("Test Track");
     });
 
-    it("renders control buttons", () => {
+    it("renders control buttons", async () => {
         renderWithContext();
         expect(screen.getByTitle(/Play/i)).toBeInTheDocument();
         expect(screen.getByTitle(/Stop/i)).toBeInTheDocument();
         expect(screen.getByTitle(/Previous/i)).toBeInTheDocument();
         expect(screen.getByTitle(/Next/i)).toBeInTheDocument();
+        await screen.findAllByText("Test Track");
     });
 
-    it("toggles play state when play button is clicked", () => {
+    it("toggles play state when play button is clicked", async () => {
         renderWithContext();
         const playButton = screen.getByTitle(/Play/i);
         fireEvent.click(playButton);
         expect(screen.getByTitle(/Pause/i)).toBeInTheDocument();
+        await screen.findAllByText("Test Track");
     });
 });
