@@ -3,7 +3,7 @@ import { test, expect } from '@playwright/test';
 test.describe('Window Snapping Bug', () => {
     test.beforeEach(async ({ page }) => {
         // Skip boot sequence for faster tests
-        await page.goto('/?skipBoot=true');
+        await page.goto('/?skipBoot=true&skipAnimations=true');
     });
 
     test('should not snap to top-right after maximize/restore/reposition', async ({ page }) => {
@@ -14,8 +14,8 @@ test.describe('Window Snapping Bug', () => {
         }
 
         // Open a window
-        await page.click('text=About_Me.doc');
-        const window = page.locator('.win95-beveled.absolute').filter({ hasText: 'About_Me.doc' });
+        await page.click('text=Welcome.txt');
+        const window = page.locator('.win95-beveled.absolute').filter({ hasText: 'Welcome.txt' });
         await expect(window).toBeVisible();
 
         // Wait for initial animation

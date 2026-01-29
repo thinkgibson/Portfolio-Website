@@ -8,7 +8,7 @@ test.describe('Window Toolbar', () => {
     test('can use File menu to maximize and close', async ({ desktop, window, page, isMobile }) => {
         test.skip(!!isMobile, 'Maximizing behavior is different/unreliable on mobile emulation');
 
-        const title = 'About_Me.doc';
+        const title = 'Welcome.txt';
         await desktop.openIcon(title);
         await window.expectVisible(title);
 
@@ -34,7 +34,7 @@ test.describe('Window Toolbar', () => {
     });
 
     test('can toggle search box', async ({ desktop, window, page }) => {
-        const title = 'About_Me.doc';
+        const title = 'Welcome.txt';
         await desktop.openIcon(title);
 
         const winLocator = window.getWindow(title);

@@ -8,7 +8,7 @@ test.describe('Livestreams App', () => {
     });
 
     test('can open Livestreams app from desktop folder', async ({ page }) => {
-        await page.goto('/?skipBoot=true&skipWelcome=true');
+        await page.goto('/?skipBoot=true&skipWelcome=true&skipAnimations=true');
 
         // Open Multimedia folder
         const folderIcon = page.getByTestId('desktop-icon-multimedia');
@@ -32,7 +32,7 @@ test.describe('Livestreams App', () => {
     });
 
     test('can open Livestreams from terminal', async ({ page }) => {
-        await page.goto('/?skipBoot=true&skipWelcome=true');
+        await page.goto('/?skipBoot=true&skipWelcome=true&skipAnimations=true');
 
         // Open terminal via Start Menu -> Accessories -> Command Prompt (Proven path)
         await page.click('[data-testid="taskbar-start-button"]');

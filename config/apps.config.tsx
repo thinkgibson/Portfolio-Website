@@ -38,40 +38,6 @@ export const getAppsConfig = (content: HomeContent): AppDefinition[] => {
             )
         },
         {
-            id: "about",
-            title: "About_Me.doc",
-            iconType: "about",
-            helpContent: (
-                <div className="space-y-2">
-                    <p>This window contains the <strong>About Me</strong> section.</p>
-                    <p>You can find information about my background, skills, and experience here.</p>
-                    <p>The tech stack I use is highlighted in the right panel.</p>
-                </div>
-            ),
-            content: (
-                <div className="grid md:grid-cols-3 gap-6">
-                    <div className="md:col-span-2">
-                        <h2 className="text-[24px] font-win95 font-bold mb-4 bg-win95-blue-active text-white px-2 italic leading-none py-1">{content.about.title}</h2>
-                        <div
-                            className="text-[12px] font-win95 leading-normal space-y-4 [&>p]:mb-4"
-                            dangerouslySetInnerHTML={{ __html: content.bodyHtml }}
-                        />
-                    </div>
-                    <div className="win95-beveled p-4 h-fit">
-                        <h3 className="font-win95 font-bold border-b border-black mb-2 text-[12px] uppercase leading-none">{content.about.techStackTitle}</h3>
-                        <ul className="text-[12px] font-win95-mono space-y-1 leading-tight">
-                            {content.skills.map((skill, i) => (
-                                <li key={i} className="flex items-center gap-1">
-                                    <span className="w-2 h-2 bg-win95-blue-active" />
-                                    {skill}
-                                </li>
-                            ))}
-                        </ul>
-                    </div>
-                </div>
-            )
-        },
-        {
             id: "projects",
             title: "My_Projects.exe",
             iconType: "projects",
@@ -119,30 +85,6 @@ export const getAppsConfig = (content: HomeContent): AppDefinition[] => {
                     </div>
                 </div>
             )
-        },
-        {
-            id: "job-history",
-            title: "Job History",
-            iconType: "job-history",
-            helpContent: (
-                <div className="space-y-2">
-                    <p>This is the <strong>Job History</strong> viewer.</p>
-                    <p>It displays a timeline of my professional experience and skills.</p>
-                </div>
-            ),
-            content: <JobHistory data={content.jobHistory} />
-        },
-        {
-            id: "skills",
-            title: "My Skills",
-            iconType: "skills",
-            helpContent: (
-                <div className="space-y-2">
-                    <p>This is the <strong>Skills</strong> viewer.</p>
-                    <p>It displays my technical expertise categorized by area.</p>
-                </div>
-            ),
-            content: <Skills data={content.skillsData} />
         },
         {
             id: "contact",
@@ -198,6 +140,74 @@ export const getAppsConfig = (content: HomeContent): AppDefinition[] => {
                     </div>
                 </div>
             )
+        },
+        {
+            id: "resume-folder",
+            title: "My Resume",
+            iconType: "folder",
+            fullBleed: true,
+            width: 500,
+            height: 400,
+            children: [
+                {
+                    id: "about",
+                    title: "About_Me.doc",
+                    iconType: "about",
+                    helpContent: (
+                        <div className="space-y-2">
+                            <p>This window contains the <strong>About Me</strong> section.</p>
+                            <p>You can find information about my background, skills, and experience here.</p>
+                            <p>The tech stack I use is highlighted in the right panel.</p>
+                        </div>
+                    ),
+                    content: (
+                        <div className="grid md:grid-cols-3 gap-6">
+                            <div className="md:col-span-2">
+                                <h2 className="text-[24px] font-win95 font-bold mb-4 bg-win95-blue-active text-white px-2 italic leading-none py-1">{content.about.title}</h2>
+                                <div
+                                    className="text-[12px] font-win95 leading-normal space-y-4 [&>p]:mb-4"
+                                    dangerouslySetInnerHTML={{ __html: content.bodyHtml }}
+                                />
+                            </div>
+                            <div className="win95-beveled p-4 h-fit">
+                                <h3 className="font-win95 font-bold border-b border-black mb-2 text-[12px] uppercase leading-none">{content.about.techStackTitle}</h3>
+                                <ul className="text-[12px] font-win95-mono space-y-1 leading-tight">
+                                    {content.skills.map((skill, i) => (
+                                        <li key={i} className="flex items-center gap-1">
+                                            <span className="w-2 h-2 bg-win95-blue-active" />
+                                            {skill}
+                                        </li>
+                                    ))}
+                                </ul>
+                            </div>
+                        </div>
+                    )
+                },
+                {
+                    id: "job-history",
+                    title: "Job History",
+                    iconType: "job-history",
+                    helpContent: (
+                        <div className="space-y-2">
+                            <p>This is the <strong>Job History</strong> viewer.</p>
+                            <p>It displays a timeline of my professional experience and skills.</p>
+                        </div>
+                    ),
+                    content: <JobHistory data={content.jobHistory} />
+                },
+                {
+                    id: "skills",
+                    title: "My Skills",
+                    iconType: "skills",
+                    helpContent: (
+                        <div className="space-y-2">
+                            <p>This is the <strong>Skills</strong> viewer.</p>
+                            <p>It displays my technical expertise categorized by area.</p>
+                        </div>
+                    ),
+                    content: <Skills data={content.skillsData} />
+                }
+            ]
         },
         {
             id: "accessories",

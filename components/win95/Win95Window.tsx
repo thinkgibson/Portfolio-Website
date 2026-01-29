@@ -203,6 +203,16 @@ export function Win95Window({
     const [isResizing, setIsResizing] = React.useState(false);
     const [measuredHeight, setMeasuredHeight] = React.useState(300);
     const windowRef = React.useRef<HTMLDivElement>(null);
+    const [skipAnimations, setSkipAnimations] = React.useState(false);
+
+    React.useEffect(() => {
+        if (typeof window !== 'undefined') {
+            const params = new URLSearchParams(window.location.search);
+            if (params.get('skipAnimations') === 'true') {
+                setSkipAnimations(true);
+            }
+        }
+    }, []);
 
     // Measure window dimensions for computing drag constraints
     React.useEffect(() => {
@@ -326,7 +336,7 @@ export function Win95Window({
                     opacity: 1
                 }
             }
-            transition={{
+            transition={skipAnimations ? { duration: 0 } : {
                 type: "spring",
                 stiffness: 400,
                 damping: 30,

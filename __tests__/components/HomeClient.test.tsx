@@ -59,7 +59,7 @@ describe('HomeClient', () => {
 
         expect(screen.getByTestId('mock-os-desktop')).toBeInTheDocument();
         expect(screen.getByTestId('window-def-welcome')).toBeInTheDocument();
-        expect(screen.getByTestId('window-def-about')).toBeInTheDocument();
+        expect(screen.getByTestId('window-def-resume-folder')).toBeInTheDocument();
         expect(screen.getByTestId('window-def-projects')).toBeInTheDocument();
         expect(screen.getByTestId('window-def-contact')).toBeInTheDocument();
         expect(screen.getByTestId('window-def-portfolio')).toBeInTheDocument();

@@ -6,7 +6,7 @@ test.describe('Window Controls', () => {
     test.beforeEach(setupOrReset);
 
     test('can open, maximize, and restore a window', async ({ desktop, window, page }) => {
-        const title = 'About_Me.doc';
+        const title = 'Welcome.txt';
 
         // Open the window
         await desktop.openIcon(title);
@@ -43,7 +43,7 @@ test.describe('Window Controls', () => {
         // Skip on mobile devices since this test uses mouse events
         test.skip(testInfo.project.name.includes('Mobile'), 'Mouse dragging not supported on mobile devices');
 
-        const title = 'About_Me.doc';
+        const title = 'Welcome.txt';
         await desktop.openIcon(title);
         await window.expectVisible(title);
 
@@ -87,7 +87,7 @@ test.describe('Window Controls', () => {
     });
 
     test('can minimize and restore from taskbar', async ({ desktop, window }) => {
-        const title = 'About_Me.doc';
+        const title = 'Welcome.txt';
 
         await desktop.openIcon(title);
         await window.expectVisible(title);
@@ -102,7 +102,7 @@ test.describe('Window Controls', () => {
     });
 
     test('can close a window', async ({ desktop, window }) => {
-        const title = 'About_Me.doc';
+        const title = 'Welcome.txt';
 
         await desktop.openIcon(title);
         await window.expectVisible(title);

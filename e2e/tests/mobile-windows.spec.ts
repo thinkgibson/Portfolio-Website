@@ -4,14 +4,14 @@ test.describe('Mobile Window Constraints', () => {
     test.use({ viewport: { width: 375, height: 667 }, hasTouch: true });
 
     test.beforeEach(async ({ page }) => {
-        await page.goto('/?skipBoot=true&skipWelcome=true');
+        await page.goto('/?skipBoot=true&skipWelcome=true&skipAnimations=true');
         await page.waitForLoadState('networkidle');
     });
 
     test('windows should default to 90% width and height and be centered', async ({ page }) => {
-        await page.click('[data-testid="desktop-icon-about_me.doc"]', { force: true });
+        await page.click('[data-testid="desktop-icon-welcome.txt"]', { force: true });
         await page.screenshot({ path: 'after-click-icon.png' });
-        const win = page.locator('[data-testid="window-about_me.doc"]');
+        const win = page.locator('[data-testid="window-welcome.txt"]');
         await expect(win).toBeVisible();
         // Wait for animations to settle
         await page.waitForTimeout(2000);
@@ -34,8 +34,8 @@ test.describe('Mobile Window Constraints', () => {
     });
 
     test('windows should not be moveable on mobile', async ({ page }) => {
-        await page.click('[data-testid="desktop-icon-about_me.doc"]', { force: true });
-        const win = page.locator('[data-testid="window-about_me.doc"]');
+        await page.click('[data-testid="desktop-icon-welcome.txt"]', { force: true });
+        const win = page.locator('[data-testid="window-welcome.txt"]');
         await expect(win).toBeVisible();
         await page.waitForTimeout(1000); // Wait for animation
         const titlebar = win.locator('[data-testid="window-titlebar"]');
@@ -58,8 +58,8 @@ test.describe('Mobile Window Constraints', () => {
     });
 
     test('all functionality should be accessible through touch', async ({ page }) => {
-        await page.click('[data-testid="desktop-icon-about_me.doc"]', { force: true });
-        const win = page.locator('[data-testid="window-about_me.doc"]');
+        await page.click('[data-testid="desktop-icon-welcome.txt"]', { force: true });
+        const win = page.locator('[data-testid="window-welcome.txt"]');
         await expect(win).toBeVisible();
         await page.waitForTimeout(1000); // Wait for animation
 
@@ -69,7 +69,7 @@ test.describe('Mobile Window Constraints', () => {
         await expect(win).not.toBeVisible();
 
         // Restore from taskbar using tap
-        const taskbarBtn = page.locator('button').filter({ hasText: 'About_Me.doc' });
+        const taskbarBtn = page.locator('button').filter({ hasText: 'Welcome.txt' });
         await taskbarBtn.tap();
         await expect(win).toBeVisible();
 

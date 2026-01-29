@@ -2,7 +2,7 @@ import { test, expect } from '@playwright/test';
 
 test.describe('Window Taskbar Collision', () => {
     test.beforeEach(async ({ page }) => {
-        await page.goto('/?skipBoot=true&skipWelcome=true');
+        await page.goto('/?skipBoot=true&skipWelcome=true&skipAnimations=true');
     });
 
     test('window cannot be dragged into the taskbar area', async ({ page }, testInfo) => {
@@ -12,8 +12,8 @@ test.describe('Window Taskbar Collision', () => {
         const TASKBAR_HEIGHT = 48;
 
         // Open a window
-        await page.click('text=About_Me.doc');
-        const window = page.locator('div[data-testid="window-about_me.doc"]');
+        await page.click('text=Welcome.txt');
+        const window = page.locator('div[data-testid="window-welcome"]');
         await expect(window).toBeVisible();
 
         await page.waitForTimeout(500);
@@ -47,8 +47,8 @@ test.describe('Window Taskbar Collision', () => {
         const TASKBAR_HEIGHT = 48;
 
         // Open a window
-        await page.click('text=About_Me.doc');
-        const window = page.locator('div[data-testid="window-about_me.doc"]');
+        await page.click('text=Welcome.txt');
+        const window = page.locator('div[data-testid="window-welcome"]');
         await expect(window).toBeVisible();
 
         // Get initial viewport and window position

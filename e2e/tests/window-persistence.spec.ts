@@ -16,7 +16,7 @@ test.describe('Window Persistence', () => {
         }
 
         // 1. Navigate to desktop (skip boot)
-        await page.goto('/?skipBoot=true');
+        await page.goto('/?skipBoot=true&skipAnimations=true');
         log('Navigated to /?skipBoot=true');
 
         // Wait for desktop
@@ -24,9 +24,9 @@ test.describe('Window Persistence', () => {
         log('Desktop visible');
 
         // 2. Open "About Me" window
-        // Note: The title is "About_Me.doc" in HomeClient.tsx
-        // data-testid will be `desktop-icon-about_me.doc`
-        const aboutIcon = page.getByTestId('desktop-icon-about_me.doc');
+        // Note: The title is "Welcome.txt" in HomeClient.tsx
+        // data-testid will be `desktop-icon-welcome.txt`
+        const aboutIcon = page.getByTestId('desktop-icon-welcome.txt');
         await expect(aboutIcon).toBeVisible({ timeout: 10000 });
         const iconBox = await aboutIcon.boundingBox();
         log(`About Icon Box: ${JSON.stringify(iconBox)}`);
@@ -35,12 +35,12 @@ test.describe('Window Persistence', () => {
         await aboutIcon.click({ force: true });
         log('Clicked About Me');
 
-        const windowTitle = page.getByTestId('window-titlebar').filter({ hasText: 'About_Me.doc' });
+        const windowTitle = page.getByTestId('window-titlebar').filter({ hasText: 'Welcome.txt' });
         await expect(windowTitle).toBeVisible();
         log('Window visible');
 
         // 3. Get initial position
-        const windowElement = page.getByTestId('window-about_me.doc');
+        const windowElement = page.getByTestId('window-welcome.txt');
         const initialBox = await windowElement.boundingBox();
         log(`Initial Box: ${JSON.stringify(initialBox)}`);
         expect(initialBox).toBeTruthy();

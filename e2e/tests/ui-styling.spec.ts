@@ -2,7 +2,7 @@ import { test, expect } from '@playwright/test';
 
 test.describe('UI Styling Fixes', () => {
     test.beforeEach(async ({ page }) => {
-        await page.goto('/?skipBoot=true&skipWelcome=true');
+        await page.goto('/?skipBoot=true&skipWelcome=true&skipAnimations=true');
         await page.waitForLoadState('networkidle');
         // Wait for desktop
         await expect(page.locator('[data-testid^="desktop-icon-"]').first()).toBeVisible();
