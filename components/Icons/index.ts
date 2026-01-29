@@ -9,6 +9,7 @@ export * from "./PaintIcon";
 export * from "./TerminalIcon";
 export * from "./MusicPlayerIcon";
 export * from "./DocumentariesIcon";
+export * from "./LivestreamsIcon";
 export * from "./WindowsLogoIcon";
 export * from "./HelpIcon";
 export * from "./WeatherIcon";

@@ -32,7 +32,13 @@ describe('apps.config', () => {
             buttonText: 'Send Email',
             email: 'test@example.com'
         },
-        bodyHtml: '<p>Body Content</p>'
+        bodyHtml: '<p>Body Content</p>',
+        jobHistory: { jobs: [] },
+        skillsData: { categories: [] },
+        videoData: {
+            documentaries: [],
+            livestreams: []
+        }
     };
 
     it('returns a list of apps', () => {

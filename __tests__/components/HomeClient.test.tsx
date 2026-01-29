@@ -46,6 +46,12 @@ describe('HomeClient', () => {
             email: 'test@example.com',
         },
         bodyHtml: '<p>About body</p>',
+        jobHistory: { jobs: [] },
+        skillsData: { categories: [] },
+        videoData: {
+            documentaries: [],
+            livestreams: []
+        },
     };
 
     it('renders OSDesktop with correct window definitions', () => {
