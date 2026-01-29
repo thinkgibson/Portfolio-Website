@@ -21,7 +21,13 @@ const mockContent = {
         buttonText: 'Btn',
         email: 'test@test.com'
     },
-    bodyHtml: '<p>Body</p>'
+    bodyHtml: '<p>Body</p>',
+    jobHistory: { jobs: [] },
+    skillsData: { categories: [] },
+    videoData: {
+        documentaries: [],
+        livestreams: []
+    }
 }
 
 describe('Home Page', () => {

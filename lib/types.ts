@@ -32,6 +32,19 @@ export interface HomeContent {
     bodyHtml: string;
     jobHistory: JobHistory;
     skillsData: SkillsData;
+    videoData: VideoData;
+}
+
+export interface Video {
+    id: string;
+    title: string;
+    role: string;
+    description: string;
+}
+
+export interface VideoData {
+    documentaries: Video[];
+    livestreams: Video[];
 }
 
 export interface SkillsData {
@@ -64,6 +77,7 @@ export type IconType =
     | "terminal"
     | "musicplayer"
     | "documentaries"
+    | "livestreams"
     | "about"
     | "contact"
     | "projects"

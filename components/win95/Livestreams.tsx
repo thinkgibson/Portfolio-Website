@@ -4,11 +4,11 @@ import React, { useEffect, useRef } from "react";
 import { useOS } from "./OSContext";
 import { Video } from "../../lib/types";
 
-interface DocumentariesProps {
+interface LivestreamsProps {
     videos: Video[];
 }
 
-export function Documentaries({ videos = [] }: DocumentariesProps) {
+export function Livestreams({ videos = [] }: LivestreamsProps) {
     const { volume } = useOS();
     const iframeRefs = useRef<(HTMLIFrameElement | null)[]>([]);
 
@@ -44,12 +44,12 @@ export function Documentaries({ videos = [] }: DocumentariesProps) {
         <div className="h-full overflow-y-auto bg-win95-light p-4 font-win95 select-text">
             <div className="space-y-8 max-w-3xl mx-auto">
                 <div className="bg-win95-beveled p-4 mb-6 text-center">
-                    <h2 className="text-xl font-bold mb-2">My Documentaries</h2>
-                    <p className="text-sm">A collection of documentaries I've worked on.</p>
+                    <h2 className="text-xl font-bold mb-2">My Livestreams</h2>
+                    <p className="text-sm">A collection of livestreams and archives.</p>
                 </div>
 
                 {videos.map((video, index) => (
-                    <div key={video.id} className="win95-group-box p-4 bg-win95-gray">
+                    <div key={video.id + index} className="win95-group-box p-4 bg-win95-gray">
                         <div className="text-lg font-bold mb-2 px-1">{video.title}</div>
 
                         <div className="aspect-video w-full bg-black mb-4 border-2 border-win95-dark shadow-inner">
@@ -57,7 +57,7 @@ export function Documentaries({ videos = [] }: DocumentariesProps) {
                                 ref={el => { iframeRefs.current[index] = el }}
                                 width="100%"
                                 height="100%"
-                                src={`https://www.youtube.com/embed/${video.id}?enablejsapi=1`}
+                                src={`https://www.youtube.com/embed/${video.id}${video.id.includes('?') ? '&' : '?'}enablejsapi=1`}
                                 title={video.title}
                                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                                 allowFullScreen

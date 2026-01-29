@@ -7,6 +7,7 @@ import { Paint } from "../components/win95/Paint";
 import { Terminal } from "../components/win95/Terminal";
 import { MusicPlayer } from "../components/win95/MusicPlayer";
 import { Documentaries } from "../components/win95/Documentaries";
+import { Livestreams } from "../components/win95/Livestreams";
 import { JobHistory } from "../components/win95/JobHistory";
 import { Skills } from "../components/win95/Skills";
 import { Github, ExternalLink } from "lucide-react";
@@ -305,7 +306,22 @@ export const getAppsConfig = (content: HomeContent): AppDefinition[] => {
                             <p>Watch documentaries and videos I've worked on.</p>
                         </div>
                     ),
-                    content: <Documentaries />
+                    content: <Documentaries videos={content.videoData.documentaries} />
+                },
+                {
+                    id: "livestreams",
+                    title: "Livestreams",
+                    iconType: "livestreams",
+                    width: 800,
+                    height: 600,
+                    fullBleed: true,
+                    helpContent: (
+                        <div className="space-y-2">
+                            <p>This is the <strong>Livestreams</strong> app.</p>
+                            <p>Watch archives of past livestreams.</p>
+                        </div>
+                    ),
+                    content: <Livestreams videos={content.videoData.livestreams} />
                 }
             ]
         }

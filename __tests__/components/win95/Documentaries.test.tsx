@@ -14,28 +14,39 @@ const renderWithOS = (ui: React.ReactNode) => {
     );
 };
 
+const mockVideos = [
+    {
+        id: "ONw4XjhCiRg",
+        title: "Morristown Bank Vault Documentary",
+        role: "Producer",
+        description: "Test description"
+    },
+    {
+        id: "uRnMK2wzM20",
+        title: "Iceland documentary",
+        role: "Producer",
+        description: "Test description"
+    }
+];
+
 describe("Documentaries Component", () => {
     it("renders the documentaries app container", () => {
-        renderWithOS(<Documentaries />);
+        renderWithOS(<Documentaries videos={mockVideos} />);
         // Check for the header text
         expect(screen.getByText("My Documentaries")).toBeInTheDocument();
-        expect(screen.getByText("A collection of documentaries I've worked on.")).toBeInTheDocument();
     });
 
     it("renders the video list", () => {
-        renderWithOS(<Documentaries />);
+        renderWithOS(<Documentaries videos={mockVideos} />);
         // Check for specific video titles
         expect(screen.getByText("Morristown Bank Vault Documentary")).toBeInTheDocument();
         expect(screen.getByText("Iceland documentary")).toBeInTheDocument();
-        expect(screen.getByText("Halo documentary")).toBeInTheDocument();
-        expect(screen.getByText("The Making of Epitasis")).toBeInTheDocument();
-        expect(screen.getByText("The Making of SkateBIRD")).toBeInTheDocument();
     });
 
     it("renders iframes with correct src", () => {
-        const { container } = renderWithOS(<Documentaries />);
+        const { container } = renderWithOS(<Documentaries videos={mockVideos} />);
         const iframes = container.querySelectorAll("iframe");
-        expect(iframes.length).toBe(5);
+        expect(iframes.length).toBe(2);
         expect(iframes[0].src).toContain("https://www.youtube.com/embed/ONw4XjhCiRg?enablejsapi=1");
     });
 });
