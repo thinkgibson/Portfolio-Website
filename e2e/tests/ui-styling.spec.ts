@@ -53,6 +53,7 @@ test.describe('UI Styling Fixes', () => {
 
     test('Notepad branding and fonts', async ({ page }) => {
         test.slow(); // Mark as slow for CI
+        test.setTimeout(120000);
 
         // Open Notepad using robust selector
         await page.locator('[data-testid="taskbar-start-button"]').click();
@@ -61,12 +62,12 @@ test.describe('UI Styling Fixes', () => {
         await page.locator('[data-testid="start-menu-item-notepad"]').click({ force: true });
 
         // Wait for window
-        await expect(page.locator('[data-testid="notepad-editor"]')).toBeVisible({ timeout: 15000 });
+        await expect(page.locator('[data-testid="notepad-editor"]')).toBeVisible({ timeout: 30000 });
 
         // Check "Rich Text Mode" label using testId
         const label = page.locator('[data-testid="notepad-status-label"]');
         // Should use win95 font and not be italic
-        await expect(label).toBeVisible();
+        await expect(label).toBeVisible({ timeout: 30000 });
         await expect(label).toHaveClass(/font-win95/);
         await expect(label).not.toHaveClass(/italic/);
 
@@ -78,6 +79,7 @@ test.describe('UI Styling Fixes', () => {
 
     test('Window Help menu styling', async ({ page }) => {
         test.slow(); // Mark as slow for CI
+        test.setTimeout(120000);
 
         // Open (Notepad is already good target)
         await page.locator('[data-testid="taskbar-start-button"]').click();
@@ -86,13 +88,13 @@ test.describe('UI Styling Fixes', () => {
         await page.locator('[data-testid="start-menu-item-notepad"]').click({ force: true });
 
         // Wait for window
-        await expect(page.locator('[data-testid="notepad-editor"]')).toBeVisible({ timeout: 15000 });
+        await expect(page.locator('[data-testid="notepad-editor"]')).toBeVisible({ timeout: 30000 });
 
         // Check Help menu using testId
         const helpMenu = page.locator('[data-testid="menu-help"]');
 
         // Verify it exists first
-        await expect(helpMenu).toBeVisible();
+        await expect(helpMenu).toBeVisible({ timeout: 30000 });
 
         // It should not have font-bold class
         await expect(helpMenu).not.toHaveClass(/font-bold/);

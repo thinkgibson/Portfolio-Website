@@ -354,7 +354,7 @@ export function Win95Window({
                         {title}
                     </span>
                 </div>
-                <div className="flex gap-1 pr-1">
+                <div className="flex gap-1 pr-1" onPointerDown={(e) => e.stopPropagation()}>
                     <button
                         onClick={onMinimize}
                         className="win95-button w-6 h-6 !p-0 flex items-center justify-center"

@@ -228,6 +228,10 @@ export function OSDesktop({ windows: initialWindows, skipBoot: propSkipBoot, ski
         setOpenWindows(prev => prev.map(w =>
             w.id === id ? { ...w, width, height } : w
         ));
+        setWindowPositions(prev => ({
+            ...prev,
+            [id]: { ...prev[id], width, height } // Update width/height, preserve x/y from prev[id] or let it be undefined if checking logic elsewhere
+        }));
     };
 
     const handleAbout = (id: string) => {
@@ -336,10 +340,10 @@ export function OSDesktop({ windows: initialWindows, skipBoot: propSkipBoot, ski
     };
 
     // Flatten all apps for OSProvider's availableApps
-    const getAllApps = (list: AppDefinition[]): { id: string, title: string }[] => {
-        let apps: { id: string, title: string }[] = [];
+    const getAllApps = (list: AppDefinition[]): { id: string, title: string, iconType: any }[] => {
+        let apps: { id: string, title: string, iconType: any }[] = [];
         for (const item of list) {
-            apps.push({ id: item.id, title: item.title });
+            apps.push({ id: item.id, title: item.title, iconType: item.iconType });
             if (item.children) {
                 apps = [...apps, ...getAllApps(item.children)];
             }
@@ -383,6 +387,7 @@ export function OSDesktop({ windows: initialWindows, skipBoot: propSkipBoot, ski
                 initialWindows={initialWindows}
                 desktopRef={desktopRef}
                 isMobile={isMobile}
+                availableApps={availableApps}
             />
         </OSProvider>
     );
@@ -395,7 +400,7 @@ function OSDesktopView({
     handleOpenWindow, handleCloseWindow, handleMinimizeWindow, handleMaximizeWindow,
     handleSetActive, handleResizeWindow, handleAbout, handleOpenWallpaperSelector,
     handleMinimizeAllWindows, handleCloseAllWindows, handleContextMenu,
-    initialWindows, desktopRef, isMobile
+    initialWindows, desktopRef, isMobile, availableApps
 }: any) {
     const { playSound, closeWindow, saveHandlers } = useOS();
 
@@ -450,7 +455,7 @@ function OSDesktopView({
             <AnimatePresence>
                 {isStartMenuOpen && (
                     <StartMenu
-                        items={initialWindows.map((w: any) => ({ id: w.id, title: w.title, iconType: w.iconType }))}
+                        items={availableApps}
                         onItemClick={(id) => {
                             playSound("click");
                             handleOpenWindow(id);
@@ -486,7 +491,7 @@ function OSDesktopView({
                         onPositionChange={(newX: number, newY: number) => {
                             const clampedX = Math.max(-10, Math.min(newX, (typeof window !== 'undefined' ? window.innerWidth : 800) - 100));
                             const clampedY = Math.max(-10, Math.min(newY, (typeof window !== 'undefined' ? window.innerHeight : 600) - TASKBAR_HEIGHT));
-                            setWindowPositions((prev: any) => ({ ...prev, [win.id]: { x: clampedX, y: clampedY } }));
+                            setWindowPositions((prev: any) => ({ ...prev, [win.id]: { ...prev[win.id], x: clampedX, y: clampedY } }));
                             setOpenWindows((prev: any) => prev.map((w: any) => w.id === win.id ? { ...w, x: clampedX, y: clampedY } : w));
                         }}
                         isMaximized={win.isMaximized}

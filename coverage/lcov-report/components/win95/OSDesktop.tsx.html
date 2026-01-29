@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">70.36% </span>
+                <span class="strong">69.9% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>387/550</span>
+                <span class='fraction'>388/555</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">78.33% </span>
+                <span class="strong">77.96% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>47/60</span>
+                <span class='fraction'>46/59</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">70.36% </span>
+                <span class="strong">69.9% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>387/550</span>
+                <span class='fraction'>388/555</span>
             </div>
         
             
@@ -618,7 +618,12 @@
 <a name='L553'></a><a href='#L553'>553</a>
 <a name='L554'></a><a href='#L554'>554</a>
 <a name='L555'></a><a href='#L555'>555</a>
-<a name='L556'></a><a href='#L556'>556</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L556'></a><a href='#L556'>556</a>
+<a name='L557'></a><a href='#L557'>557</a>
+<a name='L558'></a><a href='#L558'>558</a>
+<a name='L559'></a><a href='#L559'>559</a>
+<a name='L560'></a><a href='#L560'>560</a>
+<a name='L561'></a><a href='#L561'>561</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -849,6 +854,10 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-yes">30x</span>
 <span class="cline-any cline-yes">30x</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -959,11 +968,11 @@
 <span class="cline-any cline-yes">30x</span>
 <span class="cline-any cline-yes">34x</span>
 <span class="cline-any cline-yes">34x</span>
-<span class="cline-any cline-yes">67x</span>
-<span class="cline-any cline-yes">67x</span>
+<span class="cline-any cline-yes">73x</span>
+<span class="cline-any cline-yes">73x</span>
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-yes">67x</span>
+<span class="cline-any cline-yes">73x</span>
 <span class="cline-any cline-yes">34x</span>
 <span class="cline-any cline-yes">34x</span>
 <span class="cline-any cline-yes">30x</span>
@@ -1007,6 +1016,7 @@
 <span class="cline-any cline-yes">30x</span>
 <span class="cline-any cline-yes">30x</span>
 <span class="cline-any cline-yes">30x</span>
+<span class="cline-any cline-yes">30x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">30x</span>
 <span class="cline-any cline-yes">30x</span>
@@ -1053,8 +1063,8 @@
 <span class="cline-any cline-yes">30x</span>
 <span class="cline-any cline-yes">30x</span>
 <span class="cline-any cline-yes">30x</span>
-<span class="cline-any cline-yes">55x</span>
-<span class="cline-any cline-yes">55x</span>
+<span class="cline-any cline-yes">59x</span>
+<span class="cline-any cline-yes">59x</span>
 <span class="cline-any cline-yes">30x</span>
 <span class="cline-any cline-yes">30x</span>
 <span class="cline-any cline-yes">30x</span>
@@ -1403,6 +1413,10 @@ export function OSDesktop({ windows: initialWindows, skipBoot: propSkipBoot, ski
 <span class="cstat-no" title="statement not covered" >        setOpenWindows(prev =&gt; prev.map(w =&gt;</span>
 <span class="cstat-no" title="statement not covered" >            w.id === id ? { ...w, width, height } : w</span>
 <span class="cstat-no" title="statement not covered" >        ));</span>
+<span class="cstat-no" title="statement not covered" >        setWindowPositions(prev =&gt; ({</span>
+<span class="cstat-no" title="statement not covered" >            ...prev,</span>
+<span class="cstat-no" title="statement not covered" >            [id]: { ...prev[id], width, height } // Update width/height, preserve x/y from prev[id] or let it be undefined if checking logic elsewhere</span>
+<span class="cstat-no" title="statement not covered" >        }));</span>
 <span class="cstat-no" title="statement not covered" >    };</span>
 &nbsp;
     const handleAbout = <span class="fstat-no" title="function not covered" >(id: string) =&gt; {</span>
@@ -1511,10 +1525,10 @@ export function OSDesktop({ windows: initialWindows, skipBoot: propSkipBoot, ski
     };
 &nbsp;
     // Flatten all apps for OSProvider's availableApps
-    const getAllApps = (list: AppDefinition[]): { id: string, title: string }[] =&gt; {
-        let apps: { id: string, title: string }[] = [];
+    const getAllApps = (list: AppDefinition[]): { id: string, title: string, iconType: any }[] =&gt; {
+        let apps: { id: string, title: string, iconType: any }[] = [];
         for (const item of list) {
-            apps.push({ id: item.id, title: item.title });
+            apps.push({ id: item.id, title: item.title, iconType: item.iconType });
             if (item.children) {
                 apps = [...apps, ...getAllApps(item.children)];
             }
@@ -1558,6 +1572,7 @@ export function OSDesktop({ windows: initialWindows, skipBoot: propSkipBoot, ski
                 initialWindows={initialWindows}
                 desktopRef={desktopRef}
                 isMobile={isMobile}
+                availableApps={availableApps}
             /&gt;
         &lt;/OSProvider&gt;
     );
@@ -1570,7 +1585,7 @@ function OSDesktopView({
     handleOpenWindow, handleCloseWindow, handleMinimizeWindow, handleMaximizeWindow,
     handleSetActive, handleResizeWindow, handleAbout, handleOpenWallpaperSelector,
     handleMinimizeAllWindows, handleCloseAllWindows, handleContextMenu,
-    initialWindows, desktopRef, isMobile
+    initialWindows, desktopRef, isMobile, availableApps
 }: any) {
     const { playSound, closeWindow, saveHandlers } = useOS();
 &nbsp;
@@ -1625,7 +1640,7 @@ function OSDesktopView({
             &lt;AnimatePresence&gt;
                 {isStartMenuOpen &amp;&amp; (
                     &lt;StartMenu
-                        items={initialWindows.map((w: any) =&gt; ({ id: w.id, title: w.title, iconType: w.iconType }))}
+                        items={availableApps}
                         onItemClick={<span class="fstat-no" title="function not covered" >(id) =&gt; {</span>
 <span class="cstat-no" title="statement not covered" >                            playSound("click");</span>
 <span class="cstat-no" title="statement not covered" >                            handleOpenWindow(id);</span>
@@ -1661,7 +1676,7 @@ function OSDesktopView({
                         onPositionChange={<span class="fstat-no" title="function not covered" >(newX: number, newY: number) =&gt; {</span>
 <span class="cstat-no" title="statement not covered" >                            const clampedX = Math.max(-10, Math.min(newX, (typeof window !== 'undefined' ? window.innerWidth : 800) - 100));</span>
 <span class="cstat-no" title="statement not covered" >                            const clampedY = Math.max(-10, Math.min(newY, (typeof window !== 'undefined' ? window.innerHeight : 600) - TASKBAR_HEIGHT));</span>
-<span class="cstat-no" title="statement not covered" >                            setWindowPositions((prev: any) =&gt; ({ ...prev, [win.id]: { x: clampedX, y: clampedY } }));</span>
+<span class="cstat-no" title="statement not covered" >                            setWindowPositions((prev: any) =&gt; ({ ...prev, [win.id]: { ...prev[win.id], x: clampedX, y: clampedY } }));</span>
 <span class="cstat-no" title="statement not covered" >                            setOpenWindows((prev: any) =&gt; prev.map((w: any) =&gt; w.id === win.id ? { ...w, x: clampedX, y: clampedY } : w));</span>
 <span class="cstat-no" title="statement not covered" >                        }}</span>
                         isMaximized={win.isMaximized}
@@ -1735,7 +1750,7 @@ function OSDesktopView({
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2026-01-27T15:55:02.935Z
+                at 2026-01-29T01:23:49.919Z
             </div>
         <script src="../../prettify.js"></script>
         <script>
