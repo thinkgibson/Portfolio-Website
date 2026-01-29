@@ -3,7 +3,7 @@ import { test, expect } from '@playwright/test';
 test.describe('Wallpaper Functionality', () => {
     test.beforeEach(async ({ page }) => {
         // Navigate to the desktop, skipping boot sequence and welcome window
-        await page.goto('/?skipBoot=true&skipWelcome=true');
+        await page.goto('/?skipBoot=true&skipWelcome=true&skipAnimations=true');
     });
 
     test('should open wallpaper selector from desktop context menu', async ({ page }) => {

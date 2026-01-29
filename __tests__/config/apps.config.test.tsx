@@ -52,7 +52,7 @@ describe('apps.config', () => {
         const appIds = apps.map(app => app.id);
 
         expect(appIds).toContain('welcome');
-        expect(appIds).toContain('about');
+        expect(appIds).toContain('resume-folder');
         expect(appIds).toContain('projects');
         expect(appIds).toContain('contact');
         expect(appIds).toContain('portfolio');

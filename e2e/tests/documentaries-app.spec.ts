@@ -13,7 +13,7 @@ test.describe('Documentaries App', () => {
 
     test('can open Documentaries app from desktop', async ({ page }) => {
         // Navigate directly with query params to skip boot
-        await page.goto('/?skipBoot=true&skipWelcome=true');
+        await page.goto('/?skipBoot=true&skipWelcome=true&skipAnimations=true');
 
         // Open Multimedia folder
         const folderIcon = page.getByTestId('desktop-icon-multimedia');
@@ -42,7 +42,7 @@ test.describe('Documentaries App', () => {
     });
 
     test('can open Documentaries app from start menu', async ({ page }) => {
-        await page.goto('/?skipBoot=true&skipWelcome=true');
+        await page.goto('/?skipBoot=true&skipWelcome=true&skipAnimations=true');
 
         // Wait for desktop container to ensure we're ready
         await expect(page.getByTestId('desktop-container')).toBeVisible({ timeout: 30000 });

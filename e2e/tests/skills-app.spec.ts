@@ -3,16 +3,23 @@ import { test, expect } from '@playwright/test';
 test.describe('Skills App', () => {
     test.beforeEach(async ({ page }) => {
         // Navigate to the app and skip boot sequence/welcome
-        await page.goto('/?skipBoot=true&skipWelcome=true');
+        await page.goto('/?skipBoot=true&skipWelcome=true&skipAnimations=true');
     });
 
     test('should open Skills app from desktop', async ({ page }) => {
-        const icon = page.getByTestId('desktop-icon-my-skills');
-        await expect(icon).toBeVisible({ timeout: 10000 });
-        await icon.dblclick();
+        const resumeFolder = page.getByTestId('desktop-icon-my-resume');
+        await expect(resumeFolder).toBeVisible();
+        await resumeFolder.click();
+
+        const folderWindow = page.getByTestId('window-my-resume');
+        await expect(folderWindow).toBeVisible();
+
+        const icon = folderWindow.getByTestId('desktop-icon-my-skills');
+        await expect(icon).toBeVisible();
+        await icon.click();
 
         const window = page.getByTestId('window-my-skills');
-        await expect(window).toBeVisible({ timeout: 10000 });
+        await expect(window).toBeVisible();
     });
 
     test('should open Skills app from terminal', async ({ page }) => {

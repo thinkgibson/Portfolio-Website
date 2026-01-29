@@ -3,7 +3,7 @@ import { test, expect } from '@playwright/test';
 test.describe('Terminal App', () => {
     test.beforeEach(async ({ page }) => {
         // Navigate to the app and wait for boot
-        await page.goto('/?skipBoot=true&skipWelcome=true');
+        await page.goto('/?skipBoot=true&skipWelcome=true&skipAnimations=true');
         await page.waitForSelector('[data-testid="desktop-container"]');
     });
 

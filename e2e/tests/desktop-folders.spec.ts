@@ -2,7 +2,7 @@ import { test, expect } from '@playwright/test';
 
 test.describe('Desktop Folders', () => {
     test.beforeEach(async ({ page }) => {
-        await page.goto('/?skipBoot=true&skipWelcome=true');
+        await page.goto('/?skipBoot=true&skipWelcome=true&skipAnimations=true');
         await expect(page.getByTestId('desktop-container')).toBeVisible();
     });
 
@@ -30,7 +30,7 @@ test.describe('Desktop Folders', () => {
 
     test('should launch app from within folder', async ({ page }) => {
         const folder = page.getByTestId('desktop-icon-accessories');
-        await folder.dblclick();
+        await folder.click();
 
         const window = page.getByTestId('window-accessories');
         await expect(window).toBeVisible();

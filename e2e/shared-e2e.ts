@@ -5,7 +5,7 @@ import { Page } from '@playwright/test';
  * Navigates to the home page and skips the boot sequence.
  */
 export async function setupOrReset({ page }: { page: Page }) {
-    await page.goto('/?skipBoot=true&skipWelcome=true');
+    await page.goto('/?skipBoot=true&skipWelcome=true&skipAnimations=true');
     // Ensure the desktop is loaded
     await page.waitForSelector('[data-testid^="desktop-icon-"]');
 }

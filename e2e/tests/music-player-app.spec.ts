@@ -3,7 +3,7 @@ import { test, expect } from '@playwright/test';
 test.describe('Music Player App', () => {
     test.beforeEach(async ({ page }) => {
         // Navigate to the app with boot and welcome skipped
-        await page.goto('/?skipBoot=true&skipWelcome=true');
+        await page.goto('/?skipBoot=true&skipWelcome=true&skipAnimations=true');
         // Wait for the desktop to be ready
         await page.waitForSelector('[data-testid="desktop-container"]');
     });

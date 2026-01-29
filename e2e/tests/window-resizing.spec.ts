@@ -11,7 +11,7 @@ test.describe('Window Resizing', () => {
             return;
         }
 
-        const title = 'About_Me.doc';
+        const title = 'Welcome.txt';
         await desktop.openIcon(title);
         await window.expectVisible(title);
 
@@ -57,7 +57,7 @@ test.describe('Window Resizing', () => {
             return;
         }
 
-        const title = 'About_Me.doc';
+        const title = 'Welcome.txt';
         await desktop.openIcon(title);
 
         const winLocator = window.getWindow(title);
@@ -92,7 +92,7 @@ test.describe('Window Resizing', () => {
             return;
         }
 
-        const title = 'About_Me.doc';
+        const title = 'Welcome.txt';
         await desktop.openIcon(title);
 
         const winLocator = window.getWindow(title);

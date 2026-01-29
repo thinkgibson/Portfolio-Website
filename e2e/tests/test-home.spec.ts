@@ -11,7 +11,7 @@ test.describe('Home Page', () => {
     });
 
     test('desktop is visible', async ({ desktop }) => {
-        // Expect the About Me icon to be visible as a proxy for the desktop being loaded
-        await desktop.expectIconVisible('About_Me.doc');
+        // Expect the My Resume folder to be visible as a proxy for the desktop being loaded
+        await desktop.expectIconVisible('My Resume');
     });
 });
