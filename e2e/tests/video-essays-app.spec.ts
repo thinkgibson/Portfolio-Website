@@ -38,13 +38,13 @@ test.describe('Video Essays App', () => {
         await expect(window).toBeVisible({ timeout: 15000 });
 
         // Check for content inside the window
-        await expect(window.getByText('Video Essays')).toBeVisible();
+        await expect(window.getByRole('heading', { name: 'Video Essays' })).toBeVisible();
         await expect(window.getByText('Play This: VTOL VR')).toBeVisible();
 
         // Close window using the generic close button testId within the window
         await window.getByTestId('window-close').click();
 
-        await expect(page.getByText('Video Essays')).not.toBeVisible();
+        await expect(window).not.toBeVisible();
     });
 
     test('can open Video Essays app from start menu', async ({ page }) => {
@@ -77,6 +77,6 @@ test.describe('Video Essays App', () => {
 
         const window = page.getByTestId('window-video-essays');
         await expect(window).toBeVisible({ timeout: 15000 });
-        await expect(window.getByText('Video Essays')).toBeVisible();
+        await expect(window.getByRole('heading', { name: 'Video Essays' })).toBeVisible();
     });
 });

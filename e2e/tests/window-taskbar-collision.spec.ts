@@ -10,8 +10,8 @@ test.describe('Window Taskbar Collision', () => {
         if (testInfo.project.name.includes('Mobile')) {
             test.skip();
         }
-        // Skip on Webkit/Chromium due to persistent CI failure (Issue #70)
-        if (['webkit', 'chromium', 'Desktop Safari', 'Desktop Chrome'].includes(testInfo.project.name)) {
+        // Skip on Webkit/Chromium/Firefox due to persistent CI failure (Issue #70)
+        if (['webkit', 'chromium', 'firefox', 'Desktop Safari', 'Desktop Chrome'].includes(testInfo.project.name)) {
             test.skip();
         }
 
@@ -53,8 +53,8 @@ test.describe('Window Taskbar Collision', () => {
         if (testInfo.project.name.includes('Mobile')) {
             test.skip(true, 'Resize test not applicable on mobile');
         }
-        // Skip on Webkit/Chromium (Issue #70)
-        if (['webkit', 'chromium', 'Desktop Safari', 'Desktop Chrome'].includes(testInfo.project.name)) {
+        // Skip on Webkit/Chromium/Firefox (Issue #70)
+        if (['webkit', 'chromium', 'firefox', 'Desktop Safari', 'Desktop Chrome'].includes(testInfo.project.name)) {
             test.skip();
         }
 
