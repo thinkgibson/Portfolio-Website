@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useLayoutEffect } from "react";
 import { motion, useDragControls } from "framer-motion";
 import { X, Minus, Square } from "lucide-react";
 import { useIsMobile } from "../../lib/hooks";
@@ -215,27 +215,46 @@ export function Win95Window({
     }, []);
 
     // Measure window dimensions for computing drag constraints
-    React.useEffect(() => {
-        if (windowRef.current && !isMaximized && !isMobile) {
-            const rect = windowRef.current.getBoundingClientRect();
-            if (rect.height > 0 && rect.height !== measuredHeight) {
+    React.useLayoutEffect(() => {
+        if (!windowRef.current || isMaximized || isMobile) return;
+
+        const updateHeight = () => {
+            const rect = windowRef.current?.getBoundingClientRect();
+            if (rect && rect.height > 0 && rect.height !== measuredHeight) {
                 setMeasuredHeight(rect.height);
             }
-        }
-    });
+        };
+
+        // Initial measure
+        updateHeight();
+
+        // Observe changes
+        const observer = new ResizeObserver(updateHeight);
+        observer.observe(windowRef.current);
+
+        return () => observer.disconnect();
+    }, [isMaximized, isMobile, measuredHeight]);
 
     // Compute drag constraints to prevent window bottom from going below taskbar
-    const computedDragConstraints = React.useMemo(() => {
+    // Use passed constraints or fallback to screen bounds (relative to screen coords)
+    const effectiveDragConstraints = dragConstraints || React.useMemo(() => {
         if (typeof window === 'undefined' || isMobile || isMaximized) {
             return undefined;
         }
+
+        // Fallback relative constraints if no ref provided
+        const currentX = typeof x === 'number' ? x : 0;
+        const currentY = typeof y === 'number' ? y : 0;
+        const leftLimit = -10;
+        const topLimit = -10;
+
         return {
-            left: -10,
-            top: -10,
-            right: window.innerWidth - 100,
-            bottom: window.innerHeight - TASKBAR_HEIGHT - measuredHeight,
+            left: leftLimit - currentX,
+            top: topLimit - currentY,
+            right: window.innerWidth - currentX, // Allow mostly offscreen
+            bottom: window.innerHeight - currentY, // Allow mostly offscreen
         };
-    }, [isMobile, isMaximized, measuredHeight]);
+    }, [isMobile, isMaximized, x, y, dragConstraints]);
 
     const toggleMenu = (menu: string) => {
         setActiveMenu(activeMenu === menu ? null : menu);
@@ -308,7 +327,7 @@ export function Win95Window({
             dragMomentum={false}
             dragControls={dragControls}
             dragListener={false}
-            dragConstraints={computedDragConstraints}
+            dragConstraints={effectiveDragConstraints}
             dragElastic={0}
             onDragEnd={(_, info) => {
                 if (onPositionChange) {
