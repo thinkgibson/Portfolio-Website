@@ -9,9 +9,10 @@ export default defineConfig({
     timeout: 60000, // 60s timeout for stability
     reporter: [['html', { open: 'never' }], ['./e2e/reporters/terminal-reporter.ts']],
     use: {
-        baseURL: 'http://127.0.0.1:3001',
+        baseURL: 'http://127.0.0.1:3000',
         trace: 'on-first-retry',
-        screenshot: 'only-on-failure',
+        screenshot: 'on',
+        video: 'on-first-retry',
     },
 
     projects: [

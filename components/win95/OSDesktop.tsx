@@ -36,6 +36,18 @@ const TASKBAR_HEIGHT = 48;
 import { reloadPage } from "../../lib/navigation";
 
 
+// Flatten all apps for OSProvider's availableApps
+const getAllApps = (list: AppDefinition[]): { id: string, title: string, iconType: any }[] => {
+    let apps: { id: string, title: string, iconType: any }[] = [];
+    for (const item of list) {
+        apps.push({ id: item.id, title: item.title, iconType: item.iconType });
+        if (item.children) {
+            apps = [...apps, ...getAllApps(item.children)];
+        }
+    }
+    return apps;
+};
+
 export function OSDesktop({ windows: initialWindows, skipBoot: propSkipBoot, skipWelcome: propSkipWelcome }: OSDesktopProps) {
     const isMobile = useIsMobile();
     const [booting, setBooting] = useState(propSkipBoot !== undefined ? !propSkipBoot : process.env.NODE_ENV !== 'test');
@@ -340,17 +352,6 @@ export function OSDesktop({ windows: initialWindows, skipBoot: propSkipBoot, ski
     };
 
     // Flatten all apps for OSProvider's availableApps
-    const getAllApps = (list: AppDefinition[]): { id: string, title: string, iconType: any }[] => {
-        let apps: { id: string, title: string, iconType: any }[] = [];
-        for (const item of list) {
-            apps.push({ id: item.id, title: item.title, iconType: item.iconType });
-            if (item.children) {
-                apps = [...apps, ...getAllApps(item.children)];
-            }
-        }
-        return apps;
-    };
-
     const availableApps = getAllApps(initialWindows);
 
     return (
@@ -387,7 +388,7 @@ export function OSDesktop({ windows: initialWindows, skipBoot: propSkipBoot, ski
                 initialWindows={initialWindows}
                 desktopRef={desktopRef}
                 isMobile={isMobile}
-                availableApps={availableApps}
+                availableApps={initialWindows}
             />
         </OSProvider>
     );
