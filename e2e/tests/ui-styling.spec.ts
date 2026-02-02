@@ -31,7 +31,7 @@ test.describe('UI Styling Fixes', () => {
         await expect(taskbarItem).toHaveAttribute('class', /max-w-\[150px\]/);
     });
 
-    test.skip('Win95 scrollbar applied to Paint', async ({ page }) => {
+    test('Win95 scrollbar applied to Paint', async ({ page }) => {
         test.slow(); // Mark as slow for CI
 
         // Open Paint using robust selector

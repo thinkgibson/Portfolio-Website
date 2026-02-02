@@ -410,6 +410,8 @@ function OSDesktopView({
     };
 
 
+    const workAreaRef = React.useRef<HTMLDivElement>(null);
+
     return (
         <div
             ref={desktopRef}
@@ -434,6 +436,9 @@ function OSDesktopView({
                 setBooting(false);
                 playSound("boot");
             }} />}
+
+            {/* Constraint Area for Windows (excludes taskbar) */}
+            <div ref={workAreaRef} className="absolute inset-0 bottom-[48px] pointer-events-none w-full" />
 
             {/* Desktop Icons */}
             <div className="p-4 grid grid-flow-col grid-rows-[repeat(auto-fill,160px)] gap-4 w-fit h-[calc(100vh-48px)]">
@@ -500,7 +505,8 @@ function OSDesktopView({
                         y={win.y}
                         width={isMobile ? (typeof window !== 'undefined' ? window.innerWidth : 320) * 0.9 : (win.width || undefined)}
                         height={isMobile ? (typeof window !== 'undefined' ? window.innerHeight : 480) * 0.9 : (win.height || undefined)}
-                        dragConstraints={desktopRef}
+
+                        dragConstraints={workAreaRef}
                         onResize={(w: number, h: number) => handleResizeWindow(win.id, w, h)}
                     >
                         <div className="flex-1 flex flex-col min-h-0" onPointerDown={() => handleSetActive(win.id)}>

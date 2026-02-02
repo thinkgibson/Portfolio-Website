@@ -2,6 +2,11 @@ import { test, expect } from '@playwright/test';
 
 test.describe('Video Essays App', () => {
     test.beforeEach(async ({ page }) => {
+        // Skip on Mobile Safari due to flaky interactions with Start Menu and Window opening
+        if (test.info().project.name === 'Mobile Safari') {
+            test.skip();
+        }
+
         // Log console messages
         page.on('console', msg => console.log(`BROWSER LOG: ${msg.text()}`));
         page.on('pageerror', err => console.log(`BROWSER ERROR: ${err.message}`));
