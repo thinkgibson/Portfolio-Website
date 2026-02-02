@@ -9,7 +9,7 @@ export default defineConfig({
     timeout: 60000, // 60s timeout for stability
     reporter: [['html', { open: 'never' }], ['./e2e/reporters/terminal-reporter.ts']],
     use: {
-        baseURL: 'http://127.0.0.1:3000',
+        baseURL: 'http://127.0.0.1:3002',
         trace: 'on-first-retry',
         screenshot: 'on',
         video: 'on-first-retry',
@@ -40,8 +40,8 @@ export default defineConfig({
 
     /* Run your local dev server before starting the tests */
     webServer: {
-        command: 'npx next dev -p 3001 --hostname 127.0.0.1',
-        url: 'http://127.0.0.1:3001',
+        command: 'npx next dev -p 3002 --hostname 127.0.0.1',
+        url: 'http://127.0.0.1:3002',
         reuseExistingServer: true,
         timeout: 120 * 1000,
         stdout: 'pipe',

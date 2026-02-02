@@ -245,16 +245,22 @@ export function Win95Window({
         // Fallback relative constraints if no ref provided
         const currentX = typeof x === 'number' ? x : 0;
         const currentY = typeof y === 'number' ? y : 0;
-        const leftLimit = -10;
-        const topLimit = -10;
+        const leftLimit = -50;
+        const topLimit = 0;
+
+        // Calculate max Y to keep window above taskbar
+        // The window's bottom edge (y + height) must be <= viewport - taskbar
+        // So max y = viewport - taskbar - height
+        const h = (measuredHeight && measuredHeight > 50) ? measuredHeight : (typeof minHeight === 'number' ? minHeight : 200);
+        const maxY = window.innerHeight - TASKBAR_HEIGHT - h;
 
         return {
             left: leftLimit - currentX,
             top: topLimit - currentY,
-            right: window.innerWidth - currentX, // Allow mostly offscreen
-            bottom: window.innerHeight - currentY, // Allow mostly offscreen
+            right: window.innerWidth - currentX - 50,
+            bottom: Math.max(0, maxY - currentY), // Ensure we don't return negative if already below
         };
-    }, [isMobile, isMaximized, x, y, dragConstraints]);
+    }, [isMobile, isMaximized, x, y, dragConstraints, measuredHeight, minHeight]);
 
     const toggleMenu = (menu: string) => {
         setActiveMenu(activeMenu === menu ? null : menu);
@@ -329,6 +335,7 @@ export function Win95Window({
             dragListener={false}
             dragConstraints={effectiveDragConstraints}
             dragElastic={0}
+            onDragStart={() => onFocus?.()}
             onDragEnd={(_, info) => {
                 if (onPositionChange) {
                     const newX = x + info.offset.x;
@@ -337,7 +344,10 @@ export function Win95Window({
                     // Ensure the window's bottom edge doesn't go below the taskbar
                     if (typeof window !== 'undefined') {
                         const maxY = window.innerHeight - TASKBAR_HEIGHT - measuredHeight;
+                        // Extra safety clamp with a small buffer to prevent "bouncing" against the edge
+                        // if framer motion overshoots slightly.
                         newY = Math.min(newY, maxY);
+                        newY = Math.max(0, newY); // Also prevent going off top
                     }
 
                     onPositionChange(newX, newY);

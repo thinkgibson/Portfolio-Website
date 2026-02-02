@@ -495,8 +495,9 @@ function OSDesktopView({
                         onMaximize={() => handleMaximizeWindow(win.id)}
                         onAbout={() => handleAbout(win.id)}
                         onPositionChange={(newX: number, newY: number) => {
-                            const clampedX = Math.max(-10, Math.min(newX, (typeof window !== 'undefined' ? window.innerWidth : 800) - 100));
-                            const clampedY = Math.max(-10, Math.min(newY, (typeof window !== 'undefined' ? window.innerHeight : 600) - TASKBAR_HEIGHT));
+                            const clampedX = Math.max(-50, Math.min(newX, (typeof window !== 'undefined' ? window.innerWidth : 800) - 50));
+                            const clampedY = Math.max(0, Math.min(newY, (typeof window !== 'undefined' ? window.innerHeight : 600) - TASKBAR_HEIGHT - 10));
+
                             setWindowPositions((prev: any) => ({ ...prev, [win.id]: { ...prev[win.id], x: clampedX, y: clampedY } }));
                             setOpenWindows((prev: any) => prev.map((w: any) => w.id === win.id ? { ...w, x: clampedX, y: clampedY } : w));
                         }}
@@ -507,7 +508,6 @@ function OSDesktopView({
                         width={isMobile ? (typeof window !== 'undefined' ? window.innerWidth : 320) * 0.9 : (win.width || undefined)}
                         height={isMobile ? (typeof window !== 'undefined' ? window.innerHeight : 480) * 0.9 : (win.height || undefined)}
 
-                        dragConstraints={workAreaRef}
                         onResize={(w: number, h: number) => handleResizeWindow(win.id, w, h)}
                     >
                         <div className="flex-1 flex flex-col min-h-0" onPointerDown={() => handleSetActive(win.id)}>
