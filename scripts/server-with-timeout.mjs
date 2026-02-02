@@ -2,7 +2,7 @@ import { spawn, exec } from 'child_process';
 import readline from 'readline';
 
 const TIMEOUT_MS = 5 * 60 * 1000; // 5 minutes
-const PORT = 3001;
+const PORT = 3002;
 const HOST = '127.0.0.1';
 
 let lastActivity = Date.now();

@@ -3,7 +3,7 @@ const net = require('net');
 const path = require('path');
 const { execSync } = require('child_process');
 
-const PORT = 3001;
+const PORT = 3002;
 const BUILD_DIR = path.join(__dirname, '..', '.next');
 
 console.log('Running CI Pre-checks...');

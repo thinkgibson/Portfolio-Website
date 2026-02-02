@@ -10,10 +10,6 @@ test.describe('Window Taskbar Collision', () => {
         if (testInfo.project.name.includes('Mobile')) {
             test.skip();
         }
-        // Skip on Webkit/Chromium/Firefox due to persistent CI failure (Issue #70)
-        if (['webkit', 'chromium', 'firefox', 'Desktop Safari', 'Desktop Chrome'].includes(testInfo.project.name)) {
-            test.skip();
-        }
 
         const TASKBAR_HEIGHT = 48;
 
@@ -52,10 +48,6 @@ test.describe('Window Taskbar Collision', () => {
         // Skip on mobile devices
         if (testInfo.project.name.includes('Mobile')) {
             test.skip(true, 'Resize test not applicable on mobile');
-        }
-        // Skip on Webkit/Chromium/Firefox (Issue #70)
-        if (['webkit', 'chromium', 'firefox', 'Desktop Safari', 'Desktop Chrome'].includes(testInfo.project.name)) {
-            test.skip();
         }
 
         const TASKBAR_HEIGHT = 48;
