@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">68.88% </span>
+                <span class="strong">69.24% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>394/572</span>
+                <span class='fraction'>394/569</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">68.88% </span>
+                <span class="strong">69.24% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>394/572</span>
+                <span class='fraction'>394/569</span>
             </div>
         
             
@@ -637,10 +637,7 @@
 <a name='L572'></a><a href='#L572'>572</a>
 <a name='L573'></a><a href='#L573'>573</a>
 <a name='L574'></a><a href='#L574'>574</a>
-<a name='L575'></a><a href='#L575'>575</a>
-<a name='L576'></a><a href='#L576'>576</a>
-<a name='L577'></a><a href='#L577'>577</a>
-<a name='L578'></a><a href='#L578'>578</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L575'></a><a href='#L575'>575</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -1141,9 +1138,6 @@
 <span class="cline-any cline-yes">30x</span>
 <span class="cline-any cline-yes">30x</span>
 <span class="cline-any cline-yes">30x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -1393,8 +1387,8 @@ export function OSDesktop({ windows: initialWindows, skipBoot: propSkipBoot, ski
 <span class="cstat-no" title="statement not covered" ></span>
 <span class="cstat-no" title="statement not covered" >                // Keep minimum visibility on right/bottom</span>
 <span class="cstat-no" title="statement not covered" >                const maxX = window.innerWidth - 10;</span>
-<span class="cstat-no" title="statement not covered" >                // Prevent window top from going into taskbar area</span>
-<span class="cstat-no" title="statement not covered" >                const maxY = window.innerHeight - TASKBAR_HEIGHT;</span>
+<span class="cstat-no" title="statement not covered" >                // Prevent window top from going into taskbar area (with 10px buffer)</span>
+<span class="cstat-no" title="statement not covered" >                const maxY = window.innerHeight - TASKBAR_HEIGHT - 10;</span>
 <span class="cstat-no" title="statement not covered" ></span>
 <span class="cstat-no" title="statement not covered" >                const newX = Math.max(-11, Math.min(w.x, maxX));</span>
 <span class="cstat-no" title="statement not covered" >                const newY = Math.max(-11, Math.min(w.y, maxY));</span>
@@ -1718,13 +1712,10 @@ function OSDesktopView({
                         onMaximize={<span class="fstat-no" title="function not covered" >() =&gt; handleMaximizeWindow(win.id)}</span>
                         onAbout={<span class="fstat-no" title="function not covered" >() =&gt; handleAbout(win.id)}</span>
                         onPositionChange={<span class="fstat-no" title="function not covered" >(newX: number, newY: number) =&gt; {</span>
-<span class="cstat-no" title="statement not covered" >                            // Get window dimensions for proper constraint calculation</span>
-<span class="cstat-no" title="statement not covered" >                            const windowHeight = typeof win.height === 'number' ? win.height : 400;</span>
-<span class="cstat-no" title="statement not covered" ></span>
-<span class="cstat-no" title="statement not covered" >                            // Allow small portion off-screen (-11px tolerance for tests)</span>
+<span class="cstat-no" title="statement not covered" >                            // Allow small portion off-screen (-11px tolerance)</span>
 <span class="cstat-no" title="statement not covered" >                            const clampedX = Math.max(-11, Math.min(newX, (typeof window !== 'undefined' ? window.innerWidth : 800) - 10));</span>
-<span class="cstat-no" title="statement not covered" >                            // Prevent window top from going into taskbar area</span>
-<span class="cstat-no" title="statement not covered" >                            const maxY = (typeof window !== 'undefined' ? window.innerHeight : 600) - TASKBAR_HEIGHT;</span>
+<span class="cstat-no" title="statement not covered" >                            // Prevent window top from going into taskbar area (with 10px buffer)</span>
+<span class="cstat-no" title="statement not covered" >                            const maxY = (typeof window !== 'undefined' ? window.innerHeight : 600) - TASKBAR_HEIGHT - 10;</span>
 <span class="cstat-no" title="statement not covered" >                            const clampedY = Math.max(-11, Math.min(newY, maxY));</span>
 <span class="cstat-no" title="statement not covered" ></span>
 <span class="cstat-no" title="statement not covered" >                            setWindowPositions((prev: any) =&gt; ({ ...prev, [win.id]: { ...prev[win.id], x: clampedX, y: clampedY } }));</span>
@@ -1801,7 +1792,7 @@ function OSDesktopView({
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2026-02-03T12:49:45.870Z
+                at 2026-02-03T13:15:39.885Z
             </div>
         <script src="../../prettify.js"></script>
         <script>

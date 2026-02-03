@@ -246,9 +246,9 @@ export function Win95Window({
         const currentX = typeof x === 'number' ? x : 0;
         const currentY = typeof y === 'number' ? y : 0;
 
-        // Keep windows fully on screen
-        const leftLimit = 0;
-        const topLimit = 0;
+        // Allow small portion off-screen (-10px with buffer for Firefox rounding)
+        const leftLimit = -10;
+        const topLimit = -10;
 
         // Prevent window top from going into taskbar area (with 10px buffer)
         const maxY = window.innerHeight - TASKBAR_HEIGHT - 10;
@@ -342,9 +342,9 @@ export function Win95Window({
 
                     // Clamp position to prevent going off-screen and into taskbar
                     if (typeof window !== 'undefined') {
-                        // Keep windows fully on screen
-                        newX = Math.max(0, Math.min(newX, window.innerWidth - 10));
-                        newY = Math.max(0, newY);
+                        // Allow small portion off-screen (-11px tolerance)
+                        newX = Math.max(-11, Math.min(newX, window.innerWidth - 10));
+                        newY = Math.max(-11, newY);
 
                         // Prevent window top from going into taskbar area (with 10px buffer)
                         const maxY = window.innerHeight - TASKBAR_HEIGHT - 10;

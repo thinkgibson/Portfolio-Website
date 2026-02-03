@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">90.71% </span>
+                <span class="strong">91.23% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>479/528</span>
+                <span class='fraction'>479/525</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">90.71% </span>
+                <span class="strong">91.23% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>479/528</span>
+                <span class='fraction'>479/525</span>
             </div>
         
             
@@ -588,10 +588,7 @@
 <a name='L523'></a><a href='#L523'>523</a>
 <a name='L524'></a><a href='#L524'>524</a>
 <a name='L525'></a><a href='#L525'>525</a>
-<a name='L526'></a><a href='#L526'>526</a>
-<a name='L527'></a><a href='#L527'>527</a>
-<a name='L528'></a><a href='#L528'>528</a>
-<a name='L529'></a><a href='#L529'>529</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L526'></a><a href='#L526'>526</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -929,9 +926,6 @@
 <span class="cline-any cline-yes">40x</span>
 <span class="cline-any cline-yes">40x</span>
 <span class="cline-any cline-yes">40x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -1367,12 +1361,12 @@ export function Win95Window({
         const currentX = typeof x === 'number' ? <span class="branch-0 cbranch-no" title="branch not covered" >x : 0;</span>
         const currentY = typeof y === 'number' ? <span class="branch-0 cbranch-no" title="branch not covered" >y : 0;</span>
 &nbsp;
-        // Allow window to go slightly off-screen (-11px is the test tolerance)
-        const leftLimit = -10;
-        const topLimit = -10;
+        // Allow small portion off-screen (-11px tolerance for test compatibility)
+        const leftLimit = -11;
+        const topLimit = -11;
 &nbsp;
-        // Prevent window top from going into taskbar area
-        const maxY = window.innerHeight - TASKBAR_HEIGHT;
+        // Prevent window top from going into taskbar area (with 10px buffer)
+        const maxY = window.innerHeight - TASKBAR_HEIGHT - 10;
 &nbsp;
         return {
             left: leftLimit - currentX,
@@ -1463,15 +1457,12 @@ export function Win95Window({
 <span class="cstat-no" title="statement not covered" ></span>
 <span class="cstat-no" title="statement not covered" >                    // Clamp position to prevent going off-screen and into taskbar</span>
 <span class="cstat-no" title="statement not covered" >                    if (typeof window !== 'undefined') {</span>
-<span class="cstat-no" title="statement not covered" >                        const rect = windowRef.current?.getBoundingClientRect();</span>
-<span class="cstat-no" title="statement not covered" >                        const windowHeight = rect?.height || measuredHeight || 200;</span>
-<span class="cstat-no" title="statement not covered" ></span>
-<span class="cstat-no" title="statement not covered" >                        // Allow -11px off-screen for test tolerance, but keep some visible</span>
+<span class="cstat-no" title="statement not covered" >                        // Allow small portion off-screen (-11px tolerance)</span>
 <span class="cstat-no" title="statement not covered" >                        newX = Math.max(-11, Math.min(newX, window.innerWidth - 10));</span>
-<span class="cstat-no" title="statement not covered" >                        newY = Math.max(-11, newY); // Allow small portion off top</span>
+<span class="cstat-no" title="statement not covered" >                        newY = Math.max(-11, newY);</span>
 <span class="cstat-no" title="statement not covered" ></span>
-<span class="cstat-no" title="statement not covered" >                        // Prevent window top from going into taskbar area</span>
-<span class="cstat-no" title="statement not covered" >                        const maxY = window.innerHeight - TASKBAR_HEIGHT;</span>
+<span class="cstat-no" title="statement not covered" >                        // Prevent window top from going into taskbar area (with 10px buffer)</span>
+<span class="cstat-no" title="statement not covered" >                        const maxY = window.innerHeight - TASKBAR_HEIGHT - 10;</span>
 <span class="cstat-no" title="statement not covered" >                        newY = Math.min(newY, maxY);</span>
 <span class="cstat-no" title="statement not covered" >                    }</span>
 <span class="cstat-no" title="statement not covered" ></span>
@@ -1654,7 +1645,7 @@ export function Win95Window({
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2026-02-03T12:49:45.870Z
+                at 2026-02-03T13:15:39.885Z
             </div>
         <script src="../../prettify.js"></script>
         <script>
