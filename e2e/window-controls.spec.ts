@@ -1,7 +1,12 @@
 import { test, expect } from '@playwright/test';
 
 test.describe('Window Controls', () => {
-    test.beforeEach(async ({ page }) => {
+    test.beforeEach(async ({ page }, testInfo) => {
+        // Skip on Webkit due to valid platform bugs (Issue #78)
+        if (testInfo.project.name.toLowerCase() === 'webkit') {
+            test.skip();
+        }
+
         // Skip boot sequence for faster tests
         await page.goto('/?skipBoot=true');
     });
