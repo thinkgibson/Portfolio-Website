@@ -404,8 +404,10 @@ export function Win95Window({
             animate={isMaximized
                 ? { x: 0, y: 0, width: '100vw', height: 'calc(100vh - 40px)', scale: 1, opacity: 1 }
                 : {
-                    x: isMobile ? (typeof window !== 'undefined' ? window.innerWidth * 0.05 : 0) : x,
-                    y: isMobile ? (typeof window !== 'undefined' ? window.innerHeight * 0.05 : 0) : y,
+                    ...(isDragging ? {} : {
+                        x: isMobile ? (typeof window !== 'undefined' ? window.innerWidth * 0.05 : 0) : x,
+                        y: isMobile ? (typeof window !== 'undefined' ? window.innerHeight * 0.05 : 0) : y,
+                    }),
                     width: isMobile ? "90%" : width,
                     height: isMobile ? "90%" : height,
                     scale: 1,
