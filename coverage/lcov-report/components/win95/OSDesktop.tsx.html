@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">69.24% </span>
+                <span class="strong">70.99% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>394/569</span>
+                <span class='fraction'>394/555</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">69.24% </span>
+                <span class="strong">70.99% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>394/569</span>
+                <span class='fraction'>394/555</span>
             </div>
         
             
@@ -623,21 +623,7 @@
 <a name='L558'></a><a href='#L558'>558</a>
 <a name='L559'></a><a href='#L559'>559</a>
 <a name='L560'></a><a href='#L560'>560</a>
-<a name='L561'></a><a href='#L561'>561</a>
-<a name='L562'></a><a href='#L562'>562</a>
-<a name='L563'></a><a href='#L563'>563</a>
-<a name='L564'></a><a href='#L564'>564</a>
-<a name='L565'></a><a href='#L565'>565</a>
-<a name='L566'></a><a href='#L566'>566</a>
-<a name='L567'></a><a href='#L567'>567</a>
-<a name='L568'></a><a href='#L568'>568</a>
-<a name='L569'></a><a href='#L569'>569</a>
-<a name='L570'></a><a href='#L570'>570</a>
-<a name='L571'></a><a href='#L571'>571</a>
-<a name='L572'></a><a href='#L572'>572</a>
-<a name='L573'></a><a href='#L573'>573</a>
-<a name='L574'></a><a href='#L574'>574</a>
-<a name='L575'></a><a href='#L575'>575</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L561'></a><a href='#L561'>561</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -857,20 +843,6 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-yes">30x</span>
 <span class="cline-any cline-yes">30x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -1431,25 +1403,11 @@ export function OSDesktop({ windows: initialWindows, skipBoot: propSkipBoot, ski
 <span class="cstat-no" title="statement not covered" >    };</span>
 &nbsp;
     const handleSetActive = <span class="fstat-no" title="function not covered" >(id: string) =&gt; {</span>
-<span class="cstat-no" title="statement not covered" >        setOpenWindows(prev =&gt; {</span>
-<span class="cstat-no" title="statement not covered" >            const windowToActivate = prev.find(w =&gt; w.id === id);</span>
-<span class="cstat-no" title="statement not covered" >            if (!windowToActivate) return prev;</span>
-<span class="cstat-no" title="statement not covered" ></span>
-<span class="cstat-no" title="statement not covered" >            const otherWindows = prev.filter(w =&gt; w.id !== id);</span>
-<span class="cstat-no" title="statement not covered" ></span>
-<span class="cstat-no" title="statement not covered" >            const updatedWindow = {</span>
-<span class="cstat-no" title="statement not covered" >                ...windowToActivate,</span>
-<span class="cstat-no" title="statement not covered" >                isActive: true,</span>
-<span class="cstat-no" title="statement not covered" >                isMinimized: false</span>
-<span class="cstat-no" title="statement not covered" >            };</span>
-<span class="cstat-no" title="statement not covered" ></span>
-<span class="cstat-no" title="statement not covered" >            const updatedOthers = otherWindows.map(w =&gt; ({</span>
-<span class="cstat-no" title="statement not covered" >                ...w,</span>
-<span class="cstat-no" title="statement not covered" >                isActive: false</span>
-<span class="cstat-no" title="statement not covered" >            }));</span>
-<span class="cstat-no" title="statement not covered" ></span>
-<span class="cstat-no" title="statement not covered" >            return [...updatedOthers, updatedWindow];</span>
-<span class="cstat-no" title="statement not covered" >        });</span>
+<span class="cstat-no" title="statement not covered" >        setOpenWindows(prev =&gt; prev.map(w =&gt; ({</span>
+<span class="cstat-no" title="statement not covered" >            ...w,</span>
+<span class="cstat-no" title="statement not covered" >            isActive: w.id === id,</span>
+<span class="cstat-no" title="statement not covered" >            isMinimized: w.id === id ? false : w.isMinimized</span>
+<span class="cstat-no" title="statement not covered" >        })));</span>
 <span class="cstat-no" title="statement not covered" >        setActiveWindowId(id);</span>
 <span class="cstat-no" title="statement not covered" >    };</span>
 &nbsp;
@@ -1792,7 +1750,7 @@ function OSDesktopView({
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2026-02-03T15:42:38.420Z
+                at 2026-02-03T15:57:39.885Z
             </div>
         <script src="../../prettify.js"></script>
         <script>

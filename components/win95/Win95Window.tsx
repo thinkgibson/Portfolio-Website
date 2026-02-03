@@ -1,8 +1,7 @@
 "use client";
 
-import React, { useLayoutEffect } from "react";
+import React from "react";
 import { motion, useDragControls } from "framer-motion";
-import { X, Minus, Square } from "lucide-react";
 import { useIsMobile } from "../../lib/hooks";
 import { DynamicIcon } from "../Icons/DynamicIcon";
 
@@ -63,8 +62,6 @@ const HighlightResults = ({ children, term }: { children: React.ReactNode, term:
             if (node.props.dangerouslySetInnerHTML) {
                 const html = node.props.dangerouslySetInnerHTML.__html;
                 if (typeof html === 'string') {
-                    // This is a bit hacky but for search highlighting in small portfolio sites
-                    // we can do a simple replacement. Proper HTML parsing would be better but overkill.
                     const highlightedHtml = html.replace(
                         new RegExp(`(${term})`, "gi"),
                         '<mark class="bg-win95-blue-active text-white px-0.5">$1</mark>'
@@ -87,69 +84,19 @@ const HighlightResults = ({ children, term }: { children: React.ReactNode, term:
 };
 
 const MinimizeIcon = () => (
-    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <rect x="2" y="7" width="8" height="3" fill="black" />
-    </svg>
-);
-
-const MaximizeIcon = () => (
-    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-        {/* Outer border */}
-        <rect x="1" y="1" width="10" height="10" stroke="black" strokeWidth="1" />
-        {/* Inner white/empty area is mostly empty, just a border */}
-        <rect x="2" y="3" width="8" height="2" fill="#000080" />
-    </svg>
-);
-
-// Actually, let's keep the icon simple to match the original primitive style but centered
-// The original was viewBox 0 0 8 8 which is hard to center in 16px container if not scaled perfectly
-// Let's use 12x12 aligned to pixel grid
-
-const MaximizeIconUpdated = () => (
-    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <rect x="1.5" y="1.5" width="9" height="9" stroke="black" strokeWidth="1" />
-        <rect x="2.5" y="2.5" width="7" height="1" fill="black" />
-    </svg>
-);
-// Wait, the original code used rects for pixel perfection. Let's stick to rects but in 12x12 space.
-
-const MaximizeIconFixed = () => (
-    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <rect x="1" y="1" width="9" height="9" stroke="black" strokeWidth="1" />
-        <rect x="2" y="2" width="7" height="1" fill="black" />
-    </svg>
-);
-
-const RestoreIcon = () => (
-    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <rect x="3" y="1" width="8" height="7" fill="white" stroke="black" strokeWidth="1" />
-        <rect x="4" y="2" width="6" height="1" fill="black" />
-        <rect x="1" y="4" width="8" height="7" fill="white" stroke="black" strokeWidth="1" />
-        <rect x="2" y="5" width="6" height="1" fill="black" />
-    </svg>
-);
-
-const CloseIcon = () => (
-    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M2 2l8 8m0-8l-8 8" stroke="black" strokeWidth="1.5" />
-    </svg>
-);
-
-// Re-defining with precise pixel paths for authenticity
-const MinimizeIconFinal = () => (
     <svg width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
         <rect x="2" y="7" width="6" height="2" fill="black" />
     </svg>
 );
 
-const MaximizeIconFinal = () => (
+const MaximizeIcon = () => (
     <svg width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
         <rect x="1" y="1" width="8" height="8" stroke="black" strokeWidth="1" />
         <rect x="2" y="2" width="6" height="1" fill="black" />
     </svg>
 );
 
-const RestoreIconFinal = () => (
+const RestoreIcon = () => (
     <svg width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
         <rect x="3" y="0" width="7" height="7" fill="white" stroke="black" strokeWidth="1" />
         <rect x="4" y="1" width="5" height="1" fill="black" />
@@ -158,7 +105,7 @@ const RestoreIconFinal = () => (
     </svg>
 );
 
-const CloseIconFinal = () => (
+const CloseIcon = () => (
     <svg width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path d="M1 1L9 9M9 1L1 9" stroke="black" strokeWidth="1.5" />
     </svg>
@@ -206,6 +153,14 @@ export function Win95Window({
     const windowRef = React.useRef<HTMLDivElement>(null);
     const [skipAnimations, setSkipAnimations] = React.useState(false);
 
+    // Use a ref to track the last confirmed position to prevent snap-back jitter
+    const confirmedPos = React.useRef({ x, y });
+
+    // Update confirmedPos when props change
+    React.useEffect(() => {
+        confirmedPos.current = { x, y };
+    }, [x, y]);
+
     React.useEffect(() => {
         if (typeof window !== 'undefined') {
             const params = new URLSearchParams(window.location.search);
@@ -226,22 +181,16 @@ export function Win95Window({
             }
         };
 
-        // Initial measure
         updateHeight();
-
-        // Observe changes
         const observer = new ResizeObserver(updateHeight);
         observer.observe(windowRef.current);
-
         return () => observer.disconnect();
     }, [isMaximized, isMobile, measuredHeight]);
 
-    // Track window size for reactive constraints
-    const [windowSize, setWindowSize] = React.useState(() => {
-        if (typeof window !== 'undefined') {
-            return { width: window.innerWidth, height: window.innerHeight };
-        }
-        return { width: 0, height: 0 };
+    // Track window size for constraints
+    const [windowSize, setWindowSize] = React.useState({
+        width: typeof window !== 'undefined' ? window.innerWidth : 800,
+        height: typeof window !== 'undefined' ? window.innerHeight : 600
     });
 
     React.useEffect(() => {
@@ -250,21 +199,13 @@ export function Win95Window({
         const handleResize = () => {
             const newWidth = window.innerWidth;
             const newHeight = window.innerHeight;
-
-
-
             setWindowSize({ width: newWidth, height: newHeight });
 
             // Clamp position on resize to ensure visibility
             if (onPositionChange) {
-                // Prevent window top from going into taskbar area (with 10px buffer)
                 const maxY = newHeight - TASKBAR_HEIGHT - 10;
-
                 const clampedX = Math.max(-11, Math.min(x, newWidth - 10));
                 const clampedY = Math.max(-11, Math.min(y, maxY));
-
-
-
                 if (clampedX !== x || clampedY !== y) {
                     onPositionChange(clampedX, clampedY);
                 }
@@ -275,34 +216,10 @@ export function Win95Window({
         return () => window.removeEventListener('resize', handleResize);
     }, [x, y, onPositionChange]);
 
-    // Compute drag constraints to prevent window bottom from going below taskbar
-    // Use passed constraints or fallback to screen bounds (relative to screen coords)
-    const effectiveDragConstraints = dragConstraints || React.useMemo(() => {
-        if (typeof window === 'undefined' || isMobile || isMaximized) {
-            return undefined;
-        }
-
-        // Fallback relative constraints if no ref provided
-        const currentX = typeof x === 'number' ? x : 0;
-        const currentY = typeof y === 'number' ? y : 0;
-
-        // Allow small portion off-screen (-10px with buffer for Firefox rounding)
-        const leftLimit = -10;
-        const topLimit = -10;
-
-        // Prevent window top from going into taskbar area (with 10px buffer)
-        // Use windowSize state to ensure reactivity
-        const maxY = windowSize.height - TASKBAR_HEIGHT - 10;
-
-        const constraints = {
-            left: leftLimit - currentX,
-            top: topLimit - currentY,
-            right: windowSize.width - currentX - 10, // Allow minimum visibility on right
-            bottom: Math.max(0, maxY - currentY),
-        };
-
-        return constraints;
-    }, [isMobile, isMaximized, x, y, dragConstraints, measuredHeight, minHeight, windowSize]);
+    // Relaxed constraints: allow free movement, clamping happens in onDragEnd
+    const effectiveDragConstraints = React.useMemo(() => {
+        return undefined;
+    }, []);
 
     const toggleMenu = (menu: string) => {
         setActiveMenu(activeMenu === menu ? null : menu);
@@ -319,7 +236,6 @@ export function Win95Window({
         e.stopPropagation();
         setIsResizing(true);
 
-        // Use actual computed dimensions to avoid snapping from "min(600px)" to "300px"
         const rect = windowRef.current?.getBoundingClientRect();
         const startWidth = rect?.width || (typeof width === 'number' ? width : parseFloat(width as string) || 300);
         const startHeight = rect?.height || (typeof height === 'number' ? height : parseFloat(height as string) || 200);
@@ -336,22 +252,16 @@ export function Win95Window({
 
                 if (lockAspectRatio) {
                     const aspectRatio = startWidth / startHeight;
-                    // Propose new height based on width
                     newHeight = newWidth / aspectRatio;
-
-                    // If height violates min constraint, cap it and adjust width
                     if (newHeight < minHeight) {
                         newHeight = minHeight;
                         newWidth = newHeight * aspectRatio;
                     }
-
-                    // After adjustment, if width violates min constraint, cap it and adjust height
                     if (newWidth < minWidth) {
                         newWidth = minWidth;
                         newHeight = newWidth / aspectRatio;
                     }
                 }
-
                 onResize(newWidth, newHeight);
             }
         };
@@ -380,23 +290,24 @@ export function Win95Window({
                 setIsDragging(true);
             }}
             onDragEnd={(_, info) => {
+                const newX = x + info.offset.x;
+                const newY = y + info.offset.y;
+
+                let clampedX = newX;
+                let clampedY = newY;
+
+                if (typeof window !== 'undefined') {
+                    clampedX = Math.max(-11, Math.min(newX, window.innerWidth - 10));
+                    clampedY = Math.max(-11, clampedY);
+                    const maxY = window.innerHeight - TASKBAR_HEIGHT - 10;
+                    clampedY = Math.min(clampedY, maxY);
+                }
+
+                confirmedPos.current = { x: clampedX, y: clampedY };
                 setIsDragging(false);
+
                 if (onPositionChange) {
-                    let newX = x + info.offset.x;
-                    let newY = y + info.offset.y;
-
-                    // Clamp position to prevent going off-screen and into taskbar
-                    if (typeof window !== 'undefined') {
-                        // Allow small portion off-screen (-11px tolerance)
-                        newX = Math.max(-11, Math.min(newX, window.innerWidth - 10));
-                        newY = Math.max(-11, newY);
-
-                        // Prevent window top from going into taskbar area (with 10px buffer)
-                        const maxY = window.innerHeight - TASKBAR_HEIGHT - 10;
-                        newY = Math.min(newY, maxY);
-                    }
-
-                    onPositionChange(newX, newY);
+                    onPositionChange(clampedX, clampedY);
                 }
             }}
             initial={isMaximized ? { x: 0, y: 0, scale: 1, opacity: 1 } : { x: isMobile ? (typeof window !== 'undefined' ? window.innerWidth * 0.05 : 0) : x, y: isMobile ? (typeof window !== 'undefined' ? window.innerHeight * 0.05 : 0) : y, scale: 0.95, opacity: 0 }}
@@ -404,8 +315,8 @@ export function Win95Window({
                 ? { x: 0, y: 0, width: '100vw', height: 'calc(100vh - 40px)', scale: 1, opacity: 1 }
                 : {
                     ...(isDragging ? {} : {
-                        x: isMobile ? (typeof window !== 'undefined' ? window.innerWidth * 0.05 : 0) : x,
-                        y: isMobile ? (typeof window !== 'undefined' ? window.innerHeight * 0.05 : 0) : y,
+                        x: isMobile ? (typeof window !== 'undefined' ? window.innerWidth * 0.05 : 0) : confirmedPos.current.x,
+                        y: isMobile ? (typeof window !== 'undefined' ? window.innerHeight * 0.05 : 0) : confirmedPos.current.y,
                     }),
                     width: isMobile ? "90%" : width,
                     height: isMobile ? "90%" : height,
@@ -475,7 +386,7 @@ export function Win95Window({
                 </div>
             </div>
 
-            {/* Menu Bar (Optional - for authenticity) */}
+            {/* Menu Bar */}
             <div className="bg-win95-gray px-1 py-0.5 border-b border-win95-gray-inactive text-[12px] font-win95 flex gap-3 select-none leading-none relative">
                 <div className="relative">
                     <span
@@ -551,7 +462,6 @@ export function Win95Window({
 
             {/* Content Area */}
             <div className={`flex-grow relative flex flex-col min-h-0 ${fullBleed ? "" : "overflow-hidden win95-beveled-inset bg-white m-1 p-4 overflow-auto scrollbar-win95 min-h-[100px]"}`}>
-                {/* Overlay to block pointer events on iframes while dragging */}
                 {isDragging && (
                     <div className="absolute inset-0 z-50 bg-transparent" />
                 )}

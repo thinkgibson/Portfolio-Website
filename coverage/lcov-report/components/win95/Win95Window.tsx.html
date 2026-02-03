@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">87.15% </span>
+                <span class="strong">87% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>502/576</span>
+                <span class='fraction'>502/577</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">87.15% </span>
+                <span class="strong">87% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>502/576</span>
+                <span class='fraction'>502/577</span>
             </div>
         
             
@@ -639,7 +639,8 @@
 <a name='L574'></a><a href='#L574'>574</a>
 <a name='L575'></a><a href='#L575'>575</a>
 <a name='L576'></a><a href='#L576'>576</a>
-<a name='L577'></a><a href='#L577'>577</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L577'></a><a href='#L577'>577</a>
+<a name='L578'></a><a href='#L578'>578</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -1020,7 +1021,6 @@
 <span class="cline-any cline-yes">40x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-yes">40x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -1067,6 +1067,8 @@
 <span class="cline-any cline-yes">40x</span>
 <span class="cline-any cline-yes">40x</span>
 <span class="cline-any cline-yes">40x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -1515,7 +1517,7 @@ export function Win95Window({
             left: leftLimit - currentX,
             top: topLimit - currentY,
             right: windowSize.width - currentX - 10, // Allow minimum visibility on right
-            bottom: Math.max(topLimit, maxY - currentY), // Ensure we don't return negative if already below
+            bottom: Math.max(0, maxY - currentY),
         };
 &nbsp;
         return constraints;
@@ -1592,9 +1594,8 @@ export function Win95Window({
             dragControls={dragControls}
             dragListener={false}
             dragConstraints={effectiveDragConstraints}
-            dragElastic={0}
+            dragElastic={0.05}
             onDragStart={<span class="fstat-no" title="function not covered" >() =&gt; {</span>
-<span class="cstat-no" title="statement not covered" >                onFocus?.();</span>
 <span class="cstat-no" title="statement not covered" >                setIsDragging(true);</span>
 <span class="cstat-no" title="statement not covered" >            }}</span>
             onDragEnd={<span class="fstat-no" title="function not covered" >(_, info) =&gt; {</span>
@@ -1636,7 +1637,7 @@ export function Win95Window({
                 stiffness: 400,
                 damping: 30
             }}
-            className={`win95-beveled absolute flex flex-col pointer-events-auto ${isActive ? <span class="branch-0 cbranch-no" title="branch not covered" >"z-50" : "z-10"}`</span>}
+            className={`win95-beveled absolute flex flex-col pointer-events-auto select-none touch-none ${isActive ? <span class="branch-0 cbranch-no" title="branch not covered" >"z-50" : "z-10"}`</span>}
             style={{ padding: '2px' }}
             data-testid={`window-${title.toLowerCase().replace(/\s+/g, '-')}`}
         &gt;
@@ -1644,7 +1645,9 @@ export function Win95Window({
             &lt;div
                 onPointerDown={<span class="fstat-no" title="function not covered" >(e) =&gt; {</span>
 <span class="cstat-no" title="statement not covered" >                    onFocus?.();</span>
-<span class="cstat-no" title="statement not covered" >                    !isMaximized &amp;&amp; dragControls.start(e);</span>
+<span class="cstat-no" title="statement not covered" >                    if (!isMaximized) {</span>
+<span class="cstat-no" title="statement not covered" >                        dragControls.start(e);</span>
+<span class="cstat-no" title="statement not covered" >                    }</span>
 <span class="cstat-no" title="statement not covered" >                }}</span>
                 onDoubleClick={<span class="fstat-no" title="function not covered" >() =&gt; canMaximize &amp;&amp; onMaximize?.()}</span>
                 className={`window-titlebar h-8 flex items-center justify-between px-1 cursor-default select-none ${isActive ? <span class="branch-0 cbranch-no" title="branch not covered" >"bg-win95-blue-active" : "bg-win95-gray-inactive"}`</span>}
@@ -1798,7 +1801,7 @@ export function Win95Window({
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2026-02-03T15:42:38.420Z
+                at 2026-02-03T15:57:39.885Z
             </div>
         <script src="../../prettify.js"></script>
         <script>
