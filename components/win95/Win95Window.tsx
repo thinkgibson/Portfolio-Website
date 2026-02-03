@@ -245,20 +245,19 @@ export function Win95Window({
         // Fallback relative constraints if no ref provided
         const currentX = typeof x === 'number' ? x : 0;
         const currentY = typeof y === 'number' ? y : 0;
-        const leftLimit = -50;
-        const topLimit = 0;
 
-        // Calculate max Y to keep window above taskbar
-        // The window's bottom edge (y + height) must be <= viewport - taskbar
-        // So max y = viewport - taskbar - height
-        const h = (measuredHeight && measuredHeight > 50) ? measuredHeight : (typeof minHeight === 'number' ? minHeight : 200);
-        const maxY = window.innerHeight - TASKBAR_HEIGHT - h;
+        // Allow small portion off-screen (-10px with buffer for Firefox rounding)
+        const leftLimit = -10;
+        const topLimit = -10;
+
+        // Prevent window top from going into taskbar area (with 10px buffer)
+        const maxY = window.innerHeight - TASKBAR_HEIGHT - 10;
 
         return {
             left: leftLimit - currentX,
             top: topLimit - currentY,
-            right: window.innerWidth - currentX - 50,
-            bottom: Math.max(0, maxY - currentY), // Ensure we don't return negative if already below
+            right: window.innerWidth - currentX - 10, // Allow minimum visibility on right
+            bottom: Math.max(topLimit, maxY - currentY), // Ensure we don't return negative if already below
         };
     }, [isMobile, isMaximized, x, y, dragConstraints, measuredHeight, minHeight]);
 
@@ -338,16 +337,18 @@ export function Win95Window({
             onDragStart={() => onFocus?.()}
             onDragEnd={(_, info) => {
                 if (onPositionChange) {
-                    const newX = x + info.offset.x;
+                    let newX = x + info.offset.x;
                     let newY = y + info.offset.y;
 
-                    // Ensure the window's bottom edge doesn't go below the taskbar
+                    // Clamp position to prevent going off-screen and into taskbar
                     if (typeof window !== 'undefined') {
-                        const maxY = window.innerHeight - TASKBAR_HEIGHT - measuredHeight;
-                        // Extra safety clamp with a small buffer to prevent "bouncing" against the edge
-                        // if framer motion overshoots slightly.
+                        // Allow small portion off-screen (-11px tolerance)
+                        newX = Math.max(-11, Math.min(newX, window.innerWidth - 10));
+                        newY = Math.max(-11, newY);
+
+                        // Prevent window top from going into taskbar area (with 10px buffer)
+                        const maxY = window.innerHeight - TASKBAR_HEIGHT - 10;
                         newY = Math.min(newY, maxY);
-                        newY = Math.max(0, newY); // Also prevent going off top
                     }
 
                     onPositionChange(newX, newY);

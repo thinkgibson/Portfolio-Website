@@ -172,10 +172,14 @@ export function OSDesktop({ windows: initialWindows, skipBoot: propSkipBoot, ski
                     return { ...w, x, y };
                 }
 
-                const maxX = window.innerWidth - 100;
+                // Keep minimum visibility on right/bottom
+                const maxX = window.innerWidth - 10;
+                // Prevent window top from going into taskbar area (with 10px buffer)
                 const maxY = window.innerHeight - TASKBAR_HEIGHT - 10;
-                const newX = Math.max(0, Math.min(w.x, maxX));
-                const newY = Math.max(0, Math.min(w.y, maxY));
+
+                const newX = Math.max(-11, Math.min(w.x, maxX));
+                const newY = Math.max(-11, Math.min(w.y, maxY));
+
                 if (newX !== w.x || newY !== w.y) {
                     return { ...w, x: newX, y: newY };
                 }
@@ -495,8 +499,11 @@ function OSDesktopView({
                         onMaximize={() => handleMaximizeWindow(win.id)}
                         onAbout={() => handleAbout(win.id)}
                         onPositionChange={(newX: number, newY: number) => {
-                            const clampedX = Math.max(-50, Math.min(newX, (typeof window !== 'undefined' ? window.innerWidth : 800) - 50));
-                            const clampedY = Math.max(0, Math.min(newY, (typeof window !== 'undefined' ? window.innerHeight : 600) - TASKBAR_HEIGHT - 10));
+                            // Allow small portion off-screen (-11px tolerance)
+                            const clampedX = Math.max(-11, Math.min(newX, (typeof window !== 'undefined' ? window.innerWidth : 800) - 10));
+                            // Prevent window top from going into taskbar area (with 10px buffer)
+                            const maxY = (typeof window !== 'undefined' ? window.innerHeight : 600) - TASKBAR_HEIGHT - 10;
+                            const clampedY = Math.max(-11, Math.min(newY, maxY));
 
                             setWindowPositions((prev: any) => ({ ...prev, [win.id]: { ...prev[win.id], x: clampedX, y: clampedY } }));
                             setOpenWindows((prev: any) => prev.map((w: any) => w.id === win.id ? { ...w, x: clampedX, y: clampedY } : w));
