@@ -15,7 +15,7 @@ test.describe('Window Taskbar Collision', () => {
 
         // Open a window
         await page.click('text=Welcome.txt');
-        const window = page.locator('div[data-testid="window-welcome"]');
+        const window = page.locator('div[data-testid^="window-welcome"]');
         await expect(window).toBeVisible();
 
         await page.waitForTimeout(500);
@@ -40,7 +40,6 @@ test.describe('Window Taskbar Collision', () => {
         const windowBox = await window.boundingBox();
         if (!windowBox) throw new Error('Window not found after drag');
 
-        // The window's y position should be at most viewport.height - TASKBAR_HEIGHT
         expect(windowBox.y).toBeLessThanOrEqual(viewport.height - TASKBAR_HEIGHT);
     });
 
@@ -54,7 +53,7 @@ test.describe('Window Taskbar Collision', () => {
 
         // Open a window
         await page.click('text=Welcome.txt');
-        const window = page.locator('div[data-testid="window-welcome"]');
+        const window = page.locator('div[data-testid^="window-welcome"]');
         await expect(window).toBeVisible();
 
         // Get initial viewport and window position
