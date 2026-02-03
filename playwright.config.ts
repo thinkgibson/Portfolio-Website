@@ -7,7 +7,7 @@ export default defineConfig({
     retries: process.env.CI ? 1 : 1, // Retry once for stability
     workers: undefined, // Auto-detect CPU cores for parallel execution
     timeout: 60000, // 60s timeout for stability
-    reporter: [['html', { open: 'never' }], ['./e2e/reporters/terminal-reporter.ts']],
+    reporter: [['html', { open: 'never' }], ['./e2e/reporters/terminal-reporter.ts'], ['./e2e/reporters/history-reporter.ts']],
     use: {
         baseURL: 'http://127.0.0.1:3002',
         trace: 'on-first-retry',

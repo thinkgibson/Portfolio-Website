@@ -12,6 +12,7 @@
         "test:watch": "jest --watch",
         "test:coverage": "jest --coverage",
         "test:e2e": "playwright test",
+        "test:history": "node scripts/show-test-history.mjs",
         "server:persistent": "node scripts/server-with-timeout.mjs",
         "ci-precheck": "node scripts/ci-precheck.js",
         "ci-flow": "npm run build && npm run ci-precheck && npm run test:e2e && npm run server:persistent"
