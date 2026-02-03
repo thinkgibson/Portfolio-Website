@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { motion, useDragControls } from "framer-motion";
+import { motion, useDragControls, useMotionValue } from "framer-motion";
 import { useIsMobile } from "../../lib/hooks";
 import { DynamicIcon } from "../Icons/DynamicIcon";
 
@@ -156,10 +156,18 @@ export function Win95Window({
     // Use a ref to track the last confirmed position to prevent snap-back jitter
     const confirmedPos = React.useRef({ x, y });
 
-    // Update confirmedPos when props change
+    // Motion values for stable dragging and reactive positioning
+    const xMV = useMotionValue(x);
+    const yMV = useMotionValue(y);
+
+    // Update motion values when props change (e.g. nudge) but not during drag
     React.useEffect(() => {
-        confirmedPos.current = { x, y };
-    }, [x, y]);
+        if (!isDragging) {
+            xMV.set(x);
+            yMV.set(y);
+            confirmedPos.current = { x, y };
+        }
+    }, [x, y, isDragging, xMV, yMV]);
 
     React.useEffect(() => {
         if (typeof window !== 'undefined') {
@@ -169,6 +177,20 @@ export function Win95Window({
             }
         }
     }, []);
+
+    // Safety cleanup for isDragging to ensure animation re-enables
+    React.useEffect(() => {
+        if (!isDragging) return;
+
+        const handleGlobalUp = () => {
+            // Only force reset if we are NOT actually dragging (onDragEnd will handle the rest)
+            // This is a safety for interactions that don't qualify as a drag.
+            setIsDragging(false);
+        };
+
+        window.addEventListener('pointerup', handleGlobalUp);
+        return () => window.removeEventListener('pointerup', handleGlobalUp);
+    }, [isDragging]);
 
     // Measure window dimensions for computing drag constraints
     React.useLayoutEffect(() => {
@@ -218,7 +240,8 @@ export function Win95Window({
 
     // Relaxed constraints: allow free movement, clamping happens in onDragEnd
     const effectiveDragConstraints = React.useMemo(() => {
-        return undefined;
+        // Use a large range to ensure no elastic pull during drag
+        return { top: -5000, left: -5000, right: 5000, bottom: 5000 };
     }, []);
 
     const toggleMenu = (menu: string) => {
@@ -285,8 +308,9 @@ export function Win95Window({
             dragControls={dragControls}
             dragListener={false}
             dragConstraints={effectiveDragConstraints}
-            dragElastic={0.05}
+            dragElastic={0}
             onDragStart={() => {
+                // Already set in onPointerDown but kept for safety
                 setIsDragging(true);
             }}
             onDragEnd={(_, info) => {
@@ -303,6 +327,9 @@ export function Win95Window({
                     clampedY = Math.min(clampedY, maxY);
                 }
 
+                // Sync motion values back to clamped position
+                xMV.set(clampedX);
+                yMV.set(clampedY);
                 confirmedPos.current = { x: clampedX, y: clampedY };
                 setIsDragging(false);
 
@@ -314,10 +341,6 @@ export function Win95Window({
             animate={isMaximized
                 ? { x: 0, y: 0, width: '100vw', height: 'calc(100vh - 40px)', scale: 1, opacity: 1 }
                 : {
-                    ...(isDragging ? {} : {
-                        x: isMobile ? (typeof window !== 'undefined' ? window.innerWidth * 0.05 : 0) : confirmedPos.current.x,
-                        y: isMobile ? (typeof window !== 'undefined' ? window.innerHeight * 0.05 : 0) : confirmedPos.current.y,
-                    }),
                     width: isMobile ? "90%" : width,
                     height: isMobile ? "90%" : height,
                     scale: 1,
@@ -330,7 +353,11 @@ export function Win95Window({
                 damping: 30
             }}
             className={`win95-beveled absolute flex flex-col pointer-events-auto select-none touch-none ${isActive ? "z-50" : "z-10"}`}
-            style={{ padding: '2px' }}
+            style={{
+                padding: '2px',
+                x: isMaximized ? 0 : xMV,
+                y: isMaximized ? 0 : yMV
+            }}
             data-testid={`window-${title.toLowerCase().replace(/\s+/g, '-')}`}
         >
             {/* Titlebar */}
@@ -338,6 +365,8 @@ export function Win95Window({
                 onPointerDown={(e) => {
                     onFocus?.();
                     if (!isMaximized) {
+                        // Start drag immediately. Note: isDragging is set in onDragStart
+                        // so we don't cause a re-render exactly at the same time as start()
                         dragControls.start(e);
                     }
                 }}
