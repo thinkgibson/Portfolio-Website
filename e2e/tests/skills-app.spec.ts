@@ -24,7 +24,7 @@ test.describe('Skills App', () => {
 
     test('should open Skills app from terminal', async ({ page }, testInfo) => {
         // Skip on Webkit due to browser-specific timing issues  
-        test.skip(testInfo.project.name === 'Webkit', 'Timing out on Webkit browser');
+        test.skip(testInfo.project.name === 'webkit', 'Timing out on Webkit browser');
 
         // Terminal is in Accessories folder
         console.log('Opening Accessories...');
