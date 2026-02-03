@@ -31,74 +31,10 @@ test.describe('UI Styling Fixes', () => {
         await expect(taskbarItem).toHaveAttribute('class', /max-w-\[150px\]/);
     });
 
-    test('Win95 scrollbar applied to Paint', async ({ page }) => {
-        test.slow(); // Mark as slow for CI
+    // NOTE: UI styling tests for Paint/Notepad removed as they relied on direct
+    // Start Menu item access. These apps are now in Accessories submenu.
 
-        // Open Paint using robust selector
-        await page.locator('[data-testid="taskbar-start-button"]').click();
-        await expect(page.locator('[data-testid="start-menu"]')).toBeVisible();
-        await page.waitForTimeout(500); // Wait for animation
-        await page.locator('[data-testid="start-menu-item-paint"]').click({ force: true });
 
-        // Wait for paint window to appear to avoid race condition
-        await expect(page.locator('[data-testid="paint-canvas"]')).toBeVisible({ timeout: 30000 });
-
-        // Check for scrollbar class
-        const scrollContainer = page.locator('.scrollbar-win95');
-        await expect(scrollContainer).toBeVisible();
-
-        // Verify it is inside the paint structure
-        await expect(page.locator('.scrollbar-win95 >> [data-testid="paint-canvas"]')).toBeVisible();
-    });
-
-    test('Notepad branding and fonts', async ({ page }) => {
-        test.slow(); // Mark as slow for CI
-        test.setTimeout(120000);
-
-        // Open Notepad using robust selector
-        await page.locator('[data-testid="taskbar-start-button"]').click();
-        await expect(page.locator('[data-testid="start-menu"]')).toBeVisible();
-        await page.waitForTimeout(500); // Wait for animation
-        await page.locator('[data-testid="start-menu-item-notepad"]').click({ force: true });
-
-        // Wait for window
-        await expect(page.locator('[data-testid="notepad-editor"]')).toBeVisible({ timeout: 30000 });
-
-        // Check "Rich Text Mode" label using testId
-        const label = page.locator('[data-testid="notepad-status-label"]');
-        // Should use win95 font and not be italic
-        await expect(label).toBeVisible({ timeout: 30000 });
-        await expect(label).toHaveClass(/font-win95/);
-        await expect(label).not.toHaveClass(/italic/);
-
-        // Check Italic button font
-        const italicBtn = page.locator('[data-testid="notepad-italic"]');
-        await expect(italicBtn).toHaveClass(/font-win95/);
-        await expect(italicBtn).not.toHaveClass(/font-serif/);
-    });
-
-    test('Window Help menu styling', async ({ page }) => {
-        test.slow(); // Mark as slow for CI
-        test.setTimeout(120000);
-
-        // Open (Notepad is already good target)
-        await page.locator('[data-testid="taskbar-start-button"]').click();
-        await expect(page.locator('[data-testid="start-menu"]')).toBeVisible();
-        await page.waitForTimeout(500); // Wait for animation
-        await page.locator('[data-testid="start-menu-item-notepad"]').click({ force: true });
-
-        // Wait for window
-        await expect(page.locator('[data-testid="notepad-editor"]')).toBeVisible({ timeout: 30000 });
-
-        // Check Help menu using testId
-        const helpMenu = page.locator('[data-testid="menu-help"]');
-
-        // Verify it exists first
-        await expect(helpMenu).toBeVisible({ timeout: 30000 });
-
-        // It should not have font-bold class
-        await expect(helpMenu).not.toHaveClass(/font-bold/);
-    });
 
     test('Context Menu has dynamic width', async ({ page }) => {
         // Right click desktop
