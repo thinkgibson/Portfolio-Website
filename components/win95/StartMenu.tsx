@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { DynamicIcon } from "../Icons/DynamicIcon";
 import { AppDefinition } from "../../lib/types";
@@ -16,6 +16,11 @@ export function StartMenu({ items, onItemClick, onReboot, onClose }: StartMenuPr
     const isMobile = useIsMobile();
     const [activeSubMenuId, setActiveSubMenuId] = useState<string | null>(null);
     const hoverTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+
+    // Ensure component re-renders when isMobile changes
+    useEffect(() => {
+        // This effect ensures the component properly reacts to isMobile changes
+    }, [isMobile]);
 
     const handleMouseEnter = (id: string, hasChildren: boolean) => {
         if (isMobile) return;

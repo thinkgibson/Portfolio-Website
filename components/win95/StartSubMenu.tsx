@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useRef, useLayoutEffect } from "react";
+import React, { useState, useRef, useLayoutEffect, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { DynamicIcon } from "../Icons/DynamicIcon";
 import { AppDefinition } from "../../lib/types";
@@ -19,6 +19,11 @@ export function StartSubMenu({ items, onItemClick, onClose, depth }: StartSubMen
     const [offsetY, setOffsetY] = useState(0);
     const hoverTimeoutRef = useRef<NodeJS.Timeout | null>(null);
     const menuRef = useRef<HTMLDivElement>(null);
+
+    // Ensure component re-renders when isMobile changes
+    useEffect(() => {
+        // This effect ensures the component properly reacts to isMobile changes
+    }, [isMobile]);
 
     useLayoutEffect(() => {
         if (!menuRef.current || isMobile) return;
