@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">87.65% </span>
+                <span class="strong">87.17% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>497/567</span>
+                <span class='fraction'>503/577</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">87.65% </span>
+                <span class="strong">87.17% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>497/567</span>
+                <span class='fraction'>503/577</span>
             </div>
         
             
@@ -630,7 +630,17 @@
 <a name='L565'></a><a href='#L565'>565</a>
 <a name='L566'></a><a href='#L566'>566</a>
 <a name='L567'></a><a href='#L567'>567</a>
-<a name='L568'></a><a href='#L568'>568</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L568'></a><a href='#L568'>568</a>
+<a name='L569'></a><a href='#L569'>569</a>
+<a name='L570'></a><a href='#L570'>570</a>
+<a name='L571'></a><a href='#L571'>571</a>
+<a name='L572'></a><a href='#L572'>572</a>
+<a name='L573'></a><a href='#L573'>573</a>
+<a name='L574'></a><a href='#L574'>574</a>
+<a name='L575'></a><a href='#L575'>575</a>
+<a name='L576'></a><a href='#L576'>576</a>
+<a name='L577'></a><a href='#L577'>577</a>
+<a name='L578'></a><a href='#L578'>578</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -838,6 +848,7 @@
 <span class="cline-any cline-yes">40x</span>
 <span class="cline-any cline-yes">40x</span>
 <span class="cline-any cline-yes">40x</span>
+<span class="cline-any cline-yes">40x</span>
 <span class="cline-any cline-yes">21x</span>
 <span class="cline-any cline-yes">21x</span>
 <span class="cline-any cline-yes">21x</span>
@@ -1009,7 +1020,11 @@
 <span class="cline-any cline-yes">40x</span>
 <span class="cline-any cline-yes">40x</span>
 <span class="cline-any cline-yes">40x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-yes">40x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -1046,6 +1061,11 @@
 <span class="cline-any cline-yes">39x</span>
 <span class="cline-any cline-yes">39x</span>
 <span class="cline-any cline-yes">39x</span>
+<span class="cline-any cline-yes">40x</span>
+<span class="cline-any cline-yes">40x</span>
+<span class="cline-any cline-yes">40x</span>
+<span class="cline-any cline-yes">40x</span>
+<span class="cline-any cline-yes">40x</span>
 <span class="cline-any cline-yes">40x</span>
 <span class="cline-any cline-yes">40x</span>
 <span class="cline-any cline-yes">40x</span>
@@ -1400,6 +1420,7 @@ export function Win95Window({
     const [isSearching, setIsSearching] = React.useState(false);
     const [searchTerm, setSearchTerm] = React.useState("");
     const [isResizing, setIsResizing] = React.useState(false);
+    const [isDragging, setIsDragging] = React.useState(false);
     const [measuredHeight, setMeasuredHeight] = React.useState(300);
     const windowRef = React.useRef&lt;HTMLDivElement&gt;(null);
     const [skipAnimations, setSkipAnimations] = React.useState(false);
@@ -1575,8 +1596,12 @@ export function Win95Window({
             dragListener={false}
             dragConstraints={effectiveDragConstraints}
             dragElastic={0}
-            onDragStart={<span class="fstat-no" title="function not covered" >() =&gt; onFocus?.()}</span>
+            onDragStart={<span class="fstat-no" title="function not covered" >() =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >                onFocus?.();</span>
+<span class="cstat-no" title="statement not covered" >                setIsDragging(true);</span>
+<span class="cstat-no" title="statement not covered" >            }}</span>
             onDragEnd={<span class="fstat-no" title="function not covered" >(_, info) =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >                setIsDragging(false);</span>
 <span class="cstat-no" title="statement not covered" >                if (onPositionChange) {</span>
 <span class="cstat-no" title="statement not covered" >                    let newX = x + info.offset.x;</span>
 <span class="cstat-no" title="statement not covered" >                    let newY = y + info.offset.y;</span>
@@ -1617,6 +1642,11 @@ export function Win95Window({
             style={{ padding: '2px' }}
             data-testid={`window-${title.toLowerCase().replace(/\s+/g, '-')}`}
         &gt;
+            {/* Overlay to block pointer events on iframes while dragging */}
+            {isDragging &amp;&amp; (
+                &lt;div className="absolute inset-0 z-50 bg-transparent" /&gt;
+            )}
+&nbsp;
             {/* Titlebar */}
             &lt;div
                 onPointerDown={<span class="fstat-no" title="function not covered" >(e) =&gt; {</span>
@@ -1771,7 +1801,7 @@ export function Win95Window({
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2026-02-03T14:29:50.668Z
+                at 2026-02-03T15:04:56.591Z
             </div>
         <script src="../../prettify.js"></script>
         <script>

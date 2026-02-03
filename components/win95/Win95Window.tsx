@@ -201,6 +201,7 @@ export function Win95Window({
     const [isSearching, setIsSearching] = React.useState(false);
     const [searchTerm, setSearchTerm] = React.useState("");
     const [isResizing, setIsResizing] = React.useState(false);
+    const [isDragging, setIsDragging] = React.useState(false);
     const [measuredHeight, setMeasuredHeight] = React.useState(300);
     const windowRef = React.useRef<HTMLDivElement>(null);
     const [skipAnimations, setSkipAnimations] = React.useState(false);
@@ -376,8 +377,12 @@ export function Win95Window({
             dragListener={false}
             dragConstraints={effectiveDragConstraints}
             dragElastic={0}
-            onDragStart={() => onFocus?.()}
+            onDragStart={() => {
+                onFocus?.();
+                setIsDragging(true);
+            }}
             onDragEnd={(_, info) => {
+                setIsDragging(false);
                 if (onPositionChange) {
                     let newX = x + info.offset.x;
                     let newY = y + info.offset.y;
@@ -418,6 +423,11 @@ export function Win95Window({
             style={{ padding: '2px' }}
             data-testid={`window-${title.toLowerCase().replace(/\s+/g, '-')}`}
         >
+            {/* Overlay to block pointer events on iframes while dragging */}
+            {isDragging && (
+                <div className="absolute inset-0 z-50 bg-transparent" />
+            )}
+
             {/* Titlebar */}
             <div
                 onPointerDown={(e) => {
