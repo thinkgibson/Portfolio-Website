@@ -235,6 +235,45 @@ export function Win95Window({
         return () => observer.disconnect();
     }, [isMaximized, isMobile, measuredHeight]);
 
+    // Track window size for reactive constraints
+    const [windowSize, setWindowSize] = React.useState(() => {
+        if (typeof window !== 'undefined') {
+            return { width: window.innerWidth, height: window.innerHeight };
+        }
+        return { width: 0, height: 0 };
+    });
+
+    React.useEffect(() => {
+        if (typeof window === 'undefined') return;
+
+        const handleResize = () => {
+            const newWidth = window.innerWidth;
+            const newHeight = window.innerHeight;
+
+
+
+            setWindowSize({ width: newWidth, height: newHeight });
+
+            // Clamp position on resize to ensure visibility
+            if (onPositionChange) {
+                // Prevent window top from going into taskbar area (with 10px buffer)
+                const maxY = newHeight - TASKBAR_HEIGHT - 10;
+
+                const clampedX = Math.max(-11, Math.min(x, newWidth - 10));
+                const clampedY = Math.max(-11, Math.min(y, maxY));
+
+
+
+                if (clampedX !== x || clampedY !== y) {
+                    onPositionChange(clampedX, clampedY);
+                }
+            }
+        };
+
+        window.addEventListener('resize', handleResize);
+        return () => window.removeEventListener('resize', handleResize);
+    }, [x, y, onPositionChange]);
+
     // Compute drag constraints to prevent window bottom from going below taskbar
     // Use passed constraints or fallback to screen bounds (relative to screen coords)
     const effectiveDragConstraints = dragConstraints || React.useMemo(() => {
@@ -251,15 +290,18 @@ export function Win95Window({
         const topLimit = -10;
 
         // Prevent window top from going into taskbar area (with 10px buffer)
-        const maxY = window.innerHeight - TASKBAR_HEIGHT - 10;
+        // Use windowSize state to ensure reactivity
+        const maxY = windowSize.height - TASKBAR_HEIGHT - 10;
 
-        return {
+        const constraints = {
             left: leftLimit - currentX,
             top: topLimit - currentY,
-            right: window.innerWidth - currentX - 10, // Allow minimum visibility on right
+            right: windowSize.width - currentX - 10, // Allow minimum visibility on right
             bottom: Math.max(topLimit, maxY - currentY), // Ensure we don't return negative if already below
         };
-    }, [isMobile, isMaximized, x, y, dragConstraints, measuredHeight, minHeight]);
+
+        return constraints;
+    }, [isMobile, isMaximized, x, y, dragConstraints, measuredHeight, minHeight, windowSize]);
 
     const toggleMenu = (menu: string) => {
         setActiveMenu(activeMenu === menu ? null : menu);
