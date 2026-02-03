@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">87.17% </span>
+                <span class="strong">87.1% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>503/577</span>
+                <span class='fraction'>500/574</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">77.19% </span>
+                <span class="strong">76.78% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>88/114</span>
+                <span class='fraction'>86/112</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">87.17% </span>
+                <span class="strong">87.1% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>503/577</span>
+                <span class='fraction'>500/574</span>
             </div>
         
             
@@ -637,10 +637,7 @@
 <a name='L572'></a><a href='#L572'>572</a>
 <a name='L573'></a><a href='#L573'>573</a>
 <a name='L574'></a><a href='#L574'>574</a>
-<a name='L575'></a><a href='#L575'>575</a>
-<a name='L576'></a><a href='#L576'>576</a>
-<a name='L577'></a><a href='#L577'>577</a>
-<a name='L578'></a><a href='#L578'>578</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L575'></a><a href='#L575'>575</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -1019,7 +1016,6 @@
 <span class="cline-any cline-yes">40x</span>
 <span class="cline-any cline-yes">40x</span>
 <span class="cline-any cline-yes">40x</span>
-<span class="cline-any cline-yes">40x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -1060,12 +1056,6 @@
 <span class="cline-any cline-yes">39x</span>
 <span class="cline-any cline-yes">39x</span>
 <span class="cline-any cline-yes">39x</span>
-<span class="cline-any cline-yes">39x</span>
-<span class="cline-any cline-yes">40x</span>
-<span class="cline-any cline-yes">40x</span>
-<span class="cline-any cline-yes">40x</span>
-<span class="cline-any cline-yes">40x</span>
-<span class="cline-any cline-yes">40x</span>
 <span class="cline-any cline-yes">40x</span>
 <span class="cline-any cline-yes">40x</span>
 <span class="cline-any cline-yes">40x</span>
@@ -1076,6 +1066,10 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">40x</span>
+<span class="cline-any cline-yes">40x</span>
+<span class="cline-any cline-yes">40x</span>
+<span class="cline-any cline-yes">40x</span>
 <span class="cline-any cline-yes">40x</span>
 <span class="cline-any cline-yes">40x</span>
 <span class="cline-any cline-yes">40x</span>
@@ -1589,7 +1583,6 @@ export function Win95Window({
         &lt;motion.div
             ref={windowRef}
             key={`${title}-${isMaximized ? 'max' : 'normal'}`}
-            layout
             drag={!isMaximized &amp;&amp; !isMobile}
             dragMomentum={false}
             dragControls={dragControls}
@@ -1635,18 +1628,12 @@ export function Win95Window({
             transition={<span class="branch-0 cbranch-no" title="branch not covered" >skipAnimations ? { duration: 0 } : {</span>
                 type: "spring",
                 stiffness: 400,
-                damping: 30,
-                layout: { duration: isResizing ? 0 : 0.2 }
+                damping: 30
             }}
             className={`win95-beveled absolute flex flex-col pointer-events-auto ${isActive ? <span class="branch-0 cbranch-no" title="branch not covered" >"z-50" : "z-10"}`</span>}
             style={{ padding: '2px' }}
             data-testid={`window-${title.toLowerCase().replace(/\s+/g, '-')}`}
         &gt;
-            {/* Overlay to block pointer events on iframes while dragging */}
-            {isDragging &amp;&amp; (
-                &lt;div className="absolute inset-0 z-50 bg-transparent" /&gt;
-            )}
-&nbsp;
             {/* Titlebar */}
             &lt;div
                 onPointerDown={<span class="fstat-no" title="function not covered" >(e) =&gt; {</span>
@@ -1774,6 +1761,10 @@ export function Win95Window({
 &nbsp;
             {/* Content Area */}
             &lt;div className={`flex-grow relative flex flex-col min-h-0 ${<span class="branch-0 cbranch-no" title="branch not covered" >fullBleed ? "" : "</span>overflow-hidden win95-beveled-inset bg-white m-1 p-4 overflow-auto scrollbar-win95 min-h-[100px]"}`}&gt;
+                {/* Overlay to block pointer events on iframes while dragging */}
+                {isDragging &amp;&amp; (
+                    &lt;div className="absolute inset-0 z-50 bg-transparent" /&gt;
+                )}
                 &lt;HighlightResults term={searchTerm}&gt;
                     {children}
                 &lt;/HighlightResults&gt;
@@ -1801,7 +1792,7 @@ export function Win95Window({
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2026-02-03T15:04:56.591Z
+                at 2026-02-03T15:26:57.275Z
             </div>
         <script src="../../prettify.js"></script>
         <script>

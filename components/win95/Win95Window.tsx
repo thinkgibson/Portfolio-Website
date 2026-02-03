@@ -370,7 +370,6 @@ export function Win95Window({
         <motion.div
             ref={windowRef}
             key={`${title}-${isMaximized ? 'max' : 'normal'}`}
-            layout
             drag={!isMaximized && !isMobile}
             dragMomentum={false}
             dragControls={dragControls}
@@ -416,18 +415,12 @@ export function Win95Window({
             transition={skipAnimations ? { duration: 0 } : {
                 type: "spring",
                 stiffness: 400,
-                damping: 30,
-                layout: { duration: isResizing ? 0 : 0.2 }
+                damping: 30
             }}
             className={`win95-beveled absolute flex flex-col pointer-events-auto ${isActive ? "z-50" : "z-10"}`}
             style={{ padding: '2px' }}
             data-testid={`window-${title.toLowerCase().replace(/\s+/g, '-')}`}
         >
-            {/* Overlay to block pointer events on iframes while dragging */}
-            {isDragging && (
-                <div className="absolute inset-0 z-50 bg-transparent" />
-            )}
-
             {/* Titlebar */}
             <div
                 onPointerDown={(e) => {
@@ -555,6 +548,10 @@ export function Win95Window({
 
             {/* Content Area */}
             <div className={`flex-grow relative flex flex-col min-h-0 ${fullBleed ? "" : "overflow-hidden win95-beveled-inset bg-white m-1 p-4 overflow-auto scrollbar-win95 min-h-[100px]"}`}>
+                {/* Overlay to block pointer events on iframes while dragging */}
+                {isDragging && (
+                    <div className="absolute inset-0 z-50 bg-transparent" />
+                )}
                 <HighlightResults term={searchTerm}>
                     {children}
                 </HighlightResults>

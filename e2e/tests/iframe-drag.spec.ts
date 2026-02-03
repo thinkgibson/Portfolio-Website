@@ -3,7 +3,7 @@ import { test, expect } from '@playwright/test';
 
 test.describe('Iframe Dragging', () => {
     // usage of iframes with Framer Motion drag gestures in a headless environment.
-    test.fixme('should be able to drag window over iframe content', async ({ page, isMobile }) => {
+    test('should be able to drag window over iframe content', async ({ page, isMobile }) => {
         // Dragging is disabled on mobile
         if (isMobile) test.skip();
 
