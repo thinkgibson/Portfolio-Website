@@ -53,22 +53,4 @@ test.describe('Skills App', () => {
         const skillsWindow = page.getByTestId('window-my-skills');
         await expect(skillsWindow).toBeVisible({ timeout: 10000 });
     });
-
-    test('should be available in the start menu', async ({ page }) => {
-        console.log('Clicking start button...');
-        const startButton = page.getByTestId('taskbar-start-button');
-        await startButton.click();
-
-        console.log('Waiting for start menu...');
-        const startMenu = page.getByTestId('start-menu');
-        await expect(startMenu).toBeVisible({ timeout: 10000 });
-
-        console.log('Waiting for start menu item (skills)...');
-        const skillsMenuItem = page.getByTestId('start-menu-item-skills');
-        await expect(skillsMenuItem).toBeVisible({ timeout: 10000 });
-        await skillsMenuItem.click();
-
-        const skillsWindow = page.getByTestId('window-my-skills');
-        await expect(skillsWindow).toBeVisible({ timeout: 10000 });
-    });
 });

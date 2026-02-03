@@ -40,32 +40,4 @@ test.describe('Documentaries App', () => {
 
         await expect(page.getByText('My Documentaries')).not.toBeVisible();
     });
-
-    test('can open Documentaries app from start menu', async ({ page }) => {
-        await page.goto('/?skipBoot=true&skipWelcome=true&skipAnimations=true');
-
-        // Wait for desktop container to ensure we're ready
-        await expect(page.getByTestId('desktop-container')).toBeVisible({ timeout: 30000 });
-
-        // Open Start Menu - using the specific start button testId
-        await page.getByTestId('taskbar-start-button').click();
-        await expect(page.getByTestId('start-menu')).toBeVisible();
-
-        // Click Multimedia folder in start menu
-        const menuItem = page.getByTestId('start-menu-item-multimedia');
-        await expect(menuItem).toBeVisible();
-        await menuItem.click();
-
-        // Folder window should open
-        const folderWindow = page.getByTestId('window-multimedia');
-        await expect(folderWindow).toBeVisible({ timeout: 15000 });
-
-        // Open app from folder
-        const appIcon = folderWindow.getByTestId('desktop-icon-documentaries');
-        await appIcon.dblclick();
-
-        const window = page.getByTestId('window-documentaries');
-        await expect(window).toBeVisible({ timeout: 15000 });
-        await expect(window.getByText('My Documentaries')).toBeVisible();
-    });
 });

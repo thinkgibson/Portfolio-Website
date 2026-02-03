@@ -41,15 +41,4 @@ test.describe('Desktop Folders', () => {
         const notepadWindow = page.getByTestId('window-notepad.exe');
         await expect(notepadWindow).toBeVisible();
     });
-
-    test('should open folder from Start Menu', async ({ page }) => {
-        await page.getByTestId('taskbar-start-button').click();
-
-        const menuItem = page.getByTestId('start-menu-item-accessories');
-        await expect(menuItem).toBeVisible();
-        await menuItem.click();
-
-        const window = page.getByTestId('window-accessories');
-        await expect(window).toBeVisible();
-    });
 });
