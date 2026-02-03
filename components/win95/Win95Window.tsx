@@ -298,7 +298,7 @@ export function Win95Window({
             left: leftLimit - currentX,
             top: topLimit - currentY,
             right: windowSize.width - currentX - 10, // Allow minimum visibility on right
-            bottom: Math.max(topLimit, maxY - currentY), // Ensure we don't return negative if already below
+            bottom: Math.max(0, maxY - currentY),
         };
 
         return constraints;
@@ -375,9 +375,8 @@ export function Win95Window({
             dragControls={dragControls}
             dragListener={false}
             dragConstraints={effectiveDragConstraints}
-            dragElastic={0}
+            dragElastic={0.05}
             onDragStart={() => {
-                onFocus?.();
                 setIsDragging(true);
             }}
             onDragEnd={(_, info) => {
@@ -419,7 +418,7 @@ export function Win95Window({
                 stiffness: 400,
                 damping: 30
             }}
-            className={`win95-beveled absolute flex flex-col pointer-events-auto ${isActive ? "z-50" : "z-10"}`}
+            className={`win95-beveled absolute flex flex-col pointer-events-auto select-none touch-none ${isActive ? "z-50" : "z-10"}`}
             style={{ padding: '2px' }}
             data-testid={`window-${title.toLowerCase().replace(/\s+/g, '-')}`}
         >
@@ -427,7 +426,9 @@ export function Win95Window({
             <div
                 onPointerDown={(e) => {
                     onFocus?.();
-                    !isMaximized && dragControls.start(e);
+                    if (!isMaximized) {
+                        dragControls.start(e);
+                    }
                 }}
                 onDoubleClick={() => canMaximize && onMaximize?.()}
                 className={`window-titlebar h-8 flex items-center justify-between px-1 cursor-default select-none ${isActive ? "bg-win95-blue-active" : "bg-win95-gray-inactive"}`}

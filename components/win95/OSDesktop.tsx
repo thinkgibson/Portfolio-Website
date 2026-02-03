@@ -218,25 +218,11 @@ export function OSDesktop({ windows: initialWindows, skipBoot: propSkipBoot, ski
     };
 
     const handleSetActive = (id: string) => {
-        setOpenWindows(prev => {
-            const windowToActivate = prev.find(w => w.id === id);
-            if (!windowToActivate) return prev;
-
-            const otherWindows = prev.filter(w => w.id !== id);
-
-            const updatedWindow = {
-                ...windowToActivate,
-                isActive: true,
-                isMinimized: false
-            };
-
-            const updatedOthers = otherWindows.map(w => ({
-                ...w,
-                isActive: false
-            }));
-
-            return [...updatedOthers, updatedWindow];
-        });
+        setOpenWindows(prev => prev.map(w => ({
+            ...w,
+            isActive: w.id === id,
+            isMinimized: w.id === id ? false : w.isMinimized
+        })));
         setActiveWindowId(id);
     };
 
