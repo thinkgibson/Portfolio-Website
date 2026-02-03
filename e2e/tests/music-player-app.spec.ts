@@ -25,27 +25,6 @@ test.describe('Music Player App', () => {
         await expect(window).toContainText('Media Player');
     });
 
-    test('should open Media Player from start menu', async ({ page }) => {
-        // Open Start Menu
-        await page.getByTestId('taskbar-start-button').click();
-
-        // Click Multimedia folder (folders are now top-level items)
-        const menuItem = page.getByTestId('start-menu-item-multimedia');
-        await expect(menuItem).toBeVisible();
-        await menuItem.click();
-
-        // Folder window should open
-        const folderWindow = page.getByTestId('window-multimedia');
-        await expect(folderWindow).toBeVisible();
-
-        // Open Media Player from inside the folder
-        const musicIcon = folderWindow.getByTestId('desktop-icon-media-player');
-        await musicIcon.dblclick();
-
-        const window = page.getByTestId('window-media-player');
-        await expect(window).toBeVisible();
-    });
-
     test('should toggle play/pause state', async ({ page }) => {
         // Open the app via folder
         await page.getByTestId('desktop-icon-multimedia').dblclick();

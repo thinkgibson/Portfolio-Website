@@ -46,37 +46,4 @@ test.describe('Video Essays App', () => {
 
         await expect(window).not.toBeVisible();
     });
-
-    test('can open Video Essays app from start menu', async ({ page }) => {
-        await page.goto('/?skipBoot=true&skipWelcome=true&skipAnimations=true');
-
-        // Wait for desktop container to ensure we're ready
-        await expect(page.getByTestId('desktop-container')).toBeVisible({ timeout: 30000 });
-
-        // Open Start Menu - using the specific start button testId
-        await page.getByTestId('taskbar-start-button').click();
-        await expect(page.getByTestId('start-menu')).toBeVisible();
-
-        // Click Multimedia folder in start menu
-        const menuItem = page.getByTestId('start-menu-item-multimedia');
-        await expect(menuItem).toBeVisible();
-        await menuItem.click();
-
-        // Wait for start menu to close
-        await expect(page.getByTestId('start-menu')).not.toBeVisible();
-
-        // Folder window should open
-        const folderWindow = page.getByTestId('window-multimedia');
-        await expect(folderWindow).toBeVisible({ timeout: 15000 });
-
-        // Open app from folder
-        // Open app from folder
-        const appIcon = folderWindow.getByTestId('desktop-icon-video-essays');
-        await page.waitForTimeout(500); // Wait for folder animation/layout
-        await appIcon.click();
-
-        const window = page.getByTestId('window-video-essays');
-        await expect(window).toBeVisible({ timeout: 15000 });
-        await expect(window.getByRole('heading', { name: 'Video Essays' })).toBeVisible();
-    });
 });

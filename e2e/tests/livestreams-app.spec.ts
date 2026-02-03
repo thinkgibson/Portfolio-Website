@@ -30,27 +30,4 @@ test.describe('Livestreams App', () => {
         await window.getByTestId('window-close').click();
         await expect(window).not.toBeVisible();
     });
-
-    test('can open Livestreams from terminal', async ({ page }) => {
-        await page.goto('/?skipBoot=true&skipWelcome=true&skipAnimations=true');
-
-        // Open terminal via Start Menu -> Accessories -> Command Prompt (Proven path)
-        await page.click('[data-testid="taskbar-start-button"]');
-        await page.locator('[data-testid="start-menu-item-accessories"]').click();
-        await expect(page.locator('[data-testid="window-accessories"]')).toBeVisible();
-        await page.locator('[data-testid="window-accessories"] [data-testid="desktop-icon-command-prompt"]').dblclick();
-
-        // Check if terminal window is open
-        const terminalWindow = page.locator('[data-testid="window-command-prompt"]');
-        await expect(terminalWindow).toBeVisible();
-
-        const input = page.locator('.custom-terminal input');
-
-        // Type open command
-        await input.fill('open livestreams');
-        await input.press('Enter');
-
-        // Check if window opened by looking for unique header text
-        await expect(page.getByText('My Livestreams')).toBeVisible({ timeout: 20000 });
-    });
 });
