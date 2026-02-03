@@ -156,18 +156,22 @@ export function Win95Window({
     // Use a ref to track the last confirmed position to prevent snap-back jitter
     const confirmedPos = React.useRef({ x, y });
 
+    // Store last seen props to distinguish between internal drag updates and external prop changes
+    const lastProps = React.useRef({ x, y });
+
     // Motion values for stable dragging and reactive positioning
     const xMV = useMotionValue(x);
     const yMV = useMotionValue(y);
 
-    // Update motion values when props change (e.g. nudge) but not during drag
+    // Update motion values only when props actually change from an external source
     React.useEffect(() => {
-        if (!isDragging) {
+        if (x !== lastProps.current.x || y !== lastProps.current.y) {
             xMV.set(x);
             yMV.set(y);
             confirmedPos.current = { x, y };
+            lastProps.current = { x, y };
         }
-    }, [x, y, isDragging, xMV, yMV]);
+    }, [x, y, xMV, yMV]);
 
     React.useEffect(() => {
         if (typeof window !== 'undefined') {
