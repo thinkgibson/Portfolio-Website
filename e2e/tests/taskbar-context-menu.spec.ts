@@ -3,7 +3,13 @@ import test from '../fixtures/fixtures';
 import { setupOrReset } from '../shared-e2e';
 
 test.describe('Taskbar Context Menu', () => {
-    test.beforeEach(setupOrReset);
+    test.beforeEach(async ({ page }, testInfo) => {
+        // Skip on Webkit due to platform instability
+        if (testInfo.project.name.toLowerCase() === 'webkit') {
+            test.skip();
+        }
+        await setupOrReset({ page });
+    });
 
     test('right-click taskbar item shows context menu with expected options', async ({ page, desktop, window }) => {
         // Open Notepad

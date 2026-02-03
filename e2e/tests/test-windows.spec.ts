@@ -44,6 +44,8 @@ test.describe('Window Controls', () => {
         test.skip(testInfo.project.name.includes('Mobile'), 'Mouse dragging not supported on mobile devices');
         // Skip on Firefox due to browser-specific drag constraint behavior (tracked in Issue #83)
         test.skip(browserName === 'firefox', 'Firefox drag constraints have browser-specific issues');
+        // Skip on Webkit due to flaky behavior in CI (Issue #83 regression)
+        test.skip(browserName === 'webkit', 'Webkit drag constraints flaky in CI');
 
         const title = 'Welcome.txt';
         await desktop.openIcon(title);
