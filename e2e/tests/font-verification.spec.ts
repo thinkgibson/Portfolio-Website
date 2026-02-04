@@ -1,17 +1,16 @@
 import { test, expect } from '@playwright/test';
 
-test.skip('verify font-family application', async ({ page }) => {
-    await page.goto('/');
+test.skip('verify font-family application', async ({ page, isMobile }) => {
+    // Skipped globally: Relies on external font resource (db.onlinewebfonts.com) which causes timeouts in CI/Test environment
 
-    // Handle boot sequence if present
-    const skipButton = page.getByText('Press any key to skip...');
-    if (await skipButton.isVisible()) {
-        await page.keyboard.press('Space');
-    }
+    // Navigate directly with query params to skip boot, welcome, and animations
+    await page.goto('/?skipBoot=true&skipWelcome=true&skipAnimations=true');
 
     // Wait for desktop
+    await expect(page.getByTestId('desktop-container')).toBeVisible({ timeout: 30000 });
     await expect(page.locator('[data-testid="taskbar-start-button"]')).toBeVisible();
 
+    // Check body font
     // Check body font
     const bodyStyles = await page.evaluate(() => {
         const style = getComputedStyle(document.body);
@@ -22,6 +21,7 @@ test.skip('verify font-family application', async ({ page }) => {
             userAgent: navigator.userAgent
         };
     });
+
     expect(bodyStyles.fontFamily).toContain('W95FA');
     expect(bodyStyles.fontSize).toBe('12px');
 

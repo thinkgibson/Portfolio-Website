@@ -36,8 +36,8 @@ test.describe('Job History App', () => {
     });
 
     test('should open Job History from terminal', async ({ page }, testInfo) => {
-        // Skip due to regression found in CI (Issue #84) - fails on all browsers
-        test.skip(true, 'Regression: Terminal commands failing to open apps');
+        // Unskipped for debugging
+        // test.skip(true, 'Regression: Terminal commands failing to open apps');
 
         // Skip on Webkit due to browser-specific timing issues
         // test.skip(testInfo.project.name === 'webkit', 'Timing out on Webkit browser');

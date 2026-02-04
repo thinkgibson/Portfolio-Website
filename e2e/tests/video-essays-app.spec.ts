@@ -2,11 +2,6 @@ import { test, expect } from '@playwright/test';
 
 test.describe('Video Essays App', () => {
     test.beforeEach(async ({ page }) => {
-        // Skip on Mobile Safari due to flaky interactions with Start Menu and Window opening
-        if (test.info().project.name === 'Mobile Safari') {
-            test.skip();
-        }
-
         // Log console messages
         page.on('console', msg => console.log(`BROWSER LOG: ${msg.text()}`));
         page.on('pageerror', err => console.log(`BROWSER ERROR: ${err.message}`));
@@ -22,11 +17,11 @@ test.describe('Video Essays App', () => {
 
         // Open Multimedia folder
         const folderIcon = page.getByTestId('desktop-icon-multimedia');
-        await expect(folderIcon).toBeVisible({ timeout: 30000 });
-        await folderIcon.dblclick();
+        await expect(folderIcon).toBeVisible({ timeout: 5000 });
+        await folderIcon.click();
 
         const folderWindow = page.getByTestId('window-multimedia');
-        await expect(folderWindow).toBeVisible({ timeout: 15000 });
+        await expect(folderWindow).toBeVisible({ timeout: 5000 });
 
         // Open Video Essays from inside folder
         const appIcon = folderWindow.getByTestId('desktop-icon-video-essays');
@@ -35,7 +30,7 @@ test.describe('Video Essays App', () => {
 
         // Check if window opened using its testId
         const window = page.getByTestId('window-video-essays');
-        await expect(window).toBeVisible({ timeout: 15000 });
+        await expect(window).toBeVisible({ timeout: 5000 });
 
         // Check for content inside the window
         await expect(window.getByRole('heading', { name: 'Video Essays' })).toBeVisible();

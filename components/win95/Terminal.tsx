@@ -100,9 +100,8 @@ export function Terminal({ }: TerminalProps) {
     }
 
     const handleKeyDown = (e: React.KeyboardEvent) => {
-        if (e.key === "Enter") {
-            handleCommand(input);
-        } else if (e.key === "ArrowUp") {
+        // Form handles Enter via onSubmit
+        if (e.key === "ArrowUp") {
             e.preventDefault();
             if (historyIndex < commandHistory.length - 1) {
                 const newIndex = historyIndex + 1;
@@ -122,6 +121,11 @@ export function Terminal({ }: TerminalProps) {
         }
     };
 
+    const handleSubmit = (e: React.FormEvent) => {
+        e.preventDefault();
+        handleCommand(input);
+    };
+
     return (
         <div
             className="flex-grow flex flex-col bg-black text-white font-win95-mono p-2 overflow-auto scrollbar-win95 custom-terminal"
@@ -134,7 +138,7 @@ export function Terminal({ }: TerminalProps) {
                 <div ref={bottomRef} />
             </div>
 
-            <div className="flex items-center gap-2 mt-1">
+            <form onSubmit={handleSubmit} className="flex items-center gap-2 mt-1">
                 <span className="shrink-0 text-[#00FF00]">C:\&gt;</span>
                 <input
                     ref={inputRef}
@@ -145,8 +149,16 @@ export function Terminal({ }: TerminalProps) {
                     className="bg-transparent border-none outline-none text-white font-win95-mono flex-grow p-0 caret-[#00FF00]"
                     data-testid="terminal-input"
                     autoFocus
+                    autoComplete="off"
                 />
-            </div>
+                <button
+                    type="submit"
+                    className="ml-2 px-2 bg-gray-700 text-white hover:bg-gray-600 text-xs border border-gray-500"
+                    data-testid="terminal-run-button"
+                >
+                    Run
+                </button>
+            </form>
 
             <style jsx>{`
                 .custom-terminal {
