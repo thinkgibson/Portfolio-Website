@@ -13,11 +13,11 @@ const availableApps = [
     { id: "calculator", title: "Calculator" }
 ];
 
-const renderTerminal = () => {
+const renderTerminal = (props: any = {}) => {
     return render(
         <OSProvider
-            onOpenWindow={mockOpenWindow}
-            onCloseWindow={mockCloseWindow}
+            onOpenWindow={props.onOpenApp || mockOpenWindow}
+            onCloseWindow={props.onCloseApp || mockCloseWindow}
             runningApps={runningApps}
             availableApps={availableApps}
         >
@@ -42,8 +42,10 @@ describe("Terminal Component", () => {
     test("executes help command", () => {
         renderTerminal();
         const input = screen.getByRole("textbox");
+        const runButton = screen.getByTestId("terminal-run-button");
+
         fireEvent.change(input, { target: { value: "help" } });
-        fireEvent.keyDown(input, { key: "Enter", code: "Enter" });
+        fireEvent.click(runButton);
 
         expect(screen.getByText(/Available commands:/i)).toBeInTheDocument();
         expect(screen.getByText(/open <app>/i)).toBeInTheDocument();
@@ -52,56 +54,80 @@ describe("Terminal Component", () => {
     test("executes list command", () => {
         renderTerminal();
         const input = screen.getByRole("textbox");
+        const runButton = screen.getByTestId("terminal-run-button");
+
         fireEvent.change(input, { target: { value: "list" } });
-        fireEvent.keyDown(input, { key: "Enter", code: "Enter" });
+        fireEvent.click(runButton);
 
         expect(screen.getByText(/Running applications:/i)).toBeInTheDocument();
         expect(screen.getByText(/- notepad \(Notepad\)/i)).toBeInTheDocument();
     });
 
     test("executes open command", () => {
-        renderTerminal();
+        const onOpenApp = jest.fn();
+        renderTerminal({ onOpenApp });
         const input = screen.getByRole("textbox");
-        fireEvent.change(input, { target: { value: "open calculator" } });
-        fireEvent.keyDown(input, { key: "Enter", code: "Enter" });
+        const runButton = screen.getByTestId("terminal-run-button");
 
-        expect(mockOpenWindow).toHaveBeenCalledWith("calculator");
+        // Enter a command
+        fireEvent.change(input, { target: { value: "open calculator" } });
+        fireEvent.click(runButton);
+
+        expect(input).toHaveValue("");
         expect(screen.getByText(/Opening Calculator.../i)).toBeInTheDocument();
+        expect(onOpenApp).toHaveBeenCalledWith("calculator");
     });
 
     test("executes close command", () => {
-        renderTerminal();
+        const onCloseApp = jest.fn();
+        renderTerminal({ onCloseApp });
         const input = screen.getByRole("textbox");
-        fireEvent.change(input, { target: { value: "close notepad" } });
-        fireEvent.keyDown(input, { key: "Enter", code: "Enter" });
+        const runButton = screen.getByTestId("terminal-run-button");
 
-        expect(mockCloseWindow).toHaveBeenCalledWith("notepad");
+        // Enter a command
+        fireEvent.change(input, { target: { value: "close notepad" } });
+        fireEvent.click(runButton);
+
+        expect(input).toHaveValue("");
         expect(screen.getByText(/Closing Notepad.../i)).toBeInTheDocument();
+        expect(onCloseApp).toHaveBeenCalledWith("notepad");
     });
 
     test("handles unknown command", () => {
         renderTerminal();
         const input = screen.getByRole("textbox");
-        fireEvent.change(input, { target: { value: "unknown" } });
-        fireEvent.keyDown(input, { key: "Enter", code: "Enter" });
+        const runButton = screen.getByTestId("terminal-run-button");
 
+        fireEvent.change(input, { target: { value: "unknown" } });
+        fireEvent.click(runButton);
+
+        expect(input).toHaveValue("");
         expect(screen.getByText(/'unknown' is not recognized/i)).toBeInTheDocument();
     });
 
     test("navigates command history with arrow keys", () => {
         renderTerminal();
         const input = screen.getByRole("textbox");
+        const runButton = screen.getByTestId("terminal-run-button");
 
-        // Enter a command
-        fireEvent.change(input, { target: { value: "test-cmd" } });
-        fireEvent.keyDown(input, { key: "Enter", code: "Enter" });
+        // Run commands
+        fireEvent.change(input, { target: { value: "cmd1" } });
+        fireEvent.click(runButton);
+
+        fireEvent.change(input, { target: { value: "cmd2" } });
+        fireEvent.click(runButton);
 
         // Press Up Arrow
         fireEvent.keyDown(input, { key: "ArrowUp", code: "ArrowUp" });
-        expect(input).toHaveValue("test-cmd");
+        expect(input).toHaveValue("cmd2");
 
-        // Clear and press Down Arrow
-        fireEvent.change(input, { target: { value: "" } });
+        fireEvent.keyDown(input, { key: "ArrowUp", code: "ArrowUp" });
+        expect(input).toHaveValue("cmd1");
+
+        // Press Down Arrow
+        fireEvent.keyDown(input, { key: "ArrowDown", code: "ArrowDown" });
+        expect(input).toHaveValue("cmd2");
+
         fireEvent.keyDown(input, { key: "ArrowDown", code: "ArrowDown" });
         expect(input).toHaveValue("");
     });

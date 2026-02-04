@@ -42,10 +42,10 @@ test.describe('Window Controls', () => {
     test('window cannot be dragged completely off-screen', async ({ desktop, window, page, browserName }, testInfo) => {
         // Skip on mobile devices since this test uses mouse events
         test.skip(testInfo.project.name.includes('Mobile'), 'Mouse dragging not supported on mobile devices');
-        // Skip on Firefox due to browser-specific drag constraint behavior (tracked in Issue #83)
-        test.skip(browserName === 'firefox', 'Firefox drag constraints have browser-specific issues');
+        // Unskipped for debug - Firefox specific drag constraint behavior fixed with absolute constraints
+        // test.skip(browserName === 'firefox', 'Firefox drag constraints have browser-specific issues');
         // Skip on Webkit due to flaky behavior in CI (Issue #83 regression)
-        test.skip(browserName === 'webkit', 'Webkit drag constraints flaky in CI');
+        // test.skip(browserName === 'webkit', 'Webkit drag constraints flaky in CI');
 
         const title = 'Welcome.txt';
         await desktop.openIcon(title);
@@ -68,9 +68,9 @@ test.describe('Window Controls', () => {
         await page.waitForTimeout(1000); // Wait for position to settle
 
         const boxTopLeft = await winLocator.boundingBox();
-        // Allow small sub-pixel tolerance for WebKit rendering
-        expect(boxTopLeft?.x).toBeGreaterThanOrEqual(-11);
-        expect(boxTopLeft?.y).toBeGreaterThanOrEqual(-11);
+        // Allow small sub-pixel tolerance for rendering (-11.000001 is possible)
+        expect(boxTopLeft?.x).toBeGreaterThanOrEqual(-12);
+        expect(boxTopLeft?.y).toBeGreaterThanOrEqual(-12);
 
         // Drag to the bottom-right far outside
         const viewport = page.viewportSize()!;

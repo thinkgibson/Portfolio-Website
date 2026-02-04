@@ -182,19 +182,44 @@ export function Win95Window({
         }
     }, []);
 
+    // Shared drag end logic to ensure clamping happens even if onDragEnd misses the event (Firefox issue)
+    const handleDragEnd = React.useCallback(() => {
+        const currentX = xMV.get();
+        const currentY = yMV.get();
+
+        let clampedX = currentX;
+        let clampedY = currentY;
+
+        if (typeof window !== 'undefined') {
+            clampedX = Math.max(-11, Math.min(currentX, window.innerWidth - 10));
+            clampedY = Math.max(-11, currentY);
+            const maxY = window.innerHeight - TASKBAR_HEIGHT - 10;
+            clampedY = Math.min(clampedY, maxY);
+        }
+
+        // Sync motion values back to clamped position
+        xMV.set(clampedX);
+        yMV.set(clampedY);
+        confirmedPos.current = { x: clampedX, y: clampedY };
+
+        if (onPositionChange) {
+            onPositionChange(clampedX, clampedY);
+        }
+    }, [xMV, yMV, onPositionChange]);
+
     // Safety cleanup for isDragging to ensure animation re-enables
     React.useEffect(() => {
         if (!isDragging) return;
 
+        // Try to catch end of drag if onDragEnd fails (Firefox issue)
         const handleGlobalUp = () => {
-            // Only force reset if we are NOT actually dragging (onDragEnd will handle the rest)
-            // This is a safety for interactions that don't qualify as a drag.
+            handleDragEnd();
             setIsDragging(false);
         };
 
-        window.addEventListener('pointerup', handleGlobalUp);
-        return () => window.removeEventListener('pointerup', handleGlobalUp);
-    }, [isDragging]);
+        window.addEventListener('pointerup', handleGlobalUp, { capture: true });
+        return () => window.removeEventListener('pointerup', handleGlobalUp, { capture: true });
+    }, [isDragging, handleDragEnd]);
 
     // Measure window dimensions for computing drag constraints
     React.useLayoutEffect(() => {
@@ -242,11 +267,17 @@ export function Win95Window({
         return () => window.removeEventListener('resize', handleResize);
     }, [x, y, onPositionChange]);
 
-    // Relaxed constraints: allow free movement, clamping happens in onDragEnd
+    // Strict constraints. 
+    // Data shows framer-motion treats these as absolute bounds in this context (possibly due to xMV usage).
     const effectiveDragConstraints = React.useMemo(() => {
-        // Use a large range to ensure no elastic pull during drag
-        return { top: -5000, left: -5000, right: 5000, bottom: 5000 };
-    }, []);
+        if (typeof window === 'undefined') return { top: 0, left: 0, right: 0, bottom: 0 };
+        return {
+            left: -11,
+            top: -11,
+            right: windowSize.width - 10,
+            bottom: windowSize.height - TASKBAR_HEIGHT - 10
+        };
+    }, [windowSize]);
 
     const toggleMenu = (menu: string) => {
         setActiveMenu(activeMenu === menu ? null : menu);
@@ -317,29 +348,9 @@ export function Win95Window({
                 // Already set in onPointerDown but kept for safety
                 setIsDragging(true);
             }}
-            onDragEnd={(_, info) => {
-                const newX = x + info.offset.x;
-                const newY = y + info.offset.y;
-
-                let clampedX = newX;
-                let clampedY = newY;
-
-                if (typeof window !== 'undefined') {
-                    clampedX = Math.max(-11, Math.min(newX, window.innerWidth - 10));
-                    clampedY = Math.max(-11, clampedY);
-                    const maxY = window.innerHeight - TASKBAR_HEIGHT - 10;
-                    clampedY = Math.min(clampedY, maxY);
-                }
-
-                // Sync motion values back to clamped position
-                xMV.set(clampedX);
-                yMV.set(clampedY);
-                confirmedPos.current = { x: clampedX, y: clampedY };
+            onDragEnd={() => {
+                handleDragEnd();
                 setIsDragging(false);
-
-                if (onPositionChange) {
-                    onPositionChange(clampedX, clampedY);
-                }
             }}
             initial={isMaximized ? { x: 0, y: 0, scale: 1, opacity: 1 } : { x: isMobile ? (typeof window !== 'undefined' ? window.innerWidth * 0.05 : 0) : x, y: isMobile ? (typeof window !== 'undefined' ? window.innerHeight * 0.05 : 0) : y, scale: 0.95, opacity: 0 }}
             animate={isMaximized
@@ -518,3 +529,4 @@ export function Win95Window({
         </motion.div>
     );
 }
+

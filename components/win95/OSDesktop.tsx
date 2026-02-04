@@ -60,16 +60,24 @@ export function OSDesktop({ windows: initialWindows, skipBoot: propSkipBoot, ski
     const desktopRef = React.useRef<HTMLDivElement>(null);
 
     const handleOpenWindow = (id: string) => {
-        const existing = openWindows.find(w => w.id === id);
-        if (existing) {
-            handleSetActive(id);
-            if (existing.isMinimized) {
-                setOpenWindows(prev => prev.map(w =>
-                    w.id === id ? { ...w, isMinimized: false } : w
-                ));
+        setOpenWindows(prev => {
+            const existing = prev.find(w => w.id === id);
+            if (existing) {
+                // If it exists, just activate it (and un-minimize)
+                if (existing.isActive && !existing.isMinimized) {
+                    return prev; // No change needed
+                }
+                setActiveWindowId(id); // Side effect: Set active ID (this is safe to call outside, or should be separate?)
+                // Actually setActiveWindowId is separate state. We should sync them.
+                // But specifically for openWindows array:
+                return prev.map(w =>
+                    w.id === id ? { ...w, isMinimized: false, isActive: true } : { ...w, isActive: false }
+                );
             }
-        } else {
-            // Recursive find function
+
+            // Window doesn't exist, create it.
+            // Recursive find function (internal to callback or reused?)
+            // We need 'initialWindows' which is available in closure (safe).
             const findWindowProps = (id: string, list: AppDefinition[]): AppDefinition | null => {
                 for (const item of list) {
                     if (item.id === id) return item;
@@ -82,64 +90,63 @@ export function OSDesktop({ windows: initialWindows, skipBoot: propSkipBoot, ski
             };
 
             const winDef = findWindowProps(id, initialWindows);
-            if (winDef) {
-                // Use stored position or calculate new one
-                let pos = windowPositions[id];
+            if (!winDef) return prev;
 
-                // Fallback to localStorage removed for ephemeral window states
+            // Calculate position
+            // NOTE: We used 'openWindows.length' before. Now we use 'prev.length'.
+            let pos = windowPositions[id];
 
-                if (isMobile) {
-                    // Constant centering on mobile
-                    pos = {
-                        x: (window.innerWidth * 0.1) / 2,
-                        y: (window.innerHeight * 0.1) / 2
-                    };
-                } else if (!pos) {
-                    // Only calculate if we don't have a saved position
-                    const margin = 20;
-                    const offset = openWindows.length * 30;
-                    pos = { x: 100 + offset, y: 50 + offset };
-                }
-
-                const newWin: RuntimeWindow = {
-                    ...winDef,
-                    isOpen: true,
-                    isMinimized: false,
-                    isMaximized: false,
-                    isActive: true,
-                    x: pos.x,
-                    y: pos.y,
-                    width: pos.width,
-                    height: pos.height,
-                    content: winDef.children ? (
-                        <Folder
-                            id={winDef.id}
-                            title={winDef.title}
-                            items={winDef.children.map((child: any) => ({
-                                id: child.id,
-                                title: child.title || "",
-                                iconType: child.iconType || "folder"
-                            }))}
-                            onItemClick={(childId) => handleOpenWindow(childId)}
-                        />
-                    ) : winDef.content,
-                    helpContent: winDef.helpContent,
-                    iconType: winDef.iconType,
-                    fullBleed: winDef.fullBleed,
-                    lockAspectRatio: winDef.lockAspectRatio,
-                    minWidth: winDef.minWidth,
-                    minHeight: winDef.minHeight,
-                    canMaximize: winDef.canMaximize,
+            if (isMobile) {
+                pos = {
+                    x: (typeof window !== 'undefined' ? window.innerWidth : 320) * 0.05, // fixed 5% margin
+                    y: (typeof window !== 'undefined' ? window.innerHeight : 480) * 0.05
                 };
-                setOpenWindows(prev => prev.map(w => ({ ...w, isActive: false })).concat(newWin));
-                setActiveWindowId(id);
+            } else if (!pos) {
+                const offset = prev.length * 30; // Use current prev.length
+                pos = { x: 100 + offset, y: 50 + offset };
 
-                // Save initial position if not already saved (only for desktop)
-                if (!isMobile && !windowPositions[id]) {
-                    setWindowPositions(prev => ({ ...prev, [id]: pos }));
-                }
+                // Save initial position side-effect (we can't do this easily in pure reducer)
+                // We'll skip saving to windowPositions state for now as it's ephemeral, 
+                // OR we accept that windowPositions might lag slightly for new windows.
+                // But we need 'pos' for the new window object.
             }
-        }
+
+            const newWin: RuntimeWindow = {
+                ...winDef,
+                isOpen: true,
+                isMinimized: false,
+                isMaximized: false,
+                isActive: true,
+                x: pos.x,
+                y: pos.y,
+                width: pos.width,
+                height: pos.height,
+                content: winDef.children ? (
+                    <Folder
+                        id={winDef.id}
+                        title={winDef.title}
+                        items={winDef.children.map((child: any) => ({
+                            id: child.id,
+                            title: child.title || "",
+                            iconType: child.iconType || "folder"
+                        }))}
+                        onItemClick={(childId) => handleOpenWindow(childId)}
+                    />
+                ) : winDef.content,
+                helpContent: winDef.helpContent,
+                iconType: winDef.iconType,
+                fullBleed: winDef.fullBleed,
+                lockAspectRatio: winDef.lockAspectRatio,
+                minWidth: winDef.minWidth,
+                minHeight: winDef.minHeight,
+                canMaximize: winDef.canMaximize,
+            };
+
+            // Side effect: Active ID
+            setTimeout(() => setActiveWindowId(id), 0);
+
+            return prev.map(w => ({ ...w, isActive: false })).concat(newWin);
+        });
     };
 
     const handleCloseWindow = (id: string) => {

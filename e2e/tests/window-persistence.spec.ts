@@ -11,9 +11,8 @@ test.describe('Window Persistence', () => {
         log('Starting test...');
 
         // Skip on mobile since dragging is disabled
-        // Skip on Webkit due to window dragging bugs (see Issue #78)
-        if (test.info().project.name.toLowerCase().includes('mobile') ||
-            test.info().project.name.toLowerCase() === 'webkit') {
+        // Skip on mobile since dragging is disabled
+        if (test.info().project.name.toLowerCase().includes('mobile')) {
             test.skip();
         }
 
