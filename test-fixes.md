@@ -117,3 +117,19 @@ Using `getByText` was potentially ambiguous or flaky in the complex DOM structur
 ## Verification
 - Unit Tests: All 8 Notepad tests pass.
 - E2E Tests: All 10 Playwright tests pass (including `save via Save button and Save As dialog`).
+
+---
+
+# Test Fixes: Desktop Icon Click Handler (2026-02-05)
+
+## Problem
+The Playwright tests for Video Essays, Documentaries, and Livestreams were consistently failing on Chromium in the CI environment, timeout out while trying to open the app from the My Portfolio folder.
+
+## Root Cause
+The tests were using .dblclick() to open desktop icons. However, the DesktopIcon component uses an onClick handler (single click) to trigger the opening action. While .dblclick() worked locally and on Firefox/Webkit (likely due to event bubbling or timing differences), it caused race conditions or failed to trigger the click handler correctly in the headless Chromium CI environment.
+
+## Solution
+Updated video-essays-app.spec.ts, documentaries-app.spec.ts, and livestreams-app.spec.ts to use .click() instead of .dblclick(). This matches the implementation's event handler and eliminates the test flakiness.
+
+## Verification
+- Verified that all E2E tests pass on Chromium, Firefox, Webkit, Mobile Chrome, and Mobile Safari.
