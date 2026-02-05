@@ -10,17 +10,17 @@ test.describe('Livestreams App', () => {
     test('can open Livestreams app from desktop folder', async ({ page }) => {
         await page.goto('/?skipBoot=true&skipWelcome=true&skipAnimations=true');
 
-        // Open Multimedia folder
-        const folderIcon = page.getByTestId('desktop-icon-multimedia');
+        // Open My Portfolio folder
+        const folderIcon = page.getByTestId('desktop-icon-my-portfolio');
         await expect(folderIcon).toBeVisible({ timeout: 30000 });
-        await folderIcon.dblclick();
+        await folderIcon.click();
 
-        const folderWindow = page.getByTestId('window-multimedia');
+        const folderWindow = page.getByTestId('window-my-portfolio');
         await expect(folderWindow).toBeVisible({ timeout: 15000 });
 
         // Open Livestreams from inside folder
         const appIcon = folderWindow.getByTestId('desktop-icon-livestreams');
-        await appIcon.dblclick();
+        await appIcon.click();
 
         // Check if window opened by looking for unique header text
         await expect(page.getByText('My Livestreams')).toBeVisible({ timeout: 20000 });

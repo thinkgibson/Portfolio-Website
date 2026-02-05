@@ -15,17 +15,17 @@ test.describe('Documentaries App', () => {
         // Navigate directly with query params to skip boot
         await page.goto('/?skipBoot=true&skipWelcome=true&skipAnimations=true');
 
-        // Open Multimedia folder
-        const folderIcon = page.getByTestId('desktop-icon-multimedia');
+        // Open My Portfolio folder
+        const folderIcon = page.getByTestId('desktop-icon-my-portfolio');
         await expect(folderIcon).toBeVisible({ timeout: 30000 });
-        await folderIcon.dblclick();
+        await folderIcon.click();
 
-        const folderWindow = page.getByTestId('window-multimedia');
+        const folderWindow = page.getByTestId('window-my-portfolio');
         await expect(folderWindow).toBeVisible({ timeout: 15000 });
 
         // Open Documentaries from inside folder
         const appIcon = folderWindow.getByTestId('desktop-icon-documentaries');
-        await appIcon.dblclick();
+        await appIcon.click();
 
         // Check if window opened using its testId
         const window = page.getByTestId('window-documentaries');

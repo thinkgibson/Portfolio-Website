@@ -13,7 +13,7 @@ All work that results in code changes (i.e. not documentation, not planning, not
     - If prompt is only a chat message, parse the chat message to understand the requirements
 
 2. Interview the user for clarification on requirements (ONLY IF UNCLEAR)
-    - Use requirements-interview skill
+    - Use clarify-requirements skill
     - Skip if requirements are already well-defined
 
 3. MUST CREATE A PLANNING DOC

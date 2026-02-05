@@ -117,30 +117,58 @@ export const getAppsConfig = (content: HomeContent): AppDefinition[] => {
         },
         {
             id: "portfolio",
-            title: "My Portfolio (C:)",
-            iconType: "drive",
-            helpContent: (
-                <div className="space-y-2">
-                    <p>This is the <strong>File Explorer</strong> for the portfolio.</p>
-                    <p>It shows the directory structure and main folders of the project.</p>
-                </div>
-            ),
-            content: (
-                <div className="grid grid-cols-4 gap-4 p-4 text-center">
-                    <div className="flex flex-col items-center gap-1 cursor-pointer hover:bg-blue-100 p-2">
-                        <div className="w-8 h-8 bg-yellow-400 win95-beveled" />
-                        <span className="text-[10px]">Windows</span>
-                    </div>
-                    <div className="flex flex-col items-center gap-1 cursor-pointer hover:bg-blue-100 p-2">
-                        <div className="w-8 h-8 bg-blue-400 win95-beveled" />
-                        <span className="text-[10px]">Program Files</span>
-                    </div>
-                    <div className="flex flex-col items-center gap-1 cursor-pointer hover:bg-blue-100 p-2">
-                        <div className="w-8 h-8 bg-green-400 win95-beveled" />
-                        <span className="text-[10px]">My Documents</span>
-                    </div>
-                </div>
-            )
+            title: "My Portfolio",
+            iconType: "folder",
+            fullBleed: true,
+            width: 600,
+            height: 450,
+            children: [
+                {
+                    id: "documentaries",
+                    title: "Documentaries",
+                    iconType: "documentaries",
+                    width: 800,
+                    height: 600,
+                    fullBleed: true,
+                    helpContent: (
+                        <div className="space-y-2">
+                            <p>This is the <strong>Documentaries</strong> app.</p>
+                            <p>Watch documentaries and videos I've worked on.</p>
+                        </div>
+                    ),
+                    content: <Documentaries videos={content.videoData.documentaries} />
+                },
+                {
+                    id: "video-essays",
+                    title: "Video Essays",
+                    iconType: "video-essays",
+                    width: 800,
+                    height: 600,
+                    fullBleed: true,
+                    helpContent: (
+                        <div className="space-y-2">
+                            <p>This is the <strong>Video Essays</strong> app.</p>
+                            <p>Watch video essays I've produced.</p>
+                        </div>
+                    ),
+                    content: <VideoEssays videos={content.videoData.essays} />
+                },
+                {
+                    id: "livestreams",
+                    title: "Livestreams",
+                    iconType: "livestreams",
+                    width: 800,
+                    height: 600,
+                    fullBleed: true,
+                    helpContent: (
+                        <div className="space-y-2">
+                            <p>This is the <strong>Livestreams</strong> app.</p>
+                            <p>Watch archives of past livestreams.</p>
+                        </div>
+                    ),
+                    content: <Livestreams videos={content.videoData.livestreams} />
+                }
+            ]
         },
         {
             id: "resume-folder",
@@ -303,51 +331,6 @@ export const getAppsConfig = (content: HomeContent): AppDefinition[] => {
                         </div>
                     ),
                     content: <MusicPlayer />
-                },
-                {
-                    id: "documentaries",
-                    title: "Documentaries",
-                    iconType: "documentaries",
-                    width: 800,
-                    height: 600,
-                    fullBleed: true,
-                    helpContent: (
-                        <div className="space-y-2">
-                            <p>This is the <strong>Documentaries</strong> app.</p>
-                            <p>Watch documentaries and videos I've worked on.</p>
-                        </div>
-                    ),
-                    content: <Documentaries videos={content.videoData.documentaries} />
-                },
-                {
-                    id: "video-essays",
-                    title: "Video Essays",
-                    iconType: "video-essays",
-                    width: 800,
-                    height: 600,
-                    fullBleed: true,
-                    helpContent: (
-                        <div className="space-y-2">
-                            <p>This is the <strong>Video Essays</strong> app.</p>
-                            <p>Watch video essays I've produced.</p>
-                        </div>
-                    ),
-                    content: <VideoEssays videos={content.videoData.essays} />
-                },
-                {
-                    id: "livestreams",
-                    title: "Livestreams",
-                    iconType: "livestreams",
-                    width: 800,
-                    height: 600,
-                    fullBleed: true,
-                    helpContent: (
-                        <div className="space-y-2">
-                            <p>This is the <strong>Livestreams</strong> app.</p>
-                            <p>Watch archives of past livestreams.</p>
-                        </div>
-                    ),
-                    content: <Livestreams videos={content.videoData.livestreams} />
                 }
             ]
         }
