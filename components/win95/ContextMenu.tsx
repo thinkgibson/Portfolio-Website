@@ -52,7 +52,8 @@ export function ContextMenu({ x, y, items, onClose, testId = "context-menu", anc
     }, [onClose]);
 
     // Ensure the menu doesn't go off screen
-    const adjustedX = typeof window !== "undefined" ? Math.min(x, window.innerWidth - 160) : x;
+    // Ensure the menu doesn't go off screen, with at least 8px margin
+    const adjustedX = typeof window !== "undefined" ? Math.max(8, Math.min(x, window.innerWidth - (menuRef.current?.offsetWidth || 320) - 8)) : x;
 
     // Calculate initial Y based on anchor
     let initialY = y;
@@ -62,7 +63,7 @@ export function ContextMenu({ x, y, items, onClose, testId = "context-menu", anc
 
     // Constrain Y within viewport
     const adjustedY = typeof window !== "undefined"
-        ? Math.max(0, Math.min(initialY, window.innerHeight - (menuHeight || items.length * 25 + 10)))
+        ? Math.max(0, Math.min(initialY, window.innerHeight - (menuHeight || items.length * 50 + 20)))
         : initialY;
 
     return (
@@ -77,7 +78,7 @@ export function ContextMenu({ x, y, items, onClose, testId = "context-menu", anc
                 exit={{ opacity: 0, scale: 0.95 }}
                 transition={{ duration: 0.05 }}
                 style={{ top: adjustedY, left: adjustedX }}
-                className="absolute min-w-40 w-auto max-w-64 bg-win95-gray win95-beveled py-1 shadow-[2px_2px_5px_rgba(0,0,0,0.5)] pointer-events-auto"
+                className="absolute min-w-60 w-auto max-w-[calc(100vw-16px)] bg-win95-gray win95-beveled py-2 shadow-[4px_4px_10px_rgba(0,0,0,0.5)] pointer-events-auto"
                 onClick={(e) => e.stopPropagation()}
                 data-testid={testId}
             >
@@ -85,7 +86,7 @@ export function ContextMenu({ x, y, items, onClose, testId = "context-menu", anc
                     <button
                         key={index}
                         disabled={item.disabled}
-                        className={`w-full text-left px-4 py-1 text-[12px] font-win95 flex items-center gap-2 ${item.disabled
+                        className={`w-full text-left px-8 py-2 text-[18px] font-win95 flex items-center gap-4 ${item.disabled
                             ? "text-win95-gray-inactive cursor-default"
                             : "hover:bg-win95-blue-active hover:text-white"
                             }`}

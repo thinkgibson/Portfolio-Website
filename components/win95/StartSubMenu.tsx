@@ -29,7 +29,7 @@ export function StartSubMenu({ items, onItemClick, onClose, depth }: StartSubMen
         if (!menuRef.current || isMobile) return;
 
         const rect = menuRef.current.getBoundingClientRect();
-        const threshold = window.innerHeight - 24; // Middle of 48px taskbar
+        const threshold = window.innerHeight - 36; // Middle of 72px taskbar
 
         if (rect.bottom > threshold) {
             setOffsetY(threshold - rect.bottom);
@@ -76,7 +76,7 @@ export function StartSubMenu({ items, onItemClick, onClose, depth }: StartSubMen
             animate={{ x: 0, opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.1 }}
-            className="absolute left-full top-0 ml-[-2px] w-64 bg-win95-gray win95-beveled flex flex-col py-1 shadow-[2px_2px_10px_rgba(0,0,0,0.5)] z-[151]"
+            className={`absolute left-full top-0 ml-[-2px] ${isMobile ? 'w-64' : 'w-[384px]'} bg-win95-gray win95-beveled flex flex-col py-1 shadow-[2px_2px_10px_rgba(0,0,0,0.5)] z-[151]`}
             style={{ top: offsetY !== 0 ? `${offsetY}px` : 0 }}
             onMouseLeave={handleMouseLeave}
             data-testid={`start-submenu-depth-${depth}`}
@@ -90,18 +90,18 @@ export function StartSubMenu({ items, onItemClick, onClose, depth }: StartSubMen
                         onMouseEnter={() => handleMouseEnter(item.id, hasChildren)}
                     >
                         <button
-                            className={`w-full flex items-center justify-between gap-3 px-3 py-2 hover:bg-win95-blue-active hover:text-white text-left group transition-colors duration-0 ${activeSubMenuId === item.id ? 'bg-win95-blue-active text-white' : ''}`}
+                            className={`w-full flex items-center justify-between ${isMobile ? 'gap-3' : 'gap-4'} px-3 py-2 hover:bg-win95-blue-active hover:text-white text-left group transition-colors duration-0 ${activeSubMenuId === item.id ? 'bg-win95-blue-active text-white' : ''}`}
                             data-testid={`start-submenu-item-${item.id}`}
                             onClick={() => handleItemClick(item)}
                         >
-                            <div className="flex items-center gap-3">
+                            <div className={`flex items-center ${isMobile ? 'gap-3' : 'gap-4'}`}>
                                 <div className="flex-shrink-0">
-                                    <DynamicIcon iconType={item.iconType} size={28} />
+                                    <DynamicIcon iconType={item.iconType} size={isMobile ? 28 : 42} />
                                 </div>
-                                <span className="font-win95 text-[13px]">{item.title}</span>
+                                <span className={`font-win95 ${isMobile ? 'text-[13px]' : 'text-[20px]'}`}>{item.title}</span>
                             </div>
                             {hasChildren && (
-                                <span className="text-[10px]">▶</span>
+                                <span className={isMobile ? "text-[10px]" : "text-[15px]"}>▶</span>
                             )}
                         </button>
 

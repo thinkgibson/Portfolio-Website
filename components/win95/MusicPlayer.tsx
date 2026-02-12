@@ -116,11 +116,11 @@ export const MusicPlayer: React.FC = () => {
             />
 
             {/* Display Area */}
-            <div className="win95-beveled bg-black text-[#00FF00] p-4 mb-4 flex flex-col justify-center items-center h-24 font-mono">
-                <div className="text-sm truncate w-full text-center">
+            <div className="win95-beveled bg-black text-[#00FF00] p-8 mb-8 flex flex-col justify-center items-center h-48 font-mono">
+                <div className="text-[21px] truncate w-full text-center">
                     {currentTrack ? currentTrack.title : "No Track Selected"}
                 </div>
-                <div className="text-2xl mt-2">
+                <div className="text-[36px] mt-4">
                     {formatTime(currentTime)} / {formatTime(duration)}
                 </div>
             </div>
@@ -129,28 +129,28 @@ export const MusicPlayer: React.FC = () => {
             <div className="flex flex-col gap-4">
                 <div className="flex justify-center gap-2">
                     <button onClick={prevTrack} className="win95-button p-2" title="Previous">
-                        <SkipBack size={16} />
+                        <SkipBack size={24} />
                     </button>
                     {isPlaying ? (
                         <button onClick={pauseTrack} className="win95-button p-2" title="Pause">
-                            <Pause size={16} />
+                            <Pause size={24} />
                         </button>
                     ) : (
                         <button onClick={playTrack} className="win95-button p-2" title="Play">
-                            <Play size={16} />
+                            <Play size={24} />
                         </button>
                     )}
                     <button onClick={stopTrack} className="win95-button p-2" title="Stop">
-                        <Square size={16} />
+                        <Square size={24} />
                     </button>
                     <button onClick={nextTrack} className="win95-button p-2" title="Next">
-                        <SkipForward size={16} />
+                        <SkipForward size={24} />
                     </button>
                 </div>
 
                 {/* Volume Slider */}
                 <div className="flex items-center gap-2 px-2">
-                    <Volume2 size={16} />
+                    <Volume2 size={24} />
                     <input
                         type="range"
                         min="0"
@@ -164,7 +164,7 @@ export const MusicPlayer: React.FC = () => {
 
             {/* Track List */}
             <div className="mt-4 flex-grow overflow-y-auto win95-beveled bg-white">
-                <table className="w-full text-left text-xs">
+                <table className="w-full text-left text-[18px]">
                     <thead className="bg-win95-gray border-b border-black">
                         <tr>
                             <th className="px-2 py-1">#</th>

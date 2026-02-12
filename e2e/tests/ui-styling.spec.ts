@@ -27,8 +27,8 @@ test.describe('UI Styling Fixes', () => {
 
         // Check for min/max width classes we added
         // Use a more flexible check for class names as they might be merged
-        await expect(taskbarItem).toHaveAttribute('class', /min-w-\[80px\]/);
-        await expect(taskbarItem).toHaveAttribute('class', /max-w-\[150px\]/);
+        await expect(taskbarItem).toHaveAttribute('class', /min-w-\[120px\]/);
+        await expect(taskbarItem).toHaveAttribute('class', /max-w-\[300px\]/);
     });
 
     // NOTE: UI styling tests for Paint/Notepad removed as they relied on direct
@@ -45,6 +45,6 @@ test.describe('UI Styling Fixes', () => {
 
         // Check allow dynamic width
         await expect(ctxMenu).toHaveClass(/w-auto/);
-        await expect(ctxMenu).toHaveClass(/min-w-40/);
+        await expect(ctxMenu).toHaveClass(/min-w-60/);
     });
 });

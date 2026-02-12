@@ -62,15 +62,15 @@ export function StartMenu({ items, onItemClick, onReboot, onClose }: StartMenuPr
                 animate={{ y: 0, opacity: 1 }}
                 exit={{ y: 20, opacity: 0 }}
                 transition={{ duration: 0.1 }}
-                className="w-64 bg-win95-gray win95-beveled flex overflow-visible shadow-[2px_2px_10px_rgba(0,0,0,0.5)] win95-start-menu"
+                className={`${isMobile ? 'w-64' : 'w-[384px]'} bg-win95-gray win95-beveled flex overflow-visible shadow-[2px_2px_10px_rgba(0,0,0,0.5)] win95-start-menu`}
                 data-testid="start-menu"
             >
                 {/* Sidebar */}
-                <div className="w-8 bg-win95-gray-dark relative flex-shrink-0">
-                    <div className="absolute bottom-2 left-0 w-8 flex justify-center">
+                <div className={`${isMobile ? 'w-8' : 'w-12'} bg-win95-gray-dark relative flex-shrink-0`}>
+                    <div className={`absolute ${isMobile ? 'bottom-2 left-0 w-8' : 'bottom-3 left-0 w-12'} flex justify-center`}>
                         <span
                             className="text-win95-gray font-win95 font-bold text-lg origin-center -rotate-90 whitespace-nowrap"
-                            style={{ fontSize: '20px', letterSpacing: '1px' }}
+                            style={{ fontSize: isMobile ? '20px' : '30px', letterSpacing: isMobile ? '1px' : '2px' }}
                         >
                             <span className="opacity-50">Windows</span>95
                         </span>
@@ -92,14 +92,14 @@ export function StartMenu({ items, onItemClick, onReboot, onClose }: StartMenuPr
                                     data-testid={`start-menu-item-${item.id}`}
                                     onClick={() => handleItemClick(item)}
                                 >
-                                    <div className="flex items-center gap-3">
+                                    <div className={`flex items-center ${isMobile ? 'gap-3' : 'gap-4'}`}>
                                         <div className="flex-shrink-0">
-                                            <DynamicIcon iconType={item.iconType} size={28} />
+                                            <DynamicIcon iconType={item.iconType} size={isMobile ? 28 : 42} />
                                         </div>
-                                        <span className="font-win95 text-[13px]">{item.title}</span>
+                                        <span className={`font-win95 ${isMobile ? 'text-[13px]' : 'text-[20px]'}`}>{item.title}</span>
                                     </div>
                                     {hasChildren && (
-                                        <span className="text-[10px]">▶</span>
+                                        <span className={isMobile ? "text-[10px]" : "text-[15px]"}>▶</span>
                                     )}
                                 </button>
 
@@ -120,16 +120,16 @@ export function StartMenu({ items, onItemClick, onReboot, onClose }: StartMenuPr
                     <div className="my-2 border-t border-win95-gray-inactive border-b border-win95-light mx-1" />
 
                     <button
-                        className="flex items-center gap-3 px-3 py-2 hover:bg-win95-blue-active hover:text-white text-left group transition-colors duration-0"
+                        className={`flex items-center ${isMobile ? 'gap-3 py-2' : 'gap-4 py-2'} px-3 hover:bg-win95-blue-active hover:text-white text-left group transition-colors duration-0`}
                         onClick={() => {
                             onReboot();
                             onClose();
                         }}
                     >
-                        <div className="w-7 h-7 flex items-center justify-center">
-                            <div className="w-5 h-5 border-2 border-win95-dark flex items-center justify-center font-bold text-[10px]">R</div>
+                        <div className={`${isMobile ? 'w-7 h-7' : 'w-10 h-10'} flex items-center justify-center`}>
+                            <div className={`${isMobile ? 'w-5 h-5 border-2 text-[10px]' : 'w-7 h-7 border-[2px] text-[15px]'} border-win95-dark flex items-center justify-center font-bold`}>R</div>
                         </div>
-                        <span className="font-win95 text-[13px]">Reboot...</span>
+                        <span className={`font-win95 ${isMobile ? 'text-[13px]' : 'text-[20px]'}`}>Reboot...</span>
                     </button>
                 </div>
             </motion.div>
