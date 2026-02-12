@@ -127,7 +127,7 @@ export function Taskbar({ openWindows, onWindowClick, onStartClick, onMinimizeWi
 
     return (
         <div
-            className="fixed bottom-0 left-0 right-0 h-12 bg-win95-taskbar win95-beveled flex items-center p-1 z-[120] gap-1 select-none"
+            className="fixed bottom-0 left-0 right-0 h-[72px] bg-win95-taskbar win95-beveled flex items-center p-1 z-[120] gap-1 select-none"
             onContextMenu={(e) => {
                 e.preventDefault();
                 e.stopPropagation();
@@ -141,10 +141,10 @@ export function Taskbar({ openWindows, onWindowClick, onStartClick, onMinimizeWi
             {/* Start Button */}
             <button
                 onClick={onStartClick}
-                className="win95-button px-3 font-win95 font-bold flex items-center gap-1.5 h-full mr-2 text-[14px]"
+                className="win95-button px-6 font-win95 font-bold flex items-center gap-3 h-full mr-4 text-[21px]"
                 data-testid="taskbar-start-button"
             >
-                <WindowsLogoIcon size={24} className="mr-0.5" />
+                <WindowsLogoIcon size={36} className="mr-1" />
                 Start
             </button>
 
@@ -168,11 +168,11 @@ export function Taskbar({ openWindows, onWindowClick, onStartClick, onMinimizeWi
                             });
                         }}
                         className={`${win.isActive ? "win95-beveled-inset bg-win95-gray font-bold" : "win95-button"
-                            } px-3 text-[13px] font-win95 flex items-center max-w-[150px] truncate h-full touch-manipulation min-w-[80px] leading-none`}
+                            } px-6 text-[20px] font-win95 flex items-center max-w-[300px] truncate h-full touch-manipulation min-w-[120px] leading-none`}
                         data-testid={`taskbar-item-${win.title.toLowerCase().replace(/\s+/g, '-')}`}
                     >
-                        <div className="mr-1.5 flex-shrink-0">
-                            <DynamicIcon iconType={win.iconType || "folder"} size={18} />
+                        <div className="mr-3 flex-shrink-0">
+                            <DynamicIcon iconType={win.iconType || "folder"} size={27} />
                         </div>
                         <span className="truncate">{win.title}</span>
                     </button>
@@ -183,7 +183,7 @@ export function Taskbar({ openWindows, onWindowClick, onStartClick, onMinimizeWi
             <div className="win95-beveled-inset bg-win95-taskbar px-2 flex items-center gap-2 h-full ml-auto relative">
                 {/* Tooltips */}
                 {activeTooltip === "weather" && weatherData && (
-                    <div className="absolute bottom-[calc(100%+8px)] right-0 min-w-[120px] bg-[#FFFFE1] border border-black p-2 shadow-[2px_2px_0_rgba(0,0,0,1)] z-[130] font-win95 text-[12px] text-black">
+                    <div className="absolute bottom-[calc(100%+8px)] right-0 min-w-[120px] bg-[#FFFFE1] border border-black p-2 shadow-[2px_2px_0_rgba(0,0,0,1)] z-[130] font-win95 text-[18px] text-black">
                         {weatherData.loading ? (
                             "Fetching weather..."
                         ) : (
@@ -199,7 +199,7 @@ export function Taskbar({ openWindows, onWindowClick, onStartClick, onMinimizeWi
                 )}
 
                 {activeTooltip === "network" && ping && (
-                    <div className="absolute bottom-[calc(100%+8px)] right-0 min-w-[120px] bg-[#FFFFE1] border border-black p-2 shadow-[2px_2px_0_rgba(0,0,0,1)] z-[130] font-win95 text-[12px] text-black">
+                    <div className="absolute bottom-[calc(100%+8px)] right-0 min-w-[120px] bg-[#FFFFE1] border border-black p-2 shadow-[2px_2px_0_rgba(0,0,0,1)] z-[130] font-win95 text-[18px] text-black">
                         {ping.loading ? (
                             "Measuring ping..."
                         ) : (
@@ -261,40 +261,40 @@ export function Taskbar({ openWindows, onWindowClick, onStartClick, onMinimizeWi
                                         <div className="w-1.5 h-1.5 bg-black" />
                                     )}
                                 </div>
-                                <span className="text-[10px] font-win95">Mute</span>
+                                <span className="text-[15px] font-win95">Mute</span>
                             </label>
                         </div>
                     </div>
                 )}
 
                 {/* System Tray icons */}
-                <div className="flex gap-2 items-center mr-1">
+                <div className="flex gap-4 items-center mr-2">
                     <button
                         onClick={fetchWeather}
-                        className="p-0.5 w-6 h-6 flex items-center justify-center hover:bg-win95-gray-light active:bg-win95-gray-dark border-none transition-colors"
+                        className="p-1 w-12 h-12 flex items-center justify-center hover:bg-win95-gray-light active:bg-win95-gray-dark border-none transition-colors"
                         title="Weather"
                         data-testid="sys-tray-weather"
                     >
-                        <WeatherIcon size={16} className="text-black" />
+                        <WeatherIcon size={30} className="text-black" />
                     </button>
                     <button
                         onClick={measurePing}
-                        className="p-0.5 w-6 h-6 flex items-center justify-center hover:bg-win95-gray-light active:bg-win95-gray-dark border-none transition-colors"
+                        className="p-1 w-12 h-12 flex items-center justify-center hover:bg-win95-gray-light active:bg-win95-gray-dark border-none transition-colors"
                         title="Network"
                         data-testid="sys-tray-network"
                     >
-                        <NetworkIcon size={16} className="text-black" />
+                        <NetworkIcon size={30} className="text-black" />
                     </button>
                     <button
                         onClick={() => setActiveTooltip(activeTooltip === "volume" ? null : "volume")}
-                        className={`p-0.5 w-6 h-6 flex items-center justify-center hover:bg-win95-gray-light active:bg-win95-gray-dark border-none transition-colors ${activeTooltip === "volume" ? "bg-win95-gray-light" : ""}`}
+                        className={`p-1 w-12 h-12 flex items-center justify-center hover:bg-win95-gray-light active:bg-win95-gray-dark border-none transition-colors ${activeTooltip === "volume" ? "bg-win95-gray-light" : ""}`}
                         title="Volume"
                         data-testid="sys-tray-volume"
                     >
-                        <VolumeIcon size={16} className="text-black" />
+                        <VolumeIcon size={30} className="text-black" />
                     </button>
                 </div>
-                <span className="text-[14px] font-win95 font-medium leading-none whitespace-nowrap">
+                <span className="text-[26px] font-win95 font-medium leading-none whitespace-nowrap">
                     {formatTime(time)}
                 </span>
             </div>

@@ -19,7 +19,7 @@
   body {
     @apply bg-win95-teal text-black font-win95 overflow-hidden h-screen;
     cursor: default;
-    font-size: 12px;
+    font-size: 18px;
     -webkit-font-smoothing: none !important;
     -moz-osx-font-smoothing: unset !important;
     font-smooth: never !important;

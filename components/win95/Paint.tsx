@@ -98,7 +98,7 @@ export function Paint() {
 
     // Tool Button Helper
     const toolBtnClass = (t: ToolType) =>
-        `w-8 h-8 flex items-center justify-center border-2 ${tool === t ? 'border-black bg-white border-inset' : 'border-win95-gray-light bg-win95-gray win95-beveled'}`;
+        `w-12 h-12 flex items-center justify-center border-4 ${tool === t ? 'border-black bg-white border-inset' : 'border-win95-gray-light bg-win95-gray win95-beveled'}`;
 
     const renderToolButton = (t: ToolType, Icon: any, label: string) => (
         <button
@@ -106,7 +106,7 @@ export function Paint() {
             onClick={() => setTool(t)}
             title={label}
         >
-            <Icon size={16} />
+            <Icon size={24} />
         </button>
     );
 
@@ -115,7 +115,7 @@ export function Paint() {
             {/* Toolbar Area */}
             <div className="flex flex-row p-1 gap-1 border-b border-win95-gray-shadow">
                 {/* Tools */}
-                <div className="flex flex-wrap gap-1 p-1 w-20 bg-win95-gray">
+                <div className="flex flex-wrap gap-2 p-2 w-40 bg-win95-gray">
                     {renderToolButton("pencil", Pen, "Pencil")}
                     {renderToolButton("brush", MousePointer, "Brush")}
                     {renderToolButton("eraser", Eraser, "Eraser")}
@@ -123,19 +123,19 @@ export function Paint() {
                 </div>
 
                 {/* Colors */}
-                <div className="flex flex-wrap gap-0.5 w-32 p-1 border-2 border-win95-gray-shadow inset-shadow bg-white">
+                <div className="flex flex-wrap gap-1 w-64 p-2 border-4 border-win95-gray-shadow inset-shadow bg-white">
                     {COLORS.map((c) => (
                         <button
                             key={c}
                             style={{ backgroundColor: c }}
-                            className={`w-4 h-4 border ${color === c ? 'border-black border-dotted' : 'border-gray-400'}`}
+                            className={`w-6 h-6 border-2 ${color === c ? 'border-black border-dotted' : 'border-gray-400'}`}
                             onClick={() => setColor(c)}
                         />
                     ))}
                 </div>
 
                 {/* Status/Options */}
-                <div className="flex-1 flex flex-col justify-center items-start px-2 text-xs">
+                <div className="flex-1 flex flex-col justify-center items-start px-4 text-[18px]">
                     <div>Tool: {tool}</div>
                     <div>Line: {lineWidth}px</div>
                 </div>
@@ -159,7 +159,7 @@ export function Paint() {
             </div>
 
             {/* Status Bar */}
-            <div className="bg-win95-gray border-t border-win95-gray-shadow p-1 text-xs">
+            <div className="bg-win95-gray border-t border-win95-gray-shadow p-2 text-[18px]">
                 For Help, click Help Topics on the Help Menu.
             </div>
         </div>

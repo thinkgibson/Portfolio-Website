@@ -32,7 +32,7 @@ interface OSDesktopProps {
     skipWelcome?: boolean;
 }
 
-const TASKBAR_HEIGHT = 48;
+const TASKBAR_HEIGHT = 72;
 import { reloadPage } from "../../lib/navigation";
 
 
@@ -436,10 +436,10 @@ function OSDesktopView({
             }} />}
 
             {/* Constraint Area for Windows (excludes taskbar) */}
-            <div ref={workAreaRef} className="absolute inset-0 bottom-[48px] pointer-events-none w-full" />
+            <div ref={workAreaRef} className="absolute inset-0 bottom-[96px] pointer-events-none w-full" />
 
             {/* Desktop Icons */}
-            <div className="p-4 grid grid-flow-col grid-rows-[repeat(auto-fill,160px)] gap-4 w-fit h-[calc(100vh-48px)]">
+            <div className="p-4 grid grid-flow-col grid-rows-[repeat(auto-fill,160px)] gap-4 w-fit h-[calc(100vh-96px)]">
                 {initialWindows.map((win: any) => (
                     <DesktopIcon
                         key={win.id}

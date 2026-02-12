@@ -47,7 +47,7 @@ export function BootSequence({ onComplete }: { onComplete: () => void }) {
                 <motion.div
                     exit={{ opacity: 0 }}
                     transition={{ duration: 1 }}
-                    className="fixed inset-0 bg-black text-white p-10 font-mono text-sm z-[1000] overflow-hidden select-none"
+                    className="fixed inset-0 bg-black text-white p-10 font-mono text-lg z-[1000] overflow-hidden select-none"
                     onClick={onComplete} // Allow skip
                 >
                     <div className="max-w-3xl mx-auto space-y-1">

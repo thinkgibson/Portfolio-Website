@@ -133,42 +133,38 @@ export function Terminal({ }: TerminalProps) {
         >
             <div className="flex-grow">
                 {history.map((line, i) => (
-                    <div key={i} className="min-h-[1.2em] whitespace-pre-wrap">{line}</div>
+                    <div key={i} className="min-h-[1.05em] whitespace-pre-wrap text-[21px]">{line}</div>
                 ))}
                 <div ref={bottomRef} />
             </div>
 
+            <div className="text-[15px] text-gray-500 mt-4 flex justify-between">
+                <div>Type 'help' for commands</div>
+                <div>Connected as: guest</div>
+            </div>
+
             <form onSubmit={handleSubmit} className="flex items-center gap-2 mt-1">
-                <span className="shrink-0 text-[#00FF00]">C:\&gt;</span>
+                <span className="shrink-0 text-[#00FF00] text-[21px]">C:\&gt;</span>
                 <input
                     ref={inputRef}
                     type="text"
                     value={input}
                     onChange={(e) => setInput(e.target.value)}
                     onKeyDown={handleKeyDown}
-                    className="bg-transparent border-none outline-none text-white font-win95-mono flex-grow p-0 caret-[#00FF00]"
+                    className="bg-transparent border-none outline-none text-white font-win95-mono flex-grow p-0 caret-[#00FF00] text-[21px]"
                     data-testid="terminal-input"
                     autoFocus
                     autoComplete="off"
                 />
                 <button
                     type="submit"
-                    className="ml-2 px-2 bg-gray-700 text-white hover:bg-gray-600 text-xs border border-gray-500"
+                    className="ml-2 px-2 bg-gray-700 text-white hover:bg-gray-600 text-xl border border-gray-500"
                     data-testid="terminal-run-button"
                 >
                     Run
                 </button>
             </form>
 
-            <style jsx>{`
-                .custom-terminal {
-                    font-smooth: never;
-                    -webkit-font-smoothing: none;
-                }
-                .custom-terminal input {
-                    font-size: 14px;
-                }
-            `}</style>
         </div>
     );
 }

@@ -5,7 +5,7 @@ import { motion, useDragControls, useMotionValue } from "framer-motion";
 import { useIsMobile } from "../../lib/hooks";
 import { DynamicIcon } from "../Icons/DynamicIcon";
 
-const TASKBAR_HEIGHT = 48;
+const TASKBAR_HEIGHT = 72;
 
 interface Win95WindowProps {
     title: string;
@@ -84,20 +84,20 @@ const HighlightResults = ({ children, term }: { children: React.ReactNode, term:
 };
 
 const MinimizeIcon = () => (
-    <svg width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <svg width="15" height="15" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
         <rect x="2" y="7" width="6" height="2" fill="black" />
     </svg>
 );
 
 const MaximizeIcon = () => (
-    <svg width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <svg width="15" height="15" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
         <rect x="1" y="1" width="8" height="8" stroke="black" strokeWidth="1" />
         <rect x="2" y="2" width="6" height="1" fill="black" />
     </svg>
 );
 
 const RestoreIcon = () => (
-    <svg width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <svg width="15" height="15" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
         <rect x="3" y="0" width="7" height="7" fill="white" stroke="black" strokeWidth="1" />
         <rect x="4" y="1" width="5" height="1" fill="black" />
         <rect x="0" y="3" width="7" height="7" fill="white" stroke="black" strokeWidth="1" />
@@ -106,7 +106,7 @@ const RestoreIcon = () => (
 );
 
 const CloseIcon = () => (
-    <svg width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <svg width="15" height="15" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path d="M1 1L9 9M9 1L1 9" stroke="black" strokeWidth="1.5" />
     </svg>
 );
@@ -386,21 +386,21 @@ export function Win95Window({
                     }
                 }}
                 onDoubleClick={() => canMaximize && onMaximize?.()}
-                className={`window-titlebar h-8 flex items-center justify-between px-1 cursor-default select-none ${isActive ? "bg-win95-blue-active" : "bg-win95-gray-inactive"}`}
+                className={`window-titlebar h-12 flex items-center justify-between px-2 cursor-default select-none ${isActive ? "bg-win95-blue-active" : "bg-win95-gray-inactive"}`}
                 data-testid="window-titlebar"
             >
                 <div className="flex items-center gap-2 ml-0.5 overflow-hidden">
                     <div className="flex-shrink-0">
-                        <DynamicIcon iconType={iconType || "folder"} size={24} />
+                        <DynamicIcon iconType={iconType || "folder"} size={36} />
                     </div>
-                    <span className="text-white text-[13px] font-win95 font-bold whitespace-nowrap overflow-hidden text-ellipsis leading-none mt-0.5">
+                    <span className="text-white text-[20px] font-win95 font-bold whitespace-nowrap overflow-hidden text-ellipsis leading-none mt-1">
                         {title}
                     </span>
                 </div>
                 <div className="flex gap-1 pr-1" onPointerDown={(e) => e.stopPropagation()}>
                     <button
                         onClick={onMinimize}
-                        className="win95-button w-6 h-6 !p-0 flex items-center justify-center"
+                        className="win95-button w-9 h-9 !p-0 flex items-center justify-center"
                         data-testid="window-minimize"
                         title="Minimize"
                         aria-label="Minimize"
@@ -410,7 +410,7 @@ export function Win95Window({
                     {canMaximize && (
                         <button
                             onClick={onMaximize}
-                            className="win95-button w-6 h-6 !p-0 flex items-center justify-center"
+                            className="win95-button w-9 h-9 !p-0 flex items-center justify-center"
                             data-testid="window-maximize"
                             title={isMaximized ? "Restore" : "Maximize"}
                             aria-label={isMaximized ? "Restore" : "Maximize"}
@@ -420,7 +420,7 @@ export function Win95Window({
                     )}
                     <button
                         onClick={onClose}
-                        className="win95-button w-6 h-6 !p-0 ml-1 flex items-center justify-center"
+                        className="win95-button w-9 h-9 !p-0 ml-1 flex items-center justify-center"
                         data-testid="window-close"
                         title="Close"
                         aria-label="Close"
@@ -431,7 +431,7 @@ export function Win95Window({
             </div>
 
             {/* Menu Bar */}
-            <div className="bg-win95-gray px-1 py-0.5 border-b border-win95-gray-inactive text-[12px] font-win95 flex gap-3 select-none leading-none relative">
+            <div className="bg-win95-gray px-1 py-0.5 border-b border-win95-gray-inactive text-[18px] font-win95 flex gap-3 select-none leading-none relative">
                 <div className="relative">
                     <span
                         className={`px-1 cursor-default font-normal ${activeMenu === 'File' ? 'win95-beveled-inset bg-win95-gray' : 'hover:win95-beveled'}`}
@@ -492,15 +492,15 @@ export function Win95Window({
             {/* Search Box */}
             {isSearching && (
                 <div className="bg-win95-gray px-2 py-1 border-b border-win95-gray-inactive flex items-center gap-2">
-                    <span className="text-[12px] font-win95">Find:</span>
+                    <span className="text-[18px] font-win95">Find:</span>
                     <input
                         type="text"
                         value={searchTerm}
                         onChange={(e) => setSearchTerm(e.target.value)}
-                        className="win95-beveled-inset px-1 text-[12px] font-win95 flex-grow outline-none"
+                        className="win95-beveled-inset px-1 text-[18px] font-win95 flex-grow outline-none"
                         autoFocus
                     />
-                    <button className="win95-button px-2 text-[10px] leading-none h-4" onClick={() => setIsSearching(false)}>X</button>
+                    <button className="win95-button px-2 text-[15px] leading-none h-8" onClick={() => setIsSearching(false)}>X</button>
                 </div>
             )}
 

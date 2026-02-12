@@ -19,10 +19,10 @@ export function JobHistory({ data }: JobHistoryProps) {
 
     return (
         <div className="h-full overflow-y-auto bg-win95-light p-4 font-win95 select-text">
-            <div className="space-y-8 max-w-3xl mx-auto">
-                <div className="bg-win95-beveled p-4 mb-6 text-center">
-                    <h2 className="text-xl font-bold mb-2">Job History</h2>
-                    <p className="text-sm">A timeline of my professional experience.</p>
+            <div className="space-y-16 max-w-5xl mx-auto">
+                <div className="bg-win95-beveled p-8 mb-12 text-center">
+                    <h2 className="text-[36px] font-bold mb-4">Job History</h2>
+                    <p className="text-[21px]">A timeline of my professional experience.</p>
                 </div>
 
                 <div className="space-y-6">
@@ -30,25 +30,25 @@ export function JobHistory({ data }: JobHistoryProps) {
                         <div key={job.id} className="win95-group-box p-4 bg-win95-gray">
                             <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-3 border-b border-win95-gray-inactive pb-2">
                                 <div>
-                                    <h3 className="text-lg font-bold px-1">{job.title}</h3>
-                                    <div className="text-win95-blue-active font-bold px-1 text-sm">{job.company}</div>
+                                    <h3 className="text-[27px] font-bold px-2">{job.title}</h3>
+                                    <div className="text-win95-blue-active font-bold px-2 text-[21px]">{job.company}</div>
                                 </div>
-                                <div className="text-sm font-bold bg-win95-light border border-win95-dark px-2 py-1 shadow-inner mt-2 md:mt-0">
+                                <div className="text-[21px] font-bold bg-win95-light border-2 border-win95-dark px-4 py-2 shadow-inner mt-4 md:mt-0">
                                     {job.date}
                                 </div>
                             </div>
 
-                            <div className="px-1 space-y-4">
-                                <p className="text-sm leading-relaxed">
+                            <div className="px-2 space-y-8">
+                                <p className="text-[21px] leading-relaxed">
                                     {job.description}
                                 </p>
 
                                 {job.skills && job.skills.length > 0 && (
-                                    <div className="bg-win95-light p-2 border-2 border-win95-dark shadow-inner">
-                                        <p className="text-xs font-bold mb-1 border-b border-gray-300 pb-1">Technologies & Skills:</p>
-                                        <div className="flex flex-wrap gap-1">
+                                    <div className="bg-win95-light p-4 border-2 border-win95-dark shadow-inner">
+                                        <p className="text-[18px] font-bold mb-2 border-b border-gray-300 pb-2">Technologies & Skills:</p>
+                                        <div className="flex flex-wrap gap-2">
                                             {job.skills.map((skill, index) => (
-                                                <span key={index} className="text-xs font-win95-mono bg-win95-gray border border-win95-dark px-1">
+                                                <span key={index} className="text-[18px] font-win95-mono bg-win95-gray border border-win95-dark px-2">
                                                     {skill}
                                                 </span>
                                             ))}

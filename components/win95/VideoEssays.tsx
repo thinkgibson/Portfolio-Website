@@ -42,15 +42,15 @@ export function VideoEssays({ videos = [] }: VideoEssaysProps) {
 
     return (
         <div className="h-full overflow-y-auto bg-win95-light p-4 font-win95 select-text">
-            <div className="space-y-8 max-w-3xl mx-auto">
-                <div className="bg-win95-beveled p-4 mb-6 text-center">
-                    <h2 className="text-xl font-bold mb-2">Video Essays</h2>
-                    <p className="text-sm">A collection of video essays I've written and produced.</p>
+            <div className="space-y-16 max-w-5xl mx-auto">
+                <div className="bg-win95-beveled p-8 mb-12 text-center">
+                    <h2 className="text-[36px] font-bold mb-4">Video Essays</h2>
+                    <p className="text-[21px]">A collection of video essays I've written and produced.</p>
                 </div>
 
                 {videos.map((video, index) => (
                     <div key={video.id} className="win95-group-box p-4 bg-win95-gray">
-                        <div className="text-lg font-bold mb-2 px-1">{video.title}</div>
+                        <div className="text-[27px] font-bold mb-4 px-2">{video.title}</div>
 
                         <div className="aspect-video w-full bg-black mb-4 border-2 border-win95-dark shadow-inner">
                             <iframe
@@ -65,11 +65,11 @@ export function VideoEssays({ videos = [] }: VideoEssaysProps) {
                             />
                         </div>
 
-                        <div className="px-1 space-y-2">
-                            <div className="font-bold text-win95-blue-active text-sm">
+                        <div className="px-2 space-y-4">
+                            <div className="font-bold text-win95-blue-active text-[21px]">
                                 {video.role}
                             </div>
-                            <div className="text-sm leading-relaxed border-t border-win95-gray-inactive pt-2">
+                            <div className="text-[21px] leading-relaxed border-t border-win95-gray-inactive pt-4">
                                 {video.description}
                             </div>
                         </div>
