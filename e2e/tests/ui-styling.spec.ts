@@ -16,7 +16,33 @@ test.describe('UI Styling Fixes', () => {
 
         // Check container width
         const container = page.locator('[data-testid^="desktop-icon-"]').first();
-        await expect(container).toHaveClass(/w-24/);
+        await expect(container).toHaveClass(/w-28/);
+    });
+
+    test('Desktop icons do not overlap vertically with long text', async ({ page }) => {
+        // We need two icons that are vertically adjacent.
+        // We use the first and second icons in the DOM order, which corresponds to visual order in CSS Grid (column-major or row, but typically top-down in column flow).
+
+        const firstIcon = page.locator('[data-testid^="desktop-icon-"]').nth(0);
+        const secondIcon = page.locator('[data-testid^="desktop-icon-"]').nth(1);
+
+        // Force a very long label on the first icon to make it expand vertically
+        await firstIcon.locator('span').evaluate((el) => {
+            el.textContent = "My Computer With A Very Long Name That Should Wrap Multiple Lines And Expand Height";
+        });
+
+        // Get bounding boxes
+        const box1 = await firstIcon.boundingBox();
+        const box2 = await secondIcon.boundingBox();
+
+        expect(box1).not.toBeNull();
+        expect(box2).not.toBeNull();
+
+        if (box1 && box2) {
+            // The bottom of the first icon should be effectively above the top of the second icon
+            // There might be some gap (gap-8 = 32px), so box1.y + box1.height should be <= box2.y
+            expect(box1.y + box1.height).toBeLessThanOrEqual(box2.y);
+        }
     });
 
     test('Taskbar buttons have correct sizing', async ({ page }) => {

@@ -439,7 +439,7 @@ function OSDesktopView({
             <div ref={workAreaRef} className="absolute inset-0 bottom-[96px] pointer-events-none w-full" />
 
             {/* Desktop Icons */}
-            <div className="p-4 grid grid-flow-col grid-rows-[repeat(auto-fill,160px)] gap-8 w-fit h-[calc(100vh-96px)]">
+            <div className="p-4 grid grid-flow-col grid-rows-[repeat(auto-fill,minmax(160px,auto))] gap-8 w-fit h-[calc(100vh-96px)]">
                 {initialWindows.map((win: any) => (
                     <DesktopIcon
                         key={win.id}
