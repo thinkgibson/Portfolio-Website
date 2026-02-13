@@ -109,8 +109,9 @@ Bulleted list of specific features/requirements.
 
 ## Test Coverage
 
-> [!NOTE]
-> Follow the [design-tests skill](../design-tests/SKILL.md) for testing best practices.
+> [!IMPORTANT]
+> - Follow the [design-tests skill](../design-tests/SKILL.md) for testing best practices.
+> - **MANDATORY**: You MUST perform a baseline comparison using the [run-e2e-tests skill](../run-e2e-tests/SKILL.md) to ensure no regressions were introduced.
 > - **New Functionality**: Must have E2E test coverage.
 > - **Bug Fixes**: Must include new E2E test to prevent regression.
 
@@ -152,6 +153,7 @@ npm run ci-flow
 ### Verification
 - [ ] Run unit tests: `npm run test -- filter`
 - [ ] Run E2E tests: `npm run test:e2e -- filter`
+- [ ] **MANDATORY**: Run E2E baseline comparison using the [run-e2e-tests skill](../run-e2e-tests/SKILL.md)
 - [ ] Run full CI flow: `npm run ci-flow`
 
 ### Submission

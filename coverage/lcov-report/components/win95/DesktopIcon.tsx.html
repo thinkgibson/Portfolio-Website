@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/34</span>
+                <span class='fraction'>34/34</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">50% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/1</span>
+                <span class='fraction'>2/4</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/1</span>
+                <span class='fraction'>2/2</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/34</span>
+                <span class='fraction'>34/34</span>
             </div>
         
             
@@ -61,7 +61,7 @@
             </div>
         </template>
     </div>
-    <div class='status-line low'></div>
+    <div class='status-line high'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -97,74 +97,74 @@
 <a name='L32'></a><a href='#L32'>32</a>
 <a name='L33'></a><a href='#L33'>33</a>
 <a name='L34'></a><a href='#L34'>34</a>
-<a name='L35'></a><a href='#L35'>35</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js"><span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" ><span class="branch-0 cbranch-no" title="branch not covered" >"use client";</span></span></span>
-<span class="cstat-no" title="statement not covered" ></span>
-<span class="cstat-no" title="statement not covered" >import { DynamicIcon } from "../Icons/DynamicIcon";</span>
-<span class="cstat-no" title="statement not covered" >import { IconType } from "../../lib/types";</span>
-<span class="cstat-no" title="statement not covered" ></span>
-<span class="cstat-no" title="statement not covered" >interface DesktopIconProps {</span>
-<span class="cstat-no" title="statement not covered" >    id: string;</span>
-<span class="cstat-no" title="statement not covered" >    label: string;</span>
-<span class="cstat-no" title="statement not covered" >    iconType: IconType;</span>
-<span class="cstat-no" title="statement not covered" >    onOpen: (id: string) =&gt; void;</span>
-<span class="cstat-no" title="statement not covered" >    x?: number;</span>
-<span class="cstat-no" title="statement not covered" >    y?: number;</span>
-<span class="cstat-no" title="statement not covered" >    textColor?: string;</span>
-<span class="cstat-no" title="statement not covered" >}</span>
-<span class="cstat-no" title="statement not covered" ></span>
-<span class="cstat-no" title="statement not covered" >export function DesktopIcon({ id, label, iconType, onOpen, x, y, textColor = "text-white" }: DesktopIconProps) {</span>
-<span class="cstat-no" title="statement not covered" ></span>
-<span class="cstat-no" title="statement not covered" >    return (</span>
-<span class="cstat-no" title="statement not covered" >        &lt;div</span>
-<span class="cstat-no" title="statement not covered" >            className="flex flex-col items-center justify-start p-2 w-28 min-h-[120px] h-auto cursor-pointer group select-none active:bg-blue-800/30 touch-manipulation"</span>
-<span class="cstat-no" title="statement not covered" >            onClick={() =&gt; onOpen(id)}</span>
-<span class="cstat-no" title="statement not covered" >            style={x !== undefined &amp;&amp; y !== undefined ? { position: 'absolute', left: x, top: y } : {}}</span>
-<span class="cstat-no" title="statement not covered" >            data-testid={`desktop-icon-${label.toLowerCase().replace(/\s+/g, '-')}`}</span>
-<span class="cstat-no" title="statement not covered" >        &gt;</span>
-<span class="cstat-no" title="statement not covered" >            &lt;div className="mb-2 p-1 group-hover:bg-blue-800/20"&gt;</span>
-<span class="cstat-no" title="statement not covered" >                &lt;DynamicIcon iconType={iconType} size={96} /&gt;</span>
-<span class="cstat-no" title="statement not covered" >            &lt;/div&gt;</span>
-<span class="cstat-no" title="statement not covered" >            {/* Label */}</span>
-<span class="cstat-no" title="statement not covered" >            &lt;span className={`${textColor} text-[18px] font-win95 mt-1 px-1 bg-transparent group-hover:bg-win95-blue-active group-hover:text-white group-focus:bg-win95-blue-active group-focus:text-white whitespace-normal break-words leading-tight shadow-sm text-center`}&gt;</span>
-<span class="cstat-no" title="statement not covered" >                {label}</span>
-<span class="cstat-no" title="statement not covered" >            &lt;/span&gt;</span>
-<span class="cstat-no" title="statement not covered" >        &lt;/div&gt;</span>
-<span class="cstat-no" title="statement not covered" >    );</span>
-<span class="cstat-no" title="statement not covered" >}</span>
+<a name='L35'></a><a href='#L35'>35</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">63x</span>
+<span class="cline-any cline-yes">63x</span>
+<span class="cline-any cline-yes">63x</span>
+<span class="cline-any cline-yes">63x</span>
+<span class="cline-any cline-yes">63x</span>
+<span class="cline-any cline-yes">63x</span>
+<span class="cline-any cline-yes">63x</span>
+<span class="cline-any cline-yes">63x</span>
+<span class="cline-any cline-yes">63x</span>
+<span class="cline-any cline-yes">63x</span>
+<span class="cline-any cline-yes">63x</span>
+<span class="cline-any cline-yes">63x</span>
+<span class="cline-any cline-yes">63x</span>
+<span class="cline-any cline-yes">63x</span>
+<span class="cline-any cline-yes">63x</span>
+<span class="cline-any cline-yes">63x</span>
+<span class="cline-any cline-yes">63x</span>
+<span class="cline-any cline-yes">63x</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">"use client";
+&nbsp;
+import { DynamicIcon } from "../Icons/DynamicIcon";
+import { IconType } from "../../lib/types";
+&nbsp;
+interface DesktopIconProps {
+    id: string;
+    label: string;
+    iconType: IconType;
+    onOpen: (id: string) =&gt; void;
+    x?: number;
+    y?: number;
+    textColor?: string;
+}
+&nbsp;
+export function DesktopIcon({ id, label, iconType, onOpen, x, y, textColor = "text-white" }: DesktopIconProps) {
+&nbsp;
+    return (
+        &lt;div
+            className="flex flex-col items-center justify-start p-2 w-28 min-h-[120px] h-auto cursor-pointer group select-none active:bg-blue-800/30 touch-manipulation"
+            onClick={() =&gt; onOpen(id)}
+            style={x !== <span class="branch-0 cbranch-no" title="branch not covered" >undefined &amp;&amp; y !== <span class="branch-0 cbranch-no" title="branch not covered" >undefined ? {</span> position: 'absolute', left: x, top: y } : {</span>}}
+            data-testid={`desktop-icon-${label.toLowerCase().replace(/\s+/g, '-')}`}
+        &gt;
+            &lt;div className="mb-2 p-1 group-hover:bg-blue-800/20"&gt;
+                &lt;DynamicIcon iconType={iconType} size={96} /&gt;
+            &lt;/div&gt;
+            {/* Label */}
+            &lt;span className={`${textColor} text-[18px] font-win95 mt-1 px-1 bg-transparent group-hover:bg-win95-blue-active group-hover:text-white group-focus:bg-win95-blue-active group-focus:text-white whitespace-normal break-words leading-tight shadow-sm text-center`}&gt;
+                {label}
+            &lt;/span&gt;
+        &lt;/div&gt;
+    );
+}
 &nbsp;</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
@@ -172,7 +172,7 @@
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2026-02-13T23:03:28.289Z
+                at 2026-02-13T23:13:44.446Z
             </div>
         <script src="../../prettify.js"></script>
         <script>
