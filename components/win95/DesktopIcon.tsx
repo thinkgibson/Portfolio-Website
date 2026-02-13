@@ -17,7 +17,7 @@ export function DesktopIcon({ id, label, iconType, onOpen, x, y, textColor = "te
 
     return (
         <div
-            className="flex flex-col items-center justify-start p-2 w-32 min-h-[120px] h-auto cursor-pointer group select-none active:bg-blue-800/30 touch-manipulation"
+            className="flex flex-col items-center justify-start p-2 w-28 min-h-[120px] h-auto cursor-pointer group select-none active:bg-blue-800/30 touch-manipulation"
             onClick={() => onOpen(id)}
             style={x !== undefined && y !== undefined ? { position: 'absolute', left: x, top: y } : {}}
             data-testid={`desktop-icon-${label.toLowerCase().replace(/\s+/g, '-')}`}
@@ -26,7 +26,7 @@ export function DesktopIcon({ id, label, iconType, onOpen, x, y, textColor = "te
                 <DynamicIcon iconType={iconType} size={96} />
             </div>
             {/* Label */}
-            <span className={`${textColor} text-[18px] font-win95 mt-1 px-1 bg-transparent group-hover:bg-win95-blue-active group-hover:text-white group-focus:bg-win95-blue-active group-focus:text-white whitespace-normal break-words leading-tight shadow-sm line-clamp-2 text-center`}>
+            <span className={`${textColor} text-[18px] font-win95 mt-1 px-1 bg-transparent group-hover:bg-win95-blue-active group-hover:text-white group-focus:bg-win95-blue-active group-focus:text-white whitespace-normal break-words leading-tight shadow-sm text-center`}>
                 {label}
             </span>
         </div>

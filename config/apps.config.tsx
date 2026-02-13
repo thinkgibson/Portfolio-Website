@@ -28,10 +28,10 @@ export const getAppsConfig = (content: HomeContent): AppDefinition[] => {
             ),
             content: (
                 <div className="space-y-4">
-                    <h1 className="text-[36px] font-win95 font-bold border-b-2 border-black pb-2 mb-4 leading-none" dangerouslySetInnerHTML={{ __html: content.hero.titleHtml }} />
-                    <p className="text-[12px] font-win95 leading-tight">{content.hero.subtitle}</p>
-                    <div className="flex gap-2 pt-4">
-                        <button className="win95-button font-win95 font-bold text-[12px] px-4 h-6">
+                    <h1 className="text-[72px] font-win95 font-bold border-b-4 border-black pb-4 mb-8 leading-none" dangerouslySetInnerHTML={{ __html: content.hero.titleHtml }} />
+                    <p className="text-[24px] font-win95 leading-tight">{content.hero.subtitle}</p>
+                    <div className="flex gap-4 pt-8">
+                        <button className="win95-button font-win95 font-bold text-[24px] px-8 h-12">
                             Learn More
                         </button>
                     </div>
@@ -58,25 +58,25 @@ export const getAppsConfig = (content: HomeContent): AppDefinition[] => {
                                     {project.title.charAt(0)}
                                 </div>
                                 <div className="flex-grow font-win95">
-                                    <h3 className="font-bold underline text-blue-900 cursor-pointer text-[12px] leading-none">{project.title}</h3>
-                                    <p className="text-[12px] uppercase font-bold text-gray-500 mb-1 leading-none">{project.category}</p>
-                                    <p className="text-[12px] mb-2 leading-tight">{project.description}</p>
-                                    <div className="flex flex-wrap gap-1 mb-2">
+                                    <h3 className="font-bold underline text-blue-900 cursor-pointer text-[24px] leading-none">{project.title}</h3>
+                                    <p className="text-[24px] uppercase font-bold text-gray-500 mb-2 leading-none">{project.category}</p>
+                                    <p className="text-[24px] mb-4 leading-tight">{project.description}</p>
+                                    <div className="flex flex-wrap gap-2 mb-4">
                                         {project.technologies.map(t => (
-                                            <span key={t} className="text-[12px] font-win95-mono border bg-gray-100 px-1 border-gray-400 leading-none">
+                                            <span key={t} className="text-[24px] font-win95-mono border bg-gray-100 px-2 border-gray-400 leading-none">
                                                 {t}
                                             </span>
                                         ))}
                                     </div>
                                     <div className="flex gap-3 mt-2">
                                         {project.link && (
-                                            <a href={project.link} className="flex items-center gap-1 text-[10px] font-bold hover:underline">
-                                                <ExternalLink size={10} /> Live Demo
+                                            <a href={project.link} className="flex items-center gap-2 text-[20px] font-bold hover:underline">
+                                                <ExternalLink size={20} /> Live Demo
                                             </a>
                                         )}
                                         {project.github && (
-                                            <a href={project.github} className="flex items-center gap-1 text-[10px] font-bold hover:underline">
-                                                <Github size={10} /> Source
+                                            <a href={project.github} className="flex items-center gap-2 text-[20px] font-bold hover:underline">
+                                                <Github size={20} /> Source
                                             </a>
                                         )}
                                     </div>
@@ -99,17 +99,17 @@ export const getAppsConfig = (content: HomeContent): AppDefinition[] => {
             ),
             content: (
                 <div className="text-center p-6 space-y-6 font-win95">
-                    <h2 className="text-[24px] font-bold leading-none">{content.contact.title}</h2>
-                    <p className="text-[12px]">{content.contact.description}</p>
+                    <h2 className="text-[48px] font-bold leading-none">{content.contact.title}</h2>
+                    <p className="text-[24px]">{content.contact.description}</p>
                     <div className="flex justify-center">
                         <button
-                            className="win95-button px-8 py-2 font-bold text-[12px]"
+                            className="win95-button px-16 py-4 font-bold text-[24px]"
                             onClick={() => window.location.href = `mailto:${content.contact.email}`}
                         >
                             {content.contact.buttonText}
                         </button>
                     </div>
-                    <div className="pt-4 border-t border-dotted border-gray-400 text-xs italic">
+                    <div className="pt-8 border-t border-dotted border-gray-400 text-xl italic">
                         Email: {content.contact.email}
                     </div>
                 </div>
@@ -192,15 +192,15 @@ export const getAppsConfig = (content: HomeContent): AppDefinition[] => {
                     content: (
                         <div className="grid md:grid-cols-3 gap-6">
                             <div className="md:col-span-2">
-                                <h2 className="text-[24px] font-win95 font-bold mb-4 bg-win95-blue-active text-white px-2 italic leading-none py-1">{content.about.title}</h2>
+                                <h2 className="text-[48px] font-win95 font-bold mb-8 bg-win95-blue-active text-white px-4 italic leading-none py-2">{content.about.title}</h2>
                                 <div
-                                    className="text-[12px] font-win95 leading-normal space-y-4 [&>p]:mb-4"
+                                    className="text-[24px] font-win95 leading-normal space-y-8 [&>p]:mb-8"
                                     dangerouslySetInnerHTML={{ __html: content.bodyHtml }}
                                 />
                             </div>
-                            <div className="win95-beveled p-4 h-fit">
-                                <h3 className="font-win95 font-bold border-b border-black mb-2 text-[12px] uppercase leading-none">{content.about.techStackTitle}</h3>
-                                <ul className="text-[12px] font-win95-mono space-y-1 leading-tight">
+                            <div className="win95-beveled p-8 h-fit">
+                                <h3 className="font-win95 font-bold border-b-2 border-black mb-4 text-[24px] uppercase leading-none">{content.about.techStackTitle}</h3>
+                                <ul className="text-[24px] font-win95-mono space-y-2 leading-tight">
                                     {content.skills.map((skill, i) => (
                                         <li key={i} className="flex items-center gap-1">
                                             <span className="w-2 h-2 bg-win95-blue-active" />
