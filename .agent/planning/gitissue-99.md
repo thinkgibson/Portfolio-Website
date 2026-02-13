@@ -6,7 +6,9 @@ This task involves updating the Start Menu sidebar in `StartMenu.tsx` to display
 ### Features
 - Replace vertical text "Windows 95" with "Portfolio OS".
 - Aligned text to the top of the sidebar.
-- **Refinement**: Change sidebar background color to a darker gray (#A0A0A0) to distinguish it from the main menu background.
+- **Color Refinement**: 
+    - Sidebar background: Darker gray (#A0A0A0 - `win95-gray-dark`).
+    - Sidebar text: Dark gray closer to black (#404040 - `win95-gray-darker`).
 - Ensure consistent styling for both desktop and mobile views.
 
 ---
@@ -16,8 +18,8 @@ This task involves updating the Start Menu sidebar in `StartMenu.tsx` to display
 ### Modified Files
 | File | Changes |
 |------|---------|
-| `tailwind.config.js` | Add `gray-dark: "#A0A0A0"` to the `win95` color object if missing (to support existing and new uses). |
-| `components/win95/StartMenu.tsx` | Update sidebar `div` background to `bg-win95-gray-dark`. Ensure text visibility. |
+| `tailwind.config.js` | Add `gray-dark: "#A0A0A0"` and `gray-darker: "#404040"` to the `win95` color system. |
+| `components/win95/StartMenu.tsx` | Update sidebar `div` background to `bg-win95-gray-dark`. Update vertical text color to `text-win95-gray-darker`. |
 | `__tests__/components/win95/StartMenu.test.tsx` | (Already updated for text) |
 
 ---

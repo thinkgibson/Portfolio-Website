@@ -12,6 +12,7 @@ module.exports = {
           teal: "#008080",
           gray: "#C0C0C0",
           'gray-dark': "#A0A0A0",
+          'gray-darker': "#404040",
           taskbar: "#BDBDBD",
           'blue-active': "#000080",
           'gray-inactive': "#808080",
