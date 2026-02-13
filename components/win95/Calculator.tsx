@@ -89,38 +89,31 @@ export function Calculator() {
         <div className="h-full w-full bg-win95-gray p-1 font-win95">
             <div className="m-[1px] p-2 win95-beveled-inset bg-white flex flex-col h-[calc(100%-2px)] [container-type:size]">
                 {/* Display Screen */}
-                <div className="bg-white border-2 border-win95-gray-shadow p-1 mb-2 text-right font-mono flex-shrink-0 h-[18%] flex items-center justify-end overflow-hidden [font-size:12cqmin] min-h-[1.5rem]" title={expression}>
+                <div className="bg-white border-2 border-win95-gray-shadow p-1 mb-2 text-right font-mono flex-shrink-0 h-[18%] flex items-center justify-end overflow-hidden [font-size:24cqmin] min-h-[3rem]" title={expression}>
                     {expression || display}
                 </div>
+                <div className="grid grid-cols-4 gap-2 flex-grow">
+                    <button className="win95-button font-bold flex items-center justify-center [font-size:20cqmin]" onClick={handleClearClick}>C</button>
+                    <button className="win95-button font-bold flex items-center justify-center [font-size:20cqmin]" onClick={() => handleOperatorClick("/")}>/</button>
+                    <button className="win95-button font-bold flex items-center justify-center [font-size:20cqmin]" onClick={() => handleOperatorClick("*")}>*</button>
+                    <button className="win95-button font-bold flex items-center justify-center [font-size:20cqmin]" onClick={() => handleOperatorClick("-")}>-</button>
 
-                {/* Buttons Grid */}
-                <div className="grid grid-cols-4 grid-rows-5 gap-1 flex-1">
-                    {/* Row 1 */}
-                    <button className="win95-button font-bold text-red-800 col-span-1 flex items-center justify-center [font-size:10cqmin]" onClick={handleClearClick}>C</button>
-                    <button className="win95-button font-bold flex items-center justify-center [font-size:10cqmin]" onClick={() => handleOperatorClick("/")}>/</button>
-                    <button className="win95-button font-bold flex items-center justify-center [font-size:10cqmin]" onClick={() => handleOperatorClick("*")}>*</button>
-                    <button className="win95-button font-bold flex items-center justify-center [font-size:10cqmin]" onClick={() => handleOperatorClick("-")}>-</button>
+                    <button className="win95-button font-bold flex items-center justify-center [font-size:20cqmin]" onClick={() => handleNumberClick("7")}>7</button>
+                    <button className="win95-button font-bold flex items-center justify-center [font-size:20cqmin]" onClick={() => handleNumberClick("8")}>8</button>
+                    <button className="win95-button font-bold flex items-center justify-center [font-size:20cqmin]" onClick={() => handleNumberClick("9")}>9</button>
+                    <button className="win95-button font-bold row-span-2 flex items-center justify-center [font-size:20cqmin]" onClick={() => handleOperatorClick("+")}>+</button>
 
-                    {/* Row 2 */}
-                    <button className="win95-button font-bold flex items-center justify-center [font-size:10cqmin]" onClick={() => handleNumberClick("7")}>7</button>
-                    <button className="win95-button font-bold flex items-center justify-center [font-size:10cqmin]" onClick={() => handleNumberClick("8")}>8</button>
-                    <button className="win95-button font-bold flex items-center justify-center [font-size:10cqmin]" onClick={() => handleNumberClick("9")}>9</button>
-                    <button className="win95-button font-bold row-span-2 flex items-center justify-center [font-size:10cqmin]" onClick={() => handleOperatorClick("+")}>+</button>
+                    <button className="win95-button font-bold flex items-center justify-center [font-size:20cqmin]" onClick={() => handleNumberClick("4")}>4</button>
+                    <button className="win95-button font-bold flex items-center justify-center [font-size:20cqmin]" onClick={() => handleNumberClick("5")}>5</button>
+                    <button className="win95-button font-bold flex items-center justify-center [font-size:20cqmin]" onClick={() => handleNumberClick("6")}>6</button>
 
-                    {/* Row 3 */}
-                    <button className="win95-button font-bold flex items-center justify-center [font-size:10cqmin]" onClick={() => handleNumberClick("4")}>4</button>
-                    <button className="win95-button font-bold flex items-center justify-center [font-size:10cqmin]" onClick={() => handleNumberClick("5")}>5</button>
-                    <button className="win95-button font-bold flex items-center justify-center [font-size:10cqmin]" onClick={() => handleNumberClick("6")}>6</button>
+                    <button className="win95-button font-bold flex items-center justify-center [font-size:20cqmin]" onClick={() => handleNumberClick("1")}>1</button>
+                    <button className="win95-button font-bold flex items-center justify-center [font-size:20cqmin]" onClick={() => handleNumberClick("2")}>2</button>
+                    <button className="win95-button font-bold flex items-center justify-center [font-size:20cqmin]" onClick={() => handleNumberClick("3")}>3</button>
+                    <button className="win95-button font-bold row-span-2 flex items-center justify-center [font-size:20cqmin]" onClick={handleEqualClick}>=</button>
 
-                    {/* Row 4 */}
-                    <button className="win95-button font-bold flex items-center justify-center [font-size:10cqmin]" onClick={() => handleNumberClick("1")}>1</button>
-                    <button className="win95-button font-bold flex items-center justify-center [font-size:10cqmin]" onClick={() => handleNumberClick("2")}>2</button>
-                    <button className="win95-button font-bold flex items-center justify-center [font-size:10cqmin]" onClick={() => handleNumberClick("3")}>3</button>
-                    <button className="win95-button font-bold row-span-2 flex items-center justify-center [font-size:10cqmin]" onClick={handleEqualClick}>=</button>
-
-                    {/* Row 5 */}
-                    <button className="win95-button font-bold col-span-2 flex items-center justify-center [font-size:10cqmin]" onClick={() => handleNumberClick("0")}>0</button>
-                    <button className="win95-button font-bold flex items-center justify-center [font-size:10cqmin]" onClick={() => handleNumberClick(".")}>.</button>
+                    <button className="win95-button font-bold col-span-2 flex items-center justify-center [font-size:20cqmin]" onClick={() => handleNumberClick("0")}>0</button>
+                    <button className="win95-button font-bold flex items-center justify-center [font-size:20cqmin]" onClick={() => handleNumberClick(".")}>.</button>
                 </div>
             </div>
         </div>

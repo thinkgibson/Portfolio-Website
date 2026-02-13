@@ -259,57 +259,57 @@ export <span class="fstat-no" title="function not covered" >function SaveDialog(
 <span class="cstat-no" title="statement not covered" ></span>
 <span class="cstat-no" title="statement not covered" >    return (</span>
 <span class="cstat-no" title="statement not covered" >        &lt;div className="absolute inset-0 flex items-center justify-center z-[200] bg-black/10" data-testid="save-dialog"&gt;</span>
-<span class="cstat-no" title="statement not covered" >            &lt;div className="win95-beveled bg-win95-gray p-[2px] min-w-[350px] shadow-2xl"&gt;</span>
+<span class="cstat-no" title="statement not covered" >            &lt;div className="win95-beveled bg-win95-gray p-[4px] min-w-[525px] shadow-2xl"&gt;</span>
 <span class="cstat-no" title="statement not covered" >                {/* Titlebar */}</span>
-<span class="cstat-no" title="statement not covered" >                &lt;div className="bg-win95-blue-active h-6 flex items-center justify-between px-1 select-none"&gt;</span>
-<span class="cstat-no" title="statement not covered" >                    &lt;span className="text-white text-[12px] font-bold font-win95"&gt;Save As&lt;/span&gt;</span>
+<span class="cstat-no" title="statement not covered" >                &lt;div className="bg-win95-blue-active h-9 flex items-center justify-between px-2 select-none"&gt;</span>
+<span class="cstat-no" title="statement not covered" >                    &lt;span className="text-white text-[18px] font-bold font-win95"&gt;Save As&lt;/span&gt;</span>
 <span class="cstat-no" title="statement not covered" >                    &lt;button</span>
 <span class="cstat-no" title="statement not covered" >                        onClick={onCancel}</span>
-<span class="cstat-no" title="statement not covered" >                        className="win95-button w-4 h-4 !p-0 flex items-center justify-center"</span>
+<span class="cstat-no" title="statement not covered" >                        className="win95-button w-8 h-8 !p-0 flex items-center justify-center"</span>
 <span class="cstat-no" title="statement not covered" >                    &gt;</span>
-<span class="cstat-no" title="statement not covered" >                        &lt;X size={12} className="text-black" /&gt;</span>
+<span class="cstat-no" title="statement not covered" >                        &lt;X size={18} className="text-black" /&gt;</span>
 <span class="cstat-no" title="statement not covered" >                    &lt;/button&gt;</span>
 <span class="cstat-no" title="statement not covered" >                &lt;/div&gt;</span>
 <span class="cstat-no" title="statement not covered" ></span>
 <span class="cstat-no" title="statement not covered" >                {/* Content */}</span>
-<span class="cstat-no" title="statement not covered" >                &lt;div className="p-4 space-y-4"&gt;</span>
-<span class="cstat-no" title="statement not covered" >                    &lt;div className="flex flex-col gap-2"&gt;</span>
-<span class="cstat-no" title="statement not covered" >                        &lt;label className="text-[13px] font-win95"&gt;File name:&lt;/label&gt;</span>
-<span class="cstat-no" title="statement not covered" >                        &lt;div className="flex gap-2"&gt;</span>
+<span class="cstat-no" title="statement not covered" >                &lt;div className="p-8 space-y-8"&gt;</span>
+<span class="cstat-no" title="statement not covered" >                    &lt;div className="flex flex-col gap-4"&gt;</span>
+<span class="cstat-no" title="statement not covered" >                        &lt;label className="text-[20px] font-win95"&gt;File name:&lt;/label&gt;</span>
+<span class="cstat-no" title="statement not covered" >                        &lt;div className="flex gap-4"&gt;</span>
 <span class="cstat-no" title="statement not covered" >                            &lt;input</span>
 <span class="cstat-no" title="statement not covered" >                                type="text"</span>
 <span class="cstat-no" title="statement not covered" >                                value={filename}</span>
 <span class="cstat-no" title="statement not covered" >                                onChange={(e) =&gt; setFilename(e.target.value)}</span>
-<span class="cstat-no" title="statement not covered" >                                className="win95-beveled-inset bg-white px-2 py-1 text-[13px] font-win95 flex-grow outline-none"</span>
+<span class="cstat-no" title="statement not covered" >                                className="win95-beveled-inset bg-white px-4 py-2 text-[20px] font-win95 flex-grow outline-none"</span>
 <span class="cstat-no" title="statement not covered" >                                autoFocus</span>
 <span class="cstat-no" title="statement not covered" >                                onKeyDown={(e) =&gt; {</span>
 <span class="cstat-no" title="statement not covered" >                                    if (e.key === 'Enter') handleSave();</span>
 <span class="cstat-no" title="statement not covered" >                                    if (e.key === 'Escape') onCancel();</span>
 <span class="cstat-no" title="statement not covered" >                                }}</span>
 <span class="cstat-no" title="statement not covered" >                            /&gt;</span>
-<span class="cstat-no" title="statement not covered" >                            &lt;span className="text-[13px] font-win95 self-center"&gt;.rtf&lt;/span&gt;</span>
+<span class="cstat-no" title="statement not covered" >                            &lt;span className="text-[20px] font-win95 self-center"&gt;.rtf&lt;/span&gt;</span>
 <span class="cstat-no" title="statement not covered" >                        &lt;/div&gt;</span>
 <span class="cstat-no" title="statement not covered" >                    &lt;/div&gt;</span>
 <span class="cstat-no" title="statement not covered" ></span>
-<span class="cstat-no" title="statement not covered" >                    &lt;div className="flex flex-col gap-2"&gt;</span>
-<span class="cstat-no" title="statement not covered" >                        &lt;label className="text-[13px] font-win95"&gt;Save as type:&lt;/label&gt;</span>
-<span class="cstat-no" title="statement not covered" >                        &lt;div className="win95-beveled-inset bg-white px-2 py-1 text-[13px] font-win95 text-gray-500"&gt;</span>
+<span class="cstat-no" title="statement not covered" >                    &lt;div className="flex flex-col gap-4"&gt;</span>
+<span class="cstat-no" title="statement not covered" >                        &lt;label className="text-[20px] font-win95"&gt;Save as type:&lt;/label&gt;</span>
+<span class="cstat-no" title="statement not covered" >                        &lt;div className="win95-beveled-inset bg-white px-4 py-2 text-[20px] font-win95 text-gray-500"&gt;</span>
 <span class="cstat-no" title="statement not covered" >                            Rich Text Format (*.rtf)</span>
 <span class="cstat-no" title="statement not covered" >                        &lt;/div&gt;</span>
 <span class="cstat-no" title="statement not covered" >                    &lt;/div&gt;</span>
 <span class="cstat-no" title="statement not covered" >                &lt;/div&gt;</span>
 <span class="cstat-no" title="statement not covered" ></span>
 <span class="cstat-no" title="statement not covered" >                {/* Buttons */}</span>
-<span class="cstat-no" title="statement not covered" >                &lt;div className="flex justify-end gap-2 p-4 pt-0"&gt;</span>
+<span class="cstat-no" title="statement not covered" >                &lt;div className="flex justify-end gap-4 p-8 pt-0"&gt;</span>
 <span class="cstat-no" title="statement not covered" >                    &lt;button</span>
 <span class="cstat-no" title="statement not covered" >                        onClick={handleSave}</span>
-<span class="cstat-no" title="statement not covered" >                        className="win95-button px-6 py-1 text-[13px]"</span>
+<span class="cstat-no" title="statement not covered" >                        className="win95-button px-12 py-2 text-[20px]"</span>
 <span class="cstat-no" title="statement not covered" >                    &gt;</span>
 <span class="cstat-no" title="statement not covered" >                        Download</span>
 <span class="cstat-no" title="statement not covered" >                    &lt;/button&gt;</span>
 <span class="cstat-no" title="statement not covered" >                    &lt;button</span>
 <span class="cstat-no" title="statement not covered" >                        onClick={onCancel}</span>
-<span class="cstat-no" title="statement not covered" >                        className="win95-button px-6 py-1 text-[13px]"</span>
+<span class="cstat-no" title="statement not covered" >                        className="win95-button px-12 py-2 text-[20px]"</span>
 <span class="cstat-no" title="statement not covered" >                    &gt;</span>
 <span class="cstat-no" title="statement not covered" >                        Cancel</span>
 <span class="cstat-no" title="statement not covered" >                    &lt;/button&gt;</span>
@@ -325,7 +325,7 @@ export <span class="fstat-no" title="function not covered" >function SaveDialog(
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2026-02-05T13:57:08.222Z
+                at 2026-02-12T17:46:59.717Z
             </div>
         <script src="../../prettify.js"></script>
         <script>

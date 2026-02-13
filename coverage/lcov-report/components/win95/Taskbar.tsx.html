@@ -836,7 +836,7 @@ export function Taskbar({ openWindows, onWindowClick, onStartClick, onMinimizeWi
 &nbsp;
     return (
         &lt;div
-            className="fixed bottom-0 left-0 right-0 h-12 bg-win95-taskbar win95-beveled flex items-center p-1 z-[120] gap-1 select-none"
+            className="fixed bottom-0 left-0 right-0 h-[72px] bg-win95-taskbar win95-beveled flex items-center p-1 z-[120] gap-1 select-none"
             onContextMenu={<span class="fstat-no" title="function not covered" >(e) =&gt; {</span>
 <span class="cstat-no" title="statement not covered" >                e.preventDefault();</span>
 <span class="cstat-no" title="statement not covered" >                e.stopPropagation();</span>
@@ -850,10 +850,10 @@ export function Taskbar({ openWindows, onWindowClick, onStartClick, onMinimizeWi
             {/* Start Button */}
             &lt;button
                 onClick={onStartClick}
-                className="win95-button px-3 font-win95 font-bold flex items-center gap-1.5 h-full mr-2 text-[14px]"
+                className="win95-button px-6 font-win95 font-bold flex items-center gap-3 h-full mr-4 text-[21px]"
                 data-testid="taskbar-start-button"
             &gt;
-                &lt;WindowsLogoIcon size={24} className="mr-0.5" /&gt;
+                &lt;WindowsLogoIcon size={36} className="mr-1" /&gt;
                 Start
             &lt;/button&gt;
 &nbsp;
@@ -877,11 +877,11 @@ export function Taskbar({ openWindows, onWindowClick, onStartClick, onMinimizeWi
                             });
                         }}
                         className={`${win.isActive ? "win95-beveled-inset bg-win95-gray font-bold" : "win95-button"
-                            } px-3 text-[13px] font-win95 flex items-center max-w-[150px] truncate h-full touch-manipulation min-w-[80px] leading-none`}
+                            } px-6 text-[20px] font-win95 flex items-center max-w-[300px] truncate h-full touch-manipulation min-w-[120px] leading-none`}
                         data-testid={`taskbar-item-${win.title.toLowerCase().replace(/\s+/g, '-')}`}
                     &gt;
-                        &lt;div className="mr-1.5 flex-shrink-0"&gt;
-                            &lt;DynamicIcon iconType={win.iconType<span class="branch-0 cbranch-no" title="branch not covered" > || "folder"} s</span>ize={18} /&gt;
+                        &lt;div className="mr-3 flex-shrink-0"&gt;
+                            &lt;DynamicIcon iconType={win.iconType<span class="branch-0 cbranch-no" title="branch not covered" > || "folder"} s</span>ize={27} /&gt;
                         &lt;/div&gt;
                         &lt;span className="truncate"&gt;{win.title}&lt;/span&gt;
                     &lt;/button&gt;
@@ -892,7 +892,7 @@ export function Taskbar({ openWindows, onWindowClick, onStartClick, onMinimizeWi
             &lt;div className="win95-beveled-inset bg-win95-taskbar px-2 flex items-center gap-2 h-full ml-auto relative"&gt;
                 {/* Tooltips */}
                 {activeTooltip === "weather" &amp;&amp; weatherData &amp;&amp; (
-                    &lt;div className="absolute bottom-[calc(100%+8px)] right-0 min-w-[120px] bg-[#FFFFE1] border border-black p-2 shadow-[2px_2px_0_rgba(0,0,0,1)] z-[130] font-win95 text-[12px] text-black"&gt;
+                    &lt;div className="absolute bottom-[calc(100%+8px)] right-0 min-w-[120px] bg-[#FFFFE1] border border-black p-2 shadow-[2px_2px_0_rgba(0,0,0,1)] z-[130] font-win95 text-[18px] text-black"&gt;
                         {weatherData.loading ? (
                             "Fetching weather..."
                         ) : (
@@ -908,7 +908,7 @@ export function Taskbar({ openWindows, onWindowClick, onStartClick, onMinimizeWi
                 )}
 &nbsp;
                 {activeTooltip === <span class="branch-0 cbranch-no" title="branch not covered" >"network" &amp;&amp; ping &amp;&amp; (</span>
-                    &lt;div className="absolute bottom-[calc(100%+8px)] right-0 min-w-[120px] bg-[#FFFFE1] border border-black p-2 shadow-[2px_2px_0_rgba(0,0,0,1)] z-[130] font-win95 text-[12px] text-black"&gt;
+                    &lt;div className="absolute bottom-[calc(100%+8px)] right-0 min-w-[120px] bg-[#FFFFE1] border border-black p-2 shadow-[2px_2px_0_rgba(0,0,0,1)] z-[130] font-win95 text-[18px] text-black"&gt;
                         {ping.loading ? (
                             "Measuring ping..."
                         ) : (
@@ -970,40 +970,40 @@ export function Taskbar({ openWindows, onWindowClick, onStartClick, onMinimizeWi
                                         &lt;div className="w-1.5 h-1.5 bg-black" /&gt;
                                     )}
                                 &lt;/div&gt;
-                                &lt;span className="text-[10px] font-win95"&gt;Mute&lt;/span&gt;
+                                &lt;span className="text-[15px] font-win95"&gt;Mute&lt;/span&gt;
                             &lt;/label&gt;
                         &lt;/div&gt;
                     &lt;/div&gt;
                 )}
 &nbsp;
                 {/* System Tray icons */}
-                &lt;div className="flex gap-2 items-center mr-1"&gt;
+                &lt;div className="flex gap-4 items-center mr-2"&gt;
                     &lt;button
                         onClick={fetchWeather}
-                        className="p-0.5 w-6 h-6 flex items-center justify-center hover:bg-win95-gray-light active:bg-win95-gray-dark border-none transition-colors"
+                        className="p-1 w-12 h-12 flex items-center justify-center hover:bg-win95-gray-light active:bg-win95-gray-dark border-none transition-colors"
                         title="Weather"
                         data-testid="sys-tray-weather"
                     &gt;
-                        &lt;WeatherIcon size={16} className="text-black" /&gt;
+                        &lt;WeatherIcon size={30} className="text-black" /&gt;
                     &lt;/button&gt;
                     &lt;button
                         onClick={measurePing}
-                        className="p-0.5 w-6 h-6 flex items-center justify-center hover:bg-win95-gray-light active:bg-win95-gray-dark border-none transition-colors"
+                        className="p-1 w-12 h-12 flex items-center justify-center hover:bg-win95-gray-light active:bg-win95-gray-dark border-none transition-colors"
                         title="Network"
                         data-testid="sys-tray-network"
                     &gt;
-                        &lt;NetworkIcon size={16} className="text-black" /&gt;
+                        &lt;NetworkIcon size={30} className="text-black" /&gt;
                     &lt;/button&gt;
                     &lt;button
                         onClick={() =&gt; setActiveTooltip(activeTooltip === "volume" ? null : "volume")}
-                        className={`p-0.5 w-6 h-6 flex items-center justify-center hover:bg-win95-gray-light active:bg-win95-gray-dark border-none transition-colors ${activeTooltip === "volume" ? "bg-win95-gray-light" : ""}`}
+                        className={`p-1 w-12 h-12 flex items-center justify-center hover:bg-win95-gray-light active:bg-win95-gray-dark border-none transition-colors ${activeTooltip === "volume" ? "bg-win95-gray-light" : ""}`}
                         title="Volume"
                         data-testid="sys-tray-volume"
                     &gt;
-                        &lt;VolumeIcon size={16} className="text-black" /&gt;
+                        &lt;VolumeIcon size={30} className="text-black" /&gt;
                     &lt;/button&gt;
                 &lt;/div&gt;
-                &lt;span className="text-[14px] font-win95 font-medium leading-none whitespace-nowrap"&gt;
+                &lt;span className="text-[26px] font-win95 font-medium leading-none whitespace-nowrap"&gt;
                     {formatTime(time)}
                 &lt;/span&gt;
             &lt;/div&gt;
@@ -1036,7 +1036,7 @@ export function Taskbar({ openWindows, onWindowClick, onStartClick, onMinimizeWi
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2026-02-05T13:57:08.222Z
+                at 2026-02-12T17:46:59.717Z
             </div>
         <script src="../../prettify.js"></script>
         <script>

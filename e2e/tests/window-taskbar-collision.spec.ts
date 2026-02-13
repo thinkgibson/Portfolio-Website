@@ -3,6 +3,7 @@ import { test, expect } from '@playwright/test';
 test.describe('Window Taskbar Collision', () => {
     test.beforeEach(async ({ page }) => {
         await page.goto('/?skipBoot=true&skipWelcome=true&skipAnimations=true');
+        await page.waitForSelector('[data-testid^="desktop-icon-"]');
     });
 
     test('window cannot be dragged into the taskbar area', async ({ page }, testInfo) => {
@@ -11,10 +12,10 @@ test.describe('Window Taskbar Collision', () => {
             test.skip();
         }
 
-        const TASKBAR_HEIGHT = 48;
+        const TASKBAR_HEIGHT = 96;
 
         // Open a window
-        await page.click('text=Welcome.txt');
+        await page.getByTestId('desktop-icon-welcome.txt').click();
         const window = page.locator('div[data-testid^="window-welcome"]');
         await expect(window).toBeVisible();
 
@@ -49,10 +50,10 @@ test.describe('Window Taskbar Collision', () => {
             test.skip(true, 'Resize test not applicable on mobile');
         }
 
-        const TASKBAR_HEIGHT = 48;
+        const TASKBAR_HEIGHT = 96;
 
         // Open a window
-        await page.click('text=Welcome.txt');
+        await page.getByTestId('desktop-icon-welcome.txt').click();
         const window = page.locator('div[data-testid^="window-welcome"]');
         await expect(window).toBeVisible();
 

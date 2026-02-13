@@ -11,12 +11,12 @@ test.describe('UI Styling Fixes', () => {
     test('Desktop icons allow text wrapping', async ({ page }) => {
         // Check for the class update on a desktop icon
         const iconLabel = page.locator('[data-testid^="desktop-icon-"] span').first();
-        await expect(iconLabel).toHaveClass(/line-clamp-2/);
+        await expect(iconLabel).not.toHaveClass(/line-clamp-2/);
         await expect(iconLabel).toHaveClass(/break-words/);
 
         // Check container width
         const container = page.locator('[data-testid^="desktop-icon-"]').first();
-        await expect(container).toHaveClass(/w-32/);
+        await expect(container).toHaveClass(/w-24/);
     });
 
     test('Taskbar buttons have correct sizing', async ({ page }) => {

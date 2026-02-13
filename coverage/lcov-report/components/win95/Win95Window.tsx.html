@@ -1134,7 +1134,7 @@ import { motion, useDragControls, useMotionValue } from "framer-motion";
 import { useIsMobile } from "../../lib/hooks";
 import { DynamicIcon } from "../Icons/DynamicIcon";
 &nbsp;
-const TASKBAR_HEIGHT = 48;
+const TASKBAR_HEIGHT = 72;
 &nbsp;
 interface Win95WindowProps {
     title: string;
@@ -1213,20 +1213,20 @@ const HighlightResults = ({ children, term }: { children: React.ReactNode, term:
 };
 &nbsp;
 const MinimizeIcon = () =&gt; (
-    &lt;svg width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg"&gt;
+    &lt;svg width="15" height="15" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg"&gt;
         &lt;rect x="2" y="7" width="6" height="2" fill="black" /&gt;
     &lt;/svg&gt;
 );
 &nbsp;
 const MaximizeIcon = () =&gt; (
-    &lt;svg width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg"&gt;
+    &lt;svg width="15" height="15" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg"&gt;
         &lt;rect x="1" y="1" width="8" height="8" stroke="black" strokeWidth="1" /&gt;
         &lt;rect x="2" y="2" width="6" height="1" fill="black" /&gt;
     &lt;/svg&gt;
 );
 &nbsp;
 const RestoreIcon = () =&gt; (
-    &lt;svg width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg"&gt;
+    &lt;svg width="15" height="15" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg"&gt;
         &lt;rect x="3" y="0" width="7" height="7" fill="white" stroke="black" strokeWidth="1" /&gt;
         &lt;rect x="4" y="1" width="5" height="1" fill="black" /&gt;
         &lt;rect x="0" y="3" width="7" height="7" fill="white" stroke="black" strokeWidth="1" /&gt;
@@ -1235,7 +1235,7 @@ const RestoreIcon = () =&gt; (
 );
 &nbsp;
 const CloseIcon = () =&gt; (
-    &lt;svg width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg"&gt;
+    &lt;svg width="15" height="15" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg"&gt;
         &lt;path d="M1 1L9 9M9 1L1 9" stroke="black" strokeWidth="1.5" /&gt;
     &lt;/svg&gt;
 );
@@ -1515,21 +1515,21 @@ export function Win95Window({
 <span class="cstat-no" title="statement not covered" >                    }</span>
 <span class="cstat-no" title="statement not covered" >                }}</span>
                 onDoubleClick={<span class="fstat-no" title="function not covered" >() =&gt; canMaximize &amp;&amp; onMaximize?.()}</span>
-                className={`window-titlebar h-8 flex items-center justify-between px-1 cursor-default select-none ${isActive ? <span class="branch-0 cbranch-no" title="branch not covered" >"bg-win95-blue-active" : "bg-win95-gray-inactive"}`</span>}
+                className={`window-titlebar h-12 flex items-center justify-between px-2 cursor-default select-none ${isActive ? <span class="branch-0 cbranch-no" title="branch not covered" >"bg-win95-blue-active" : "bg-win95-gray-inactive"}`</span>}
                 data-testid="window-titlebar"
             &gt;
                 &lt;div className="flex items-center gap-2 ml-0.5 overflow-hidden"&gt;
                     &lt;div className="flex-shrink-0"&gt;
-                        &lt;DynamicIcon iconType={<span class="branch-0 cbranch-no" title="branch not covered" >iconType || "folder"} s</span>ize={24} /&gt;
+                        &lt;DynamicIcon iconType={<span class="branch-0 cbranch-no" title="branch not covered" >iconType || "folder"} s</span>ize={36} /&gt;
                     &lt;/div&gt;
-                    &lt;span className="text-white text-[13px] font-win95 font-bold whitespace-nowrap overflow-hidden text-ellipsis leading-none mt-0.5"&gt;
+                    &lt;span className="text-white text-[20px] font-win95 font-bold whitespace-nowrap overflow-hidden text-ellipsis leading-none mt-1"&gt;
                         {title}
                     &lt;/span&gt;
                 &lt;/div&gt;
                 &lt;div className="flex gap-1 pr-1" onPointerDown={<span class="fstat-no" title="function not covered" >(e) =&gt; e.stopPropagation()}&gt;</span>
                     &lt;button
                         onClick={onMinimize}
-                        className="win95-button w-6 h-6 !p-0 flex items-center justify-center"
+                        className="win95-button w-9 h-9 !p-0 flex items-center justify-center"
                         data-testid="window-minimize"
                         title="Minimize"
                         aria-label="Minimize"
@@ -1539,7 +1539,7 @@ export function Win95Window({
                     {canMaximize &amp;&amp; (
                         &lt;button
                             onClick={onMaximize}
-                            className="win95-button w-6 h-6 !p-0 flex items-center justify-center"
+                            className="win95-button w-9 h-9 !p-0 flex items-center justify-center"
                             data-testid="window-maximize"
                             title={isMaximized ? "Restore" : "Maximize"}
                             aria-label={isMaximized ? "Restore" : "Maximize"}
@@ -1549,7 +1549,7 @@ export function Win95Window({
                     )}
                     &lt;button
                         onClick={onClose}
-                        className="win95-button w-6 h-6 !p-0 ml-1 flex items-center justify-center"
+                        className="win95-button w-9 h-9 !p-0 ml-1 flex items-center justify-center"
                         data-testid="window-close"
                         title="Close"
                         aria-label="Close"
@@ -1560,7 +1560,7 @@ export function Win95Window({
             &lt;/div&gt;
 &nbsp;
             {/* Menu Bar */}
-            &lt;div className="bg-win95-gray px-1 py-0.5 border-b border-win95-gray-inactive text-[12px] font-win95 flex gap-3 select-none leading-none relative"&gt;
+            &lt;div className="bg-win95-gray px-1 py-0.5 border-b border-win95-gray-inactive text-[18px] font-win95 flex gap-3 select-none leading-none relative"&gt;
                 &lt;div className="relative"&gt;
                     &lt;span
                         className={`px-1 cursor-default font-normal ${activeMenu === 'File' ? 'win95-beveled-inset bg-win95-gray' : 'hover:win95-beveled'}`}
@@ -1621,15 +1621,15 @@ export function Win95Window({
             {/* Search Box */}
             {isSearching &amp;&amp; (
                 &lt;div className="bg-win95-gray px-2 py-1 border-b border-win95-gray-inactive flex items-center gap-2"&gt;
-                    &lt;span className="text-[12px] font-win95"&gt;Find:&lt;/span&gt;
+                    &lt;span className="text-[18px] font-win95"&gt;Find:&lt;/span&gt;
                     &lt;input
                         type="text"
                         value={searchTerm}
                         onChange={(e) =&gt; setSearchTerm(e.target.value)}
-                        className="win95-beveled-inset px-1 text-[12px] font-win95 flex-grow outline-none"
+                        className="win95-beveled-inset px-1 text-[18px] font-win95 flex-grow outline-none"
                         autoFocus
                     /&gt;
-                    &lt;button className="win95-button px-2 text-[10px] leading-none h-4" onClick={() =&gt; setIsSearching(false)}&gt;X&lt;/button&gt;
+                    &lt;button className="win95-button px-2 text-[15px] leading-none h-8" onClick={() =&gt; setIsSearching(false)}&gt;X&lt;/button&gt;
                 &lt;/div&gt;
             )}
 &nbsp;
@@ -1666,7 +1666,7 @@ export function Win95Window({
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2026-02-05T13:57:08.222Z
+                at 2026-02-12T17:46:59.717Z
             </div>
         <script src="../../prettify.js"></script>
         <script>

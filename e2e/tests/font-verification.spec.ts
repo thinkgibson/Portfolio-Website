@@ -23,7 +23,7 @@ test.skip('verify font-family application', async ({ page, isMobile }) => {
     });
 
     expect(bodyStyles.fontFamily).toContain('W95FA');
-    expect(bodyStyles.fontSize).toBe('12px');
+    expect(bodyStyles.fontSize).toBe('24px');
 
     if (bodyStyles.userAgent.includes('AppleWebKit') && !bodyStyles.userAgent.includes('Firefox')) {
         expect(bodyStyles.webkitFontSmoothing).toBe('none');
