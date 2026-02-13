@@ -66,15 +66,18 @@ export function StartMenu({ items, onItemClick, onReboot, onClose }: StartMenuPr
                 data-testid="start-menu"
             >
                 {/* Sidebar */}
-                <div className={`${isMobile ? 'w-8' : 'w-12'} bg-win95-gray relative flex-shrink-0`}>
-                    <div className={`absolute ${isMobile ? 'bottom-2 left-0 w-8' : 'bottom-3 left-0 w-12'} flex justify-center`}>
-                        <span
-                            className="text-win95-gray-inactive font-win95 font-bold text-lg origin-center -rotate-90 whitespace-nowrap"
-                            style={{ fontSize: isMobile ? '20px' : '30px', letterSpacing: isMobile ? '1px' : '2px' }}
-                        >
-                            <span className="opacity-50">Portfolio</span> OS
-                        </span>
-                    </div>
+                <div className={`${isMobile ? 'w-8' : 'w-12'} bg-win95-gray relative flex-shrink-0 flex flex-col items-center justify-start pt-4 overflow-hidden`}>
+                    <span
+                        className="text-win95-gray-inactive font-win95 font-bold whitespace-nowrap"
+                        style={{
+                            fontSize: isMobile ? '16px' : '24px',
+                            letterSpacing: isMobile ? '1px' : '2px',
+                            writingMode: 'vertical-rl',
+                            transform: 'rotate(180deg)',
+                        }}
+                    >
+                        <span className="opacity-50">Portfolio</span> OS
+                    </span>
                 </div>
 
                 {/* Menu Items */}
