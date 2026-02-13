@@ -47,7 +47,8 @@ All work that results in code changes (i.e. not documentation, not planning, not
     - Run tests in order, proceeding only after each passes:
       1. Unit tests: `npm run test`
       2. E2E tests: `npm run test:e2e`
-      3. Full CI: `npm run ci-flow`
+      3. MANDATORY: E2E baseline comparison using the [run-e2e-tests skill](file:///i:/code/VSCode/PortfolioWebsite/.agent/skills/run-e2e-tests/SKILL.md)
+      4. Full CI: `npm run ci-flow`
     - If new tests are needed, create them
     - If tests fail, fix them before proceeding
     - If tests fail repeatedly and cannot be fixed, notify user and ask for guidance
@@ -83,6 +84,7 @@ WORK IS NOT DONE UNTIL ALL OF THE BELOW ARE COMPLETED:
 - All changes are implemented based on planning doc
 - Implementation verified against planning doc checklist
 - All tests pass
+- E2E baseline comparison passes (see [run-e2e-tests skill](file:///i:/code/VSCode/PortfolioWebsite/.agent/skills/run-e2e-tests/SKILL.md))
 - ci-flow passes
 - All changes are approved by user
 - All changes are committed
