@@ -1,11 +1,12 @@
 # GitHub Issue #99: Update Start Menu Sidebar: Portfolio OS Text & Background
 
 ## Overview
-This task involves updating the Start Menu sidebar in `StartMenu.tsx` to display "Portfolio OS" instead of "Windows 95" and changing the sidebar background to light gray.
+This task involves updating the Start Menu sidebar in `StartMenu.tsx` to display "Portfolio OS" and refining the sidebar background to be a couple shades darker than the main menu gray.
 
 ### Features
 - Replace vertical text "Windows 95" with "Portfolio OS".
-- Change sidebar background color to light gray (`win95-gray`).
+- Aligned text to the top of the sidebar.
+- **Refinement**: Change sidebar background color to a darker gray (#A0A0A0) to distinguish it from the main menu background.
 - Ensure consistent styling for both desktop and mobile views.
 
 ---
@@ -15,26 +16,26 @@ This task involves updating the Start Menu sidebar in `StartMenu.tsx` to display
 ### Modified Files
 | File | Changes |
 |------|---------|
-| `components/win95/StartMenu.tsx` | Change sidebar `div` background to `bg-win95-gray`. Change vertical text to "Portfolio OS" with appropriate opacity for "Portfolio". |
-| `__tests__/components/win95/StartMenu.test.tsx` | Update test assertions to check for "Portfolio" and "OS" instead of "Windows" and "95". |
+| `tailwind.config.js` | Add `gray-dark: "#A0A0A0"` to the `win95` color object if missing (to support existing and new uses). |
+| `components/win95/StartMenu.tsx` | Update sidebar `div` background to `bg-win95-gray-dark`. Ensure text visibility. |
+| `__tests__/components/win95/StartMenu.test.tsx` | (Already updated for text) |
 
 ---
 
 ## Architecture Notes
-- The sidebar is a flex-shrink-0 `div` inside the `StartMenu` component.
-- The text is rotated -90 degrees using Tailwind's `-rotate-90`.
-- Responsive design is handled via `isMobile` prop/hook, which adjusts widths and font sizes.
+- The sidebar is anchored to the top using `flex-col` and `justify-start`.
+- Using `writing-mode: vertical-rl` for robust text orientation.
 
 ---
 
 ## Git Branch & Commit Strategy
 
 ### Branch Name
-- `gitissue-99/update-start-menu-sidebar`
+- `fix/gitissue-99-sidebar-color`
 
 ### Commit Message
-- **Subject**: `gitissue-99: update start menu sidebar text and background`
-- **Body**: Replaced "Windows 95" with "Portfolio OS" and changed sidebar background to light gray. Updated unit tests.
+- **Subject**: `fix(gitissue-99): update sidebar background to darker gray`
+- **Body**: Changed sidebar background to #A0A0A0 for better contrast. Added `gray-dark` to tailwind config.
 
 ---
 
@@ -42,53 +43,45 @@ This task involves updating the Start Menu sidebar in `StartMenu.tsx` to display
 
 | Risk | Mitigation |
 |------|------------|
-| Text Overflow | Ensure "Portfolio OS" fits in the rotated sidebar `div` (it is slightly longer than "Windows 95"). |
-| Contrast Issues | Light gray background might reduce contrast for the gray text. Ensure visibility. |
+| Contrast | Ensure text "Portfolio OS" is readable against #A0A0A0. |
 
 ---
 
 ## Test Coverage
 
 ### Unit Tests (`__tests__/components/win95/StartMenu.test.tsx`)
-- [ ] Check if "Portfolio" is rendered.
-- [ ] Check if "OS" is rendered.
-- [ ] Verify background color applied to sidebar (via snapshot or style check).
+- [x] Check if "Portfolio" is rendered.
+- [x] Check if "OS" is rendered.
+- [ ] Verify background color class is applied.
 
 ### Test Commands
 ```bash
 npm run test -- StartMenu.test.tsx
-npm run test:e2e
-npm run ci-flow
+npx playwright test e2e/tests/start-menu-folders.spec.ts
 ```
 
 ---
 
 ## Execution Phases
-1. **Phase 1**: Update `StartMenu.tsx` implementation.
-2. **Phase 2**: Update unit tests and verify.
+1. **Phase 1**: Update `tailwind.config.js` with `gray-dark`.
+2. **Phase 2**: Update `StartMenu.tsx` with the new color.
+3. **Phase 3**: Verification.
 
 ---
 
 ## Implementation Checklist
 
 ### Preparation
-- [ ] Create git branch `gitissue-99/update-start-menu-sidebar`
+- [ ] Create git branch `fix/gitissue-99-sidebar-color`
 
 ### Implementation
-- [ ] **Phase 1**: Update `StartMenu.tsx`
-    - Change `bg-win95-gray-dark` to `bg-win95-gray`.
-    - Change text "Windows 95" to "Portfolio OS".
-- [ ] **Phase 2**: Update `__tests__/components/win95/StartMenu.test.tsx`
-    - Update "Windows" check to "Portfolio".
-    - Update "95" check to "OS".
+- [ ] **Phase 1**: Update `tailwind.config.js`
+- [ ] **Phase 2**: Update `StartMenu.tsx`
 - [ ] Verify implementation against "Expected Code Changes"
 
 ### Verification
 - [ ] Run unit tests: `npm run test -- StartMenu.test.tsx`
-- [ ] Run E2E tests: `npm run test:e2e`
-- [ ] Run full CI flow: `npm run ci-flow`
+- [ ] Run targeted E2E tests: `npx playwright test e2e/tests/start-menu-folders.spec.ts`
 
 ### Submission
-- [ ] Commit changes (`gitissue-99: update start menu sidebar text and background`)
-- [ ] Request user approval
-- [ ] Create PR & Merge
+- [ ] Notify user for approval (DO NOT PR)

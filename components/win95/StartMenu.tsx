@@ -66,7 +66,7 @@ export function StartMenu({ items, onItemClick, onReboot, onClose }: StartMenuPr
                 data-testid="start-menu"
             >
                 {/* Sidebar */}
-                <div className={`${isMobile ? 'w-8' : 'w-12'} bg-win95-gray relative flex-shrink-0 flex flex-col items-center justify-start pt-4 overflow-hidden`}>
+                <div className={`${isMobile ? 'w-8' : 'w-12'} bg-win95-gray-dark relative flex-shrink-0 flex flex-col items-center justify-start pt-4 overflow-hidden`}>
                     <span
                         className="text-win95-gray-inactive font-win95 font-bold whitespace-nowrap"
                         style={{
