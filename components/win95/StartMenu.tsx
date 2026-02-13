@@ -66,13 +66,13 @@ export function StartMenu({ items, onItemClick, onReboot, onClose }: StartMenuPr
                 data-testid="start-menu"
             >
                 {/* Sidebar */}
-                <div className={`${isMobile ? 'w-8' : 'w-12'} bg-win95-gray-dark relative flex-shrink-0`}>
+                <div className={`${isMobile ? 'w-8' : 'w-12'} bg-win95-gray relative flex-shrink-0`}>
                     <div className={`absolute ${isMobile ? 'bottom-2 left-0 w-8' : 'bottom-3 left-0 w-12'} flex justify-center`}>
                         <span
-                            className="text-win95-gray font-win95 font-bold text-lg origin-center -rotate-90 whitespace-nowrap"
+                            className="text-win95-gray-inactive font-win95 font-bold text-lg origin-center -rotate-90 whitespace-nowrap"
                             style={{ fontSize: isMobile ? '20px' : '30px', letterSpacing: isMobile ? '1px' : '2px' }}
                         >
-                            <span className="opacity-50">Windows</span>95
+                            <span className="opacity-50">Portfolio</span> OS
                         </span>
                     </div>
                 </div>
