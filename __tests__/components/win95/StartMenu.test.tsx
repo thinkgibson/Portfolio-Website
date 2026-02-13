@@ -35,8 +35,8 @@ describe('StartMenu', () => {
 
         expect(screen.getByText('Folder 1')).toBeInTheDocument();
         expect(screen.getByText('Item 1')).toBeInTheDocument();
-        expect(screen.getByText('Windows')).toBeInTheDocument();
-        expect(screen.getByText('95')).toBeInTheDocument();
+        expect(screen.getByText('Portfolio')).toBeInTheDocument();
+        expect(screen.getByText('OS')).toBeInTheDocument();
     });
 
     it('shows submenu on hover (desktop)', async () => {

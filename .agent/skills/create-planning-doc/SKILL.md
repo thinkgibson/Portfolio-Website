@@ -158,6 +158,7 @@ npm run ci-flow
 - [ ] Commit changes (Format: `feat: description` or `gitissue-{ID}: description`)
 - [ ] Request user approval
 - [ ] Create PR & Merge
+- [ ] Attach planning doc and walkthrough to the GitHub issue (e.g., via `gh issue comment`)
 ````
 
 ---
