@@ -52,15 +52,22 @@ test.describe('Taskbar Features', () => {
 
     test('system tray shows weather and network tooltips', async ({ page }) => {
         // Weather
-        await page.getByTestId('sys-tray-weather').click();
+        await page.getByTestId('sys-tray-weather').hover();
         // The tooltip is an absolute div with yellow bg
         const weatherTooltip = page.locator('div[class*="bg-[#FFFFE1]"]').filter({ hasText: /°F|Fetching weather/ }).first();
         await expect(weatherTooltip).toBeVisible();
-        await page.waitForTimeout(300); // Give it a moment to show
+
+        // Move mouse away to hide
+        await page.mouse.move(0, 0);
+        await expect(weatherTooltip).not.toBeVisible();
 
         // Network
-        await page.getByTestId('sys-tray-network').click();
+        await page.getByTestId('sys-tray-network').hover();
         const networkTooltip = page.locator('div[class*="bg-[#FFFFE1]"]').filter({ hasText: /Latency|Measuring ping/ }).last();
         await expect(networkTooltip).toBeVisible();
+
+        // Move mouse away to hide
+        await page.mouse.move(0, 0);
+        await expect(networkTooltip).not.toBeVisible();
     });
 });

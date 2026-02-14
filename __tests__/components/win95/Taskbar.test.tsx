@@ -22,6 +22,18 @@ Object.defineProperty(window, 'localStorage', { value: localStorageMock });
 // Mock fetch
 global.fetch = jest.fn();
 
+// Polyfill PointerEvent for JSDOM
+if (!global.PointerEvent) {
+    class PointerEvent extends MouseEvent {
+        public pointerType: string;
+        constructor(type: string, params: any = {}) {
+            super(type, params);
+            this.pointerType = params.pointerType;
+        }
+    }
+    global.PointerEvent = PointerEvent as any;
+}
+
 describe('Taskbar', () => {
     const defaultProps = {
         openWindows: [
@@ -99,7 +111,7 @@ describe('Taskbar', () => {
         expect(screen.queryByText('Mute')).not.toBeInTheDocument();
     });
 
-    it('fetches weather and shows tooltip', async () => {
+    it('fetches weather and shows tooltip on hover', async () => {
         (global.fetch as jest.Mock).mockImplementation((url) => {
             if (url.includes('ipapi.co')) {
                 return Promise.resolve({
@@ -118,11 +130,85 @@ describe('Taskbar', () => {
         renderTaskbar();
         const weatherBtn = screen.getByTitle('Weather');
 
-        fireEvent.click(weatherBtn);
+        // Hover to show
+        fireEvent.pointerEnter(weatherBtn, { pointerType: 'mouse' });
 
         expect(await screen.findByText('New York')).toBeInTheDocument();
         expect(screen.getByText('Sunny')).toBeInTheDocument();
         expect(screen.getByText('72°F')).toBeInTheDocument();
+
+        // Leave to hide
+        fireEvent.pointerLeave(weatherBtn, { pointerType: 'mouse' });
+        expect(screen.queryByText('New York')).not.toBeInTheDocument();
+    });
+
+    it('toggles weather tooltip on click', async () => {
+        (global.fetch as jest.Mock).mockImplementation((url) => {
+            if (url.includes('ipapi.co')) {
+                return Promise.resolve({
+                    json: () => Promise.resolve({ latitude: 40, longitude: -70, city: 'New York' })
+                });
+            }
+            if (url.includes('open-meteo')) {
+                return Promise.resolve({
+                    json: () => Promise.resolve({
+                        current_weather: { temperature: 72, weathercode: 0 }
+                    })
+                });
+            }
+        });
+
+        renderTaskbar();
+        const weatherBtn = screen.getByTitle('Weather');
+
+        // Click to show (simulate touch or keyboard where pointerType is not mouse for the hover part)
+        // If we just click, isHovering is false. So it SHOULD toggle.
+        fireEvent.click(weatherBtn);
+        expect(await screen.findByText('New York')).toBeInTheDocument();
+
+        // Click again to hide
+        fireEvent.click(weatherBtn);
+        expect(screen.queryByText('New York')).not.toBeInTheDocument();
+    });
+
+    it('measures ping and shows tooltip on hover', async () => {
+        // Mock success
+        (global.fetch as jest.Mock).mockResolvedValueOnce({});
+
+        renderTaskbar();
+        const networkBtn = screen.getByTitle('Network');
+
+        // Hover to show
+        fireEvent.pointerEnter(networkBtn, { pointerType: 'mouse' });
+        expect(screen.getByText('Measuring ping...')).toBeInTheDocument();
+
+        await waitFor(() => {
+            expect(screen.getByText(/Latency:/)).toBeInTheDocument();
+        });
+
+        // Leave to hide
+        fireEvent.pointerLeave(networkBtn, { pointerType: 'mouse' });
+        expect(screen.queryByText(/Latency:/)).not.toBeInTheDocument();
+    });
+
+    it('toggles network tooltip on mouse click', async () => {
+        // Mock success
+        (global.fetch as jest.Mock).mockResolvedValueOnce({});
+
+        renderTaskbar();
+        const networkBtn = screen.getByTitle('Network');
+
+        // Click to show
+        fireEvent.click(networkBtn);
+        expect(screen.getByText('Measuring ping...')).toBeInTheDocument();
+
+        await waitFor(() => {
+            expect(screen.getByText(/Latency:/)).toBeInTheDocument();
+        });
+
+        // Click again to hide
+        fireEvent.click(networkBtn);
+        expect(screen.queryByText(/Latency:/)).not.toBeInTheDocument();
     });
 
     it('opens context menu on right click of window button', () => {
@@ -177,5 +263,42 @@ describe('Taskbar', () => {
         await waitFor(() => {
             expect(screen.queryByText('Restore')).not.toBeInTheDocument();
         });
+    });
+
+    it('keeps weather tooltip open when clicked after hover (Desktop behavior)', async () => {
+        (global.fetch as jest.Mock).mockResolvedValue({
+            json: () => Promise.resolve({
+                current_weather: { temperature: 72, weathercode: 0 },
+                latitude: 40, longitude: -70, city: 'New York'
+            })
+        });
+
+        renderTaskbar();
+        const weatherBtn = screen.getByTitle('Weather');
+
+        // Hover -> Open
+        fireEvent.pointerEnter(weatherBtn, { pointerType: 'mouse' });
+        expect(await screen.findByText('New York')).toBeInTheDocument();
+
+        // Click -> Should stay open (User Issue: it was closing)
+        fireEvent.click(weatherBtn, { pointerType: 'mouse' });
+
+        // Assert it is STILL open
+        expect(screen.getByText('New York')).toBeInTheDocument();
+    });
+
+    it('keeps network tooltip open when clicked after hover (Desktop behavior)', async () => {
+        (global.fetch as jest.Mock).mockResolvedValue({});
+
+        renderTaskbar();
+        const networkBtn = screen.getByTitle('Network');
+
+        // Hover -> Open
+        fireEvent.pointerEnter(networkBtn, { pointerType: 'mouse' });
+        expect(screen.getByText('Measuring ping...')).toBeInTheDocument();
+
+        // Click -> Should stay open
+        fireEvent.click(networkBtn, { pointerType: 'mouse' });
+        expect(screen.getByText('Measuring ping...')).toBeInTheDocument();
     });
 });

@@ -48,12 +48,15 @@ export function Taskbar({ openWindows, onWindowClick, onStartClick, onMinimizeWi
     };
 
     const fetchWeather = async () => {
+        // Separating tooltip logic from data logic:
+        // 1. Fetch data if needed
+        // 2. We don't control tooltip state here anymore, the handler does.
+
         if (weatherData && !weatherData.loading) {
-            setActiveTooltip(activeTooltip === "weather" ? null : "weather");
+            // Already have data or loading, do nothing
             return;
         }
 
-        setActiveTooltip("weather");
         setWeatherData({ temp: 0, city: "Detecting...", description: "", loading: true });
 
         // Check cache first
@@ -105,12 +108,7 @@ export function Taskbar({ openWindows, onWindowClick, onStartClick, onMinimizeWi
     };
 
     const measurePing = async () => {
-        if (activeTooltip === "network") {
-            setActiveTooltip(null);
-            return;
-        }
-
-        setActiveTooltip("network");
+        // Just measure ping, don't control tooltip state here
         setPing({ value: 0, loading: true });
 
         const start = performance.now();
@@ -122,6 +120,79 @@ export function Taskbar({ openWindows, onWindowClick, onStartClick, onMinimizeWi
         } catch (error) {
             console.error("Failed to measure ping:", error);
             setPing({ value: -1, loading: false });
+        }
+    };
+
+    // Ref to track if we are currently hovering with a mouse
+    // This allows us to disable the "click to close" behavior on desktop
+    // while keeping "tap to toggle" on mobile.
+    const isHovering = React.useRef(false);
+
+    // Handlers for Weather Icon
+    const handleWeatherPointerEnter = (e: React.PointerEvent) => {
+        if (e.pointerType === 'mouse') {
+            isHovering.current = true;
+            setActiveTooltip("weather");
+            fetchWeather();
+        }
+    };
+
+    const handleWeatherPointerLeave = (e: React.PointerEvent) => {
+        if (e.pointerType === 'mouse') {
+            isHovering.current = false;
+            setActiveTooltip(null);
+        }
+    };
+
+    const handleWeatherClick = () => {
+        // If we are hovering (mouse), clicking shouldn't close it
+        if (isHovering.current) {
+            if (!activeTooltip) {
+                setActiveTooltip("weather");
+                fetchWeather();
+            }
+            return;
+        }
+
+        // Toggle behavior for touch/keyboard
+        if (activeTooltip === "weather") {
+            setActiveTooltip(null);
+        } else {
+            setActiveTooltip("weather");
+            fetchWeather();
+        }
+    };
+
+    // Handlers for Network Icon
+    const handleNetworkPointerEnter = (e: React.PointerEvent) => {
+        if (e.pointerType === 'mouse') {
+            isHovering.current = true;
+            setActiveTooltip("network");
+            measurePing();
+        }
+    };
+
+    const handleNetworkPointerLeave = (e: React.PointerEvent) => {
+        if (e.pointerType === 'mouse') {
+            isHovering.current = false;
+            setActiveTooltip(null);
+        }
+    };
+
+    const handleNetworkClick = () => {
+        if (isHovering.current) {
+            if (!activeTooltip) {
+                setActiveTooltip("network");
+                measurePing();
+            }
+            return;
+        }
+
+        if (activeTooltip === "network") {
+            setActiveTooltip(null);
+        } else {
+            setActiveTooltip("network");
+            measurePing();
         }
     };
 
@@ -270,7 +341,9 @@ export function Taskbar({ openWindows, onWindowClick, onStartClick, onMinimizeWi
                 {/* System Tray icons */}
                 <div className="flex gap-4 items-center mr-2">
                     <button
-                        onClick={fetchWeather}
+                        onPointerEnter={handleWeatherPointerEnter}
+                        onPointerLeave={handleWeatherPointerLeave}
+                        onClick={handleWeatherClick}
                         className="p-1 w-12 h-12 flex items-center justify-center hover:bg-win95-gray-light active:bg-win95-gray-dark border-none transition-colors"
                         title="Weather"
                         data-testid="sys-tray-weather"
@@ -278,7 +351,9 @@ export function Taskbar({ openWindows, onWindowClick, onStartClick, onMinimizeWi
                         <WeatherIcon size={30} className="text-black" />
                     </button>
                     <button
-                        onClick={measurePing}
+                        onPointerEnter={handleNetworkPointerEnter}
+                        onPointerLeave={handleNetworkPointerLeave}
+                        onClick={handleNetworkClick}
                         className="p-1 w-12 h-12 flex items-center justify-center hover:bg-win95-gray-light active:bg-win95-gray-dark border-none transition-colors"
                         title="Network"
                         data-testid="sys-tray-network"
