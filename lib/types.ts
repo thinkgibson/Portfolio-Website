@@ -82,7 +82,6 @@ export type IconType =
     | "livestreams"
     | "about"
     | "contact"
-    | "projects"
     | "drive"
     | "floppy"
     | "job-history"

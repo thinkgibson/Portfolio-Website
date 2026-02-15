@@ -32,9 +32,6 @@ describe('DesktopIcon', () => {
         // Icons are SVG or components, we just check they render without crashing
         expect(screen.getByText('Test Icon')).toBeInTheDocument();
 
-        rerender(<DesktopIcon {...defaultProps} iconType="projects" />);
-        expect(screen.getByText('Test Icon')).toBeInTheDocument();
-
         rerender(<DesktopIcon {...defaultProps} iconType="contact" />);
         expect(screen.getByText('Test Icon')).toBeInTheDocument();
 

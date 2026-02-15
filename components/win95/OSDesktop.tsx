@@ -315,7 +315,7 @@ export function OSDesktop({ windows: initialWindows, skipBoot: propSkipBoot, ski
             y: 100,
             width: 400,
             height: 450,
-            iconType: "projects",
+            iconType: "folder",
             content: (
                 <WallpaperSelector
                     currentWallpaperId={wallpaper.id}
