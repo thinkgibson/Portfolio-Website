@@ -37,7 +37,8 @@ describe('apps.config', () => {
         skillsData: { categories: [] },
         videoData: {
             documentaries: [],
-            livestreams: []
+            livestreams: [],
+            essays: []
         }
     };
 
@@ -53,7 +54,6 @@ describe('apps.config', () => {
 
         expect(appIds).toContain('welcome');
         expect(appIds).toContain('resume-folder');
-        expect(appIds).toContain('projects');
         expect(appIds).toContain('contact');
         expect(appIds).toContain('portfolio');
         expect(appIds).toContain('accessories');
@@ -62,11 +62,11 @@ describe('apps.config', () => {
 
     it('transforms content into app structure', () => {
         const apps = getAppsConfig(mockContent);
-        const projectsApp = apps.find(app => app.id === 'projects');
+        const welcomeApp = apps.find(app => app.id === 'welcome');
 
         // We can't easily deep check the React node content without rendering, 
         // but we can check if content is defined.
-        expect(projectsApp?.content).toBeDefined();
+        expect(welcomeApp?.content).toBeDefined();
     });
 
     it('defines children for folders', () => {

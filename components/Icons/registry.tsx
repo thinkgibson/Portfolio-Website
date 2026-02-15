@@ -22,7 +22,6 @@ export const iconRegistry: Record<IconType, React.ComponentType<Icons.IconProps>
     // Aliases/Duplicates as per original intent or fallback
     "about": Icons.UserIcon,
     "contact": Icons.InboxIcon,
-    "projects": Icons.ProgramsIcon,
     "drive": Icons.MyComputerIcon,
     "floppy": Icons.FloppyIcon,
     "job-history": Icons.NotepadIcon,

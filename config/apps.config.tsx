@@ -39,55 +39,6 @@ export const getAppsConfig = (content: HomeContent): AppDefinition[] => {
             )
         },
         {
-            id: "projects",
-            title: "My_Projects.exe",
-            iconType: "projects",
-            helpContent: (
-                <div className="space-y-2">
-                    <p>This is the <strong>Projects</strong> viewer.</p>
-                    <p>Each box represents a project I've worked on. You can see the technologies used and links to demos or source code.</p>
-                </div>
-            ),
-            content: (
-                <div className="space-y-6">
-                    <div className="grid grid-cols-1 gap-4">
-                        {content.projects.map((project) => (
-                            <div key={project.id} className="win95-beveled p-3 flex flex-col md:flex-row gap-4 items-start">
-                                <div className={`w-12 h-12 shrink-0 win95-beveled flex items-center justify-center font-bold text-white ${project.color === "red" ? "bg-red-800" : project.color === "blue" ? "bg-blue-800" : "bg-yellow-600"
-                                    }`}>
-                                    {project.title.charAt(0)}
-                                </div>
-                                <div className="flex-grow font-win95">
-                                    <h3 className="font-bold underline text-blue-900 cursor-pointer text-[24px] leading-none">{project.title}</h3>
-                                    <p className="text-[24px] uppercase font-bold text-gray-500 mb-2 leading-none">{project.category}</p>
-                                    <p className="text-[24px] mb-4 leading-tight">{project.description}</p>
-                                    <div className="flex flex-wrap gap-2 mb-4">
-                                        {project.technologies.map(t => (
-                                            <span key={t} className="text-[24px] font-win95-mono border bg-gray-100 px-2 border-gray-400 leading-none">
-                                                {t}
-                                            </span>
-                                        ))}
-                                    </div>
-                                    <div className="flex gap-3 mt-2">
-                                        {project.link && (
-                                            <a href={project.link} className="flex items-center gap-2 text-[20px] font-bold hover:underline">
-                                                <ExternalLink size={20} /> Live Demo
-                                            </a>
-                                        )}
-                                        {project.github && (
-                                            <a href={project.github} className="flex items-center gap-2 text-[20px] font-bold hover:underline">
-                                                <Github size={20} /> Source
-                                            </a>
-                                        )}
-                                    </div>
-                                </div>
-                            </div>
-                        ))}
-                    </div>
-                </div>
-            )
-        },
-        {
             id: "contact",
             title: "Contact_Information.txt",
             iconType: "contact",

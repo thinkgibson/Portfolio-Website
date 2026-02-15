@@ -23,7 +23,7 @@ Create a structured planning document that enables any implementing agent to und
 ### 2. Gather Context
 
 Before writing the plan, collect:
-- **Requirements**: Full text of issue/ticket/acceptance criteria
+- **Requirements**: Full text of issue/ticket/acceptance criteria using the retrieve-git-issue skill(../retrieve-git-issue/SKILL.md)
 - **Project Structure**: Run `list_dir` on key directories (components, tests, lib)
 - **Existing Code**: Use `view_file_outline` on related files
 - **Related Skills**: Check for existing skills (git workflow, testing, etc.)
@@ -142,6 +142,7 @@ npm run ci-flow
 ## Implementation Checklist
 
 ### Preparation
+- [ ] Move issue to "in progress" using the update-git-issue skill
 - [ ] Create git branch
 
 ### Implementation
@@ -157,10 +158,12 @@ npm run ci-flow
 - [ ] Run full CI flow: `npm run ci-flow`
 
 ### Submission
-- [ ] Commit changes (Format: `feat: description` or `gitissue-{ID}: description`)
+- [ ] Commit changes (Format: `feat: description` or `gitissue-{ID}: description`) using the [git-pr-merge skill](../git-pr-merge/SKILL.md)
+- [ ] Move the issue to "in review" using the update-git-issue skill
 - [ ] Request user approval
-- [ ] Create PR & Merge
-- [ ] Attach planning doc and walkthrough to the GitHub issue (e.g., via `gh issue comment`)
+- [ ] Create PR & Merge using the [git-pr-merge skill](../git-pr-merge/SKILL.md)
+- [ ] Attach planning doc and walkthrough to the GitHub issue (e.g., via `gh issue comment`) using the update-git-issue skill
+- [ ] Move the issue to "done" using the update-git-issue skill
 ````
 
 ---
