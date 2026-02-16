@@ -32,6 +32,7 @@ interface Win95WindowProps {
     minHeight?: number;
     canMaximize?: boolean;
     onFocus?: () => void;
+    [key: string]: any;
 }
 
 const TextHighlighter = ({ text, term }: { text: string, term: string }) => {
@@ -136,6 +137,7 @@ export function Win95Window({
     minHeight = 250,
     canMaximize = true,
     onFocus,
+    ...props
 }: Win95WindowProps) {
     const isMobile = useIsMobile();
     const dragControls = useDragControls();
@@ -352,7 +354,16 @@ export function Win95Window({
                 handleDragEnd();
                 setIsDragging(false);
             }}
-            initial={isMaximized ? { x: 0, y: 0, scale: 1, opacity: 1 } : { x: isMobile ? (typeof window !== 'undefined' ? window.innerWidth * 0.05 : 0) : x, y: isMobile ? (typeof window !== 'undefined' ? window.innerHeight * 0.05 : 0) : y, scale: 0.95, opacity: 0 }}
+            initial={isMaximized
+                ? { x: 0, y: 0, scale: 1, opacity: 1 }
+                : {
+                    x: isMobile ? (typeof window !== 'undefined' ? window.innerWidth * 0.05 : 0) : x,
+                    y: isMobile ? (typeof window !== 'undefined' ? window.innerHeight * 0.05 : 0) : y,
+                    width: isMobile ? "90%" : width,
+                    height: isMobile ? "90%" : height,
+                    scale: 0.95,
+                    opacity: 0
+                }}
             animate={isMaximized
                 ? { x: 0, y: 0, width: '100vw', height: 'calc(100vh - 40px)', scale: 1, opacity: 1 }
                 : {
@@ -367,13 +378,18 @@ export function Win95Window({
                 stiffness: 400,
                 damping: 30
             }}
-            className={`win95-beveled absolute flex flex-col pointer-events-auto select-none touch-none ${isActive ? "z-50" : "z-10"}`}
+            className={`win95-beveled absolute flex flex-col overflow-hidden pointer-events-auto select-none touch-none ${isActive ? "z-50" : "z-10"}`}
             style={{
                 padding: '2px',
                 x: isMaximized ? 0 : xMV,
-                y: isMaximized ? 0 : yMV
+                y: isMaximized ? 0 : yMV,
+                width: isMobile ? "90%" : (isMaximized ? '100vw' : width),
+                height: isMobile ? "90%" : (isMaximized ? 'calc(100vh - 40px)' : height),
+                maxWidth: '100vw',
+                maxHeight: '100vh'
             }}
             data-testid={`window-${title.toLowerCase().replace(/\s+/g, '-')}`}
+            {...props}
         >
             {/* Titlebar */}
             <div
@@ -386,14 +402,14 @@ export function Win95Window({
                     }
                 }}
                 onDoubleClick={() => canMaximize && onMaximize?.()}
-                className={`window-titlebar h-12 flex items-center justify-between px-2 cursor-default select-none ${isActive ? "bg-win95-blue-active" : "bg-win95-gray-inactive"}`}
+                className={`window-titlebar h-14 shrink-0 flex items-center justify-between px-2 cursor-default select-none ${isActive ? "bg-win95-blue-active" : "bg-win95-gray-inactive"}`}
                 data-testid="window-titlebar"
             >
-                <div className="flex items-center gap-2 ml-0.5 overflow-hidden">
+                <div className="flex items-center gap-3 ml-1 overflow-hidden">
                     <div className="flex-shrink-0">
                         <DynamicIcon iconType={iconType || "folder"} size={36} />
                     </div>
-                    <span className="text-white text-[20px] font-win95 font-bold whitespace-nowrap overflow-hidden text-ellipsis leading-none mt-1">
+                    <span className="text-white text-[20px] font-win95 font-bold whitespace-nowrap overflow-hidden text-ellipsis leading-none">
                         {title}
                     </span>
                 </div>
@@ -431,7 +447,7 @@ export function Win95Window({
             </div>
 
             {/* Menu Bar */}
-            <div className="bg-win95-gray px-1 py-0.5 border-b border-win95-gray-inactive text-[18px] font-win95 flex gap-3 select-none leading-none relative">
+            <div className="bg-win95-gray px-2 py-2 border-b border-win95-gray-inactive text-[18px] font-win95 flex shrink-0 gap-4 select-none relative">
                 <div className="relative">
                     <span
                         className={`px-1 cursor-default font-normal ${activeMenu === 'File' ? 'win95-beveled-inset bg-win95-gray' : 'hover:win95-beveled'}`}
@@ -491,7 +507,7 @@ export function Win95Window({
 
             {/* Search Box */}
             {isSearching && (
-                <div className="bg-win95-gray px-2 py-1 border-b border-win95-gray-inactive flex items-center gap-2">
+                <div className="bg-win95-gray px-2 py-1 border-b border-win95-gray-inactive flex shrink-0 items-center gap-2">
                     <span className="text-[18px] font-win95">Find:</span>
                     <input
                         type="text"

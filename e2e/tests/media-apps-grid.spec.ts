@@ -7,11 +7,6 @@ test.describe('Media Apps Grid Layout', () => {
         page.on('pageerror', err => console.log(`BROWSER ERROR: ${err.message}`));
     });
 
-    // Helper to open an app via URL (skipping boot) for speed
-    // The query params might need adjustment based on app routing or how they open
-    // But since these are window apps, we usually open them from desktop.
-    // We can simulate opening via desktop icon.
-
     test('Documentaries app uses grid layout', async ({ page }) => {
         await page.goto('/?skipBoot=true&skipWelcome=true&skipAnimations=true');
 
@@ -25,8 +20,6 @@ test.describe('Media Apps Grid Layout', () => {
         await expect(appWindow).toBeVisible();
 
         // Check for grid container
-        // The VideoGrid is inside the app. We look for the grid class.
-        // It has classes: "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
         const gridContainer = appWindow.locator('.grid');
         await expect(gridContainer).toBeVisible();
         await expect(gridContainer).toHaveClass(/grid-cols-1/);

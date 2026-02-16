@@ -119,8 +119,8 @@ export function OSDesktop({ windows: initialWindows, skipBoot: propSkipBoot, ski
                 isActive: true,
                 x: pos.x,
                 y: pos.y,
-                width: pos.width,
-                height: pos.height,
+                width: pos.width ?? winDef.width,
+                height: pos.height ?? winDef.height,
                 content: winDef.children ? (
                     <Folder
                         id={winDef.id}
@@ -505,8 +505,8 @@ function OSDesktopView({
                         isActive={win.isActive}
                         x={win.x}
                         y={win.y}
-                        width={isMobile ? (typeof window !== 'undefined' ? window.innerWidth : 320) * 0.9 : (win.width || undefined)}
-                        height={isMobile ? (typeof window !== 'undefined' ? window.innerHeight : 480) * 0.9 : (win.height || undefined)}
+                        width={isMobile ? (typeof window !== 'undefined' ? window.innerWidth : 320) * 0.9 : win.width}
+                        height={isMobile ? (typeof window !== 'undefined' ? window.innerHeight : 480) * 0.9 : win.height}
 
                         onResize={(w: number, h: number) => handleResizeWindow(win.id, w, h)}
                     >

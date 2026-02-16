@@ -93,8 +93,8 @@ export interface AppDefinition {
     iconType: IconType;
     content?: React.ReactNode;
     helpContent?: React.ReactNode;
-    width?: number;
-    height?: number;
+    width?: number | string;
+    height?: number | string;
     fullBleed?: boolean;
     lockAspectRatio?: boolean;
     minWidth?: number;

@@ -10,7 +10,31 @@ The goal is to update the `Documentaries`, `VideoEssays`, and `Livestreams` appl
 
 ---
 
+---
+ 
+ ## Refinement: Window Top Bar Consistency (User Request)
+ **Goal**: Increase vertical size and padding of the titlebar and menu bar. Ensure media apps match 'Welcome' and folder windows.
+ 
+ ### Proposed Changes
+ 1.  **`components/win95/Win95Window.tsx`**:
+     -   Increase Titlebar height to `h-14` (56px) for desktop.
+     -   Reduce icon size to `32` (from 36) to increase whitespace.
+     -   Keep buttons at `w-9 h-9` (36px) to maximize padding within the `h-14` bar (10px top/bottom).
+     -   Remove `mt-1` and `leading-none` from title text; use `leading-normal` for better centering.
+     -   Increase Menu Bar padding to `py-2` (8px).
+ 
+ 2.  **App Framework Consistency**:
+     -   Ensure media apps (`Documentaries`, etc.) have a 4px margin (`m-1`) between the Menu Bar and their internal bezel.
+ 
+ ### Verification
+ -   [ ] Compare 'Welcome' vs 'Documentaries' titlebars visually.
+ -   [ ] Verify icon/text centering in the titlebar.
+ -   [ ] Verify Menu Bar padding feels "premium".
+ 
+ ---
+
 ## Expected Code Changes
+
 
 ### New Files
 | File | Purpose |
@@ -106,6 +130,7 @@ npm run ci-flow
 - [ ] **Phase 2**: Refactor `Documentaries.tsx` to use `VideoGrid`.
 - [ ] **Phase 2**: Refactor `VideoEssays.tsx` to use `VideoGrid`.
 - [ ] **Phase 2**: Refactor `Livestreams.tsx` to use `VideoGrid`.
+- [ ] **Phase 2**: Fix `OSDesktop.tsx` window initialization to support default dimensions.
 - [ ] Verify implementation against "Expected Code Changes".
 
 ### Verification
