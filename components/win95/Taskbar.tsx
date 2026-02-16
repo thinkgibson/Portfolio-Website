@@ -198,7 +198,7 @@ export function Taskbar({ openWindows, onWindowClick, onStartClick, onMinimizeWi
 
     return (
         <div
-            className="fixed bottom-0 left-0 right-0 h-[72px] bg-win95-taskbar win95-beveled flex items-center p-1 z-[120] gap-1 select-none"
+            className="fixed bottom-0 left-0 right-0 h-[54px] bg-win95-taskbar win95-beveled flex items-center p-1 z-[120] gap-1 select-none"
             onContextMenu={(e) => {
                 e.preventDefault();
                 e.stopPropagation();
