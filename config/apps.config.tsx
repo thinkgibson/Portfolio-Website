@@ -78,9 +78,9 @@ export const getAppsConfig = (content: HomeContent): AppDefinition[] => {
                     id: "documentaries",
                     title: "Documentaries",
                     iconType: "documentaries",
-                    width: 800,
-                    height: 600,
-                    fullBleed: true,
+                    width: '120vh',
+                    height: '75vh',
+                    fullBleed: false,
                     helpContent: (
                         <div className="space-y-2">
                             <p>This is the <strong>Documentaries</strong> app.</p>
@@ -93,9 +93,9 @@ export const getAppsConfig = (content: HomeContent): AppDefinition[] => {
                     id: "video-essays",
                     title: "Video Essays",
                     iconType: "video-essays",
-                    width: 800,
-                    height: 600,
-                    fullBleed: true,
+                    width: '120vh',
+                    height: '75vh',
+                    fullBleed: false,
                     helpContent: (
                         <div className="space-y-2">
                             <p>This is the <strong>Video Essays</strong> app.</p>
@@ -108,9 +108,9 @@ export const getAppsConfig = (content: HomeContent): AppDefinition[] => {
                     id: "livestreams",
                     title: "Livestreams",
                     iconType: "livestreams",
-                    width: 800,
-                    height: 600,
-                    fullBleed: true,
+                    width: '120vh',
+                    height: '75vh',
+                    fullBleed: false,
                     helpContent: (
                         <div className="space-y-2">
                             <p>This is the <strong>Livestreams</strong> app.</p>
