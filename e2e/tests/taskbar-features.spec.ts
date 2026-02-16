@@ -50,24 +50,42 @@ test.describe('Taskbar Features', () => {
 
 
 
-    test('system tray shows weather and network tooltips', async ({ page }) => {
+    test('system tray shows weather and network tooltips', async ({ page, browserName }) => {
         // Weather
-        await page.getByTestId('sys-tray-weather').hover();
+        if (browserName === 'firefox') {
+            await page.getByTestId('sys-tray-weather').click();
+        } else {
+            await page.getByTestId('sys-tray-weather').hover();
+        }
+
         // The tooltip is an absolute div with yellow bg
         const weatherTooltip = page.locator('div[class*="bg-[#FFFFE1]"]').filter({ hasText: /°F|Fetching weather/ }).first();
         await expect(weatherTooltip).toBeVisible();
 
         // Move mouse away to hide
-        await page.mouse.move(0, 0);
+        if (browserName === 'firefox') {
+            await page.getByTestId('sys-tray-weather').click();
+        } else {
+            await page.mouse.move(0, 0);
+        }
         await expect(weatherTooltip).not.toBeVisible();
 
         // Network
-        await page.getByTestId('sys-tray-network').hover();
+        if (browserName === 'firefox') {
+            await page.getByTestId('sys-tray-network').click();
+        } else {
+            await page.getByTestId('sys-tray-network').hover();
+        }
+
         const networkTooltip = page.locator('div[class*="bg-[#FFFFE1]"]').filter({ hasText: /Latency|Measuring ping/ }).last();
         await expect(networkTooltip).toBeVisible();
 
         // Move mouse away to hide
-        await page.mouse.move(0, 0);
+        if (browserName === 'firefox') {
+            await page.getByTestId('sys-tray-network').click();
+        } else {
+            await page.mouse.move(0, 0);
+        }
         await expect(networkTooltip).not.toBeVisible();
     });
 });

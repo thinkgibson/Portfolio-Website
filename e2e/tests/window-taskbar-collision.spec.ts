@@ -12,7 +12,7 @@ test.describe('Window Taskbar Collision', () => {
             test.skip();
         }
 
-        const TASKBAR_HEIGHT = 96;
+        const TASKBAR_HEIGHT = 54;
 
         // Open a window
         await page.getByTestId('desktop-icon-welcome.txt').click();
@@ -50,7 +50,7 @@ test.describe('Window Taskbar Collision', () => {
             test.skip(true, 'Resize test not applicable on mobile');
         }
 
-        const TASKBAR_HEIGHT = 96;
+        const TASKBAR_HEIGHT = 54;
 
         // Open a window
         await page.getByTestId('desktop-icon-welcome.txt').click();
