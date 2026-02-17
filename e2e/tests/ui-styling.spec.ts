@@ -17,7 +17,7 @@ test.describe('UI Styling Fixes', () => {
 
         // Check container width
         const container = page.locator('[data-testid^="desktop-icon-"]').first();
-        await expect(container).toHaveClass(/w-28/);
+        await expect(container).toHaveClass(/w-36/);
         await expect(container).toHaveClass(/overflow-hidden/);
     });
 
@@ -37,7 +37,7 @@ test.describe('UI Styling Fixes', () => {
 
         if (containerBox && spanBox) {
             // The span width should be less than or equal to the container width (minus padding potentially)
-            // Container is w-28 (112px). Span has px-1 (8px total horizontal padding approx?) 
+            // Container is w-36 (144px). Span has px-1 (8px total horizontal padding approx?) 
             // Actually px-1 is 4px * 2 = 8px.
             // But let's just check that spanBox.width <= containerBox.width
             expect(spanBox.width).toBeLessThanOrEqual(containerBox.width);
