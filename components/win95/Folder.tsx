@@ -19,7 +19,7 @@ export function Folder({ id, title, items, onItemClick }: FolderProps) {
         <div className="flex flex-col h-full bg-win95-gray p-1 select-none">
             {/* Content Area */}
             <div className="flex-grow bg-white border-2 border-win95-gray-shadow shadow-[inset_2px_2px_0px_0px_#808080,inset_-2px_-2px_0px_0px_#dfdfdf] p-4 overflow-auto scrollbar-win95">
-                <div className="grid grid-cols-[repeat(auto-fill,80px)] gap-4 items-start content-start">
+                <div className="grid grid-cols-[repeat(auto-fill,minmax(112px,1fr))] gap-6 items-start content-start">
                     {items.map((item) => (
                         <DesktopIcon
                             key={item.id}

@@ -41,4 +41,39 @@ test.describe('Desktop Folders', () => {
         const notepadWindow = page.getByTestId('window-notepad.exe');
         await expect(notepadWindow).toBeVisible();
     });
+
+    test('should space folder icons without overlap', async ({ page }) => {
+        // Open Accessories folder
+        await page.getByTestId('desktop-icon-accessories').dblclick();
+        const window = page.getByTestId('window-accessories');
+        await expect(window).toBeVisible();
+
+        // Get all icons in the folder
+        const icons = window.getByTestId(/^desktop-icon-/);
+        const count = await icons.count();
+        expect(count).toBeGreaterThan(1);
+
+        const boxes: { x: number, y: number, width: number, height: number }[] = [];
+        for (let i = 0; i < count; i++) {
+            const box = await icons.nth(i).boundingBox();
+            if (box) boxes.push(box);
+        }
+
+        // Check every pair for overlap
+        for (let i = 0; i < boxes.length; i++) {
+            for (let j = i + 1; j < boxes.length; j++) {
+                const b1 = boxes[i];
+                const b2 = boxes[j];
+
+                const overlap = !(
+                    b1.x + b1.width <= b2.x ||
+                    b2.x + b2.width <= b1.x ||
+                    b1.y + b1.height <= b2.y ||
+                    b2.y + b2.height <= b1.y
+                );
+
+                expect(overlap, `Icons ${i} and ${j} overlap`).toBe(false);
+            }
+        }
+    });
 });
