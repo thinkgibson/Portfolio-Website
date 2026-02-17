@@ -413,10 +413,10 @@ export function Win95Window({
                         {title}
                     </span>
                 </div>
-                <div className="flex gap-1 pr-1" onPointerDown={(e) => e.stopPropagation()}>
+                <div className="flex items-center" onPointerDown={(e) => e.stopPropagation()}>
                     <button
                         onClick={onMinimize}
-                        className="win95-button w-9 h-9 !p-0 flex items-center justify-center"
+                        className="win95-button w-9 h-9 !p-0 ml-1 flex items-center justify-center"
                         data-testid="window-minimize"
                         title="Minimize"
                         aria-label="Minimize"
@@ -426,7 +426,7 @@ export function Win95Window({
                     {canMaximize && (
                         <button
                             onClick={onMaximize}
-                            className="win95-button w-9 h-9 !p-0 flex items-center justify-center"
+                            className="win95-button w-9 h-9 !p-0 ml-1 flex items-center justify-center"
                             data-testid="window-maximize"
                             title={isMaximized ? "Restore" : "Maximize"}
                             aria-label={isMaximized ? "Restore" : "Maximize"}

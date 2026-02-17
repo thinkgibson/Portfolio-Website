@@ -51,5 +51,34 @@ test.describe('Window Toolbar', () => {
         await expect(winLocator.getByText('Find:')).not.toBeVisible();
     });
 
+    test('has equal spacing between titlebar buttons', async ({ desktop, window, page }) => {
+        const title = 'Welcome.txt';
+        await desktop.openIcon(title);
+        const winLocator = window.getWindow(title);
+
+        // Wait for opening animations to finish (0.95 -> 1.0 scale)
+        await page.waitForTimeout(1000);
+
+        const minimize = winLocator.getByTestId('window-minimize');
+        const maximize = winLocator.getByTestId('window-maximize');
+        const close = winLocator.getByTestId('window-close');
+
+        const minBox = await minimize.boundingBox();
+        const maxBox = await maximize.boundingBox();
+        const closeBox = await close.boundingBox();
+
+        if (minBox && maxBox && closeBox) {
+            const gap1 = maxBox.x - (minBox.x + minBox.width);
+            const gap2 = closeBox.x - (maxBox.x + maxBox.width);
+
+            // Both gaps should be exactly 4px (ml-1)
+            // Using toBeCloseTo to handle potential sub-pixel rendering (Wait-for-animation helps here)
+            expect(gap1).toBeCloseTo(4, 1);
+            expect(gap2).toBeCloseTo(4, 1);
+            expect(gap1).toBeCloseTo(gap2, 1);
+        } else {
+            throw new Error('Could not find bounding boxes for titlebar buttons');
+        }
+    });
 
 });
