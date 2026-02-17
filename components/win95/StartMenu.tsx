@@ -1,9 +1,10 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { DynamicIcon } from "../Icons/DynamicIcon";
 import { AppDefinition } from "../../lib/types";
 import { StartSubMenu } from "./StartSubMenu";
 import { useIsMobile } from "../../lib/hooks";
+import { sortAppDefinitions } from "../../lib/utils";
 
 interface StartMenuProps {
     items: AppDefinition[];
@@ -21,6 +22,8 @@ export function StartMenu({ items, onItemClick, onReboot, onClose }: StartMenuPr
     useEffect(() => {
         // This effect ensures the component properly reacts to isMobile changes
     }, [isMobile]);
+
+    const sortedItems = useMemo(() => sortAppDefinitions(items), [items]);
 
     const handleMouseEnter = (id: string, hasChildren: boolean) => {
         if (isMobile) return;
@@ -82,7 +85,7 @@ export function StartMenu({ items, onItemClick, onReboot, onClose }: StartMenuPr
 
                 {/* Menu Items */}
                 <div className="flex-grow flex flex-col py-1 overflow-visible">
-                    {items.map((item) => {
+                    {sortedItems.map((item) => {
                         const hasChildren = !!(item.children && item.children.length > 0);
                         return (
                             <div

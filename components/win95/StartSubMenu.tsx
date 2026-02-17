@@ -1,10 +1,11 @@
 "use client";
 
-import React, { useState, useRef, useLayoutEffect, useEffect } from "react";
+import React, { useState, useRef, useLayoutEffect, useEffect, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { DynamicIcon } from "../Icons/DynamicIcon";
 import { AppDefinition } from "../../lib/types";
 import { useIsMobile } from "../../lib/hooks";
+import { sortAppDefinitions } from "../../lib/utils";
 
 interface StartSubMenuProps {
     items: AppDefinition[];
@@ -35,6 +36,8 @@ export function StartSubMenu({ items, onItemClick, onClose, depth }: StartSubMen
             setOffsetY(threshold - rect.bottom);
         }
     }, [isMobile]);
+
+    const sortedItems = useMemo(() => sortAppDefinitions(items), [items]);
 
     const handleMouseEnter = (id: string, hasChildren: boolean) => {
         if (isMobile) return;
@@ -81,7 +84,7 @@ export function StartSubMenu({ items, onItemClick, onClose, depth }: StartSubMen
             onMouseLeave={handleMouseLeave}
             data-testid={`start-submenu-depth-${depth}`}
         >
-            {items.map((item) => {
+            {sortedItems.map((item) => {
                 const hasChildren = !!(item.children && item.children.length > 0);
                 return (
                     <div
