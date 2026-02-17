@@ -168,7 +168,7 @@ export const MusicPlayer: React.FC = () => {
 
             {/* Display Area */}
             <div className="win95-beveled bg-black text-[#00FF00] p-2 flex flex-col justify-center items-center h-20 font-mono relative overflow-hidden">
-                <div className="text-[14px] truncate w-full text-center mb-1">
+                <div className="text-[14px] truncate w-full text-center mb-1" data-testid="player-display-title">
                     {currentTrack ? currentTrack.title : "No Track Selected"}
                 </div>
                 <div className="text-[24px] leading-none">
