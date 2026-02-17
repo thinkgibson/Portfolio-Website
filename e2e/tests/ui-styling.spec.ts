@@ -98,4 +98,39 @@ test.describe('UI Styling Fixes', () => {
         await expect(ctxMenu).toHaveClass(/w-auto/);
         await expect(ctxMenu).toHaveClass(/min-w-60/);
     });
+
+    test('Taskbar divider has symmetric spacing', async ({ page }) => {
+        // Get the Start button bounding box
+        const startBtn = page.locator('[data-testid="taskbar-start-button"]');
+        const startBox = await startBtn.boundingBox();
+        expect(startBox).not.toBeNull();
+
+        // Get the divider
+        const divider = page.locator('.fixed.bottom-0 > div.w-\\[1px\\]');
+        const dividerBox = await divider.boundingBox();
+        expect(dividerBox).not.toBeNull();
+
+        // Open a window to generate a taskbar button
+        await page.locator('[data-testid^="desktop-icon-"]').first().dblclick();
+        const firstWindowBtn = page.locator('[data-testid^="taskbar-item-"]').first();
+        const windowBtnBox = await firstWindowBtn.boundingBox();
+        expect(windowBtnBox).not.toBeNull();
+
+        if (startBox && dividerBox && windowBtnBox) {
+            // Gap 1: Divider Left - Start Right
+            const gap1 = dividerBox.x - (startBox.x + startBox.width);
+
+            // Gap 2: Window Left - Divider Right
+            const gap2 = windowBtnBox.x - (dividerBox.x + dividerBox.width);
+
+            console.log(`Gap1: ${gap1}, Gap2: ${gap2}`);
+
+            // They should be approximately equal (allow 2px difference)
+            expect(Math.abs(gap1 - gap2)).toBeLessThanOrEqual(2);
+
+            // Also assert they are reasonably small (around 4-8px)
+            expect(gap1).toBeGreaterThan(0);
+            expect(gap1).toBeLessThan(10);
+        }
+    });
 });

@@ -212,7 +212,7 @@ export function Taskbar({ openWindows, onWindowClick, onStartClick, onMinimizeWi
             {/* Start Button */}
             <button
                 onClick={onStartClick}
-                className="win95-button px-6 font-win95 font-bold flex items-center gap-3 h-full mr-4 text-[21px]"
+                className="win95-button px-6 font-win95 font-bold flex items-center gap-3 h-full text-[21px]"
                 data-testid="taskbar-start-button"
             >
                 <WindowsLogoIcon size={36} className="mr-1" />
