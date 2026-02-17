@@ -33,9 +33,9 @@ export function WallpaperSelector({ currentWallpaperId, onApply, onCancel }: Wal
     const selectedWallpaper = WALLPAPERS.find(w => w.id === selectedId) || WALLPAPERS[0];
 
     return (
-        <div className="flex flex-col h-full w-full bg-win95-gray p-4 font-win95">
-            <div className="flex-1 flex flex-col gap-4 min-h-0">
-                <p className="text-[12px]">Select a wallpaper for your desktop:</p>
+        <div className="flex flex-col h-full w-full bg-win95-gray p-1 font-win95" data-testid="wallpaper-selector">
+            <div className="flex-1 flex flex-col gap-2 min-h-0">
+                <p className="text-[18px]">Select a wallpaper for your desktop:</p>
 
                 <div className="flex-1 overflow-y-auto win95-beveled-inset bg-white p-2">
                     <div className="grid grid-cols-3 gap-2">
@@ -57,23 +57,23 @@ export function WallpaperSelector({ currentWallpaperId, onApply, onCancel }: Wal
                                         backgroundPosition: 'center'
                                     }}
                                 />
-                                <span className="text-[10px] mt-1 text-center truncate w-full">{wp.name}</span>
+                                <span className="text-[14px] mt-1 text-center truncate w-full">{wp.name}</span>
                             </div>
                         ))}
                     </div>
                 </div>
             </div>
 
-            <div className="flex justify-end gap-2 mt-4">
+            <div className="flex justify-end gap-2 mt-2">
                 <button
-                    className="win95-button px-6 h-6 font-bold text-[12px]"
+                    className="win95-button px-6 h-9 font-bold text-[18px]"
                     onClick={() => onApply(selectedWallpaper)}
                     data-testid="wallpaper-apply"
                 >
                     Apply
                 </button>
                 <button
-                    className="win95-button px-6 h-6 text-[12px]"
+                    className="win95-button px-6 h-9 text-[18px]"
                     onClick={onCancel}
                     data-testid="wallpaper-cancel"
                 >
