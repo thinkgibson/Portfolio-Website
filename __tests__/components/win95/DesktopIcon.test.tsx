@@ -38,4 +38,20 @@ describe('DesktopIcon', () => {
         rerender(<DesktopIcon {...defaultProps} iconType="drive" />);
         expect(screen.getByText('Test Icon')).toBeInTheDocument();
     });
+    it('has correct text wrapping and overflow classes', () => {
+        render(<DesktopIcon {...defaultProps} />);
+
+        // Container should have overflow-hidden
+        // The container is the first div returned
+        // We can find it by the click handler or class
+        // But better to use test-id if we can, or just get the first child of the render
+        // Actually, the main container has the onClick. 
+        // Let's use the data-testid from the component which is on the main div.
+        const container = screen.getByTestId('desktop-icon-test-icon');
+        expect(container).toHaveClass('overflow-hidden');
+
+        // Label should have break-all
+        const label = screen.getByText('Test Icon');
+        expect(label).toHaveClass('break-all');
+    });
 });

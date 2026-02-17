@@ -117,21 +117,21 @@ npm run ci-flow
 - [ ] Create git branch using the [create-branch-git skill](../.agent/skills/create-branch-git/SKILL.md)
 
 ### Implementation
-- [ ] **Phase 1**: Redesign `MusicPlayer.tsx` — compact layout, SVG icons, tighter spacing, improved timer
-- [ ] Adjust window dimensions in `apps.config.tsx` if needed
-- [ ] Verify implementation against "Expected Code Changes"
+- [x] **Phase 1**: Redesign `MusicPlayer.tsx` — compact layout, SVG icons, tighter spacing, improved timer
+- [x] Adjust window dimensions in `apps.config.tsx` if needed
+- [x] Verify implementation against "Expected Code Changes"
 
 ### Verification
-- [ ] Run unit tests: `npm run test -- MusicPlayer`
-- [ ] Run E2E tests: `npm run test:e2e -- music-player-app.spec.ts`
-- [ ] **MANDATORY**: Run E2E baseline comparison using the [run-e2e-tests skill](../.agent/skills/run-e2e-tests/SKILL.md)
-- [ ] Run full CI flow: `npm run ci-flow`
+- [x] Run unit tests: `npm run test -- MusicPlayer`
+- [x] Run E2E tests: `npm run test:e2e -- music-player-app.spec.ts`
+- [x] **MANDATORY**: Run E2E baseline comparison using the [run-e2e-tests skill](../.agent/skills/run-e2e-tests/SKILL.md)
+- [x] Run full CI flow: `npm run ci-flow`
 
 ### Submission
-- [ ] Commit changes (Format: `gitissue-121: redesign Media Player for authentic Win95 look`) using the [commit-git skill](../.agent/skills/commit-git/SKILL.md)
-- [ ] Move the issue to "in review" using the update-git-issue skill
-- [ ] Request user approval
-- [ ] Create PR using the [create-pr-git skill](../.agent/skills/create-pr-git/SKILL.md)
-- [ ] Merge the PR using the [merge-git skill](../.agent/skills/merge-git/SKILL.md)
-- [ ] Attach planning doc and walkthrough to the GitHub issue using the update-git-issue skill
-- [ ] Move the issue to "done" using the update-git-issue skill
+- [x] Commit changes (Format: `gitissue-121: redesign Media Player for authentic Win95 look`) using the [commit-git skill](../.agent/skills/commit-git/SKILL.md)
+- [x] Move the issue to "in review" using the update-git-issue skill
+- [x] Request user approval
+- [x] Create PR using the [create-pr-git skill](../.agent/skills/create-pr-git/SKILL.md)
+- [x] Merge the PR using the [merge-git skill](../.agent/skills/merge-git/SKILL.md)
+- [x] Attach planning doc and walkthrough to the GitHub issue using the update-git-issue skill
+- [x] Move the issue to "done" using the update-git-issue skill
