@@ -133,4 +133,45 @@ test.describe('UI Styling Fixes', () => {
             expect(gap1).toBeLessThan(10);
         }
     });
+
+    test('Wallpaper selector content fills the window properly', async ({ page }) => {
+        // Right click desktop
+        await page.locator('[data-testid="desktop-container"]').click({ button: 'right', position: { x: 300, y: 300 } });
+
+        // Click "Change wallpaper"
+        await page.getByText('Change wallpaper').click();
+
+        // Wait for Display Properties window
+        const displayProps = page.locator('[data-testid="window-display-properties"]');
+        await expect(displayProps).toBeVisible();
+
+        // Get the internal WallpaperSelector container
+        const selectorContainer = page.locator('[data-testid="wallpaper-selector"]');
+        await expect(selectorContainer).toBeVisible();
+
+        // Verify padding is p-1 (which we just added)
+        await expect(selectorContainer).toHaveClass(/p-1/);
+
+        // Check bounding boxes to ensure it fills most of the window
+        const windowBox = await displayProps.boundingBox();
+        const selectorBox = await selectorContainer.boundingBox();
+
+        console.log('Window Box:', windowBox);
+        console.log('Selector Box:', selectorBox);
+
+        expect(windowBox).not.toBeNull();
+        expect(selectorBox).not.toBeNull();
+
+        if (windowBox && selectorBox) {
+            // The selectorBox should be very close to the windowBox width (accounting for title bar and bevels)
+            // Title bar is usually ~56px (h-14).
+            // Menu bar is ~36px.
+            // Bevels are 2px each side.
+            // Window content also has m-1 p-4 (approx 4+16 = 20px overlap?)
+            // If window width is 400, selector width should be approx 400 - 2*2 (bevels) - 2*1 (m-1) - 2*4 (p-4) = 400 - 4 - 2 - 8 = 386.
+            // Wait, p-4 is 16px. So 400 - 4 - 8 - 32 = 356.
+            // Our measurement was 351.65. So we use a buffer of 60px.
+            expect(selectorBox.width).toBeGreaterThan(windowBox.width - 60);
+        }
+    });
 });

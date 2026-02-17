@@ -33,8 +33,8 @@ export function WallpaperSelector({ currentWallpaperId, onApply, onCancel }: Wal
     const selectedWallpaper = WALLPAPERS.find(w => w.id === selectedId) || WALLPAPERS[0];
 
     return (
-        <div className="flex flex-col h-full w-full bg-win95-gray p-4 font-win95">
-            <div className="flex-1 flex flex-col gap-4 min-h-0">
+        <div className="flex flex-col h-full w-full bg-win95-gray p-1 font-win95" data-testid="wallpaper-selector">
+            <div className="flex-1 flex flex-col gap-2 min-h-0">
                 <p className="text-[12px]">Select a wallpaper for your desktop:</p>
 
                 <div className="flex-1 overflow-y-auto win95-beveled-inset bg-white p-2">
@@ -64,7 +64,7 @@ export function WallpaperSelector({ currentWallpaperId, onApply, onCancel }: Wal
                 </div>
             </div>
 
-            <div className="flex justify-end gap-2 mt-4">
+            <div className="flex justify-end gap-2 mt-2">
                 <button
                     className="win95-button px-6 h-6 font-bold text-[12px]"
                     onClick={() => onApply(selectedWallpaper)}
