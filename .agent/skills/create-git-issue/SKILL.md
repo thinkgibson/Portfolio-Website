@@ -13,6 +13,9 @@ To efficiently create high-quality GitHub issues (Bug Reports or Feature Request
 ### 1. Analyze and Draft
 Analyze the user's input to determine the nature of the request.
 
+> [!TIP]
+> If the user's input is unclear, ambiguous, or lacks critical detail (e.g., missing steps to reproduce or clear goal), use the [clarify-requirements](file:///.agent/skills/clarify-requirements/SKILL.md) skill first to gather necessary information.
+
 - **If Bug**: Structure as a **Bug Report**.
 - **If Feature/Task**: Structure as a **User Story**.
 
@@ -43,7 +46,7 @@ As a <user role>, I want <goal> so that <benefit>.
 **Labels**: bug
 
 **Body**:
-### distinct failure
+### Distinct Failure
 <Description of what is going wrong>
 
 ### Steps to Reproduce
@@ -55,7 +58,7 @@ As a <user role>, I want <goal> so that <benefit>.
 <What should happen>
 
 ### Environment
-- OS: <OS>
+- OS: Windows
 - Browser: <Browser>
 ```
 
@@ -69,16 +72,24 @@ Present the drafted **Title**, **Labels**, and **Body** to the user in a clear m
 ### 3. Execute Creation
 **Only** after receiving affirmative user approval (e.g., "yes", "proceed", "looks good"), execute the `gh` command.
 
-Use the `run_command` tool:
+To ensure robustness against shell escaping issues with multi-line bodies:
+1.  **Write the drafted body to a temporary file** (e.g., `temp_issue_body.txt`) using the `write_to_file` tool.
+2.  **Execute the `gh` command** using the `--body-file` flag.
 
 ```powershell
-gh issue create --title "<TITLE>" --body "<BODY>" --label "<LABEL1>,<LABEL2>"
+gh issue create --title "<TITLE>" --body-file temp_issue_body.txt --label "<LABEL1>,<LABEL2>"
 ```
 
-**Note**: Ensure the `body` string is properly escaped for the shell if necessary, or just rely on the tool's handling. Using the `--body-file` flag is safer for complex multi-line bodies if you can write a temporary file, but direct string is usually fine for simple issues.
+3.  **Clean up** the temporary file after successful creation.
 
-### 4. specific Instructions for Agents
-- **Do not** hallucinate details. If steps to reproduce or acceptance criteria are missing, ask the user or infer reasonable defaults based on context (and mark them as *Proposed*).
+```powershell
+rm temp_issue_body.txt
+```
+
+**Note**: Using the `--body-file` flag is mandated for all issues with multi-line bodies or special characters to avoid shell argument parsing errors.
+
+### 4. Specific Instructions for Agents
+- **Clarity First**: If requirements are missing, prioritize using the `clarify-requirements` skill over hallucinating details or inferring vague defaults.
 - **Context Awareness**: If the user refers to "this file" or "current error", use your context to fill in those details in the draft.
 
 ## Example Workflow

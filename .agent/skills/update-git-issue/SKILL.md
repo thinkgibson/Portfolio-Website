@@ -10,10 +10,13 @@ This skill allows you to update an existing git issue using the GitHub CLI (`gh`
 ## Usage
 
 ### Add a Comment
-To add a comment to an issue:
-```powershell
-gh issue comment <ISSUE_NUMBER> --body "Your comment here"
-```
+To add a comment to an issue (especially for multi-line content):
+1.  **Write the comment to a temporary file** (e.g., `temp_comment.txt`).
+2.  **Use the `--body-file` flag**:
+    ```powershell
+    gh issue comment <ISSUE_NUMBER> --body-file temp_comment.txt
+    ```
+3.  **Clean up**: `rm temp_comment.txt`
 
 ### Change Issue State
 
@@ -52,7 +55,10 @@ Manage the progress of an issue within a GitHub Project:
 To update the title, body, or labels of an issue:
 ```powershell
 # Update title and body
-gh issue edit <ISSUE_NUMBER> --title "New Title" --body "New body content"
+# 1. Write new body to temp_body.txt
+# 2. Execute edit
+gh issue edit <ISSUE_NUMBER> --title "New Title" --body-file temp_body.txt
+# 3. Clean up: rm temp_body.txt
 
 # Add labels
 gh issue edit <ISSUE_NUMBER> --add-label "bug,priority"
