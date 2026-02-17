@@ -81,4 +81,42 @@ test.describe('Window Toolbar', () => {
         }
     });
 
+    test('menu items have sufficient padding', async ({ desktop, window: windowPO, page }) => {
+        const title = 'Welcome.txt';
+        await desktop.openIcon(title);
+        const winLocator = windowPO.getWindow(title);
+
+        const menuItems = ['File', 'Search', 'Help'];
+
+        for (const item of menuItems) {
+            const locator = winLocator.getByText(item, { exact: true });
+            await expect(locator).toBeVisible();
+
+            // Get bounding box of the menu item container (the span with padding)
+            const box = await locator.boundingBox();
+
+            // Get text width by evaluating in browser
+            const textWidth = await locator.evaluate((el) => {
+                const context = document.createElement('canvas').getContext('2d');
+                if (!context) return 0;
+                context.font = getComputedStyle(el).font;
+                return context.measureText(el.textContent || '').width;
+            });
+
+            if (box) {
+                // Padding should be at least 16px total (px-2 = 8px per side * 2 = 16px)
+                // Actually Tailwind px-2 is 0.5rem = 8px total (4px per side)
+                // Wait, px-1 is 0.25rem = 4px total (2px per side)
+                // px-2 is 0.5rem = 8px total (4px per side)
+                // So width should be textWidth + 8 (approx)
+
+                // We'll just verify it's significantly wider than text
+                expect(box.width).toBeGreaterThan(textWidth + 8);
+
+                // Verify it has the bevel class (by checking class list potentially, or visual check)
+                await expect(locator).toHaveClass(/win95-beveled/);
+            }
+        }
+    });
+
 });

@@ -450,7 +450,7 @@ export function Win95Window({
             <div className="bg-win95-gray px-2 py-2 border-b border-win95-gray-inactive text-[18px] font-win95 flex shrink-0 gap-4 select-none relative">
                 <div className="relative">
                     <span
-                        className={`px-1 cursor-default font-normal ${activeMenu === 'File' ? 'win95-beveled-inset bg-win95-gray' : 'hover:win95-beveled'}`}
+                        className={`px-2 cursor-default font-normal ${activeMenu === 'File' ? 'win95-beveled-inset bg-win95-gray' : 'win95-beveled'}`}
                         onClick={() => toggleMenu('File')}
                         data-testid="menu-file"
                     >
@@ -471,7 +471,7 @@ export function Win95Window({
 
                 <div className="relative">
                     <span
-                        className={`px-1 cursor-default font-normal ${activeMenu === 'Search' ? 'win95-beveled-inset bg-win95-gray' : 'hover:win95-beveled'}`}
+                        className={`px-2 cursor-default font-normal ${activeMenu === 'Search' ? 'win95-beveled-inset bg-win95-gray' : 'win95-beveled'}`}
                         onClick={() => toggleMenu('Search')}
                     >
                         Search
@@ -487,7 +487,7 @@ export function Win95Window({
 
                 <div className="relative">
                     <span
-                        className={`px-1 cursor-default font-normal ${activeMenu === 'Help' ? 'win95-beveled-inset bg-win95-gray' : 'hover:win95-beveled'}`}
+                        className={`px-2 cursor-default font-normal ${activeMenu === 'Help' ? 'win95-beveled-inset bg-win95-gray' : 'win95-beveled'}`}
                         onClick={() => toggleMenu('Help')}
                         data-testid="menu-help"
                     >
