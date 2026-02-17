@@ -143,7 +143,7 @@ npm run ci-flow
 
 ### Preparation
 - [ ] Move issue to "in progress" using the update-git-issue skill
-- [ ] Create git branch
+- [ ] Create git branch using the [create-branch-git skill](../create-branch-git/SKILL.md)
 
 ### Implementation
 - [ ] **Phase 1**: Implement {Phase 1 Description}
@@ -158,10 +158,11 @@ npm run ci-flow
 - [ ] Run full CI flow: `npm run ci-flow`
 
 ### Submission
-- [ ] Commit changes (Format: `feat: description` or `gitissue-{ID}: description`) using the [git-pr-merge skill](../git-pr-merge/SKILL.md)
+- [ ] Commit changes (Format: `feat: description` or `gitissue-{ID}: description`) using the [commit-git skill](../commit-git/SKILL.md)
 - [ ] Move the issue to "in review" using the update-git-issue skill
 - [ ] Request user approval
-- [ ] Create PR & Merge using the [git-pr-merge skill](../git-pr-merge/SKILL.md)
+- [ ] Create PR using the [create-pr-git skill](../create-pr-git/SKILL.md)
+- [ ] Merge the PR using the [merge-git skill](../merge-git/SKILL.md)
 - [ ] Attach planning doc and walkthrough to the GitHub issue (e.g., via `gh issue comment`) using the update-git-issue skill
 - [ ] Move the issue to "done" using the update-git-issue skill
 ````

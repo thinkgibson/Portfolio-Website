@@ -5,40 +5,60 @@ description: Retrieve a git issue by number using the gh CLI. Returns full detai
 
 # Retrieve Git Issue
 
-This skill allows you to retrieve a specific git issue by its number using the GitHub CLI (`gh`). It ensures you get all relevant context including the full body (description), labels, state, and comments.
+This skill allows you to retrieve a specific git issue by its number using the GitHub CLI (`gh`). It ensures you get all relevant context including the full body (description), labels, state, and comments, while preventing output truncation.
+
+## Prerequisites
+
+Ensure you are authenticated with the GitHub CLI:
+
+```powershell
+gh auth status
+```
+
+If not authenticated, ask the USER to run `gh auth login`.
 
 ## Usage
 
-To retrieve an issue, run the following command in the terminal:
+### Recommended Procedure (Most Robust)
+
+Use the provided PowerShell script to fetch the issue and save it to a file. This avoids terminal truncation for large issues.
+
+1.  Run the retrieval script:
+    ```powershell
+    powershell .agent\skills\retrieve-git-issue\retrieve_issue.ps1 -IssueNumber <ISSUE_NUMBER>
+    ```
+2.  The script creates a file named `issue_<ISSUE_NUMBER>.json` (e.g., `issue_123.json`).
+3.  Read the file contents using the `view_file` tool.
+4.  Parse the JSON to extract the information you need.
+
+### Alternative / Fallback (Quick View)
+
+If the script is unavailable or you need a quick check:
 
 ```powershell
-gh issue view <ISSUE_NUMBER> --json number,title,body,labels,state,comments,createdAt,updatedAt,url,author
+gh issue view <ISSUE_NUMBER> --json number,title,body,labels,state,comments,createdAt,updatedAt,url,author,assignees,milestone
 ```
 
-Replace `<ISSUE_NUMBER>` with the actual issue number (e.g., `77`).
+> [!WARNING]
+> For very large issues, the command above may truncate the output in the terminal. If you suspect truncation (e.g., the JSON ends abruptly), use the **Recommended Procedure**.
 
 ## Interpreting Output
-
-The command returns a JSON object. You should parse this JSON to extract the information you need.
 
 ### Key Fields
 
 - **title**: The title of the issue.
-- **body**: The main description of the issue. **Important**: This field contains Markdown.
-    - **Images**: Look for Markdown image syntax `![alt text](url)` or HTML `<img src="url">` tags within the `body` to find screenshots or design mocks.
-    - **Attachments**: Look for standard links `[filename](url)` that point to file attachments (like logs or zips).
-- **labels**: An array of label objects. Use these to understand the type/priority of the issue (e.g., `bug`, `enhancement`).
-- **comments**: An array of comments. Check these for recent updates or clarifications from the user or other team members.
+- **body**: The main description (Markdown). Check for screenshots manually by looking for image URLs.
+- **labels**: Understand priority/type.
+- **comments**: Check for recent clarifications or team feedback.
+- **assignees/milestone**: Useful for context on who is working on it and when it's due.
 
-## Example
+## Troubleshooting
 
-If you need to fix a bug described in issue #123:
-
-1.  Run: `gh issue view 123 --json number,title,body,labels,state,comments,url`
-2.  Read the `body` to understand the bug report.
-3.  Check `labels` to see if it's a `bug` or `feature`.
-4.  Scan the `body` for image URLs to visualize the problem if screenshots were provided.
+- **Large Issues**: If `view_file` shows a truncated JSON, it might be due to extreme size. Try fetching comments separately if needed (though the script handles most cases).
+- **Authentication Error**: Ensure `gh` is logged in.
+- **Empty Body/Comments**: Some issues might truly be empty; verify by running `gh issue view <ISSUE_NUMBER>` (plain text) to confirm.
 
 ## Dependencies
 
-- Requires `gh` (GitHub CLI) to be installed and authenticated.
+- Requires `gh` (GitHub CLI) installed and authenticated.
+- PowerShell (for the `retrieve_issue.ps1` script).
