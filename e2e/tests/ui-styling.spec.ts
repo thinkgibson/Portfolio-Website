@@ -13,10 +13,35 @@ test.describe('UI Styling Fixes', () => {
         const iconLabel = page.locator('[data-testid^="desktop-icon-"] span').first();
         await expect(iconLabel).not.toHaveClass(/line-clamp-2/);
         await expect(iconLabel).toHaveClass(/break-words/);
+        await expect(iconLabel).toHaveClass(/break-all/);
 
         // Check container width
         const container = page.locator('[data-testid^="desktop-icon-"]').first();
-        await expect(container).toHaveClass(/w-28/);
+        await expect(container).toHaveClass(/w-36/);
+        await expect(container).toHaveClass(/overflow-hidden/);
+    });
+
+    test('Desktop icons do not overflow horizontal bounds with long unbreakable text', async ({ page }) => {
+        const firstIcon = page.locator('[data-testid^="desktop-icon-"]').nth(0);
+
+        // Force a very long label without spaces
+        await firstIcon.locator('span').evaluate((el) => {
+            el.textContent = "VeryLongFilenameWithoutSpacesThatShouldBreakAndNotOverflow.txt";
+        });
+
+        const containerBox = await firstIcon.boundingBox();
+        const spanBox = await firstIcon.locator('span').boundingBox();
+
+        expect(containerBox).not.toBeNull();
+        expect(spanBox).not.toBeNull();
+
+        if (containerBox && spanBox) {
+            // The span width should be less than or equal to the container width (minus padding potentially)
+            // Container is w-36 (144px). Span has px-1 (8px total horizontal padding approx?) 
+            // Actually px-1 is 4px * 2 = 8px.
+            // But let's just check that spanBox.width <= containerBox.width
+            expect(spanBox.width).toBeLessThanOrEqual(containerBox.width);
+        }
     });
 
     test('Desktop icons do not overlap vertically with long text', async ({ page }) => {

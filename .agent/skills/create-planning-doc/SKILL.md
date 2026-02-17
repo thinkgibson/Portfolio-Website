@@ -141,6 +141,10 @@ npm run ci-flow
 
 ## Implementation Checklist
 
+> [!IMPORTANT]
+> If you are using a `task.md`, all items from this checklist must be included in it to ensure synchronization.
+
+
 ### Preparation
 - [ ] Move issue to "in progress" using the update-git-issue skill
 - [ ] Create git branch using the [create-branch-git skill](../create-branch-git/SKILL.md)
@@ -160,7 +164,7 @@ npm run ci-flow
 ### Submission
 - [ ] Commit changes (Format: `feat: description` or `gitissue-{ID}: description`) using the [commit-git skill](../commit-git/SKILL.md)
 - [ ] Move the issue to "in review" using the update-git-issue skill
-- [ ] Request user approval
+- [ ] **MANDATORY**: Request user approval DO NOT PROCEED UNTIL APPROVAL IS RECEIVED
 - [ ] Create PR using the [create-pr-git skill](../create-pr-git/SKILL.md)
 - [ ] Merge the PR using the [merge-git skill](../merge-git/SKILL.md)
 - [ ] Attach planning doc and walkthrough to the GitHub issue (e.g., via `gh issue comment`) using the update-git-issue skill
