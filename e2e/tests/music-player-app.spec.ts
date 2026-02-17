@@ -72,4 +72,34 @@ test.describe('Music Player App', () => {
         // The time should reset to 0:00 but the duration might be non-zero
         await expect(window.getByText(/0:00 \/ \d+:\d+/)).toBeVisible();
     });
+
+    test('should select track from playlist', async ({ page }) => {
+        // Open the app via folder
+        await page.getByTestId('desktop-icon-multimedia').dblclick();
+        await expect(page.getByTestId('window-multimedia')).toBeVisible();
+
+        await page.getByTestId('desktop-icon-media-player').dblclick();
+        const window = page.getByTestId('window-media-player');
+        await expect(window).toBeVisible();
+
+        // Wait for playlist to load (it fetches json)
+        await page.waitForTimeout(1000);
+
+        // Get playlist items
+        const playlistRows = window.locator('table tbody tr');
+        await expect(playlistRows.first()).toBeVisible();
+
+        // Click the second track (if available)
+        const secondTrack = playlistRows.nth(1);
+        if (await secondTrack.count() > 0) {
+            const trackTitle = await secondTrack.locator('td').nth(1).innerText();
+            await secondTrack.click();
+
+            // Expect display to update
+            await expect(window.getByTestId('player-display-title')).toHaveText(trackTitle);
+
+            // Expect it to start playing
+            await expect(window.getByTitle('Pause')).toBeVisible();
+        }
+    });
 });
