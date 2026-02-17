@@ -15,7 +15,7 @@ The `WallpaperSelector` component has excessive padding/spacing that prevents it
 ### Modified Files
 | File | Changes |
 |------|---------|
-| `components/win95/WallpaperSelector.tsx` | Reduce `p-4` to `p-1`, `gap-4` to `gap-2`, and `mt-4` to `mt-2` on internal elements to eliminate double-padding |
+| `components/win95/WallpaperSelector.tsx` | Reduce `p-4` to `p-1`, `gap-4` to `gap-2`, and `mt-4` to `mt-2`. Increase font sizes: description `text-[12px]` -> `text-[18px]`, wp name `text-[10px]` -> `text-[14px]`, buttons `text-[12px]` -> `text-[18px]` |
 
 ---
 
@@ -84,7 +84,8 @@ npm run ci-flow
 - [ ] Create git branch using the [create-branch-git skill](../create-branch-git/SKILL.md)
 
 ### Implementation
-- [ ] **Phase 1**: Reduce padding classes in `WallpaperSelector.tsx` (`p-4` → `p-1`, `gap-4` → `gap-2`, `mt-4` → `mt-2`)
+- [x] **Phase 1**: Reduce padding classes in `WallpaperSelector.tsx` (`p-4` → `p-1`, `gap-4` → `gap-2`, `mt-4` → `mt-2`)
+- [ ] **Phase 1.5**: Increase font sizes in `WallpaperSelector.tsx` (description to `text-[18px]`, names to `text-[14px]`, buttons to `text-[18px]`)
 - [ ] **Phase 2**: Add E2E test in `e2e/tests/ui-styling.spec.ts` to verify wallpaper selector fills its window
 - [ ] Verify implementation against "Expected Code Changes"
 
