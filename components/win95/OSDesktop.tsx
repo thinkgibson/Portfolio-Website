@@ -14,7 +14,7 @@ import { WallpaperSelector, WALLPAPERS, Wallpaper } from "./WallpaperSelector";
 
 import { AppDefinition, IconType } from "../../lib/types";
 import { Folder } from "./Folder";
-import { useIsMobile, useLocalStorage } from "../../lib/hooks";
+import { useIsMobile, useIsTablet, useLocalStorage } from "../../lib/hooks";
 
 interface RuntimeWindow extends AppDefinition {
     isOpen: boolean;
@@ -50,6 +50,7 @@ const getAllApps = (list: AppDefinition[]): { id: string, title: string, iconTyp
 
 export function OSDesktop({ windows: initialWindows, skipBoot: propSkipBoot, skipWelcome: propSkipWelcome }: OSDesktopProps) {
     const isMobile = useIsMobile();
+    const isTablet = useIsTablet();
     const [booting, setBooting] = useState(propSkipBoot !== undefined ? !propSkipBoot : process.env.NODE_ENV !== 'test');
     const [openWindows, setOpenWindows] = useState<RuntimeWindow[]>([]);
     const [activeWindowId, setActiveWindowId] = useState<string | null>(null);
@@ -115,7 +116,7 @@ export function OSDesktop({ windows: initialWindows, skipBoot: propSkipBoot, ski
                 ...winDef,
                 isOpen: true,
                 isMinimized: false,
-                isMaximized: false,
+                isMaximized: isTablet,
                 isActive: true,
                 x: pos.x,
                 y: pos.y,
@@ -260,7 +261,7 @@ export function OSDesktop({ windows: initialWindows, skipBoot: propSkipBoot, ski
             title: `About ${currentWin.title}`,
             isOpen: true,
             isMinimized: false,
-            isMaximized: false,
+            isMaximized: isTablet,
             isActive: true,
             x: currentWin.x + 40,
             y: currentWin.y + 40,
@@ -309,7 +310,7 @@ export function OSDesktop({ windows: initialWindows, skipBoot: propSkipBoot, ski
             title: "Display Properties",
             isOpen: true,
             isMinimized: false,
-            isMaximized: false,
+            isMaximized: isTablet,
             isActive: true,
             x: 150,
             y: 100,
@@ -385,6 +386,7 @@ export function OSDesktop({ windows: initialWindows, skipBoot: propSkipBoot, ski
                 initialWindows={initialWindows}
                 desktopRef={desktopRef}
                 isMobile={isMobile}
+                isTablet={isTablet}
                 availableApps={initialWindows}
             />
         </OSProvider>
@@ -398,7 +400,7 @@ function OSDesktopView({
     handleOpenWindow, handleCloseWindow, handleMinimizeWindow, handleMaximizeWindow,
     handleSetActive, handleResizeWindow, handleAbout, handleOpenWallpaperSelector,
     handleMinimizeAllWindows, handleCloseAllWindows, handleContextMenu,
-    initialWindows, desktopRef, isMobile, availableApps
+    initialWindows, desktopRef, isMobile, isTablet, availableApps
 }: any) {
     const { playSound, closeWindow, saveHandlers } = useOS();
 
@@ -504,6 +506,7 @@ function OSDesktopView({
                         }}
                         isMaximized={win.isMaximized}
                         isActive={win.isActive}
+                        isTablet={isTablet}
                         x={win.x}
                         y={win.y}
                         width={isMobile ? (typeof window !== 'undefined' ? window.innerWidth : 320) * 0.9 : win.width}

@@ -32,6 +32,7 @@ interface Win95WindowProps {
     minHeight?: number;
     canMaximize?: boolean;
     onFocus?: () => void;
+    isTablet?: boolean;
     [key: string]: any;
 }
 
@@ -137,6 +138,7 @@ export function Win95Window({
     minHeight = 250,
     canMaximize = true,
     onFocus,
+    isTablet = false,
     ...props
 }: Win95WindowProps) {
     const isMobile = useIsMobile();
@@ -401,7 +403,7 @@ export function Win95Window({
                         dragControls.start(e);
                     }
                 }}
-                onDoubleClick={() => canMaximize && onMaximize?.()}
+                onDoubleClick={() => !isTablet && canMaximize && onMaximize?.()}
                 className={`window-titlebar h-14 shrink-0 flex items-center justify-between px-2 cursor-default select-none ${isActive ? "bg-win95-blue-active" : "bg-win95-gray-inactive"}`}
                 data-testid="window-titlebar"
             >
@@ -423,7 +425,7 @@ export function Win95Window({
                     >
                         <MinimizeIcon />
                     </button>
-                    {canMaximize && (
+                    {canMaximize && !isTablet && (
                         <button
                             onClick={onMaximize}
                             className="win95-button w-9 h-9 !p-0 ml-1 flex items-center justify-center"
@@ -458,7 +460,9 @@ export function Win95Window({
                     </span>
                     {activeMenu === 'File' && (
                         <div className="absolute top-full left-0 mt-0.5 w-32 bg-win95-gray win95-beveled z-[100] py-0.5">
-                            <div className="px-3 py-1 hover:bg-win95-blue-active hover:text-white cursor-default" onClick={() => handleAction(() => onMaximize?.())}>Maximize</div>
+                            {!isTablet && (
+                                <div className="px-3 py-1 hover:bg-win95-blue-active hover:text-white cursor-default" onClick={() => handleAction(() => onMaximize?.())}>Maximize</div>
+                            )}
                             <div className="px-3 py-1 hover:bg-win95-blue-active hover:text-white cursor-default" onClick={() => handleAction(() => onMinimize?.())}>Minimize</div>
                             {onSave && (
                                 <div className="px-3 py-1 hover:bg-win95-blue-active hover:text-white cursor-default" onClick={() => handleAction(() => onSave())}>Save</div>
