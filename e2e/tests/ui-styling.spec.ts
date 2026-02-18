@@ -246,4 +246,27 @@ test.describe('UI Styling Fixes', () => {
         const folderIconLabel = folderWindow.locator('[data-testid^="desktop-icon-"] span').first();
         await expect(folderIconLabel).toHaveCSS('text-shadow', 'none');
     });
+
+    test('Taskbar context menu shows correct Restore/Minimize options', async ({ page }) => {
+        // Open a window (first icon)
+        await page.locator('[data-testid^="desktop-icon-"]').first().dblclick();
+        const taskbarItem = page.locator('[data-testid^="taskbar-item-"]').first();
+
+        // Window is open and active (not minimized)
+        // Right click taskbar item
+        await taskbarItem.click({ button: 'right' });
+        const menu = page.locator('[data-testid="taskbar-context-menu"]');
+        await expect(menu).toBeVisible();
+        await expect(menu.locator('text=Minimize')).toBeVisible();
+        await expect(menu.locator('text=Restore')).not.toBeVisible();
+
+        // Click minimize
+        await menu.locator('text=Minimize').click();
+
+        // Right click again (window is minimized)
+        await taskbarItem.click({ button: 'right' });
+        await expect(menu).toBeVisible();
+        await expect(menu.locator('text=Restore')).toBeVisible();
+        await expect(menu.locator('text=Minimize')).not.toBeVisible();
+    });
 });

@@ -19,13 +19,13 @@ test.describe('Taskbar Context Menu', () => {
         const taskbarItem = desktop.getTaskbarItem('Notepad.exe');
         await expect(taskbarItem).toBeVisible();
 
-        // Right-click on taskbar item
+        // Right-click on taskbar item (Window is open/active)
         await taskbarItem.click({ button: 'right' });
 
         const contextMenu = page.getByTestId('taskbar-context-menu');
         await expect(contextMenu).toBeVisible();
-        await expect(contextMenu.getByText('Restore', { exact: true })).toBeVisible();
         await expect(contextMenu.getByText('Minimize', { exact: true })).toBeVisible();
+        await expect(contextMenu.getByText('Restore', { exact: true })).not.toBeVisible();
         await expect(contextMenu.getByText('Close', { exact: true })).toBeVisible();
     });
 
@@ -60,6 +60,9 @@ test.describe('Taskbar Context Menu', () => {
         await taskbarItem.click({ button: 'right' });
         const menu = page.getByTestId('taskbar-context-menu');
         await expect(menu).toBeVisible();
+
+        // Ensure Minimize is NOT visible
+        await expect(menu.getByText('Minimize', { exact: true })).not.toBeVisible();
 
         await menu.getByText('Restore', { exact: true }).click();
 

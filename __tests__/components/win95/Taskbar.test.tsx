@@ -37,8 +37,8 @@ if (!global.PointerEvent) {
 describe('Taskbar', () => {
     const defaultProps = {
         openWindows: [
-            { id: '1', title: 'Window 1', isActive: true, iconType: 'about' as const },
-            { id: '2', title: 'Window 2', isActive: false, iconType: 'folder' as const },
+            { id: '1', title: 'Window 1', isActive: true, isMinimized: false, iconType: 'about' as const },
+            { id: '2', title: 'Window 2', isActive: false, isMinimized: false, iconType: 'folder' as const },
         ],
         onWindowClick: jest.fn(),
         onStartClick: jest.fn(),
@@ -233,19 +233,43 @@ describe('Taskbar', () => {
         expect(screen.queryByText(/Latency:/)).not.toBeInTheDocument();
     });
 
-    it('opens context menu on right click of window button', () => {
+    it('shows Minimize option when window is not minimized', () => {
         renderTaskbar();
         const windowBtn = screen.getByText('Window 2');
 
         fireEvent.contextMenu(windowBtn);
 
-        expect(screen.getByText('Restore')).toBeInTheDocument();
         expect(screen.getByText('Minimize')).toBeInTheDocument();
+        expect(screen.queryByText('Restore')).not.toBeInTheDocument();
+        expect(screen.getByText('Close')).toBeInTheDocument();
+    });
+
+    it('shows Restore option when window is minimized', () => {
+        const props = {
+            ...defaultProps,
+            openWindows: [
+                { id: '1', title: 'Window 1', isActive: true, isMinimized: false, iconType: 'about' as const },
+                { id: '2', title: 'Window 2', isActive: false, isMinimized: true, iconType: 'folder' as const },
+            ]
+        };
+        renderTaskbar(props);
+        const windowBtn = screen.getByText('Window 2');
+
+        fireEvent.contextMenu(windowBtn);
+
+        expect(screen.getByText('Restore')).toBeInTheDocument();
+        expect(screen.queryByText('Minimize')).not.toBeInTheDocument();
         expect(screen.getByText('Close')).toBeInTheDocument();
     });
 
     it('calls onWindowClick when Restore is clicked in context menu', () => {
-        renderTaskbar();
+        const props = {
+            ...defaultProps,
+            openWindows: [
+                { id: '2', title: 'Window 2', isActive: false, isMinimized: true, iconType: 'folder' as const },
+            ]
+        };
+        renderTaskbar(props);
         fireEvent.contextMenu(screen.getByText('Window 2'));
 
         fireEvent.click(screen.getByText('Restore'));
@@ -275,7 +299,7 @@ describe('Taskbar', () => {
         renderTaskbar();
         fireEvent.contextMenu(screen.getByText('Window 2'));
 
-        expect(screen.getByText('Restore')).toBeInTheDocument();
+        expect(screen.getByText('Minimize')).toBeInTheDocument();
 
         // Clicking the overlay should close the menu
         const menu = screen.getByTestId('taskbar-context-menu');
@@ -283,7 +307,7 @@ describe('Taskbar', () => {
         fireEvent.click(overlay);
 
         await waitFor(() => {
-            expect(screen.queryByText('Restore')).not.toBeInTheDocument();
+            expect(screen.queryByText('Minimize')).not.toBeInTheDocument();
         });
     });
 

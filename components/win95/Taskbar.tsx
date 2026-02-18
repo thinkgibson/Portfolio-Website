@@ -9,7 +9,7 @@ import { AnimatePresence } from "framer-motion";
 import { IconType } from "../../lib/types";
 
 interface TaskbarProps {
-    openWindows: { id: string; title: string; isActive: boolean; iconType?: IconType }[];
+    openWindows: { id: string; title: string; isActive: boolean; isMinimized: boolean; iconType?: IconType }[];
     onWindowClick: (id: string) => void;
     onStartClick: () => void;
     onMinimizeWindow: (id: string) => void;
@@ -381,11 +381,16 @@ export function Taskbar({ openWindows, onWindowClick, onStartClick, onMinimizeWi
                         onClose={() => setTaskbarContextMenu(null)}
                         testId="taskbar-context-menu"
                         anchorY="bottom"
-                        items={taskbarContextMenu.type === 'window' ? [
-                            { label: "Restore", action: () => onWindowClick(taskbarContextMenu.windowId!) },
-                            { label: "Minimize", action: () => onMinimizeWindow(taskbarContextMenu.windowId!) },
-                            { label: "Close", action: () => onCloseWindow(taskbarContextMenu.windowId!) }
-                        ] : [
+                        items={taskbarContextMenu.type === 'window' ? (() => {
+                            const win = openWindows.find(w => w.id === taskbarContextMenu.windowId);
+                            if (!win) return [];
+                            return [
+                                win.isMinimized
+                                    ? { label: "Restore", action: () => onWindowClick(taskbarContextMenu.windowId!) }
+                                    : { label: "Minimize", action: () => onMinimizeWindow(taskbarContextMenu.windowId!) },
+                                { label: "Close", action: () => onCloseWindow(taskbarContextMenu.windowId!) }
+                            ];
+                        })() : [
                             { label: "Minimize all windows", action: onMinimizeAllWindows },
                             { label: "Close all windows", action: onCloseAllWindows }
                         ]}
