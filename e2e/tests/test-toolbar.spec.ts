@@ -104,13 +104,11 @@ test.describe('Window Toolbar', () => {
             });
 
             if (box) {
-                // Padding should be at least 16px total (px-2 = 8px per side * 2 = 16px)
-                // Actually Tailwind px-2 is 0.5rem = 8px total (4px per side)
-                // Wait, px-1 is 0.25rem = 4px total (2px per side)
-                // px-2 is 0.5rem = 8px total (4px per side)
-                // So width should be textWidth + 8 (approx)
+                // Padding is now p-[5px] (5px all around).
+                // Horizontal padding = 5px left + 5px right = 10px.
+                // So width should be textWidth + 10 (approx)
 
-                // We'll just verify it's significantly wider than text
+                // We'll just verify it's significantly wider than text + 8 (safe margin)
                 expect(box.width).toBeGreaterThan(textWidth + 8);
 
                 // Verify it has the bevel class (by checking class list potentially, or visual check)
