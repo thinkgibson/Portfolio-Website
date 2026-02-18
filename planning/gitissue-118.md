@@ -84,20 +84,20 @@ npm run ci-flow
 > If you are using a `task.md`, all items from this checklist must be included in it to ensure synchronization.
 
 ### Preparation
-- [ ] Move issue to "in progress" using the `update-git-issue` skill
-- [ ] Create git branch using the `create-branch-git` skill
+- [x] Move issue to "in progress" using the `update-git-issue` skill
+- [x] Create git branch using the `create-branch-git` skill
 
 ### Implementation
-- [ ] **Phase 1**: Update `Taskbar` component and types
-- [ ] **Phase 2**: Update `OSDesktop` mapping
-- [ ] **Phase 3**: Update tests in `Taskbar.test.tsx`
-- [ ] Verify implementation against "Expected Code Changes"
+- [x] **Phase 1**: Update `Taskbar` component and types
+- [x] **Phase 2**: Update `OSDesktop` mapping
+- [x] **Phase 3**: Update tests in `Taskbar.test.tsx`
+- [x] Verify implementation against "Expected Code Changes"
 
 ### Verification
-- [ ] Run unit tests: `npm run test -- Taskbar.test.tsx`
-- [ ] Run E2E tests: `npm run test:e2e -- ui-styling.spec.ts`
-- [ ] **MANDATORY**: Run E2E baseline comparison using the `run-e2e-tests` skill
-- [ ] Run full CI flow: `npm run ci-flow`
+- [x] Run unit tests: `npm run test -- Taskbar.test.tsx`
+- [x] Run E2E tests: `npm run test:e2e -- ui-styling.spec.ts`
+- [x] **MANDATORY**: Run E2E baseline comparison using the `run-e2e-tests` skill
+- [x] Run full CI flow: `npm run ci-flow`
 
 ### Submission
 - [ ] Commit changes using the `commit-git` skill
