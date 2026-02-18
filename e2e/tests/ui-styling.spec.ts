@@ -230,4 +230,20 @@ test.describe('UI Styling Fixes', () => {
             expect(Math.round(paddingRight)).toBeGreaterThanOrEqual(9);
         }
     });
+    test('Icons on desktop have shadow, icons in folders do not', async ({ page }) => {
+        // Desktop icon should have shadow
+        const desktopIconLabel = page.locator('[data-testid^="desktop-icon-"] span').first();
+        await expect(desktopIconLabel).toHaveCSS('text-shadow', 'rgb(0, 0, 0) 1px 1px 0px');
+
+        // Open a folder (Accessories)
+        await page.locator('[data-testid="desktop-icon-accessories"]').dblclick();
+
+        // Wait for folder window
+        const folderWindow = page.locator('[data-testid="window-accessories"]');
+        await expect(folderWindow).toBeVisible();
+
+        // Icon inside folder should NOT have shadow
+        const folderIconLabel = folderWindow.locator('[data-testid^="desktop-icon-"] span').first();
+        await expect(folderIconLabel).toHaveCSS('text-shadow', 'none');
+    });
 });

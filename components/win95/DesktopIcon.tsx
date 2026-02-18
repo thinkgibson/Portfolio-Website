@@ -11,9 +11,10 @@ interface DesktopIconProps {
     x?: number;
     y?: number;
     textColor?: string;
+    showShadow?: boolean;
 }
 
-export function DesktopIcon({ id, label, iconType, onOpen, x, y, textColor = "text-white" }: DesktopIconProps) {
+export function DesktopIcon({ id, label, iconType, onOpen, x, y, textColor = "text-white", showShadow = false }: DesktopIconProps) {
 
     return (
         <div
@@ -26,7 +27,10 @@ export function DesktopIcon({ id, label, iconType, onOpen, x, y, textColor = "te
                 <DynamicIcon iconType={iconType} size={96} />
             </div>
             {/* Label */}
-            <span className={`${textColor} text-[18px] font-win95 mt-1 px-1 bg-transparent group-hover:bg-win95-blue-active group-hover:text-white group-focus:bg-win95-blue-active group-focus:text-white whitespace-normal break-words break-all leading-tight shadow-sm text-center`}>
+            <span
+                className={`${textColor} text-[18px] font-win95 mt-1 px-1 bg-transparent group-hover:bg-win95-blue-active group-hover:text-white group-focus:bg-win95-blue-active group-focus:text-white whitespace-normal break-words break-all leading-tight shadow-sm text-center`}
+                style={showShadow ? { textShadow: '1px 1px 0px #000' } : {}}
+            >
                 {label}
             </span>
         </div>

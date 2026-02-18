@@ -450,6 +450,7 @@ function OSDesktopView({
                             playSound("click");
                             handleOpenWindow(id);
                         }}
+                        showShadow={true}
                     />
                 ))}
             </div>
