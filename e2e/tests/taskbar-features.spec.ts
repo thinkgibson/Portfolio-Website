@@ -88,4 +88,15 @@ test.describe('Taskbar Features', () => {
         }
         await expect(networkTooltip).not.toBeVisible();
     });
+    test('taskbar clock shows 24-hour format', async ({ page }) => {
+        const clock = page.locator('span[class*="text-[26px]"]');
+        await expect(clock).toBeVisible();
+        const clockText = await clock.textContent();
+
+        // Matches HH:mm (24-hour format)
+        expect(clockText).toMatch(/^\d{2}:\d{2}$/);
+
+        // Assert absence of AM/PM
+        expect(clockText).not.toMatch(/AM|PM/i);
+    });
 });

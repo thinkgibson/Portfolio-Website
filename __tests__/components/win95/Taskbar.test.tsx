@@ -85,19 +85,41 @@ describe('Taskbar', () => {
         expect(defaultProps.onWindowClick).toHaveBeenCalledWith('2');
     });
 
-    it('updates time every second', () => {
+    it('updates time every second (24-hour format)', () => {
         const mockDate = new Date('2026-01-17T12:00:00');
         jest.setSystemTime(mockDate);
 
         renderTaskbar();
+        // Noon should show 12:00 (not 12:00 PM)
         const timeElement = screen.getByText(/12:00/);
         expect(timeElement).toBeInTheDocument();
+        expect(screen.queryByText(/AM|PM/)).not.toBeInTheDocument();
 
         act(() => {
             jest.advanceTimersByTime(60000); // 1 minute
         });
 
         expect(screen.getByText(/12:01/)).toBeInTheDocument();
+    });
+
+    it('displays PM time in 24-hour format', () => {
+        const mockDate = new Date('2026-01-17T19:05:00');
+        jest.setSystemTime(mockDate);
+
+        renderTaskbar();
+        // 7:05 PM should show 19:05
+        expect(screen.getByText('19:05')).toBeInTheDocument();
+        expect(screen.queryByText(/PM/)).not.toBeInTheDocument();
+    });
+
+    it('displays morning time with zero padding in 24-hour format', () => {
+        const mockDate = new Date('2026-01-17T07:00:00');
+        jest.setSystemTime(mockDate);
+
+        renderTaskbar();
+        // 7:00 AM should show 07:00
+        expect(screen.getByText('07:00')).toBeInTheDocument();
+        expect(screen.queryByText(/AM/)).not.toBeInTheDocument();
     });
 
     it('toggles volume slider', () => {
