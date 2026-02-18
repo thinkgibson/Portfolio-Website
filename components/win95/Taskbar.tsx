@@ -33,7 +33,7 @@ export function Taskbar({ openWindows, onWindowClick, onStartClick, onMinimizeWi
     }, []);
 
     const formatTime = (date: Date) => {
-        return date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+        return date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: false });
     };
 
     const getWeatherDescription = (code: number): string => {
