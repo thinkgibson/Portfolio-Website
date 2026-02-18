@@ -174,4 +174,60 @@ test.describe('UI Styling Fixes', () => {
             expect(selectorBox.width).toBeGreaterThan(windowBox.width - 60);
         }
     });
+
+    test('System tray icons and clock have consistent reduced spacing', async ({ page }) => {
+        const weather = page.locator('[data-testid="sys-tray-weather"]');
+        const network = page.locator('[data-testid="sys-tray-network"]');
+        const volume = page.locator('[data-testid="sys-tray-volume"]');
+        const clock = page.locator('.fixed.bottom-0 span').last();
+
+        const boxW = await weather.boundingBox();
+        const boxN = await network.boundingBox();
+        const boxV = await volume.boundingBox();
+        const boxC = await clock.boundingBox();
+
+        expect(boxW).not.toBeNull();
+        expect(boxN).not.toBeNull();
+        expect(boxV).not.toBeNull();
+        expect(boxC).not.toBeNull();
+
+        if (boxW && boxN && boxV && boxC) {
+            const gapWN = boxN.x - (boxW.x + boxW.width);
+            const gapNV = boxV.x - (boxN.x + boxN.width);
+            const gapVC = boxC.x - (boxV.x + boxV.width);
+
+            console.log(`Gaps: W-N: ${gapWN}, N-V: ${gapNV}, V-Clock: ${gapVC}`);
+
+            // CSS says gap-1, which should be 4px. Round to handle sub-pixel rendering.
+
+            // All gaps should be small (around 4px)
+            expect(Math.round(gapWN)).toBeLessThanOrEqual(4);
+            expect(Math.round(gapNV)).toBeLessThanOrEqual(4);
+            expect(Math.round(gapVC)).toBeLessThanOrEqual(4);
+
+            // Gaps should be equal (allow 1px difference for sub-pixel rendering/flex alignment)
+            expect(Math.abs(Math.round(gapWN) - Math.round(gapNV))).toBeLessThanOrEqual(1);
+            expect(Math.abs(Math.round(gapNV) - Math.round(gapVC))).toBeLessThanOrEqual(1);
+        }
+
+        // Check outer container padding
+        const trayContainer = page.locator('.win95-beveled-inset.ml-auto');
+        const trayBox = await trayContainer.boundingBox();
+        expect(trayBox).not.toBeNull();
+
+        if (trayBox && boxW && boxC) {
+            const paddingLeft = boxW.x - trayBox.x;
+            const paddingRight = (trayBox.x + trayBox.width) - (boxC.x + boxC.width);
+
+            console.log(`Outer padding: Left: ${paddingLeft}, Right: ${paddingRight}`);
+
+            // pl-[6px] results in 6px measurement (visual 4px gap after 2px bevel).
+            // pr-[10px] results in 10px measurement (visual 8px gap after 2px bevel).
+            expect(Math.round(paddingLeft)).toBeLessThanOrEqual(6);
+            expect(Math.round(paddingLeft)).toBeGreaterThanOrEqual(5);
+
+            expect(Math.round(paddingRight)).toBeLessThanOrEqual(10);
+            expect(Math.round(paddingRight)).toBeGreaterThanOrEqual(9);
+        }
+    });
 });
