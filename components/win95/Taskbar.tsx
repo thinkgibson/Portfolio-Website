@@ -251,7 +251,7 @@ export function Taskbar({ openWindows, onWindowClick, onStartClick, onMinimizeWi
             </div>
 
             {/* System Tray */}
-            <div className="win95-beveled-inset bg-win95-taskbar px-2 flex items-center gap-2 h-full ml-auto relative">
+            <div className="win95-beveled-inset bg-win95-taskbar px-1 flex items-center gap-1 h-full ml-auto relative">
                 {/* Tooltips */}
                 {activeTooltip === "weather" && weatherData && (
                     <div className="absolute bottom-[calc(100%+8px)] right-0 min-w-[120px] bg-[#FFFFE1] border border-black p-2 shadow-[2px_2px_0_rgba(0,0,0,1)] z-[130] font-win95 text-[18px] text-black">
@@ -339,7 +339,7 @@ export function Taskbar({ openWindows, onWindowClick, onStartClick, onMinimizeWi
                 )}
 
                 {/* System Tray icons */}
-                <div className="flex gap-4 items-center mr-2">
+                <div className="flex gap-1 items-center">
                     <button
                         onPointerEnter={handleWeatherPointerEnter}
                         onPointerLeave={handleWeatherPointerLeave}
