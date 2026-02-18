@@ -251,7 +251,7 @@ export function Taskbar({ openWindows, onWindowClick, onStartClick, onMinimizeWi
             </div>
 
             {/* System Tray */}
-            <div className="win95-beveled-inset bg-win95-taskbar px-1 flex items-center gap-1 h-full ml-auto relative">
+            <div className="win95-beveled-inset bg-win95-taskbar px-0.5 flex items-center gap-0.5 h-full ml-auto relative">
                 {/* Tooltips */}
                 {activeTooltip === "weather" && weatherData && (
                     <div className="absolute bottom-[calc(100%+8px)] right-0 min-w-[120px] bg-[#FFFFE1] border border-black p-2 shadow-[2px_2px_0_rgba(0,0,0,1)] z-[130] font-win95 text-[18px] text-black">
@@ -339,12 +339,12 @@ export function Taskbar({ openWindows, onWindowClick, onStartClick, onMinimizeWi
                 )}
 
                 {/* System Tray icons */}
-                <div className="flex gap-1 items-center">
+                <div className="flex gap-0.5 items-center">
                     <button
                         onPointerEnter={handleWeatherPointerEnter}
                         onPointerLeave={handleWeatherPointerLeave}
                         onClick={handleWeatherClick}
-                        className="p-1 w-12 h-12 flex items-center justify-center hover:bg-win95-gray-light active:bg-win95-gray-dark border-none transition-colors"
+                        className="p-0 w-auto h-12 flex items-center justify-center hover:bg-win95-gray-light active:bg-win95-gray-dark border-none transition-colors"
                         title="Weather"
                         data-testid="sys-tray-weather"
                     >
@@ -354,7 +354,7 @@ export function Taskbar({ openWindows, onWindowClick, onStartClick, onMinimizeWi
                         onPointerEnter={handleNetworkPointerEnter}
                         onPointerLeave={handleNetworkPointerLeave}
                         onClick={handleNetworkClick}
-                        className="p-1 w-12 h-12 flex items-center justify-center hover:bg-win95-gray-light active:bg-win95-gray-dark border-none transition-colors"
+                        className="p-0 w-auto h-12 flex items-center justify-center hover:bg-win95-gray-light active:bg-win95-gray-dark border-none transition-colors"
                         title="Network"
                         data-testid="sys-tray-network"
                     >
@@ -362,7 +362,7 @@ export function Taskbar({ openWindows, onWindowClick, onStartClick, onMinimizeWi
                     </button>
                     <button
                         onClick={() => setActiveTooltip(activeTooltip === "volume" ? null : "volume")}
-                        className={`p-1 w-12 h-12 flex items-center justify-center hover:bg-win95-gray-light active:bg-win95-gray-dark border-none transition-colors ${activeTooltip === "volume" ? "bg-win95-gray-light" : ""}`}
+                        className={`p-0 w-auto h-12 flex items-center justify-center hover:bg-win95-gray-light active:bg-win95-gray-dark border-none transition-colors ${activeTooltip === "volume" ? "bg-win95-gray-light" : ""}`}
                         title="Volume"
                         data-testid="sys-tray-volume"
                     >

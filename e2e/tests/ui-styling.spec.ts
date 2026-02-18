@@ -198,16 +198,16 @@ test.describe('UI Styling Fixes', () => {
 
             console.log(`Gaps: W-N: ${gapWN}, N-V: ${gapNV}, V-Clock: ${gapVC}`);
 
-            // CSS says gap-1, which should be 4px.
+            // CSS says gap-0.5, which should be 2px. Round to handle sub-pixel rendering.
 
-            // All gaps should be small (around 4px)
-            expect(gapWN).toBeLessThanOrEqual(4);
-            expect(gapNV).toBeLessThanOrEqual(4);
-            expect(gapVC).toBeLessThanOrEqual(4);
+            // All gaps should be small (around 2px)
+            expect(Math.round(gapWN)).toBeLessThanOrEqual(2);
+            expect(Math.round(gapNV)).toBeLessThanOrEqual(2);
+            expect(Math.round(gapVC)).toBeLessThanOrEqual(2);
 
             // Gaps should be equal (allow 1px difference for sub-pixel rendering/flex alignment)
-            expect(Math.abs(gapWN - gapNV)).toBeLessThanOrEqual(1);
-            expect(Math.abs(gapNV - gapVC)).toBeLessThanOrEqual(1);
+            expect(Math.abs(Math.round(gapWN) - Math.round(gapNV))).toBeLessThanOrEqual(1);
+            expect(Math.abs(Math.round(gapNV) - Math.round(gapVC))).toBeLessThanOrEqual(1);
         }
 
         // Check outer container padding
@@ -221,9 +221,9 @@ test.describe('UI Styling Fixes', () => {
 
             console.log(`Outer padding: Left: ${paddingLeft}, Right: ${paddingRight}`);
 
-            // px-1 should be 4px
-            expect(paddingLeft).toBeLessThanOrEqual(4);
-            expect(paddingRight).toBeLessThanOrEqual(4);
+            // px-0.5 should be 2px
+            expect(Math.round(paddingLeft)).toBeLessThanOrEqual(2);
+            expect(Math.round(paddingRight)).toBeLessThanOrEqual(2);
         }
     });
 });
