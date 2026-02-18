@@ -25,6 +25,10 @@ export function useIsMobile() {
     return useMediaQuery("(max-width: 639px)");
 }
 
+export function useIsTablet() {
+    return useMediaQuery("(max-width: 1024px)");
+}
+
 export function useLocalStorage<T>(key: string, initialValue: T): [T, (value: T | ((val: T) => T)) => void] {
     const [storedValue, setStoredValue] = useState<T>(initialValue);
     const [isLoaded, setIsLoaded] = useState(false);

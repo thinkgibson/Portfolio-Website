@@ -5,7 +5,10 @@ import { setupOrReset } from '../shared-e2e';
 test.describe('Window Controls', () => {
     test.beforeEach(setupOrReset);
 
-    test('can open, maximize, and restore a window', async ({ desktop, window, page }) => {
+    test('can open, maximize, and restore a window', async ({ desktop, window, page }, testInfo) => {
+        // Skip on mobile/tablet since maximize button is intentionally hidden (windows default to maximized)
+        test.skip(testInfo.project.name.includes('Mobile'), 'Maximize button is hidden on mobile/tablet — windows open maximized by default');
+
         const title = 'Welcome.txt';
 
         // Open the window

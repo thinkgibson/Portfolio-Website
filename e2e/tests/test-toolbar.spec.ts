@@ -51,7 +51,10 @@ test.describe('Window Toolbar', () => {
         await expect(winLocator.getByText('Find:')).not.toBeVisible();
     });
 
-    test('has equal spacing between titlebar buttons', async ({ desktop, window, page }) => {
+    test('has equal spacing between titlebar buttons', async ({ desktop, window, page }, testInfo) => {
+        // Skip on mobile/tablet since maximize button is intentionally hidden
+        test.skip(testInfo.project.name.includes('Mobile'), 'Maximize button is hidden on mobile/tablet');
+
         const title = 'Welcome.txt';
         await desktop.openIcon(title);
         const winLocator = window.getWindow(title);
