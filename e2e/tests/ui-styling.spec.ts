@@ -221,11 +221,13 @@ test.describe('UI Styling Fixes', () => {
 
             console.log(`Outer padding: Left: ${paddingLeft}, Right: ${paddingRight}`);
 
-            // px-[6px] results in 6px measurement. Visual gap is 4px after 2px bevel shadow.
+            // pl-[6px] results in 6px measurement (visual 4px gap after 2px bevel).
+            // pr-[10px] results in 10px measurement (visual 8px gap after 2px bevel).
             expect(Math.round(paddingLeft)).toBeLessThanOrEqual(6);
-            expect(Math.round(paddingRight)).toBeLessThanOrEqual(6);
             expect(Math.round(paddingLeft)).toBeGreaterThanOrEqual(5);
-            expect(Math.round(paddingRight)).toBeGreaterThanOrEqual(5);
+
+            expect(Math.round(paddingRight)).toBeLessThanOrEqual(10);
+            expect(Math.round(paddingRight)).toBeGreaterThanOrEqual(9);
         }
     });
 });
