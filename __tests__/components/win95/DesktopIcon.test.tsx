@@ -54,4 +54,15 @@ describe('DesktopIcon', () => {
         const label = screen.getByText('Test Icon');
         expect(label).toHaveClass('break-all');
     });
+    it('does not have text-shadow style by default', () => {
+        render(<DesktopIcon {...defaultProps} />);
+        const label = screen.getByText('Test Icon');
+        expect(label).not.toHaveStyle({ textShadow: '1px 1px 0px #000' });
+    });
+
+    it('has correct text-shadow style when showShadow is true', () => {
+        render(<DesktopIcon {...defaultProps} showShadow={true} />);
+        const label = screen.getByText('Test Icon');
+        expect(label).toHaveStyle({ textShadow: '1px 1px 0px #000' });
+    });
 });
