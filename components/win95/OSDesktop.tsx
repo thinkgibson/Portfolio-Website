@@ -521,7 +521,7 @@ function OSDesktopView({
             {/* Taskbar */}
             {!booting && (
                 <Taskbar
-                    openWindows={openWindows.map((w: any) => ({ id: w.id, title: w.title, isActive: w.isActive, iconType: w.iconType }))}
+                    openWindows={openWindows.map((w: any) => ({ id: w.id, title: w.title, isActive: w.isActive, isMinimized: w.isMinimized, iconType: w.iconType }))}
                     onWindowClick={(id: string) => {
                         playSound("click");
                         const win = openWindows.find((w: any) => w.id === id);
