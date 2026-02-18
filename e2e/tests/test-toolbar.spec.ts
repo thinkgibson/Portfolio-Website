@@ -104,12 +104,12 @@ test.describe('Window Toolbar', () => {
             });
 
             if (box) {
-                // Padding is now p-[5px] (5px all around).
-                // Horizontal padding = 5px left + 5px right = 10px.
-                // So width should be textWidth + 10 (approx)
+                // Padding is now px-[15px] py-[5px].
+                // Horizontal padding = 15px left + 15px right = 30px.
+                // So width should be textWidth + 30 (approx)
 
-                // We'll just verify it's significantly wider than text + 8 (safe margin)
-                expect(box.width).toBeGreaterThan(textWidth + 8);
+                // Verify it's significantly wider than text + 20 (safe margin)
+                expect(box.width).toBeGreaterThan(textWidth + 20);
 
                 // Verify it has the bevel class (by checking class list potentially, or visual check)
                 await expect(locator).toHaveClass(/win95-beveled/);
