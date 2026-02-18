@@ -46,7 +46,8 @@ export function StartMenu({ items, onItemClick, onReboot, onClose }: StartMenuPr
         }, 300);
     };
 
-    const handleItemClick = (item: AppDefinition) => {
+    const handleItemClick = (e: React.MouseEvent, item: AppDefinition) => {
+        e.stopPropagation();
         if (hoverTimeoutRef.current) clearTimeout(hoverTimeoutRef.current);
 
         if (item.children && item.children.length > 0) {
@@ -96,7 +97,7 @@ export function StartMenu({ items, onItemClick, onReboot, onClose }: StartMenuPr
                                 <button
                                     className={`w-full flex items-center justify-between gap-3 px-3 py-2 hover:bg-win95-blue-active hover:text-white text-left group transition-colors duration-0 ${activeSubMenuId === item.id ? 'bg-win95-blue-active text-white' : ''}`}
                                     data-testid={`start-menu-item-${item.id}`}
-                                    onClick={() => handleItemClick(item)}
+                                    onClick={(e) => handleItemClick(e, item)}
                                 >
                                     <div className={`flex items-center ${isMobile ? 'gap-3' : 'gap-4'}`}>
                                         <div className="flex-shrink-0">
