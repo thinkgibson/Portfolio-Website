@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import { render, screen, fireEvent, waitFor, createEvent } from '@testing-library/react';
 import { StartMenu } from '../../../components/win95/StartMenu';
 import '@testing-library/jest-dom';
 import * as hooks from '../../../lib/hooks';
@@ -91,5 +91,33 @@ describe('StartMenu', () => {
 
         expect(mockOnReboot).toHaveBeenCalled();
         expect(mockOnClose).toHaveBeenCalled();
+    });
+
+    it('stops propagation on click to prevent closing menu (mobile)', () => {
+        (hooks.useIsMobile as jest.Mock).mockReturnValue(true);
+        render(<StartMenu items={mockItems} onItemClick={mockOnItemClick} onReboot={mockOnReboot} onClose={mockOnClose} />);
+
+        const folderItem = screen.getByText('Folder 1').closest('button')!;
+        const event = createEvent.click(folderItem);
+        event.stopPropagation = jest.fn();
+        fireEvent(folderItem, event);
+
+        expect(event.stopPropagation).toHaveBeenCalled();
+    });
+
+    it('stops propagation on subitem click (mobile)', async () => {
+        (hooks.useIsMobile as jest.Mock).mockReturnValue(true);
+        render(<StartMenu items={mockItems} onItemClick={mockOnItemClick} onReboot={mockOnReboot} onClose={mockOnClose} />);
+
+        // Open folder
+        fireEvent.click(screen.getByText('Folder 1'));
+
+        // Find subitem
+        const subItem = await screen.findByText('Sub Item 1');
+        const event = createEvent.click(subItem);
+        event.stopPropagation = jest.fn();
+        fireEvent(subItem, event);
+
+        expect(event.stopPropagation).toHaveBeenCalled();
     });
 });
