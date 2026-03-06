@@ -17,23 +17,34 @@ interface StartSubMenuProps {
 export function StartSubMenu({ items, onItemClick, onClose, depth }: StartSubMenuProps) {
     const isMobile = useIsMobile();
     const [activeSubMenuId, setActiveSubMenuId] = useState<string | null>(null);
-    const [offsetY, setOffsetY] = useState(0);
     const hoverTimeoutRef = useRef<NodeJS.Timeout | null>(null);
     const menuRef = useRef<HTMLDivElement>(null);
-
-    // Ensure component re-renders when isMobile changes
-    useEffect(() => {
-        // This effect ensures the component properly reacts to isMobile changes
-    }, [isMobile]);
+    const [positionStyle, setPositionStyle] = useState<React.CSSProperties>({});
 
     useLayoutEffect(() => {
-        if (!menuRef.current || isMobile) return;
+        if (!menuRef.current) return;
 
+        if (isMobile) {
+            // On mobile, position above the item, aligned to left of parent start menu
+            // This prevents horizontal overflow on narrow viewports
+            setPositionStyle({
+                left: 0,
+                bottom: '100%',
+                top: 'auto'
+            });
+            return;
+        }
+
+        // Desktop logic: detect vertical overflow and adjust top offset
         const rect = menuRef.current.getBoundingClientRect();
         const threshold = window.innerHeight - 36; // Middle of 72px taskbar
 
         if (rect.bottom > threshold) {
-            setOffsetY(threshold - rect.bottom);
+            setPositionStyle({
+                top: threshold - rect.bottom
+            });
+        } else {
+            setPositionStyle({ top: 0 });
         }
     }, [isMobile]);
 
@@ -80,8 +91,8 @@ export function StartSubMenu({ items, onItemClick, onClose, depth }: StartSubMen
             animate={{ x: 0, opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.1 }}
-            className={`absolute left-full top-0 ml-[-2px] ${isMobile ? 'w-64' : 'w-[384px]'} bg-win95-gray win95-beveled flex flex-col py-1 shadow-[2px_2px_10px_rgba(0,0,0,0.5)] z-[151]`}
-            style={{ top: offsetY !== 0 ? `${offsetY}px` : 0 }}
+            className={`absolute ${isMobile ? '' : 'left-full top-0'} ml-[-2px] ${isMobile ? 'w-64' : 'w-[384px]'} bg-win95-gray win95-beveled flex flex-col py-1 shadow-[2px_2px_10px_rgba(0,0,0,0.5)] z-[151]`}
+            style={positionStyle}
             onMouseLeave={handleMouseLeave}
             data-testid={`start-submenu-depth-${depth}`}
         >

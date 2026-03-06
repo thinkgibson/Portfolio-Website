@@ -90,12 +90,22 @@ test.describe('Start Menu Expandable Folders', () => {
         // Click 'Accessories'
         await page.getByTestId('start-menu-item-accessories').click();
 
+        const submenu = page.getByTestId('start-submenu-depth-1');
+        await expect(submenu).toBeVisible({ timeout: 5000 });
+
+        // Assert submenu is within viewport bounds (fixes horizontal overflow bug)
+        const box = await submenu.boundingBox();
+        const viewport = page.viewportSize()!;
+        expect(box).not.toBeNull();
+        expect(box!.x).toBeGreaterThanOrEqual(0);
+        expect(box!.x + box!.width).toBeLessThanOrEqual(viewport.width);
+
         const notepadItem = page.getByTestId('start-submenu-item-notepad');
         await expect(notepadItem).toBeVisible({ timeout: 5000 });
         await expect(page.getByTestId('start-menu')).toBeVisible();
 
-        // Force click because on narrow mobile screens (375px), the submenu is likely off-screen.
-        await notepadItem.click({ force: true });
+        // No longer needs { force: true } because it's no longer off-screen
+        await notepadItem.click();
 
         await expect(page.getByTestId('window-notepad.exe')).toBeVisible({ timeout: 5000 });
         await page.waitForTimeout(500);
