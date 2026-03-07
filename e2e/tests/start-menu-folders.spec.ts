@@ -90,12 +90,30 @@ test.describe('Start Menu Expandable Folders', () => {
         // Click 'Accessories'
         await page.getByTestId('start-menu-item-accessories').click();
 
+        const submenu = page.getByTestId('start-submenu-depth-1');
+        await expect(submenu).toBeVisible({ timeout: 5000 });
+
+        // Wait for potential animations to settle
+        await page.waitForTimeout(500);
+
+        // Assert submenu is aligned with the right edge of the viewport (fixes horizontal overflow bug)
+        const box = await submenu.boundingBox();
+        const viewportWidth = await page.evaluate(() => window.innerWidth);
+
+        expect(box).not.toBeNull();
+        expect(box!.x).toBeGreaterThanOrEqual(0);
+
+        // Right edge should be at the viewport edge (within 1px tolerance)
+        const rightEdge = box!.x + box!.width;
+        expect(rightEdge).toBeGreaterThanOrEqual(viewportWidth - 1);
+        expect(rightEdge).toBeLessThanOrEqual(viewportWidth + 1);
+
         const notepadItem = page.getByTestId('start-submenu-item-notepad');
         await expect(notepadItem).toBeVisible({ timeout: 5000 });
         await expect(page.getByTestId('start-menu')).toBeVisible();
 
-        // Force click because on narrow mobile screens (375px), the submenu is likely off-screen.
-        await notepadItem.click({ force: true });
+        // No longer needs { force: true } because it's no longer off-screen
+        await notepadItem.click();
 
         await expect(page.getByTestId('window-notepad.exe')).toBeVisible({ timeout: 5000 });
         await page.waitForTimeout(500);
