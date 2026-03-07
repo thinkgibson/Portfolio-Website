@@ -25,12 +25,18 @@ export function StartSubMenu({ items, onItemClick, onClose, depth }: StartSubMen
         if (!menuRef.current) return;
 
         if (isMobile) {
-            // On mobile, position above the item, aligned to left of parent start menu
-            // This prevents horizontal overflow on narrow viewports
+            // On mobile, use fixed positioning to reliably align with the screen edge
+            const parentRect = menuRef.current.parentElement?.getBoundingClientRect();
+            if (!parentRect) return;
+
             setPositionStyle({
-                left: 0,
-                bottom: '100%',
-                top: 'auto'
+                position: 'fixed',
+                left: 'auto',
+                right: 0,
+                bottom: `${window.innerHeight - parentRect.top}px`,
+                // Explicitly set width to match w-64 (256px) since it's now fixed
+                width: '16rem',
+                zIndex: 151
             });
             return;
         }
@@ -71,6 +77,17 @@ export function StartSubMenu({ items, onItemClick, onClose, depth }: StartSubMen
         }, 300);
     };
 
+    const [skipAnimations, setSkipAnimations] = useState(false);
+
+    useEffect(() => {
+        if (typeof window !== 'undefined') {
+            const params = new URLSearchParams(window.location.search);
+            if (params.get('skipAnimations') === 'true') {
+                setSkipAnimations(true);
+            }
+        }
+    }, []);
+
     const handleItemClick = (e: React.MouseEvent, item: AppDefinition) => {
         e.stopPropagation();
         if (hoverTimeoutRef.current) clearTimeout(hoverTimeoutRef.current);
@@ -87,11 +104,11 @@ export function StartSubMenu({ items, onItemClick, onClose, depth }: StartSubMen
     return (
         <motion.div
             ref={menuRef}
-            initial={{ x: depth === 1 ? -10 : 0, opacity: 0 }}
+            initial={{ x: (isMobile || depth !== 1) ? 0 : -10, opacity: 0 }}
             animate={{ x: 0, opacity: 1 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.1 }}
-            className={`absolute ${isMobile ? '' : 'left-full top-0'} ml-[-2px] ${isMobile ? 'w-64' : 'w-[384px]'} bg-win95-gray win95-beveled flex flex-col py-1 shadow-[2px_2px_10px_rgba(0,0,0,0.5)] z-[151]`}
+            transition={skipAnimations ? { duration: 0 } : { duration: 0.1 }}
+            className={`absolute ${isMobile ? '' : 'left-full top-0 ml-[-2px]'} ${isMobile ? 'w-64' : 'w-[384px]'} bg-win95-gray win95-beveled flex flex-col py-1 shadow-[2px_2px_10px_rgba(0,0,0,0.5)] z-[151]`}
             style={positionStyle}
             onMouseLeave={handleMouseLeave}
             data-testid={`start-submenu-depth-${depth}`}

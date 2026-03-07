@@ -93,12 +93,20 @@ test.describe('Start Menu Expandable Folders', () => {
         const submenu = page.getByTestId('start-submenu-depth-1');
         await expect(submenu).toBeVisible({ timeout: 5000 });
 
-        // Assert submenu is within viewport bounds (fixes horizontal overflow bug)
+        // Wait for potential animations to settle
+        await page.waitForTimeout(500);
+
+        // Assert submenu is aligned with the right edge of the viewport (fixes horizontal overflow bug)
         const box = await submenu.boundingBox();
-        const viewport = page.viewportSize()!;
+        const viewportWidth = await page.evaluate(() => window.innerWidth);
+
         expect(box).not.toBeNull();
         expect(box!.x).toBeGreaterThanOrEqual(0);
-        expect(box!.x + box!.width).toBeLessThanOrEqual(viewport.width);
+
+        // Right edge should be at the viewport edge (within 1px tolerance)
+        const rightEdge = box!.x + box!.width;
+        expect(rightEdge).toBeGreaterThanOrEqual(viewportWidth - 1);
+        expect(rightEdge).toBeLessThanOrEqual(viewportWidth + 1);
 
         const notepadItem = page.getByTestId('start-submenu-item-notepad');
         await expect(notepadItem).toBeVisible({ timeout: 5000 });

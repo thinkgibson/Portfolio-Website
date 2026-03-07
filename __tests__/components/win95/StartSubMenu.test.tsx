@@ -36,18 +36,61 @@ describe('StartSubMenu', () => {
         expect(screen.getByText('Item 1')).toBeInTheDocument();
     });
 
-    it('applies mobile positioning when isMobile is true', () => {
+    it('applies right-aligned fixed mobile positioning when isMobile is true', () => {
         (hooks.useIsMobile as jest.Mock).mockReturnValue(true);
+
+        // Mock window.innerWidth and window.innerHeight
+        const originalInnerWidth = window.innerWidth;
+        const originalInnerHeight = window.innerHeight;
+        Object.defineProperty(window, 'innerWidth', {
+            writable: true,
+            configurable: true,
+            value: 375
+        });
+        Object.defineProperty(window, 'innerHeight', {
+            writable: true,
+            configurable: true,
+            value: 667
+        });
+
+        // Mock getBoundingClientRect for parent
+        const originalGetBoundingClientRect = Element.prototype.getBoundingClientRect;
+        Element.prototype.getBoundingClientRect = jest.fn().mockReturnValue({
+            right: 256,
+            left: 0,
+            width: 256,
+            height: 40,
+            top: 100,
+            bottom: 140
+        });
+
         render(<StartSubMenu items={mockItems} onItemClick={mockOnItemClick} onClose={mockOnClose} depth={1} />);
 
         const menu = screen.getByTestId('start-submenu-depth-1');
+
+        // Logic: position: fixed, right: 0, bottom: window.innerHeight (667) - parentRect.top (100) = 567px
         expect(menu).toHaveStyle({
-            left: '0px',
-            bottom: '100%',
-            top: 'auto'
+            position: 'fixed',
+            right: '0px',
+            left: 'auto',
+            bottom: '567px',
+            width: '16rem'
         });
         // Should NOT have left-full class
         expect(menu).not.toHaveClass('left-full');
+
+        // Cleanup
+        Object.defineProperty(window, 'innerWidth', {
+            writable: true,
+            configurable: true,
+            value: originalInnerWidth
+        });
+        Object.defineProperty(window, 'innerHeight', {
+            writable: true,
+            configurable: true,
+            value: originalInnerHeight
+        });
+        Element.prototype.getBoundingClientRect = originalGetBoundingClientRect;
     });
 
     it('applies desktop positioning when isMobile is false', () => {
