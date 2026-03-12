@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">88.88% </span>
+                <span class="strong">30.55% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>32/36</span>
-            </div>
-        
-            
-            <div class='fl pad1y space-right2'>
-                <span class="strong">50% </span>
-                <span class="quiet">Branches</span>
-                <span class='fraction'>4/8</span>
+                <span class='fraction'>11/36</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
-                <span class="quiet">Functions</span>
-                <span class='fraction'>3/3</span>
+                <span class="quiet">Branches</span>
+                <span class='fraction'>1/1</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">88.88% </span>
+                <span class="strong">33.33% </span>
+                <span class="quiet">Functions</span>
+                <span class='fraction'>1/3</span>
+            </div>
+        
+            
+            <div class='fl pad1y space-right2'>
+                <span class="strong">30.55% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>32/36</span>
+                <span class='fraction'>11/36</span>
             </div>
         
             
@@ -61,7 +61,7 @@
             </div>
         </template>
     </div>
-    <div class='status-line high'></div>
+    <div class='status-line low'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -104,73 +104,73 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">35x</span>
-<span class="cline-any cline-yes">35x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">23x</span>
-<span class="cline-any cline-yes">14x</span>
-<span class="cline-any cline-yes">14x</span>
-<span class="cline-any cline-yes">14x</span>
-<span class="cline-any cline-yes">14x</span>
-<span class="cline-any cline-yes">14x</span>
-<span class="cline-any cline-yes">14x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-yes">23x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">16x</span>
-<span class="cline-any cline-yes">16x</span>
-<span class="cline-any cline-yes">16x</span>
-<span class="cline-any cline-yes">16x</span>
-<span class="cline-any cline-yes">16x</span>
-<span class="cline-any cline-yes">16x</span>
-<span class="cline-any cline-yes">16x</span>
-<span class="cline-any cline-yes">16x</span>
-<span class="cline-any cline-yes">16x</span>
-<span class="cline-any cline-yes">16x</span>
-<span class="cline-any cline-yes">16x</span>
-<span class="cline-any cline-yes">16x</span>
-<span class="cline-any cline-yes">16x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { type ClassValue, clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
 import { AppDefinition } from "./types";
 &nbsp;
-export function cn(...inputs: ClassValue[]) {
-    return twMerge(clsx(inputs));
-}
+export <span class="fstat-no" title="function not covered" >function cn(...inputs: ClassValue[]) {</span>
+<span class="cstat-no" title="statement not covered" >    return twMerge(clsx(inputs));</span>
+<span class="cstat-no" title="statement not covered" >}</span>
 &nbsp;
 export function sortAppDefinitions(items: AppDefinition[]): AppDefinition[] {
     return [...items].sort((a, b) =&gt; {
-        const aIsFolder = a.children<span class="branch-0 cbranch-no" title="branch not covered" > &amp;&amp; a.children.length &gt; 0;</span>
-        const bIsFolder = b.children &amp;&amp; b.children.length &gt; 0;
-&nbsp;
-        // Primary sort: Folders first
-        if (<span class="branch-0 cbranch-no" title="branch not covered" >aIsFolder &amp;&amp; !bIsFolder) <span class="branch-0 cbranch-no" title="branch not covered" >r</span>eturn -1;</span>
-        if (!aIsFolder &amp;&amp; bIsFolder) return <span class="branch-0 cbranch-no" title="branch not covered" >1;</span>
+<span class="cstat-no" title="statement not covered" >        const aIsFolder = a.children &amp;&amp; a.children.length &gt; 0;</span>
+<span class="cstat-no" title="statement not covered" >        const bIsFolder = b.children &amp;&amp; b.children.length &gt; 0;</span>
+<span class="cstat-no" title="statement not covered" ></span>
+<span class="cstat-no" title="statement not covered" >        // Primary sort: Folders first</span>
+<span class="cstat-no" title="statement not covered" >        if (aIsFolder &amp;&amp; !bIsFolder) return -1;</span>
+<span class="cstat-no" title="statement not covered" >        if (!aIsFolder &amp;&amp; bIsFolder) return 1;</span>
 <span class="cstat-no" title="statement not covered" ></span>
 <span class="cstat-no" title="statement not covered" >        // Secondary sort: Alphabetical by title</span>
 <span class="cstat-no" title="statement not covered" >        return a.title.localeCompare(b.title, undefined, { sensitivity: 'base' });</span>
 <span class="cstat-no" title="statement not covered" >    });</span>
 }
 &nbsp;
-export function replaceBootVariables(message: string, userData: {
-    browser: string;
-    os: string;
-    viewport: string;
-    ip: string;
-    date: string;
-}) {
-    return message
-        .replace(/{{browser}}/g, userData.browser)
-        .replace(/{{os}}/g, userData.os)
-        .replace(/{{viewport}}/g, userData.viewport)
-        .replace(/{{ip}}/g, userData.ip)
-        .replace(/{{date}}/g, userData.date);
-}
+export <span class="fstat-no" title="function not covered" >function replaceBootVariables(message: string, userData: {</span>
+<span class="cstat-no" title="statement not covered" >    browser: string;</span>
+<span class="cstat-no" title="statement not covered" >    os: string;</span>
+<span class="cstat-no" title="statement not covered" >    viewport: string;</span>
+<span class="cstat-no" title="statement not covered" >    ip: string;</span>
+<span class="cstat-no" title="statement not covered" >    date: string;</span>
+<span class="cstat-no" title="statement not covered" >}) {</span>
+<span class="cstat-no" title="statement not covered" >    return message</span>
+<span class="cstat-no" title="statement not covered" >        .replace(/{{browser}}/g, userData.browser)</span>
+<span class="cstat-no" title="statement not covered" >        .replace(/{{os}}/g, userData.os)</span>
+<span class="cstat-no" title="statement not covered" >        .replace(/{{viewport}}/g, userData.viewport)</span>
+<span class="cstat-no" title="statement not covered" >        .replace(/{{ip}}/g, userData.ip)</span>
+<span class="cstat-no" title="statement not covered" >        .replace(/{{date}}/g, userData.date);</span>
+<span class="cstat-no" title="statement not covered" >}</span>
 &nbsp;</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
@@ -178,7 +178,7 @@ export function replaceBootVariables(message: string, userData: {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2026-03-12T12:53:13.559Z
+                at 2026-03-12T13:47:19.794Z
             </div>
         <script src="../prettify.js"></script>
         <script>

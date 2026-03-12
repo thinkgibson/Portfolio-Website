@@ -39,7 +39,7 @@ export function WallpaperSelector({ currentWallpaperId, onApply, onCancel }: Wal
                 <p className="text-[18px]">Select a wallpaper for your desktop:</p>
 
                 <div className="flex-1 overflow-y-auto win95-beveled-inset bg-white p-2">
-                    <div className="grid grid-cols-3 gap-2">
+                    <div className="grid grid-cols-2 lg:grid-cols-5 gap-2">
                         {WALLPAPERS.map((wp) => (
                             <div
                                 key={wp.id}

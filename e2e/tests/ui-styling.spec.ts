@@ -142,7 +142,7 @@ test.describe('UI Styling Fixes', () => {
         await page.getByText('Change wallpaper').click();
 
         // Wait for Display Properties window
-        const displayProps = page.locator('[data-testid="window-display-properties"]');
+        const displayProps = page.locator('[data-testid="window-desktop-wallpaper"]');
         await expect(displayProps).toBeVisible();
 
         // Get the internal WallpaperSelector container
