@@ -141,25 +141,12 @@ export const getAppsConfig = (content: HomeContent): AppDefinition[] => {
                         </div>
                     ),
                     content: (
-                        <div className="grid md:grid-cols-3 gap-6">
-                            <div className="md:col-span-2">
-                                <h2 className="text-[48px] font-win95 font-bold mb-8 bg-win95-blue-active text-white px-4 italic leading-none py-2">{content.about.title}</h2>
-                                <div
-                                    className="text-[24px] font-win95 leading-normal space-y-8 [&>p]:mb-8"
-                                    dangerouslySetInnerHTML={{ __html: content.bodyHtml }}
-                                />
-                            </div>
-                            <div className="win95-beveled p-8 h-fit">
-                                <h3 className="font-win95 font-bold border-b-2 border-black mb-4 text-[24px] uppercase leading-none">{content.about.techStackTitle}</h3>
-                                <ul className="text-[24px] font-win95-mono space-y-2 leading-tight">
-                                    {content.skills.map((skill, i) => (
-                                        <li key={i} className="flex items-center gap-1">
-                                            <span className="w-2 h-2 bg-win95-blue-active" />
-                                            {skill}
-                                        </li>
-                                    ))}
-                                </ul>
-                            </div>
+                        <div className="p-4">
+                            <h2 className="text-[48px] font-win95 font-bold mb-8 bg-win95-blue-active text-white px-4 italic leading-none py-2">{content.about.title}</h2>
+                            <div
+                                className="text-[24px] font-win95 leading-normal space-y-8 [&>p]:mb-8"
+                                dangerouslySetInnerHTML={{ __html: content.bodyHtml }}
+                            />
                         </div>
                     )
                 },

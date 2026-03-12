@@ -7,16 +7,26 @@ import html from 'remark-html';
 const contentDirectory = path.join(process.cwd(), 'content');
 
 export async function getHomeContent() {
-    const fullPath = path.join(contentDirectory, 'home.md');
-    const fileContents = fs.readFileSync(fullPath, 'utf8');
+    const welcomePath = path.join(contentDirectory, 'welcome.md');
+    const welcomeContents = fs.readFileSync(welcomePath, 'utf8');
+    const welcomeResult = matter(welcomeContents);
 
-    // Use gray-matter to parse the post metadata section
-    const result = matter(fileContents);
+    const aboutMePath = path.join(contentDirectory, 'aboutme.md');
+    const aboutMeContents = fs.readFileSync(aboutMePath, 'utf8');
+    const aboutMeResult = matter(aboutMeContents);
 
-    // Use remark to convert markdown into HTML string
+    const projectsPath = path.join(contentDirectory, 'projects.md');
+    const projectsContents = fs.readFileSync(projectsPath, 'utf8');
+    const projectsResult = matter(projectsContents);
+
+    const contactPath = path.join(contentDirectory, 'contact.md');
+    const contactContents = fs.readFileSync(contactPath, 'utf8');
+    const contactResult = matter(contactContents);
+
+    // Use remark to convert aboutme markdown into HTML string
     const processedContent = await remark()
         .use(html)
-        .process(result.content);
+        .process(aboutMeResult.content);
     const contentHtml = processedContent.toString();
 
     // Load Job History content
@@ -37,12 +47,11 @@ export async function getHomeContent() {
 
     return {
         bodyHtml: contentHtml,
-        hero: result.data.hero,
-        about: result.data.about,
-        projects: result.data.projects,
-        skills: result.data.skills,
-        contact: result.data.contact,
-        socials: result.data.socials,
+        hero: welcomeResult.data.hero,
+        about: aboutMeResult.data.about,
+        projects: projectsResult.data.projects,
+        contact: contactResult.data.contact,
+        socials: welcomeResult.data.socials || aboutMeResult.data.socials || projectsResult.data.socials || contactResult.data.socials,
         jobHistory: jobHistoryResult.data as any,
         skillsData: skillsResult.data as any,
         videoData,
