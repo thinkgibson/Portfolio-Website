@@ -181,7 +181,7 @@ export const getAppsConfig = (content: HomeContent): AppDefinition[] => {
             title: "Accessories",
             iconType: "folder",
             fullBleed: true,
-            width: 500,
+            width: 640,
             height: 400,
             children: [
                 {

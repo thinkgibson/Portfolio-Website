@@ -50,8 +50,9 @@ test.describe('Desktop Folders', () => {
 
         // Get all icons in the folder
         const icons = window.getByTestId(/^desktop-icon-/);
+        // Accessories has 4 icons: Notepad, Calculator, Paint, Terminal
+        await expect(icons).toHaveCount(4);
         const count = await icons.count();
-        expect(count).toBeGreaterThan(1);
 
         const boxes: { x: number, y: number, width: number, height: number }[] = [];
         for (let i = 0; i < count; i++) {
@@ -75,5 +76,25 @@ test.describe('Desktop Folders', () => {
                 expect(overlap, `Icons ${i} and ${j} overlap`).toBe(false);
             }
         }
+    });
+
+    test('should not have scrollbars in Accessories folder by default', async ({ page }) => {
+        // Open Accessories folder
+        await page.getByTestId('desktop-icon-accessories').dblclick();
+        const window = page.getByTestId('window-accessories');
+        await expect(window).toBeVisible();
+
+        // The content area is within a div that has overflow-auto
+        // We want to check if the scrollHeight is less than or equal to clientHeight
+        const contentArea = window.locator('.overflow-auto');
+        
+        // Wait for content to be fully rendered
+        await expect(window.getByTestId('desktop-icon-command-prompt')).toBeVisible();
+
+        const isScrollable = await contentArea.evaluate((el) => {
+            return el.scrollHeight > el.clientHeight;
+        });
+
+        expect(isScrollable, 'Accessories folder should not be scrollable').toBe(false);
     });
 });
