@@ -23,8 +23,8 @@ test.describe('Wallpaper Functionality', () => {
         await page.getByTestId('desktop-container').click({ button: 'right' });
         await page.getByText('Change wallpaper').click();
 
-        // Select Clouds
-        await page.getByTestId('wallpaper-option-clouds').click();
+        // Select Forest
+        await page.getByTestId('wallpaper-option-forest').click();
 
         // Click Apply
         await page.getByTestId('wallpaper-apply').click();
@@ -34,13 +34,13 @@ test.describe('Wallpaper Functionality', () => {
 
         // Check desktop state through data attribute
         const desktop = page.getByTestId('desktop-container');
-        await expect(desktop).toHaveAttribute('data-wallpaper-id', 'clouds');
+        await expect(desktop).toHaveAttribute('data-wallpaper-id', 'forest');
 
         // Reload page
         await page.reload();
 
         // Check if wallpaper persisted
-        await expect(desktop).toHaveAttribute('data-wallpaper-id', 'clouds');
+        await expect(desktop).toHaveAttribute('data-wallpaper-id', 'forest');
     });
 
     test('should cancel wallpaper change', async ({ page }) => {
@@ -48,8 +48,8 @@ test.describe('Wallpaper Functionality', () => {
         await page.getByTestId('desktop-container').click({ button: 'right' });
         await page.getByText('Change wallpaper').click();
 
-        // Select Clouds
-        await page.getByTestId('wallpaper-option-clouds').click();
+        // Select Forest
+        await page.getByTestId('wallpaper-option-forest').click();
 
         // Click Cancel
         await page.getByTestId('wallpaper-cancel').click();
@@ -57,9 +57,10 @@ test.describe('Wallpaper Functionality', () => {
         // Selector should be closed
         await expect(page.getByTestId('window-display-properties')).not.toBeVisible();
 
-        // Check desktop style (should still be default teal which has no background image)
+        // Check desktop state (should still be default forest)
         const desktop = page.getByTestId('desktop-container');
+        await expect(desktop).toHaveAttribute('data-wallpaper-id', 'forest');
         const bgImage = await desktop.evaluate(el => window.getComputedStyle(el).backgroundImage);
-        expect(bgImage === 'none' || bgImage === '').toBeTruthy();
+        expect(bgImage).toContain('forest.png');
     });
 });

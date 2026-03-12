@@ -34,12 +34,12 @@ describe('WallpaperSelector', () => {
             />
         );
 
-        const cloudsOption = screen.getByTestId('wallpaper-option-clouds');
-        fireEvent.click(cloudsOption);
+        const forestOption = screen.getByTestId('wallpaper-option-forest');
+        fireEvent.click(forestOption);
 
-        // Check if Apply button calls onApply with clouds wallpaper
+        // Check if Apply button calls onApply with forest wallpaper
         fireEvent.click(screen.getByTestId('wallpaper-apply'));
-        expect(mockOnApply).toHaveBeenCalledWith(WALLPAPERS.find(w => w.id === 'clouds'));
+        expect(mockOnApply).toHaveBeenCalledWith(WALLPAPERS.find(w => w.id === 'forest'));
     });
 
     it('calls onCancel when Cancel button is clicked', () => {
@@ -58,14 +58,14 @@ describe('WallpaperSelector', () => {
     it('pre-selects current wallpaper', () => {
         render(
             <WallpaperSelector
-                currentWallpaperId="clouds"
+                currentWallpaperId="forest"
                 onApply={mockOnApply}
                 onCancel={mockOnCancel}
             />
         );
 
-        // Applying without changing should return "clouds"
+        // Applying without changing should return "forest"
         fireEvent.click(screen.getByTestId('wallpaper-apply'));
-        expect(mockOnApply).toHaveBeenCalledWith(WALLPAPERS.find(w => w.id === 'clouds'));
+        expect(mockOnApply).toHaveBeenCalledWith(WALLPAPERS.find(w => w.id === 'forest'));
     });
 });

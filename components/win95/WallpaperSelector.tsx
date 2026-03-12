@@ -10,15 +10,16 @@ export interface Wallpaper {
 }
 
 export const WALLPAPERS: Wallpaper[] = [
-    { id: "teal", name: "Win95 Teal", value: "#008080", type: "color" },
-    { id: "clouds", name: "Clouds", value: "/wallpapers/clouds.png", type: "image" },
-    { id: "redblocks", name: "Red Blocks", value: "/wallpapers/redblocks.png", type: "image" },
-    { id: "bluerivets", name: "Blue Rivets", value: "/wallpapers/bluerivets.png", type: "image" },
     { id: "forest", name: "Forest", value: "/wallpapers/forest.png", type: "image" },
-    { id: "sandstone", name: "Sandstone", value: "/wallpapers/sandstone.png", type: "image" },
-    { id: "tiles", name: "Tiles", value: "/wallpapers/tiles.png", type: "image" },
-    { id: "triangles", name: "Triangles", value: "/wallpapers/triangles.png", type: "image" },
-    { id: "waves", name: "Waves", value: "/wallpapers/waves.png", type: "image" },
+    { id: "mountains", name: "Mountains", value: "/wallpapers/mountains.png", type: "image" },
+    { id: "cyberpunk", name: "Cyberpunk", value: "/wallpapers/cyberpunk.png", type: "image" },
+    { id: "desert", name: "Desert", value: "/wallpapers/desert.png", type: "image" },
+    { id: "ocean", name: "Ocean", value: "/wallpapers/ocean.png", type: "image" },
+    { id: "autumn", name: "Autumn", value: "/wallpapers/autumn.png", type: "image" },
+    { id: "cabin", name: "Cabin", value: "/wallpapers/cabin.png", type: "image" },
+    { id: "space", name: "Space", value: "/wallpapers/space.png", type: "image" },
+    { id: "jungle", name: "Jungle", value: "/wallpapers/jungle.png", type: "image" },
+    { id: "teal", name: "Win95 Teal", value: "#008080", type: "color" },
 ];
 
 interface WallpaperSelectorProps {
@@ -52,8 +53,8 @@ export function WallpaperSelector({ currentWallpaperId, onApply, onCancel }: Wal
                                     style={{
                                         backgroundColor: wp.type === 'color' ? wp.value : '#008080',
                                         backgroundImage: wp.type === 'image' ? `url(${wp.value})` : 'none',
-                                        backgroundSize: wp.id === 'clouds' ? 'cover' : 'auto',
-                                        backgroundRepeat: 'repeat',
+                                        backgroundSize: wp.type === 'image' ? 'cover' : 'auto',
+                                        backgroundRepeat: 'no-repeat',
                                         backgroundPosition: 'center'
                                     }}
                                 />
