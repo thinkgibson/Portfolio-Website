@@ -28,6 +28,7 @@ interface RuntimeWindow extends AppDefinition {
 
 interface OSDesktopProps {
     windows: AppDefinition[];
+    bootContent?: string[];
     skipBoot?: boolean;
     skipWelcome?: boolean;
 }
@@ -48,10 +49,10 @@ const getAllApps = (list: AppDefinition[]): { id: string, title: string, iconTyp
     return apps;
 };
 
-export function OSDesktop({ windows: initialWindows, skipBoot: propSkipBoot, skipWelcome: propSkipWelcome }: OSDesktopProps) {
+export function OSDesktop({ windows: initialWindows, bootContent = [], skipBoot: propSkipBoot, skipWelcome: propSkipWelcome }: OSDesktopProps) {
     const isMobile = useIsMobile();
     const isTablet = useIsTablet();
-    const [booting, setBooting] = useState(propSkipBoot !== undefined ? !propSkipBoot : process.env.NODE_ENV !== 'test');
+    const [booting, setBooting] = useState(propSkipBoot !== undefined ? !propSkipBoot : true);
     const [openWindows, setOpenWindows] = useState<RuntimeWindow[]>([]);
     const [activeWindowId, setActiveWindowId] = useState<string | null>(null);
     const [windowPositions, setWindowPositions] = useState<Record<string, { x: number, y: number, width?: number, height?: number }>>({});
@@ -388,6 +389,7 @@ export function OSDesktop({ windows: initialWindows, skipBoot: propSkipBoot, ski
                 isMobile={isMobile}
                 isTablet={isTablet}
                 availableApps={initialWindows}
+                bootContent={bootContent}
             />
         </OSProvider>
     );
@@ -400,7 +402,7 @@ function OSDesktopView({
     handleOpenWindow, handleCloseWindow, handleMinimizeWindow, handleMaximizeWindow,
     handleSetActive, handleResizeWindow, handleAbout, handleOpenWallpaperSelector,
     handleMinimizeAllWindows, handleCloseAllWindows, handleContextMenu,
-    initialWindows, desktopRef, isMobile, isTablet, availableApps
+    initialWindows, desktopRef, isMobile, isTablet, availableApps, bootContent = []
 }: any) {
     const { playSound, closeWindow, saveHandlers } = useOS();
 
@@ -432,7 +434,7 @@ function OSDesktopView({
                 if (contextMenu) setContextMenu(null);
             }}
         >
-            {booting && <BootSequence onComplete={() => {
+            {booting && <BootSequence bootContent={bootContent} onComplete={() => {
                 setBooting(false);
                 playSound("boot");
             }} />}

@@ -19,3 +19,18 @@ export function sortAppDefinitions(items: AppDefinition[]): AppDefinition[] {
         return a.title.localeCompare(b.title, undefined, { sensitivity: 'base' });
     });
 }
+
+export function replaceBootVariables(message: string, userData: {
+    browser: string;
+    os: string;
+    viewport: string;
+    ip: string;
+    date: string;
+}) {
+    return message
+        .replace(/{{browser}}/g, userData.browser)
+        .replace(/{{os}}/g, userData.os)
+        .replace(/{{viewport}}/g, userData.viewport)
+        .replace(/{{ip}}/g, userData.ip)
+        .replace(/{{date}}/g, userData.date);
+}

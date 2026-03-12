@@ -3,6 +3,15 @@ import { render, screen, fireEvent, act, waitFor } from '@testing-library/react'
 import { OSDesktop } from '../../../components/win95/OSDesktop';
 import '@testing-library/jest-dom';
 
+jest.mock('../../../components/win95/BootSequence', () => ({
+    BootSequence: ({ onComplete }: any) => {
+        React.useEffect(() => {
+            onComplete();
+        }, [onComplete]);
+        return null;
+    }
+}));
+
 const mockPlaySound = jest.fn().mockResolvedValue(undefined);
 const mockSetVolume = jest.fn();
 
@@ -31,7 +40,7 @@ describe('OSDesktop Sounds', () => {
     });
 
     it('does not trigger click sound on background desktop click', async () => {
-        render(<OSDesktop windows={mockWindows} skipBoot={true} skipWelcome={true} />);
+        render(<OSDesktop windows={mockWindows} bootContent={[]} skipBoot={true} skipWelcome={true} />);
 
         const desktop = screen.getByTestId('desktop-container');
         fireEvent.mouseDown(desktop);
@@ -41,7 +50,7 @@ describe('OSDesktop Sounds', () => {
     });
 
     it('triggers click sound on Start Button click', async () => {
-        render(<OSDesktop windows={mockWindows} skipBoot={true} skipWelcome={true} />);
+        render(<OSDesktop windows={mockWindows} bootContent={[]} skipBoot={true} skipWelcome={true} />);
 
         const startButton = screen.getByTestId('taskbar-start-button');
         fireEvent.click(startButton);
@@ -52,7 +61,7 @@ describe('OSDesktop Sounds', () => {
     });
 
     it('triggers click sound on Desktop Icon click', async () => {
-        render(<OSDesktop windows={mockWindows} skipBoot={true} skipWelcome={true} />);
+        render(<OSDesktop windows={mockWindows} bootContent={[]} skipBoot={true} skipWelcome={true} />);
 
         const icon = screen.getByTestId('desktop-icon-test-window');
         fireEvent.click(icon);
@@ -64,7 +73,7 @@ describe('OSDesktop Sounds', () => {
 
     it('triggers boot sound when boot sequence completes', async () => {
         jest.useFakeTimers();
-        render(<OSDesktop windows={mockWindows} skipBoot={false} skipWelcome={true} />);
+        render(<OSDesktop windows={mockWindows} bootContent={[]} skipBoot={false} skipWelcome={true} />);
 
         // Advance through boot sequence
         act(() => {
@@ -79,7 +88,7 @@ describe('OSDesktop Sounds', () => {
     });
 
     it('triggers shutdown sound on reboot', async () => {
-        render(<OSDesktop windows={mockWindows} skipBoot={true} skipWelcome={true} />);
+        render(<OSDesktop windows={mockWindows} bootContent={[]} skipBoot={true} skipWelcome={true} />);
 
         // Right click to open context menu
         const desktop = screen.getByTestId('desktop-container');

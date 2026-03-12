@@ -42,6 +42,9 @@ export async function getHomeContent() {
     // Load Video content
     const videoData = parseFeaturedVideos();
 
+    // Load Boot content
+    const bootContent = getBootContent();
+
     return {
         bodyHtml: contentHtml,
         hero: welcomeResult.data.hero,
@@ -52,7 +55,19 @@ export async function getHomeContent() {
         jobHistory: jobHistoryResult.data as any,
         skillsData: skillsResult.data as any,
         videoData,
+        bootContent,
     };
+}
+
+export function getBootContent(): string[] {
+    const fullPath = path.join(contentDirectory, 'boot.md');
+    try {
+        const fileContents = fs.readFileSync(fullPath, 'utf8');
+        return fileContents.split('\n').map(line => line.replace('\r', ''));
+    } catch (error) {
+        console.error("Error reading boot.md at", fullPath, ":", error);
+        return [];
+    }
 }
 
 function parseFeaturedVideos() {
