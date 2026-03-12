@@ -421,8 +421,8 @@ function OSDesktopView({
             style={{
                 backgroundColor: wallpaper.type === 'color' ? wallpaper.value : '#008080',
                 backgroundImage: wallpaper.type === 'image' ? `url(${wallpaper.value})` : 'none',
-                backgroundSize: wallpaper.id === 'clouds' ? 'cover' : 'auto',
-                backgroundRepeat: 'repeat',
+                backgroundSize: wallpaper.type === 'image' ? 'cover' : 'auto',
+                backgroundRepeat: 'no-repeat',
                 backgroundPosition: 'center'
             }}
             data-window-positions={JSON.stringify(windowPositions)}

@@ -112,11 +112,11 @@ describe('OSDesktop Persistence', () => {
 
         // Check if selector is open
         expect(screen.getByTestId('window-display-properties')).toBeInTheDocument();
-        expect(screen.getByText('Clouds')).toBeInTheDocument();
+        expect(screen.getByText('Mountains')).toBeInTheDocument();
 
-        // Select Clouds
-        const cloudsOption = screen.getByTestId('wallpaper-option-clouds');
-        fireEvent.click(cloudsOption);
+        // Select Mountains
+        const mountainsOption = screen.getByTestId('wallpaper-option-mountains');
+        fireEvent.click(mountainsOption);
 
         // Click Apply
         fireEvent.click(screen.getByTestId('wallpaper-apply'));
@@ -125,11 +125,11 @@ describe('OSDesktop Persistence', () => {
         expect(screen.queryByText('Display Properties')).not.toBeInTheDocument();
 
         // Check if wallpaper is applied to desktop style
-        expect(desktop).toHaveStyle({ backgroundImage: 'url(/wallpapers/clouds.png)' });
+        expect(desktop).toHaveStyle({ backgroundImage: 'url(/wallpapers/mountains.png)' });
 
         // Check if wallpaper is persisted in localStorage
         const savedWallpaper = JSON.parse(localStorage.getItem('win95-wallpaper') || '{}');
-        expect(savedWallpaper.id).toBe('clouds');
+        expect(savedWallpaper.id).toBe('mountains');
     });
 });
 
