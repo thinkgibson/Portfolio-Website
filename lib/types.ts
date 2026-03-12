@@ -22,7 +22,6 @@ export interface HomeContent {
         github?: string;
         color: "red" | "blue" | "yellow";
     }[];
-    skills: string[];
     contact: {
         title: string;
         description: string;
