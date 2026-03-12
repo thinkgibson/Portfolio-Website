@@ -1,6 +1,6 @@
 BIOS Version 2.0.4.1
 Copyright (C) 1995 AMI
-CPU: Antigravity i486DX4 100MHz
+CPU: Antigravity i486DX4 1000MHz
 Memory Test: 16384K OK
 
 Detected Browser: {{browser}}

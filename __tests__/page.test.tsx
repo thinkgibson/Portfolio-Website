@@ -1,6 +1,18 @@
 import '@testing-library/jest-dom'
 import { render, screen } from '@testing-library/react'
-import { HomeClient } from '@/components/HomeClient'
+import React from 'react'
+import { HomeClient } from '../components/HomeClient'
+import { BootSequence } from '../components/win95/BootSequence'
+
+jest.mock('../components/win95/BootSequence', () => ({
+    BootSequence: ({ onComplete }: any) => {
+        // Immediate completion in tests to avoid animation issues
+        React.useEffect(() => {
+            onComplete();
+        }, [onComplete]);
+        return null;
+    }
+}))
 
 const mockContent = {
     hero: {
@@ -26,8 +38,10 @@ const mockContent = {
     skillsData: { categories: [] },
     videoData: {
         documentaries: [],
-        livestreams: []
-    }
+        livestreams: [],
+        essays: []
+    },
+    bootContent: []
 }
 
 describe('Home Page', () => {

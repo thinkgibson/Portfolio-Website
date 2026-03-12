@@ -4,7 +4,7 @@ import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { replaceBootVariables } from "../../lib/utils";
 
-export function BootSequence({ bootContent, onComplete }: { bootContent: string[], onComplete: () => void }) {
+export function BootSequence({ bootContent = [], onComplete }: { bootContent?: string[], onComplete: () => void }) {
     const [lines, setLines] = useState<string[]>([]);
     const [isBooted, setIsBooted] = useState(false);
     const [userData, setUserData] = useState({
@@ -14,6 +14,11 @@ export function BootSequence({ bootContent, onComplete }: { bootContent: string[
         ip: "Detecting...",
         date: new Date().toLocaleDateString(),
     });
+
+    const userDataRef = React.useRef(userData);
+    useEffect(() => {
+        userDataRef.current = userData;
+    }, [userData]);
 
     useEffect(() => {
         // Detect browser and OS
@@ -61,10 +66,12 @@ export function BootSequence({ bootContent, onComplete }: { bootContent: string[
     }, []);
 
     useEffect(() => {
-        const messages = bootContent.length > 0 ? bootContent : [
+        // Safe access to bootContent
+        const safeBootContent = Array.isArray(bootContent) ? bootContent : [];
+        const messages = safeBootContent.length > 0 ? safeBootContent : [
             "BIOS Version 2.0.4.1",
             "Copyright (C) 1995 AMI",
-            "CPU: Antigravity i486DX4 100MHz",
+            "CPU: Antigravity i486DX4 1000MHz",
             "Memory Test: 16384K OK",
             "",
             "Searching for Boot Record from IDE-0..OK",
@@ -79,8 +86,10 @@ export function BootSequence({ bootContent, onComplete }: { bootContent: string[
         const interval = setInterval(() => {
             if (currentLine < messages.length) {
                 const rawMessage = messages[currentLine];
-                const processedMessage = replaceBootVariables(rawMessage, userData);
-                setLines(prev => [...prev, processedMessage]);
+                if (typeof rawMessage === 'string') {
+                    const processedMessage = replaceBootVariables(rawMessage, userDataRef.current);
+                    setLines(prev => [...prev, processedMessage]);
+                }
                 currentLine++;
             } else {
                 clearInterval(interval);
@@ -90,9 +99,8 @@ export function BootSequence({ bootContent, onComplete }: { bootContent: string[
                 }, 1000);
             }
         }, 300);
-
         return () => clearInterval(interval);
-    }, [bootContent, userData]); // Re-run if userData transitions (e.g. IP detected)
+    }, [bootContent]); // Only restart if bootContent changes
 
     return (
         <AnimatePresence>

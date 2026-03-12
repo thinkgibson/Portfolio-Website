@@ -28,7 +28,7 @@ interface RuntimeWindow extends AppDefinition {
 
 interface OSDesktopProps {
     windows: AppDefinition[];
-    bootContent: string[];
+    bootContent?: string[];
     skipBoot?: boolean;
     skipWelcome?: boolean;
 }
@@ -49,7 +49,7 @@ const getAllApps = (list: AppDefinition[]): { id: string, title: string, iconTyp
     return apps;
 };
 
-export function OSDesktop({ windows: initialWindows, bootContent, skipBoot: propSkipBoot, skipWelcome: propSkipWelcome }: OSDesktopProps) {
+export function OSDesktop({ windows: initialWindows, bootContent = [], skipBoot: propSkipBoot, skipWelcome: propSkipWelcome }: OSDesktopProps) {
     const isMobile = useIsMobile();
     const isTablet = useIsTablet();
     const [booting, setBooting] = useState(propSkipBoot !== undefined ? !propSkipBoot : true);
@@ -402,7 +402,7 @@ function OSDesktopView({
     handleOpenWindow, handleCloseWindow, handleMinimizeWindow, handleMaximizeWindow,
     handleSetActive, handleResizeWindow, handleAbout, handleOpenWallpaperSelector,
     handleMinimizeAllWindows, handleCloseAllWindows, handleContextMenu,
-    initialWindows, desktopRef, isMobile, isTablet, availableApps, bootContent
+    initialWindows, desktopRef, isMobile, isTablet, availableApps, bootContent = []
 }: any) {
     const { playSound, closeWindow, saveHandlers } = useOS();
 

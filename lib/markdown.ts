@@ -56,7 +56,7 @@ export function getBootContent(): string[] {
         const fileContents = fs.readFileSync(fullPath, 'utf8');
         return fileContents.split('\n').map(line => line.replace('\r', ''));
     } catch (error) {
-        console.error("Error reading boot.md:", error);
+        console.error("Error reading boot.md at", fullPath, ":", error);
         return [];
     }
 }

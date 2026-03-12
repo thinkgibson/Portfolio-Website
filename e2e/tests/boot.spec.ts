@@ -11,7 +11,7 @@ test.describe('Boot Sequence', () => {
     
     // Check for some common boot messages from our new boot.md
     await expect(page.getByText('BIOS Version 2.0.4.1')).toBeVisible();
-    await expect(page.getByText('CPU: Antigravity i486DX4 100MHz')).toBeVisible();
+    await expect(page.getByText('CPU: Antigravity i486DX4 1000MHz')).toBeVisible();
     
     // Wait for boot to finish or click to skip
     await page.mouse.click(100, 100);
