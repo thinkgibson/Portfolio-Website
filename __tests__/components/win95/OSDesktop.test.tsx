@@ -111,7 +111,7 @@ describe('OSDesktop Persistence', () => {
         fireEvent.click(screen.getByText('Change wallpaper'));
 
         // Check if selector is open
-        expect(screen.getByTestId('window-display-properties')).toBeInTheDocument();
+        expect(screen.getByTestId('window-desktop-wallpaper')).toBeInTheDocument();
         expect(screen.getByText('Mountains')).toBeInTheDocument();
 
         // Select Mountains
@@ -122,7 +122,7 @@ describe('OSDesktop Persistence', () => {
         fireEvent.click(screen.getByTestId('wallpaper-apply'));
 
         // Check if selector is closed
-        expect(screen.queryByText('Display Properties')).not.toBeInTheDocument();
+        expect(screen.queryByText('Desktop Wallpaper')).not.toBeInTheDocument();
 
         // Check if wallpaper is applied to desktop style
         expect(desktop).toHaveStyle({ backgroundImage: 'url(/wallpapers/mountains.png)' });

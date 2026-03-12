@@ -308,15 +308,15 @@ export function OSDesktop({ windows: initialWindows, bootContent = [], skipBoot:
 
         const selectorWin: RuntimeWindow = {
             id,
-            title: "Display Properties",
+            title: "Desktop Wallpaper",
             isOpen: true,
             isMinimized: false,
             isMaximized: isTablet,
             isActive: true,
             x: 150,
             y: 100,
-            width: 400,
-            height: 450,
+            width: 600,
+            height: 430,
             iconType: "folder",
             content: (
                 <WallpaperSelector

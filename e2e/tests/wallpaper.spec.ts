@@ -14,7 +14,7 @@ test.describe('Wallpaper Functionality', () => {
         await page.getByText('Change wallpaper').click();
 
         // Check if selector window is open
-        await expect(page.getByTestId('window-display-properties')).toBeVisible();
+        await expect(page.getByTestId('window-desktop-wallpaper')).toBeVisible();
         await expect(page.getByText('Select a wallpaper for your desktop:')).toBeVisible();
     });
 
@@ -30,7 +30,7 @@ test.describe('Wallpaper Functionality', () => {
         await page.getByTestId('wallpaper-apply').click();
 
         // Selector should be closed
-        await expect(page.getByTestId('window-display-properties')).not.toBeVisible();
+        await expect(page.getByTestId('window-desktop-wallpaper')).not.toBeVisible();
 
         // Check desktop state through data attribute
         const desktop = page.getByTestId('desktop-container');
@@ -55,7 +55,7 @@ test.describe('Wallpaper Functionality', () => {
         await page.getByTestId('wallpaper-cancel').click();
 
         // Selector should be closed
-        await expect(page.getByTestId('window-display-properties')).not.toBeVisible();
+        await expect(page.getByTestId('window-desktop-wallpaper')).not.toBeVisible();
 
         // Check desktop state (should still be default forest)
         const desktop = page.getByTestId('desktop-container');
