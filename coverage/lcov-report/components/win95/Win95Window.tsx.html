@@ -25,7 +25,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/547</span>
+                <span class='fraction'>0/551</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/547</span>
+                <span class='fraction'>0/551</span>
             </div>
         
             
@@ -611,7 +611,15 @@
 <a name='L546'></a><a href='#L546'>546</a>
 <a name='L547'></a><a href='#L547'>547</a>
 <a name='L548'></a><a href='#L548'>548</a>
-<a name='L549'></a><a href='#L549'>549</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
+<a name='L549'></a><a href='#L549'>549</a>
+<a name='L550'></a><a href='#L550'>550</a>
+<a name='L551'></a><a href='#L551'>551</a>
+<a name='L552'></a><a href='#L552'>552</a>
+<a name='L553'></a><a href='#L553'>553</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -1193,6 +1201,7 @@
 <span class="cstat-no" title="statement not covered" >    minHeight?: number;</span>
 <span class="cstat-no" title="statement not covered" >    canMaximize?: boolean;</span>
 <span class="cstat-no" title="statement not covered" >    onFocus?: () =&gt; void;</span>
+<span class="cstat-no" title="statement not covered" >    isTablet?: boolean;</span>
 <span class="cstat-no" title="statement not covered" >    [key: string]: any;</span>
 <span class="cstat-no" title="statement not covered" >}</span>
 <span class="cstat-no" title="statement not covered" ></span>
@@ -1298,6 +1307,7 @@
 <span class="cstat-no" title="statement not covered" >    minHeight = 250,</span>
 <span class="cstat-no" title="statement not covered" >    canMaximize = true,</span>
 <span class="cstat-no" title="statement not covered" >    onFocus,</span>
+<span class="cstat-no" title="statement not covered" >    isTablet = false,</span>
 <span class="cstat-no" title="statement not covered" >    ...props</span>
 <span class="cstat-no" title="statement not covered" >}: Win95WindowProps) {</span>
 <span class="cstat-no" title="statement not covered" >    const isMobile = useIsMobile();</span>
@@ -1562,7 +1572,7 @@
 <span class="cstat-no" title="statement not covered" >                        dragControls.start(e);</span>
 <span class="cstat-no" title="statement not covered" >                    }</span>
 <span class="cstat-no" title="statement not covered" >                }}</span>
-<span class="cstat-no" title="statement not covered" >                onDoubleClick={() =&gt; canMaximize &amp;&amp; onMaximize?.()}</span>
+<span class="cstat-no" title="statement not covered" >                onDoubleClick={() =&gt; !isTablet &amp;&amp; canMaximize &amp;&amp; onMaximize?.()}</span>
 <span class="cstat-no" title="statement not covered" >                className={`window-titlebar h-14 shrink-0 flex items-center justify-between px-2 cursor-default select-none ${isActive ? "bg-win95-blue-active" : "bg-win95-gray-inactive"}`}</span>
 <span class="cstat-no" title="statement not covered" >                data-testid="window-titlebar"</span>
 <span class="cstat-no" title="statement not covered" >            &gt;</span>
@@ -1584,7 +1594,7 @@
 <span class="cstat-no" title="statement not covered" >                    &gt;</span>
 <span class="cstat-no" title="statement not covered" >                        &lt;MinimizeIcon /&gt;</span>
 <span class="cstat-no" title="statement not covered" >                    &lt;/button&gt;</span>
-<span class="cstat-no" title="statement not covered" >                    {canMaximize &amp;&amp; (</span>
+<span class="cstat-no" title="statement not covered" >                    {canMaximize &amp;&amp; !isTablet &amp;&amp; (</span>
 <span class="cstat-no" title="statement not covered" >                        &lt;button</span>
 <span class="cstat-no" title="statement not covered" >                            onClick={onMaximize}</span>
 <span class="cstat-no" title="statement not covered" >                            className="win95-button w-9 h-9 !p-0 ml-1 flex items-center justify-center"</span>
@@ -1619,7 +1629,9 @@
 <span class="cstat-no" title="statement not covered" >                    &lt;/span&gt;</span>
 <span class="cstat-no" title="statement not covered" >                    {activeMenu === 'File' &amp;&amp; (</span>
 <span class="cstat-no" title="statement not covered" >                        &lt;div className="absolute top-full left-0 mt-0.5 w-32 bg-win95-gray win95-beveled z-[100] py-0.5"&gt;</span>
-<span class="cstat-no" title="statement not covered" >                            &lt;div className="px-3 py-1 hover:bg-win95-blue-active hover:text-white cursor-default" onClick={() =&gt; handleAction(() =&gt; onMaximize?.())}&gt;Maximize&lt;/div&gt;</span>
+<span class="cstat-no" title="statement not covered" >                            {!isTablet &amp;&amp; (</span>
+<span class="cstat-no" title="statement not covered" >                                &lt;div className="px-3 py-1 hover:bg-win95-blue-active hover:text-white cursor-default" onClick={() =&gt; handleAction(() =&gt; onMaximize?.())}&gt;Maximize&lt;/div&gt;</span>
+<span class="cstat-no" title="statement not covered" >                            )}</span>
 <span class="cstat-no" title="statement not covered" >                            &lt;div className="px-3 py-1 hover:bg-win95-blue-active hover:text-white cursor-default" onClick={() =&gt; handleAction(() =&gt; onMinimize?.())}&gt;Minimize&lt;/div&gt;</span>
 <span class="cstat-no" title="statement not covered" >                            {onSave &amp;&amp; (</span>
 <span class="cstat-no" title="statement not covered" >                                &lt;div className="px-3 py-1 hover:bg-win95-blue-active hover:text-white cursor-default" onClick={() =&gt; handleAction(() =&gt; onSave())}&gt;Save&lt;/div&gt;</span>
@@ -1714,7 +1726,7 @@
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2026-02-18T17:22:26.616Z
+                at 2026-03-12T00:58:50.582Z
             </div>
         <script src="../../prettify.js"></script>
         <script>

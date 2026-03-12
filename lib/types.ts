@@ -33,6 +33,7 @@ export interface HomeContent {
     jobHistory: JobHistory;
     skillsData: SkillsData;
     videoData: VideoData;
+    bootContent: string[];
 }
 
 export interface Video {

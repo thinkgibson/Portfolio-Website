@@ -8,6 +8,6 @@ import { HomeContent } from "../lib/types";
 export function HomeClient({ content }: { content: HomeContent }) {
     const windows = getAppsConfig(content);
 
-    return <OSDesktop windows={windows} />;
+    return <OSDesktop windows={windows} bootContent={content.bootContent} />;
 }
 

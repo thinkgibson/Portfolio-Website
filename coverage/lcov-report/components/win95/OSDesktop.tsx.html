@@ -25,7 +25,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/563</span>
+                <span class='fraction'>0/568</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/563</span>
+                <span class='fraction'>0/568</span>
             </div>
         
             
@@ -631,7 +631,17 @@
 <a name='L566'></a><a href='#L566'>566</a>
 <a name='L567'></a><a href='#L567'>567</a>
 <a name='L568'></a><a href='#L568'>568</a>
-<a name='L569'></a><a href='#L569'>569</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
+<a name='L569'></a><a href='#L569'>569</a>
+<a name='L570'></a><a href='#L570'>570</a>
+<a name='L571'></a><a href='#L571'>571</a>
+<a name='L572'></a><a href='#L572'>572</a>
+<a name='L573'></a><a href='#L573'>573</a>
+<a name='L574'></a><a href='#L574'>574</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -1215,7 +1225,7 @@
 <span class="cstat-no" title="statement not covered" ></span>
 <span class="cstat-no" title="statement not covered" >import { AppDefinition, IconType } from "../../lib/types";</span>
 <span class="cstat-no" title="statement not covered" >import { Folder } from "./Folder";</span>
-<span class="cstat-no" title="statement not covered" >import { useIsMobile, useLocalStorage } from "../../lib/hooks";</span>
+<span class="cstat-no" title="statement not covered" >import { useIsMobile, useIsTablet, useLocalStorage } from "../../lib/hooks";</span>
 <span class="cstat-no" title="statement not covered" ></span>
 <span class="cstat-no" title="statement not covered" >interface RuntimeWindow extends AppDefinition {</span>
 <span class="cstat-no" title="statement not covered" >    isOpen: boolean;</span>
@@ -1229,6 +1239,7 @@
 <span class="cstat-no" title="statement not covered" ></span>
 <span class="cstat-no" title="statement not covered" >interface OSDesktopProps {</span>
 <span class="cstat-no" title="statement not covered" >    windows: AppDefinition[];</span>
+<span class="cstat-no" title="statement not covered" >    bootContent: string[];</span>
 <span class="cstat-no" title="statement not covered" >    skipBoot?: boolean;</span>
 <span class="cstat-no" title="statement not covered" >    skipWelcome?: boolean;</span>
 <span class="cstat-no" title="statement not covered" >}</span>
@@ -1249,9 +1260,10 @@
 <span class="cstat-no" title="statement not covered" >    return apps;</span>
 <span class="cstat-no" title="statement not covered" >};</span>
 <span class="cstat-no" title="statement not covered" ></span>
-<span class="cstat-no" title="statement not covered" >export function OSDesktop({ windows: initialWindows, skipBoot: propSkipBoot, skipWelcome: propSkipWelcome }: OSDesktopProps) {</span>
+<span class="cstat-no" title="statement not covered" >export function OSDesktop({ windows: initialWindows, bootContent, skipBoot: propSkipBoot, skipWelcome: propSkipWelcome }: OSDesktopProps) {</span>
 <span class="cstat-no" title="statement not covered" >    const isMobile = useIsMobile();</span>
-<span class="cstat-no" title="statement not covered" >    const [booting, setBooting] = useState(propSkipBoot !== undefined ? !propSkipBoot : process.env.NODE_ENV !== 'test');</span>
+<span class="cstat-no" title="statement not covered" >    const isTablet = useIsTablet();</span>
+<span class="cstat-no" title="statement not covered" >    const [booting, setBooting] = useState(propSkipBoot !== undefined ? !propSkipBoot : true);</span>
 <span class="cstat-no" title="statement not covered" >    const [openWindows, setOpenWindows] = useState&lt;RuntimeWindow[]&gt;([]);</span>
 <span class="cstat-no" title="statement not covered" >    const [activeWindowId, setActiveWindowId] = useState&lt;string | null&gt;(null);</span>
 <span class="cstat-no" title="statement not covered" >    const [windowPositions, setWindowPositions] = useState&lt;Record&lt;string, { x: number, y: number, width?: number, height?: number }&gt;&gt;({});</span>
@@ -1316,7 +1328,7 @@
 <span class="cstat-no" title="statement not covered" >                ...winDef,</span>
 <span class="cstat-no" title="statement not covered" >                isOpen: true,</span>
 <span class="cstat-no" title="statement not covered" >                isMinimized: false,</span>
-<span class="cstat-no" title="statement not covered" >                isMaximized: false,</span>
+<span class="cstat-no" title="statement not covered" >                isMaximized: isTablet,</span>
 <span class="cstat-no" title="statement not covered" >                isActive: true,</span>
 <span class="cstat-no" title="statement not covered" >                x: pos.x,</span>
 <span class="cstat-no" title="statement not covered" >                y: pos.y,</span>
@@ -1461,7 +1473,7 @@
 <span class="cstat-no" title="statement not covered" >            title: `About ${currentWin.title}`,</span>
 <span class="cstat-no" title="statement not covered" >            isOpen: true,</span>
 <span class="cstat-no" title="statement not covered" >            isMinimized: false,</span>
-<span class="cstat-no" title="statement not covered" >            isMaximized: false,</span>
+<span class="cstat-no" title="statement not covered" >            isMaximized: isTablet,</span>
 <span class="cstat-no" title="statement not covered" >            isActive: true,</span>
 <span class="cstat-no" title="statement not covered" >            x: currentWin.x + 40,</span>
 <span class="cstat-no" title="statement not covered" >            y: currentWin.y + 40,</span>
@@ -1510,7 +1522,7 @@
 <span class="cstat-no" title="statement not covered" >            title: "Display Properties",</span>
 <span class="cstat-no" title="statement not covered" >            isOpen: true,</span>
 <span class="cstat-no" title="statement not covered" >            isMinimized: false,</span>
-<span class="cstat-no" title="statement not covered" >            isMaximized: false,</span>
+<span class="cstat-no" title="statement not covered" >            isMaximized: isTablet,</span>
 <span class="cstat-no" title="statement not covered" >            isActive: true,</span>
 <span class="cstat-no" title="statement not covered" >            x: 150,</span>
 <span class="cstat-no" title="statement not covered" >            y: 100,</span>
@@ -1586,7 +1598,9 @@
 <span class="cstat-no" title="statement not covered" >                initialWindows={initialWindows}</span>
 <span class="cstat-no" title="statement not covered" >                desktopRef={desktopRef}</span>
 <span class="cstat-no" title="statement not covered" >                isMobile={isMobile}</span>
+<span class="cstat-no" title="statement not covered" >                isTablet={isTablet}</span>
 <span class="cstat-no" title="statement not covered" >                availableApps={initialWindows}</span>
+<span class="cstat-no" title="statement not covered" >                bootContent={bootContent}</span>
 <span class="cstat-no" title="statement not covered" >            /&gt;</span>
 <span class="cstat-no" title="statement not covered" >        &lt;/OSProvider&gt;</span>
 <span class="cstat-no" title="statement not covered" >    );</span>
@@ -1599,7 +1613,7 @@
 <span class="cstat-no" title="statement not covered" >    handleOpenWindow, handleCloseWindow, handleMinimizeWindow, handleMaximizeWindow,</span>
 <span class="cstat-no" title="statement not covered" >    handleSetActive, handleResizeWindow, handleAbout, handleOpenWallpaperSelector,</span>
 <span class="cstat-no" title="statement not covered" >    handleMinimizeAllWindows, handleCloseAllWindows, handleContextMenu,</span>
-<span class="cstat-no" title="statement not covered" >    initialWindows, desktopRef, isMobile, availableApps</span>
+<span class="cstat-no" title="statement not covered" >    initialWindows, desktopRef, isMobile, isTablet, availableApps, bootContent</span>
 <span class="cstat-no" title="statement not covered" >}: any) {</span>
 <span class="cstat-no" title="statement not covered" >    const { playSound, closeWindow, saveHandlers } = useOS();</span>
 <span class="cstat-no" title="statement not covered" ></span>
@@ -1631,7 +1645,7 @@
 <span class="cstat-no" title="statement not covered" >                if (contextMenu) setContextMenu(null);</span>
 <span class="cstat-no" title="statement not covered" >            }}</span>
 <span class="cstat-no" title="statement not covered" >        &gt;</span>
-<span class="cstat-no" title="statement not covered" >            {booting &amp;&amp; &lt;BootSequence onComplete={() =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >            {booting &amp;&amp; &lt;BootSequence bootContent={bootContent} onComplete={() =&gt; {</span>
 <span class="cstat-no" title="statement not covered" >                setBooting(false);</span>
 <span class="cstat-no" title="statement not covered" >                playSound("boot");</span>
 <span class="cstat-no" title="statement not covered" >            }} /&gt;}</span>
@@ -1705,6 +1719,7 @@
 <span class="cstat-no" title="statement not covered" >                        }}</span>
 <span class="cstat-no" title="statement not covered" >                        isMaximized={win.isMaximized}</span>
 <span class="cstat-no" title="statement not covered" >                        isActive={win.isActive}</span>
+<span class="cstat-no" title="statement not covered" >                        isTablet={isTablet}</span>
 <span class="cstat-no" title="statement not covered" >                        x={win.x}</span>
 <span class="cstat-no" title="statement not covered" >                        y={win.y}</span>
 <span class="cstat-no" title="statement not covered" >                        width={isMobile ? (typeof window !== 'undefined' ? window.innerWidth : 320) * 0.9 : win.width}</span>
@@ -1774,7 +1789,7 @@
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2026-02-18T17:22:26.616Z
+                at 2026-03-12T00:58:50.582Z
             </div>
         <script src="../../prettify.js"></script>
         <script>

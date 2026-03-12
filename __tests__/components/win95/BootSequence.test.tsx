@@ -12,7 +12,7 @@ describe('BootSequence', () => {
 
     it('displays boot messages over time', () => {
         const onComplete = jest.fn();
-        render(<BootSequence onComplete={onComplete} />);
+        render(<BootSequence bootContent={[]} onComplete={onComplete} />);
 
         // Initially no messages (or first line depending on timing)
 
@@ -28,7 +28,7 @@ describe('BootSequence', () => {
 
     it('calls onComplete after finishing boot sequence', () => {
         const onComplete = jest.fn();
-        render(<BootSequence onComplete={onComplete} />);
+        render(<BootSequence bootContent={[]} onComplete={onComplete} />);
 
         // Advance all timers
         act(() => {
@@ -40,7 +40,7 @@ describe('BootSequence', () => {
 
     it('skips when clicked', () => {
         const onComplete = jest.fn();
-        render(<BootSequence onComplete={onComplete} />);
+        render(<BootSequence bootContent={[]} onComplete={onComplete} />);
 
         const container = screen.getByText(/Click anywhere to skip/).parentElement;
         if (!container) throw new Error('Container not found');
