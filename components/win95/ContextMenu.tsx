@@ -70,8 +70,8 @@ export function ContextMenu({ x, y, items, onClose, testId = "context-menu", anc
 
     return (
         <div
-            className="fixed inset-0 z-[200] pointer-events-none"
-            onClick={onClose}
+            className="fixed inset-0 z-[200] pointer-events-auto"
+            onPointerDown={onClose}
         >
             <motion.div
                 ref={menuRef}
@@ -82,6 +82,7 @@ export function ContextMenu({ x, y, items, onClose, testId = "context-menu", anc
                 style={{ top: adjustedY, left: adjustedX }}
                 className="absolute min-w-60 w-auto max-w-[calc(100vw-16px)] bg-win95-gray win95-beveled py-2 shadow-[4px_4px_10px_rgba(0,0,0,0.5)] pointer-events-auto"
                 onClick={(e) => e.stopPropagation()}
+                onPointerDown={(e) => e.stopPropagation()}
                 data-testid={testId}
             >
                 {items.map((item, index) => (

@@ -68,4 +68,21 @@ describe('WallpaperSelector', () => {
         fireEvent.click(screen.getByTestId('wallpaper-apply'));
         expect(mockOnApply).toHaveBeenCalledWith(WALLPAPERS.find(w => w.id === 'forest'));
     });
+
+    it('calls onPreview when a wallpaper is clicked', () => {
+        const mockOnPreview = jest.fn();
+        render(
+            <WallpaperSelector
+                currentWallpaperId="teal"
+                onApply={mockOnApply}
+                onCancel={mockOnCancel}
+                onPreview={mockOnPreview}
+            />
+        );
+
+        const forestOption = screen.getByTestId('wallpaper-option-forest');
+        fireEvent.click(forestOption);
+
+        expect(mockOnPreview).toHaveBeenCalledWith(WALLPAPERS.find(w => w.id === 'forest'));
+    });
 });

@@ -59,6 +59,7 @@ export function OSDesktop({ windows: initialWindows, bootContent = [], skipBoot:
     const [isStartMenuOpen, setIsStartMenuOpen] = useState(false);
     const [contextMenu, setContextMenu] = useState<{ x: number, y: number } | null>(null);
     const [wallpaper, setWallpaper] = useLocalStorage<Wallpaper>("win95-wallpaper", WALLPAPERS[0]);
+    const [previewWallpaper, setPreviewWallpaper] = useState<Wallpaper | null>(null);
     const desktopRef = React.useRef<HTMLDivElement>(null);
 
     const handleOpenWindow = (id: string) => {
@@ -155,6 +156,9 @@ export function OSDesktop({ windows: initialWindows, bootContent = [], skipBoot:
         setOpenWindows(prev => prev.filter(w => w.id !== id));
         if (activeWindowId === id) {
             setActiveWindowId(null);
+        }
+        if (id === "wallpaper-selector") {
+            setPreviewWallpaper(null);
         }
     };
 
@@ -323,9 +327,14 @@ export function OSDesktop({ windows: initialWindows, bootContent = [], skipBoot:
                     currentWallpaperId={wallpaper.id}
                     onApply={(newWallpaper) => {
                         setWallpaper(newWallpaper);
+                        setPreviewWallpaper(null);
                         handleCloseWindow(id);
                     }}
-                    onCancel={() => handleCloseWindow(id)}
+                    onCancel={() => {
+                        setPreviewWallpaper(null);
+                        handleCloseWindow(id);
+                    }}
+                    onPreview={(wp) => setPreviewWallpaper(wp)}
                 />
             )
         };
@@ -370,6 +379,7 @@ export function OSDesktop({ windows: initialWindows, bootContent = [], skipBoot:
                 booting={booting}
                 setBooting={setBooting}
                 wallpaper={wallpaper}
+                previewWallpaper={previewWallpaper}
                 windowPositions={windowPositions}
                 setWindowPositions={setWindowPositions}
                 isStartMenuOpen={isStartMenuOpen}
@@ -403,7 +413,7 @@ export function OSDesktop({ windows: initialWindows, bootContent = [], skipBoot:
 }
 
 function OSDesktopView({
-    booting, setBooting, wallpaper, windowPositions, setWindowPositions,
+    booting, setBooting, wallpaper, previewWallpaper, windowPositions, setWindowPositions,
     isStartMenuOpen, setIsStartMenuOpen, contextMenu, setContextMenu,
     openWindows, setOpenWindows, activeWindowId,
     handleOpenWindow, handleCloseWindow, handleMinimizeWindow, handleMaximizeWindow,
@@ -425,20 +435,22 @@ function OSDesktopView({
 
     const menuOpenAtStartRef = React.useRef(false);
 
+    const activeWallpaper = previewWallpaper || wallpaper;
+
     return (
         <div
             ref={desktopRef}
             className="relative w-screen h-screen overflow-hidden"
             style={{
-                backgroundColor: wallpaper.type === 'color' ? wallpaper.value : '#008080',
-                backgroundImage: wallpaper.type === 'image' ? `url(${wallpaper.value})` : 'none',
-                backgroundSize: wallpaper.type === 'image' ? 'cover' : 'auto',
+                backgroundColor: activeWallpaper.type === 'color' ? activeWallpaper.value : '#008080',
+                backgroundImage: activeWallpaper.type === 'image' ? `url(${activeWallpaper.value})` : 'none',
+                backgroundSize: activeWallpaper.type === 'image' ? 'cover' : 'auto',
                 backgroundRepeat: 'no-repeat',
                 backgroundPosition: 'center'
             }}
             data-window-positions={JSON.stringify(windowPositions)}
             data-testid="desktop-container"
-            data-wallpaper-id={wallpaper.id}
+            data-wallpaper-id={activeWallpaper.id}
             onContextMenu={handleContextMenu}
             {...desktopLongPress}
             onPointerDown={(e) => {
