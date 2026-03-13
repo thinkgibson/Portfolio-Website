@@ -17,7 +17,7 @@ Create a structured planning document that enables any implementing agent to und
 
 | Source | Naming Convention |
 |--------|-------------------|
-| **GitHub Issue** | File: `planning/gitissue-{ID}.md`, Title: `GitHub Issue #{ID}: {Title}` |
+| **GitHub Issue** | File: `planning/{reponame}-gitissue-{ID}.md`, Title: `GitHub Issue #{ID}: {Title}` |
 | **Generic Requirements** | File: `planning/{kebab-case-summary}.md`, Title: `{Summary Title}` |
 
 ### 2. Gather Context
