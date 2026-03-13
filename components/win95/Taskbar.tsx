@@ -7,6 +7,7 @@ import { ContextMenu } from "./ContextMenu";
 import { OSProvider, useOS } from "./OSContext";
 import { AnimatePresence } from "framer-motion";
 import { IconType } from "../../lib/types";
+import { useLongPress, useIsMobile, useIsTablet } from "../../lib/hooks";
 
 interface TaskbarProps {
     openWindows: { id: string; title: string; isActive: boolean; isMinimized: boolean; iconType?: IconType }[];
@@ -18,6 +19,52 @@ interface TaskbarProps {
     onCloseAllWindows: () => void;
 }
 
+interface TaskbarItemProps {
+    win: { id: string; title: string; isActive: boolean; isMinimized: boolean; iconType?: IconType };
+    onWindowClick: (id: string) => void;
+    setTaskbarContextMenu: (menu: { type: 'window' | 'taskbar'; windowId?: string; x: number; y: number } | null) => void;
+    isMobile: boolean;
+    isTablet: boolean;
+}
+
+function TaskbarItem({ win, onWindowClick, setTaskbarContextMenu, isMobile, isTablet }: TaskbarItemProps) {
+    const longPressProps = useLongPress((e) => {
+        if (isMobile || isTablet) {
+            setTaskbarContextMenu({
+                type: 'window',
+                windowId: win.id,
+                x: e.clientX,
+                y: e.clientY
+            });
+        }
+    });
+
+    return (
+        <button
+            onClick={() => onWindowClick(win.id)}
+            onContextMenu={(e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                setTaskbarContextMenu({
+                    type: 'window',
+                    windowId: win.id,
+                    x: e.clientX,
+                    y: e.clientY
+                });
+            }}
+            {...longPressProps}
+            className={`${win.isActive ? "win95-beveled-inset bg-win95-gray font-bold" : "win95-button"
+                } px-6 text-[20px] font-win95 flex items-center max-w-[300px] truncate h-full touch-manipulation min-w-[120px] leading-none`}
+            data-testid={`taskbar-item-${win.title.toLowerCase().replace(/\s+/g, '-')}`}
+        >
+            <div className="mr-3 flex-shrink-0">
+                <DynamicIcon iconType={win.iconType || "folder"} size={27} />
+            </div>
+            <span className="truncate">{win.title}</span>
+        </button>
+    );
+}
+
 export function Taskbar({ openWindows, onWindowClick, onStartClick, onMinimizeWindow, onCloseWindow, onMinimizeAllWindows, onCloseAllWindows }: TaskbarProps) {
     const [time, setTime] = useState(new Date());
     const [activeTooltip, setActiveTooltip] = useState<"weather" | "network" | "volume" | null>(null);
@@ -26,6 +73,18 @@ export function Taskbar({ openWindows, onWindowClick, onStartClick, onMinimizeWi
     const [ping, setPing] = useState<{ value: number; loading: boolean } | null>(null);
     const { volume, setVolume } = useOS();
     const isFirstRender = React.useRef(true);
+    const isMobile = useIsMobile();
+    const isTablet = useIsTablet();
+
+    const taskbarLongPress = useLongPress((e) => {
+        if (isMobile || isTablet) {
+            setTaskbarContextMenu({
+                type: 'taskbar',
+                x: e.clientX,
+                y: e.clientY
+            });
+        }
+    });
 
     useEffect(() => {
         const timer = setInterval(() => setTime(new Date()), 1000);
@@ -199,6 +258,7 @@ export function Taskbar({ openWindows, onWindowClick, onStartClick, onMinimizeWi
     return (
         <div
             className="fixed bottom-0 left-0 right-0 h-[54px] bg-win95-taskbar win95-beveled flex items-center p-1 z-[120] gap-1 select-none"
+            data-testid="taskbar"
             onContextMenu={(e) => {
                 e.preventDefault();
                 e.stopPropagation();
@@ -208,6 +268,7 @@ export function Taskbar({ openWindows, onWindowClick, onStartClick, onMinimizeWi
                     y: e.clientY
                 });
             }}
+            {...taskbarLongPress}
         >
             {/* Start Button */}
             <button
@@ -225,28 +286,14 @@ export function Taskbar({ openWindows, onWindowClick, onStartClick, onMinimizeWi
             {/* Open Windows Buttons */}
             <div className="flex-grow flex gap-1 h-full overflow-hidden">
                 {openWindows.map((win) => (
-                    <button
+                    <TaskbarItem
                         key={win.id}
-                        onClick={() => onWindowClick(win.id)}
-                        onContextMenu={(e) => {
-                            e.preventDefault();
-                            e.stopPropagation();
-                            setTaskbarContextMenu({
-                                type: 'window',
-                                windowId: win.id,
-                                x: e.clientX,
-                                y: e.clientY
-                            });
-                        }}
-                        className={`${win.isActive ? "win95-beveled-inset bg-win95-gray font-bold" : "win95-button"
-                            } px-6 text-[20px] font-win95 flex items-center max-w-[300px] truncate h-full touch-manipulation min-w-[120px] leading-none`}
-                        data-testid={`taskbar-item-${win.title.toLowerCase().replace(/\s+/g, '-')}`}
-                    >
-                        <div className="mr-3 flex-shrink-0">
-                            <DynamicIcon iconType={win.iconType || "folder"} size={27} />
-                        </div>
-                        <span className="truncate">{win.title}</span>
-                    </button>
+                        win={win}
+                        onWindowClick={onWindowClick}
+                        setTaskbarContextMenu={setTaskbarContextMenu}
+                        isMobile={isMobile}
+                        isTablet={isTablet}
+                    />
                 ))}
             </div>
 

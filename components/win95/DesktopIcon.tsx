@@ -18,7 +18,7 @@ export function DesktopIcon({ id, label, iconType, onOpen, x, y, textColor = "te
 
     return (
         <div
-            className="flex flex-col items-center justify-start p-2 w-36 min-h-[120px] h-auto cursor-pointer group select-none active:bg-blue-800/30 touch-manipulation overflow-hidden"
+            className="flex flex-col items-center justify-start p-2 w-36 min-h-[120px] h-auto cursor-pointer group select-none active:bg-blue-800/30 touch-manipulation overflow-hidden [webkit-tap-highlight-color:transparent]"
             onClick={() => onOpen(id)}
             style={x !== undefined && y !== undefined ? { position: 'absolute', left: x, top: y } : {}}
             data-testid={`desktop-icon-${label.toLowerCase().replace(/\s+/g, '-')}`}

@@ -14,7 +14,7 @@ import { WallpaperSelector, WALLPAPERS, Wallpaper } from "./WallpaperSelector";
 
 import { AppDefinition, IconType } from "../../lib/types";
 import { Folder } from "./Folder";
-import { useIsMobile, useIsTablet, useLocalStorage } from "../../lib/hooks";
+import { useIsMobile, useIsTablet, useLocalStorage, useLongPress } from "../../lib/hooks";
 
 interface RuntimeWindow extends AppDefinition {
     isOpen: boolean;
@@ -345,9 +345,15 @@ export function OSDesktop({ windows: initialWindows, bootContent = [], skipBoot:
         setActiveWindowId(null);
     };
 
-    const handleContextMenu = (e: React.MouseEvent) => {
-        e.preventDefault();
+    const handleContextMenu = (e: any) => {
+        if (e.preventDefault) e.preventDefault();
         setContextMenu({ x: e.clientX, y: e.clientY });
+    };
+
+    const handleLongPress = (e: any) => {
+        if (isMobile || isTablet) {
+            handleContextMenu(e);
+        }
     };
 
     // Flatten all apps for OSProvider's availableApps
@@ -384,6 +390,7 @@ export function OSDesktop({ windows: initialWindows, bootContent = [], skipBoot:
                 handleMinimizeAllWindows={handleMinimizeAllWindows}
                 handleCloseAllWindows={handleCloseAllWindows}
                 handleContextMenu={handleContextMenu}
+                handleLongPress={handleLongPress}
                 initialWindows={initialWindows}
                 desktopRef={desktopRef}
                 isMobile={isMobile}
@@ -401,7 +408,7 @@ function OSDesktopView({
     openWindows, setOpenWindows, activeWindowId,
     handleOpenWindow, handleCloseWindow, handleMinimizeWindow, handleMaximizeWindow,
     handleSetActive, handleResizeWindow, handleAbout, handleOpenWallpaperSelector,
-    handleMinimizeAllWindows, handleCloseAllWindows, handleContextMenu,
+    handleMinimizeAllWindows, handleCloseAllWindows, handleContextMenu, handleLongPress,
     initialWindows, desktopRef, isMobile, isTablet, availableApps, bootContent = []
 }: any) {
     const { playSound, closeWindow, saveHandlers } = useOS();
@@ -413,6 +420,10 @@ function OSDesktopView({
 
 
     const workAreaRef = React.useRef<HTMLDivElement>(null);
+
+    const desktopLongPress = useLongPress(handleLongPress);
+
+    const menuOpenAtStartRef = React.useRef(false);
 
     return (
         <div
@@ -429,9 +440,29 @@ function OSDesktopView({
             data-testid="desktop-container"
             data-wallpaper-id={wallpaper.id}
             onContextMenu={handleContextMenu}
-            onClick={() => {
-                if (isStartMenuOpen) setIsStartMenuOpen(false);
-                if (contextMenu) setContextMenu(null);
+            {...desktopLongPress}
+            onPointerDown={(e) => {
+                if (desktopLongPress.onPointerDown) {
+                    desktopLongPress.onPointerDown(e);
+                }
+                menuOpenAtStartRef.current = !!contextMenu;
+            }}
+            onClick={(e) => {
+                if (isStartMenuOpen) {
+                    setIsStartMenuOpen(false);
+                } else if (contextMenu) {
+                    setContextMenu(null);
+                } else if ((isMobile || isTablet) && !menuOpenAtStartRef.current) {
+                    const target = e.target as HTMLElement;
+                    const isIcon = target.closest('[data-testid^="desktop-icon-"]');
+                    const isTaskbar = target.closest('[data-testid="taskbar"]');
+                    const isWindow = target.closest('.win95-window');
+                    
+                    if (!isIcon && !isTaskbar && !isWindow) {
+                        console.log('Opening via OSDesktop onClick');
+                        handleContextMenu(e);
+                    }
+                }
             }}
         >
             {booting && <BootSequence bootContent={bootContent} onComplete={() => {
@@ -443,7 +474,10 @@ function OSDesktopView({
             <div ref={workAreaRef} className="absolute inset-0 bottom-[96px] pointer-events-none w-full" />
 
             {/* Desktop Icons */}
-            <div className="p-4 grid grid-flow-col grid-rows-[repeat(auto-fill,minmax(160px,auto))] gap-8 w-fit h-[calc(100vh-96px)]">
+            <div 
+                className="p-4 grid grid-flow-col grid-rows-[repeat(auto-fill,minmax(160px,auto))] gap-8 w-fit h-fit max-h-[calc(100vh-96px)] place-content-start items-start"
+                data-testid="desktop-grid"
+            >
                 {initialWindows.map((win: any) => (
                     <DesktopIcon
                         key={win.id}

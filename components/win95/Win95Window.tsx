@@ -380,7 +380,7 @@ export function Win95Window({
                 stiffness: 400,
                 damping: 30
             }}
-            className={`win95-beveled absolute flex flex-col overflow-hidden pointer-events-auto select-none touch-none ${isActive ? "z-50" : "z-10"}`}
+            className={`win95-window win95-beveled absolute flex flex-col overflow-hidden pointer-events-auto select-none touch-none ${isActive ? "z-50" : "z-10"}`}
             style={{
                 padding: '2px',
                 x: isMaximized ? 0 : xMV,
