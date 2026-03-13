@@ -62,3 +62,30 @@ export function useLocalStorage<T>(key: string, initialValue: T): [T, (value: T 
 
     return [storedValue, setValue];
 }
+
+export function useLongPress(callback: (e: any) => void, ms = 500) {
+    const [startLongPress, setStartLongPress] = useState(false);
+    const [event, setEvent] = useState<any>(null);
+
+    useEffect(() => {
+        let timer: any;
+        if (startLongPress) {
+            timer = setTimeout(() => {
+                callback(event);
+                setStartLongPress(false);
+            }, ms);
+        } else {
+            clearTimeout(timer);
+        }
+        return () => clearTimeout(timer);
+    }, [callback, ms, startLongPress, event]);
+
+    return {
+        onPointerDown: (e: any) => {
+            setEvent(e);
+            setStartLongPress(true);
+        },
+        onPointerUp: () => setStartLongPress(false),
+        onPointerLeave: () => setStartLongPress(false),
+    };
+}
