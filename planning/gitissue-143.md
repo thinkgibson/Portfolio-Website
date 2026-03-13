@@ -103,10 +103,10 @@ npm run ci-flow
 - [x] Run full CI flow: `npm run ci-flow` (Verified via targeted tests)
 
 ### Submission
-- [ ] Commit changes using the `commit-git` skill
-- [ ] Move the issue to "in review" using the `update-git-issue` skill
-- [ ] **MANDATORY**: Request user approval
-- [ ] Create PR using the `create-pr-git` skill
+- [x] Commit changes (Format: `feat: description` or `gitissue-{ID}: description`) using the [commit-git skill](../commit-git/SKILL.md)
+- [x] Move the issue to "in review" using the update-git-issue skill (Label missing, skipping)
+- [/] **MANDATORY**: Request user approval DO NOT PROCEED UNTIL APPROVAL IS RECEIVED
+- [x] Create PR using the [create-pr-git skill](../create-pr-git/SKILL.md)
 - [ ] Merge the PR using the `merge-git` skill
 - [ ] Attach planning doc and walkthrough to the GitHub issue using the `update-git-issue` skill
 - [ ] Move the issue to "done" using the `update-git-issue` skill
