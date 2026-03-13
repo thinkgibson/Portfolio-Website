@@ -260,8 +260,8 @@ export const getAppsConfig = (content: HomeContent): AppDefinition[] => {
                     id: "musicplayer",
                     title: "Media Player",
                     iconType: "musicplayer",
-                    width: 350,
-                    height: 450,
+                    width: 450,
+                    height: 550,
                     helpContent: (
                         <div className="space-y-2">
                             <p>This is the <strong>Media Player</strong>.</p>

@@ -210,8 +210,8 @@ export const MusicPlayer: React.FC = () => {
                 onEnded={nextTrack}
             />
 
-            {/* Display Area (Authentic Black Display) */}
-            <div className="win95-beveled-inset bg-black text-[#00FF00] p-2 flex flex-col justify-center items-start h-20 font-mono relative overflow-hidden mx-1">
+            {/* Display Area (Authentic LCD Display) */}
+            <div className="win95-beveled-inset bg-[#A9C3A2] text-black p-2 flex flex-col justify-center items-start h-20 font-mono relative overflow-hidden mx-1">
                 <div className="text-[12px] uppercase opacity-70 mb-1">
                     {isPlaying ? "Playing" : currentTime > 0 ? "Paused" : "Stopped"}
                 </div>

@@ -80,6 +80,7 @@ npm run ci-flow
 2. **Phase 2: Component Refactor**: Reorganize the JSX in `MusicPlayer.tsx` to match the new layout.
 3. **Phase 3: Styling**: Apply final Win95 beveled styles and fine-tune spacing.
 4. **Phase 4: Verification**: Run tests and perform visual check.
+5. **Phase 5: UI Refinements**: Increase default window size and update display area font color to black.
 
 ---
 
@@ -94,6 +95,7 @@ npm run ci-flow
 - [x] **Phase 2**: Refactor `MusicPlayer` layout (Display, Slider, Controls sections).
 - [x] **Phase 3**: Implement custom styling for the range slider (track and thumb).
 - [x] **Phase 4**: Add the status bar section with icon and timing info.
+- [x] **Phase 5**: UI Refinements (Increase size, update display colors).
 - [x] Verify implementation against "Expected Code Changes".
 
 ### Verification
