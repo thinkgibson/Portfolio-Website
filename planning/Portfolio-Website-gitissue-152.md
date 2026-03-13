@@ -21,6 +21,7 @@ This plan addresses two types of technical debt: React `act()` warnings in exist
 |------|---------|
 | `__tests__/components/win95/BootSequence.test.tsx` | Mock `fetch`, wrap state updates in `act`, and ensure timers are handled correctly. |
 | `__tests__/components/win95/Taskbar.test.tsx` | Ensure all async updates and timers are properly handled within `act` or `waitFor`. |
+| `__tests__/components/win95/Win95Window.test.tsx` | Wrap manual event handler calls (extracted from spies) in `act()`. |
 
 ---
 
@@ -63,12 +64,14 @@ This plan addresses two types of technical debt: React `act()` warnings in exist
 ### Verification of Fixes
 - [ ] Run `npm test -- BootSequence.test.tsx` (Verify no warnings)
 - [ ] Run `npm test -- Taskbar.test.tsx` (Verify no warnings)
+- [ ] Run `npm test -- Win95Window.test.tsx` (Verify no warnings)
 - [ ] Run `npm test -- SaveDialog.test.tsx` (Verify coverage)
 
 ### Test Commands
 ```bash
 npm test -- BootSequence.test.tsx
 npm test -- Taskbar.test.tsx
+npm test -- Win95Window.test.tsx
 npm test -- SaveDialog.test.tsx
 npm run test:coverage -- --collectCoverageFrom="components/win95/SaveDialog.tsx"
 ```
@@ -79,6 +82,7 @@ npm run test:coverage -- --collectCoverageFrom="components/win95/SaveDialog.tsx"
 1. **Phase 1**: Implement `SaveDialog.test.tsx` and verify coverage.
 2. **Phase 2**: Debug and resolve `act()` warnings in `BootSequence.test.tsx`.
 3. **Phase 3**: Debug and resolve `act()` warnings in `Taskbar.test.tsx`.
+4. **Phase 4**: Debug and resolve `act()` warnings in `Win95Window.test.tsx`.
 
 ---
 
@@ -89,9 +93,10 @@ npm run test:coverage -- --collectCoverageFrom="components/win95/SaveDialog.tsx"
 - [ ] Create git branch `gitissue-152/resolve-act-warnings-and-coverage`
 
 ### Implementation
-- [ ] **Phase 1**: Create `__tests__/components/win95/SaveDialog.test.tsx`
-- [ ] **Phase 2**: Update `__tests__/components/win95/BootSequence.test.tsx` to fix warnings
-- [ ] **Phase 3**: Update `__tests__/components/win95/Taskbar.test.tsx` to fix warnings
+- [x] **Phase 1**: Create `__tests__/components/win95/SaveDialog.test.tsx`
+- [x] **Phase 2**: Update `__tests__/components/win95/BootSequence.test.tsx` to fix warnings
+- [x] **Phase 3**: Update `__tests__/components/win95/Taskbar.test.tsx` to fix warnings
+- [ ] **Phase 4**: Update `__tests__/components/win95/Win95Window.test.tsx` to fix warnings
 
 ### Verification
 - [ ] Run unit tests and verify NO console warnings.

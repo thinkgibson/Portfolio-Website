@@ -385,14 +385,19 @@ describe('Taskbar', () => {
 
     it('closes context menu when clicking outside', async () => {
         await renderTaskbar();
-        fireEvent.contextMenu(screen.getByText('Window 2'));
+        await act(async () => {
+            fireEvent.contextMenu(screen.getByText('Window 2'));
+        });
 
-        expect(screen.getByText('Minimize')).toBeInTheDocument();
+        expect(await screen.findByText('Minimize')).toBeInTheDocument();
 
         // Clicking the overlay should close the menu
-        const menu = screen.getByTestId('taskbar-context-menu');
+        const menu = await screen.findByTestId('taskbar-context-menu');
         const overlay = menu.parentElement!;
-        fireEvent.click(overlay);
+        
+        await act(async () => {
+            fireEvent.click(overlay);
+        });
 
         await waitFor(() => {
             expect(screen.queryByText('Minimize')).not.toBeInTheDocument();

@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, screen, fireEvent } from '@testing-library/react';
+import { render, screen, fireEvent, act } from '@testing-library/react';
 import { Win95Window } from '../../../components/win95/Win95Window';
 import '@testing-library/jest-dom';
 
@@ -205,14 +205,20 @@ describe('Win95Window', () => {
             stopPropagation: jest.fn()
         } as unknown as PointerEvent;
 
-        handleMouseMove(moveEvent);
+        act(() => {
+            handleMouseMove(moveEvent);
+        });
 
-        handleMouseMove(moveEvent);
+        act(() => {
+            handleMouseMove(moveEvent);
+        });
 
         expect(defaultProps.onResize).toHaveBeenCalledWith(expect.any(Number), expect.any(Number));
 
         // Cleanup
-        handleMouseUp({} as Event);
+        act(() => {
+            handleMouseUp({} as Event);
+        });
         expect(removeEventListenerSpy).toHaveBeenCalledWith('pointermove', expect.any(Function));
 
         addEventListenerSpy.mockRestore();
