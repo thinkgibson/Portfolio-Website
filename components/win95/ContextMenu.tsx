@@ -21,16 +21,18 @@ interface ContextMenuProps {
 export function ContextMenu({ x, y, items, onClose, testId = "context-menu", anchorY = 'top' }: ContextMenuProps) {
     const menuRef = useRef<HTMLDivElement>(null);
     const [menuHeight, setMenuHeight] = React.useState(0);
+    const [menuWidth, setMenuWidth] = React.useState(0);
     const useIsomorphicLayoutEffect = typeof window !== 'undefined' ? React.useLayoutEffect : React.useEffect;
 
     useIsomorphicLayoutEffect(() => {
         if (menuRef.current) {
             setMenuHeight(menuRef.current.offsetHeight);
+            setMenuWidth(menuRef.current.offsetWidth);
         }
     }, [items]);
 
     useEffect(() => {
-        const handleClickOutside = (event: MouseEvent) => {
+        const handleClickOutside = (event: PointerEvent) => {
             if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
                 onClose();
             }
@@ -42,18 +44,20 @@ export function ContextMenu({ x, y, items, onClose, testId = "context-menu", anc
             }
         };
 
-        document.addEventListener("mousedown", handleClickOutside);
+        document.addEventListener("pointerdown", handleClickOutside);
         document.addEventListener("keydown", handleKeyDown);
 
         return () => {
-            document.removeEventListener("mousedown", handleClickOutside);
+            document.removeEventListener("pointerdown", handleClickOutside);
             document.removeEventListener("keydown", handleKeyDown);
         };
     }, [onClose]);
 
-    // Ensure the menu doesn't go off screen
     // Ensure the menu doesn't go off screen, with at least 8px margin
-    const adjustedX = typeof window !== "undefined" ? Math.max(8, Math.min(x, window.innerWidth - (menuRef.current?.offsetWidth || 320) - 8)) : x;
+    const viewportWidth = typeof window !== "undefined" ? window.innerWidth : 800;
+    const viewportHeight = typeof window !== "undefined" ? window.innerHeight : 600;
+
+    const adjustedX = Math.max(8, Math.min(x, viewportWidth - (menuWidth || 320) - 8));
 
     // Calculate initial Y based on anchor
     let initialY = y;
@@ -62,9 +66,7 @@ export function ContextMenu({ x, y, items, onClose, testId = "context-menu", anc
     }
 
     // Constrain Y within viewport
-    const adjustedY = typeof window !== "undefined"
-        ? Math.max(0, Math.min(initialY, window.innerHeight - (menuHeight || items.length * 50 + 20)))
-        : initialY;
+    const adjustedY = Math.max(8, Math.min(initialY, viewportHeight - (menuHeight || items.length * 40 + 20) - 8));
 
     return (
         <div
