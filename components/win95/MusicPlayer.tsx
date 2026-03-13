@@ -212,13 +212,13 @@ export const MusicPlayer: React.FC = () => {
 
             {/* Display Area (Authentic LCD Display) */}
             <div className="win95-beveled-inset bg-[#A9C3A2] text-black p-2 flex flex-col justify-center items-start h-20 font-mono relative overflow-hidden mx-1">
-                <div className="text-[12px] uppercase opacity-70 mb-1">
+                <div className="text-[16px] uppercase opacity-70 mb-1">
                     {isPlaying ? "Playing" : currentTime > 0 ? "Paused" : "Stopped"}
                 </div>
-                <div className="text-[16px] truncate w-full" data-testid="player-display-title">
+                <div className="text-[24px] truncate w-full" data-testid="player-display-title">
                     {currentTrack ? currentTrack.title : "No Track Selected"}
                 </div>
-                <div className="absolute top-2 right-2 text-[14px]">
+                <div className="absolute top-2 right-2 text-[20px]">
                     {formatTime(currentTime)}
                 </div>
             </div>
@@ -292,11 +292,11 @@ export const MusicPlayer: React.FC = () => {
 
             {/* Playlist (Keep for functionality, but style it more compactly) */}
             <div className="flex-grow overflow-y-auto win95-beveled-inset bg-white mx-1 my-1 scrollbar-win95">
-                <table className="w-full text-left text-[12px] border-collapse">
+                <table className="w-full text-left text-[16px] border-collapse">
                     <thead className="bg-win95-gray sticky top-0 shadow-sm">
                         <tr>
-                            <th className="px-1 py-0 border-b border-r border-gray-400 font-normal w-6 text-center">#</th>
-                            <th className="px-1 py-0 border-b border-gray-400 font-normal">Title</th>
+                            <th className="px-1 py-1 border-b border-r border-gray-400 font-normal w-8 text-center">#</th>
+                            <th className="px-1 py-1 border-b border-gray-400 font-normal">Title</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -310,8 +310,8 @@ export const MusicPlayer: React.FC = () => {
                                     setTimeout(() => playTrack(), 0);
                                 }}
                             >
-                                <td className="px-1 py-0.5 text-center">{index + 1}</td>
-                                <td className="px-1 py-0.5 truncate">{track.title}</td>
+                                <td className="px-1 py-1 text-center">{index + 1}</td>
+                                <td className="px-1 py-1 truncate">{track.title}</td>
                             </tr>
                         ))}
                     </tbody>
@@ -319,12 +319,12 @@ export const MusicPlayer: React.FC = () => {
             </div>
 
             {/* Status Bar */}
-            <div className="win95-beveled-inset mx-[-4px] mb-[-4px] mt-2 px-2 py-[2px] text-[11px] flex justify-between items-center bg-win95-gray">
+            <div className="win95-beveled-inset mx-[-4px] mb-[-4px] mt-2 px-2 py-[2px] text-[14px] flex justify-between items-center bg-win95-gray">
                 <div className="flex items-center gap-2">
                     <span className="opacity-80 px-1 border-r border-gray-400">Track {currentTrackIndex + 1} of {tracks.length}</span>
                     <span className="opacity-80 px-1">Stereo</span>
                 </div>
-                <div className="win95-beveled-inset px-2 py-[1px] bg-win95-gray min-w-[100px] text-center font-mono">
+                <div className="win95-beveled-inset px-2 py-[1px] bg-win95-gray min-w-[120px] text-center font-mono">
                     {formatTime(currentTime)} / {formatTime(duration)}
                 </div>
             </div>
