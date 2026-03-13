@@ -26,9 +26,10 @@ interface WallpaperSelectorProps {
     currentWallpaperId: string;
     onApply: (wallpaper: Wallpaper) => void;
     onCancel: () => void;
+    onPreview?: (wallpaper: Wallpaper) => void;
 }
 
-export function WallpaperSelector({ currentWallpaperId, onApply, onCancel }: WallpaperSelectorProps) {
+export function WallpaperSelector({ currentWallpaperId, onApply, onCancel, onPreview }: WallpaperSelectorProps) {
     const [selectedId, setSelectedId] = useState(currentWallpaperId);
 
     const selectedWallpaper = WALLPAPERS.find(w => w.id === selectedId) || WALLPAPERS[0];
@@ -45,7 +46,10 @@ export function WallpaperSelector({ currentWallpaperId, onApply, onCancel }: Wal
                                 key={wp.id}
                                 className={`flex flex-col items-center p-1 border cursor-pointer hover:bg-[#000080] hover:text-white ${selectedId === wp.id ? "bg-[#000080] text-white border-[#808080]" : "border-transparent text-black"
                                     }`}
-                                onClick={() => setSelectedId(wp.id)}
+                                onClick={() => {
+                                    setSelectedId(wp.id);
+                                    if (onPreview) onPreview(wp);
+                                }}
                                 data-testid={`wallpaper-option-${wp.id}`}
                             >
                                 <div

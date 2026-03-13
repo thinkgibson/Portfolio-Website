@@ -396,7 +396,7 @@ describe('Taskbar', () => {
         const overlay = menu.parentElement!;
         
         await act(async () => {
-            fireEvent.click(overlay);
+            fireEvent.pointerDown(overlay);
         });
 
         await waitFor(() => {

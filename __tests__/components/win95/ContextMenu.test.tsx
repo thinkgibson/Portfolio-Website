@@ -47,7 +47,7 @@ describe('ContextMenu', () => {
 
         // The fixed inset div is the overlay
         const overlay = screen.getByTestId('context-menu').parentElement as HTMLElement;
-        fireEvent.click(overlay);
+        fireEvent.pointerDown(overlay);
 
         expect(mockClose).toHaveBeenCalled();
     });
