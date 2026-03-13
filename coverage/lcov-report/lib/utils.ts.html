@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">30.55% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>11/36</span>
+                <span class='fraction'>0/36</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>1/1</span>
+                <span class='fraction'>0/1</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">33.33% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>1/3</span>
+                <span class='fraction'>0/1</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">30.55% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>11/36</span>
+                <span class='fraction'>0/36</span>
             </div>
         
             
@@ -99,29 +99,7 @@
 <a name='L34'></a><a href='#L34'>34</a>
 <a name='L35'></a><a href='#L35'>35</a>
 <a name='L36'></a><a href='#L36'>36</a>
-<a name='L37'></a><a href='#L37'>37</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
+<a name='L37'></a><a href='#L37'>37</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -135,16 +113,38 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { type ClassValue, clsx } from "clsx";
-import { twMerge } from "tailwind-merge";
-import { AppDefinition } from "./types";
-&nbsp;
-export <span class="fstat-no" title="function not covered" >function cn(...inputs: ClassValue[]) {</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js"><span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" ><span class="branch-0 cbranch-no" title="branch not covered" >import { type ClassValue, clsx } from "clsx";</span></span></span>
+<span class="cstat-no" title="statement not covered" >import { twMerge } from "tailwind-merge";</span>
+<span class="cstat-no" title="statement not covered" >import { AppDefinition } from "./types";</span>
+<span class="cstat-no" title="statement not covered" ></span>
+<span class="cstat-no" title="statement not covered" >export function cn(...inputs: ClassValue[]) {</span>
 <span class="cstat-no" title="statement not covered" >    return twMerge(clsx(inputs));</span>
 <span class="cstat-no" title="statement not covered" >}</span>
-&nbsp;
-export function sortAppDefinitions(items: AppDefinition[]): AppDefinition[] {
-    return [...items].sort((a, b) =&gt; {
+<span class="cstat-no" title="statement not covered" ></span>
+<span class="cstat-no" title="statement not covered" >export function sortAppDefinitions(items: AppDefinition[]): AppDefinition[] {</span>
+<span class="cstat-no" title="statement not covered" >    return [...items].sort((a, b) =&gt; {</span>
 <span class="cstat-no" title="statement not covered" >        const aIsFolder = a.children &amp;&amp; a.children.length &gt; 0;</span>
 <span class="cstat-no" title="statement not covered" >        const bIsFolder = b.children &amp;&amp; b.children.length &gt; 0;</span>
 <span class="cstat-no" title="statement not covered" ></span>
@@ -155,9 +155,9 @@ export function sortAppDefinitions(items: AppDefinition[]): AppDefinition[] {
 <span class="cstat-no" title="statement not covered" >        // Secondary sort: Alphabetical by title</span>
 <span class="cstat-no" title="statement not covered" >        return a.title.localeCompare(b.title, undefined, { sensitivity: 'base' });</span>
 <span class="cstat-no" title="statement not covered" >    });</span>
-}
-&nbsp;
-export <span class="fstat-no" title="function not covered" >function replaceBootVariables(message: string, userData: {</span>
+<span class="cstat-no" title="statement not covered" >}</span>
+<span class="cstat-no" title="statement not covered" ></span>
+<span class="cstat-no" title="statement not covered" >export function replaceBootVariables(message: string, userData: {</span>
 <span class="cstat-no" title="statement not covered" >    browser: string;</span>
 <span class="cstat-no" title="statement not covered" >    os: string;</span>
 <span class="cstat-no" title="statement not covered" >    viewport: string;</span>
@@ -178,7 +178,7 @@ export <span class="fstat-no" title="function not covered" >function replaceBoot
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2026-03-12T13:47:19.794Z
+                at 2026-03-13T00:31:53.073Z
             </div>
         <script src="../prettify.js"></script>
         <script>

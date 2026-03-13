@@ -1,0 +1,952 @@
+﻿{
+  "config": {
+    "configFile": "I:\\code\\VSCode\\PortfolioWebsite\\playwright.config.ts",
+    "rootDir": "I:/code/VSCode/PortfolioWebsite/e2e/tests",
+    "forbidOnly": false,
+    "fullyParallel": true,
+    "globalSetup": null,
+    "globalTeardown": null,
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {
+      "actualWorkers": 16
+    },
+    "preserveOutput": "always",
+    "reporter": [
+      [
+        "json"
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "quiet": false,
+    "projects": [
+      {
+        "outputDir": "I:/code/VSCode/PortfolioWebsite/test-results",
+        "repeatEach": 1,
+        "retries": 1,
+        "metadata": {
+          "actualWorkers": 16
+        },
+        "id": "chromium",
+        "name": "chromium",
+        "testDir": "I:/code/VSCode/PortfolioWebsite/e2e/tests",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 60000
+      },
+      {
+        "outputDir": "I:/code/VSCode/PortfolioWebsite/test-results",
+        "repeatEach": 1,
+        "retries": 1,
+        "metadata": {
+          "actualWorkers": 16
+        },
+        "id": "firefox",
+        "name": "firefox",
+        "testDir": "I:/code/VSCode/PortfolioWebsite/e2e/tests",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 60000
+      },
+      {
+        "outputDir": "I:/code/VSCode/PortfolioWebsite/test-results",
+        "repeatEach": 1,
+        "retries": 1,
+        "metadata": {
+          "actualWorkers": 16
+        },
+        "id": "webkit",
+        "name": "webkit",
+        "testDir": "I:/code/VSCode/PortfolioWebsite/e2e/tests",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 60000
+      },
+      {
+        "outputDir": "I:/code/VSCode/PortfolioWebsite/test-results",
+        "repeatEach": 1,
+        "retries": 1,
+        "metadata": {
+          "actualWorkers": 16
+        },
+        "id": "Mobile Chrome",
+        "name": "Mobile Chrome",
+        "testDir": "I:/code/VSCode/PortfolioWebsite/e2e/tests",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 60000
+      },
+      {
+        "outputDir": "I:/code/VSCode/PortfolioWebsite/test-results",
+        "repeatEach": 1,
+        "retries": 1,
+        "metadata": {
+          "actualWorkers": 16
+        },
+        "id": "Mobile Safari",
+        "name": "Mobile Safari",
+        "testDir": "I:/code/VSCode/PortfolioWebsite/e2e/tests",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 60000
+      }
+    ],
+    "shard": null,
+    "tags": [],
+    "updateSnapshots": "missing",
+    "updateSourceMethod": "patch",
+    "version": "1.57.0",
+    "workers": 16,
+    "webServer": {
+      "command": "npx next dev -p 3002 --hostname 127.0.0.1",
+      "url": "http://127.0.0.1:3002",
+      "reuseExistingServer": true,
+      "timeout": 120000,
+      "stdout": "pipe",
+      "stderr": "pipe"
+    }
+  },
+  "suites": [
+    {
+      "title": "music-player-app.spec.ts",
+      "file": "music-player-app.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "Music Player App",
+          "file": "music-player-app.spec.ts",
+          "line": 3,
+          "column": 6,
+          "specs": [
+            {
+              "title": "should open Media Player from desktop",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 1815,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-03-12T23:14:22.202Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "I:\\code\\VSCode\\PortfolioWebsite\\test-results\\music-player-app-Music-Pla-6386d-n-Media-Player-from-desktop-chromium\\test-finished-1.png"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "11a088cf41032e0c276b-e94b2f3d41047ad83f86",
+              "file": "music-player-app.spec.ts",
+              "line": 11,
+              "column": 9
+            },
+            {
+              "title": "should toggle play/pause state",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 1,
+                      "parallelIndex": 1,
+                      "status": "passed",
+                      "duration": 2150,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-03-12T23:14:22.228Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "I:\\code\\VSCode\\PortfolioWebsite\\test-results\\music-player-app-Music-Pla-c1703-uld-toggle-play-pause-state-chromium\\test-finished-1.png"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "11a088cf41032e0c276b-094c51d050de6e542062",
+              "file": "music-player-app.spec.ts",
+              "line": 28,
+              "column": 9
+            },
+            {
+              "title": "should stop playback",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 2,
+                      "parallelIndex": 2,
+                      "status": "passed",
+                      "duration": 2069,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-03-12T23:14:22.231Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "I:\\code\\VSCode\\PortfolioWebsite\\test-results\\music-player-app-Music-Player-App-should-stop-playback-chromium\\test-finished-1.png"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "11a088cf41032e0c276b-103a12ec322c7105f456",
+              "file": "music-player-app.spec.ts",
+              "line": 55,
+              "column": 9
+            },
+            {
+              "title": "should select track from playlist",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 3,
+                      "parallelIndex": 3,
+                      "status": "passed",
+                      "duration": 2839,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-03-12T23:14:22.236Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "I:\\code\\VSCode\\PortfolioWebsite\\test-results\\music-player-app-Music-Pla-b6ba1--select-track-from-playlist-chromium\\test-finished-1.png"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "11a088cf41032e0c276b-35c7bb99a3ccc3d1c18a",
+              "file": "music-player-app.spec.ts",
+              "line": 76,
+              "column": 9
+            },
+            {
+              "title": "should open Media Player from desktop",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "firefox",
+                  "projectName": "firefox",
+                  "results": [
+                    {
+                      "workerIndex": 4,
+                      "parallelIndex": 4,
+                      "status": "passed",
+                      "duration": 2900,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-03-12T23:14:22.227Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "I:\\code\\VSCode\\PortfolioWebsite\\test-results\\music-player-app-Music-Pla-6386d-n-Media-Player-from-desktop-firefox\\test-finished-1.png"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "11a088cf41032e0c276b-ebfaef1f7531cf058554",
+              "file": "music-player-app.spec.ts",
+              "line": 11,
+              "column": 9
+            },
+            {
+              "title": "should toggle play/pause state",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "firefox",
+                  "projectName": "firefox",
+                  "results": [
+                    {
+                      "workerIndex": 5,
+                      "parallelIndex": 5,
+                      "status": "passed",
+                      "duration": 3312,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-03-12T23:14:22.247Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "I:\\code\\VSCode\\PortfolioWebsite\\test-results\\music-player-app-Music-Pla-c1703-uld-toggle-play-pause-state-firefox\\test-finished-1.png"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "11a088cf41032e0c276b-935622dd51987dfb694a",
+              "file": "music-player-app.spec.ts",
+              "line": 28,
+              "column": 9
+            },
+            {
+              "title": "should stop playback",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "firefox",
+                  "projectName": "firefox",
+                  "results": [
+                    {
+                      "workerIndex": 6,
+                      "parallelIndex": 6,
+                      "status": "passed",
+                      "duration": 3054,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-03-12T23:14:22.230Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "I:\\code\\VSCode\\PortfolioWebsite\\test-results\\music-player-app-Music-Player-App-should-stop-playback-firefox\\test-finished-1.png"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "11a088cf41032e0c276b-77879e37925bda6a1aba",
+              "file": "music-player-app.spec.ts",
+              "line": 55,
+              "column": 9
+            },
+            {
+              "title": "should select track from playlist",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "firefox",
+                  "projectName": "firefox",
+                  "results": [
+                    {
+                      "workerIndex": 7,
+                      "parallelIndex": 7,
+                      "status": "passed",
+                      "duration": 3730,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-03-12T23:14:22.235Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "I:\\code\\VSCode\\PortfolioWebsite\\test-results\\music-player-app-Music-Pla-b6ba1--select-track-from-playlist-firefox\\test-finished-1.png"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "11a088cf41032e0c276b-01d65ab181d2d7d505d8",
+              "file": "music-player-app.spec.ts",
+              "line": 76,
+              "column": 9
+            },
+            {
+              "title": "should open Media Player from desktop",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "webkit",
+                  "projectName": "webkit",
+                  "results": [
+                    {
+                      "workerIndex": 8,
+                      "parallelIndex": 8,
+                      "status": "passed",
+                      "duration": 3238,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-03-12T23:14:22.253Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "I:\\code\\VSCode\\PortfolioWebsite\\test-results\\music-player-app-Music-Pla-6386d-n-Media-Player-from-desktop-webkit\\test-finished-1.png"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "11a088cf41032e0c276b-638ce51016b6a83003ec",
+              "file": "music-player-app.spec.ts",
+              "line": 11,
+              "column": 9
+            },
+            {
+              "title": "should toggle play/pause state",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "webkit",
+                  "projectName": "webkit",
+                  "results": [
+                    {
+                      "workerIndex": 9,
+                      "parallelIndex": 9,
+                      "status": "passed",
+                      "duration": 4552,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-03-12T23:14:22.226Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "I:\\code\\VSCode\\PortfolioWebsite\\test-results\\music-player-app-Music-Pla-c1703-uld-toggle-play-pause-state-webkit\\test-finished-1.png"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "11a088cf41032e0c276b-ef3f49eda04157f1e4ec",
+              "file": "music-player-app.spec.ts",
+              "line": 28,
+              "column": 9
+            },
+            {
+              "title": "should stop playback",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "webkit",
+                  "projectName": "webkit",
+                  "results": [
+                    {
+                      "workerIndex": 10,
+                      "parallelIndex": 10,
+                      "status": "passed",
+                      "duration": 4612,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-03-12T23:14:22.264Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "I:\\code\\VSCode\\PortfolioWebsite\\test-results\\music-player-app-Music-Player-App-should-stop-playback-webkit\\test-finished-1.png"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "11a088cf41032e0c276b-b03de5b241d502caa53a",
+              "file": "music-player-app.spec.ts",
+              "line": 55,
+              "column": 9
+            },
+            {
+              "title": "should select track from playlist",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "webkit",
+                  "projectName": "webkit",
+                  "results": [
+                    {
+                      "workerIndex": 11,
+                      "parallelIndex": 11,
+                      "status": "passed",
+                      "duration": 4656,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-03-12T23:14:22.244Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "I:\\code\\VSCode\\PortfolioWebsite\\test-results\\music-player-app-Music-Pla-b6ba1--select-track-from-playlist-webkit\\test-finished-1.png"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "11a088cf41032e0c276b-caf433e994b40e656e50",
+              "file": "music-player-app.spec.ts",
+              "line": 76,
+              "column": 9
+            },
+            {
+              "title": "should open Media Player from desktop",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "Mobile Chrome",
+                  "projectName": "Mobile Chrome",
+                  "results": [
+                    {
+                      "workerIndex": 12,
+                      "parallelIndex": 12,
+                      "status": "passed",
+                      "duration": 1383,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-03-12T23:14:22.245Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "I:\\code\\VSCode\\PortfolioWebsite\\test-results\\music-player-app-Music-Pla-6386d-n-Media-Player-from-desktop-Mobile-Chrome\\test-finished-1.png"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "11a088cf41032e0c276b-89d8643ef517526a070e",
+              "file": "music-player-app.spec.ts",
+              "line": 11,
+              "column": 9
+            },
+            {
+              "title": "should toggle play/pause state",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "Mobile Chrome",
+                  "projectName": "Mobile Chrome",
+                  "results": [
+                    {
+                      "workerIndex": 13,
+                      "parallelIndex": 13,
+                      "status": "passed",
+                      "duration": 1512,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-03-12T23:14:22.274Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "I:\\code\\VSCode\\PortfolioWebsite\\test-results\\music-player-app-Music-Pla-c1703-uld-toggle-play-pause-state-Mobile-Chrome\\test-finished-1.png"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "11a088cf41032e0c276b-99ab1737c0ee611d5a3f",
+              "file": "music-player-app.spec.ts",
+              "line": 28,
+              "column": 9
+            },
+            {
+              "title": "should stop playback",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "Mobile Chrome",
+                  "projectName": "Mobile Chrome",
+                  "results": [
+                    {
+                      "workerIndex": 14,
+                      "parallelIndex": 14,
+                      "status": "passed",
+                      "duration": 1477,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-03-12T23:14:22.259Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "I:\\code\\VSCode\\PortfolioWebsite\\test-results\\music-player-app-Music-Player-App-should-stop-playback-Mobile-Chrome\\test-finished-1.png"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "11a088cf41032e0c276b-b2b5a656f6d796bf6248",
+              "file": "music-player-app.spec.ts",
+              "line": 55,
+              "column": 9
+            },
+            {
+              "title": "should select track from playlist",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "Mobile Chrome",
+                  "projectName": "Mobile Chrome",
+                  "results": [
+                    {
+                      "workerIndex": 15,
+                      "parallelIndex": 15,
+                      "status": "passed",
+                      "duration": 2392,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-03-12T23:14:22.268Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "I:\\code\\VSCode\\PortfolioWebsite\\test-results\\music-player-app-Music-Pla-b6ba1--select-track-from-playlist-Mobile-Chrome\\test-finished-1.png"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "11a088cf41032e0c276b-9593c3d8fff6a2ea898f",
+              "file": "music-player-app.spec.ts",
+              "line": 76,
+              "column": 9
+            },
+            {
+              "title": "should open Media Player from desktop",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "Mobile Safari",
+                  "projectName": "Mobile Safari",
+                  "results": [
+                    {
+                      "workerIndex": 16,
+                      "parallelIndex": 12,
+                      "status": "passed",
+                      "duration": 2155,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-03-12T23:14:25.192Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "I:\\code\\VSCode\\PortfolioWebsite\\test-results\\music-player-app-Music-Pla-6386d-n-Media-Player-from-desktop-Mobile-Safari\\test-finished-1.png"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "11a088cf41032e0c276b-adc139c60d2a2ebea7ea",
+              "file": "music-player-app.spec.ts",
+              "line": 11,
+              "column": 9
+            },
+            {
+              "title": "should toggle play/pause state",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "Mobile Safari",
+                  "projectName": "Mobile Safari",
+                  "results": [
+                    {
+                      "workerIndex": 17,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 3091,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-03-12T23:14:25.218Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "I:\\code\\VSCode\\PortfolioWebsite\\test-results\\music-player-app-Music-Pla-c1703-uld-toggle-play-pause-state-Mobile-Safari\\test-finished-1.png"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "11a088cf41032e0c276b-f29f7dbb59dac47e856a",
+              "file": "music-player-app.spec.ts",
+              "line": 28,
+              "column": 9
+            },
+            {
+              "title": "should stop playback",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "Mobile Safari",
+                  "projectName": "Mobile Safari",
+                  "results": [
+                    {
+                      "workerIndex": 18,
+                      "parallelIndex": 14,
+                      "status": "passed",
+                      "duration": 3050,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-03-12T23:14:25.271Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "I:\\code\\VSCode\\PortfolioWebsite\\test-results\\music-player-app-Music-Player-App-should-stop-playback-Mobile-Safari\\test-finished-1.png"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "11a088cf41032e0c276b-a20b47dc8fa69f9e7258",
+              "file": "music-player-app.spec.ts",
+              "line": 55,
+              "column": 9
+            },
+            {
+              "title": "should select track from playlist",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "Mobile Safari",
+                  "projectName": "Mobile Safari",
+                  "results": [
+                    {
+                      "workerIndex": 19,
+                      "parallelIndex": 13,
+                      "status": "passed",
+                      "duration": 3180,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-03-12T23:14:25.315Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "I:\\code\\VSCode\\PortfolioWebsite\\test-results\\music-player-app-Music-Pla-b6ba1--select-track-from-playlist-Mobile-Safari\\test-finished-1.png"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "11a088cf41032e0c276b-1a0c4fafc200b554ba2e",
+              "file": "music-player-app.spec.ts",
+              "line": 76,
+              "column": 9
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "stats": {
+    "startTime": "2026-03-12T23:14:17.496Z",
+    "duration": 11339.427,
+    "expected": 20,
+    "skipped": 0,
+    "unexpected": 0,
+    "flaky": 0
+  }
+}

@@ -8,51 +8,51 @@ interface Track {
     file: string;
 }
 
-// Windows 95 Style SVG Icons
+// Windows 95 Style SVG Icons (Authentic mplayer.exe style)
 const Icons = {
     Play: () => (
-        <svg width="12" height="12" viewBox="0 0 12 12" fill="currentColor">
-            <path d="M2,2 L10,6 L2,10 Z" />
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="black">
+            <path d="M4,4 L12,8 L4,12 Z" />
         </svg>
     ),
     Pause: () => (
-        <svg width="12" height="12" viewBox="0 0 12 12" fill="currentColor">
-            <rect x="2" y="2" width="3" height="8" />
-            <rect x="7" y="2" width="3" height="8" />
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="black">
+            <rect x="4" y="4" width="3" height="8" />
+            <rect x="9" y="4" width="3" height="8" />
         </svg>
     ),
     Stop: () => (
-        <svg width="12" height="12" viewBox="0 0 12 12" fill="currentColor">
-            <rect x="2" y="2" width="8" height="8" />
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="black">
+            <rect x="4" y="4" width="8" height="8" />
         </svg>
     ),
-    SkipBack: () => (
-        <svg width="12" height="12" viewBox="0 0 12 12" fill="currentColor">
-            <path d="M6,2 L6,6 L2,6 L2,2 Z M6,6 L10,2 L10,10 L6,6 Z M2,6 L2,10 L6,10 L6,6 Z" />
-            {/* Improved Skip Back: Line then Triangle? Or double triangle? Win95 is |<< */}
-            <rect x="2" y="2" width="2" height="8" />
-            <path d="M4,6 L8,2 L8,10 Z" />
-            <path d="M8,6 L12,2 L12,10 Z" />
-        </svg>
-    ),
-    // Simpler separate icons for clarity
     Prev: () => (
-        <svg width="10" height="10" viewBox="0 0 10 10" fill="currentColor">
-            <rect x="1" y="1" width="2" height="8" />
-            <path d="M3,5 L9,1 L9,9 Z" />
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="black">
+            <rect x="3" y="4" width="2" height="8" />
+            <path d="M12,4 L6,8 L12,12 Z" />
         </svg>
     ),
     Next: () => (
-        <svg width="10" height="10" viewBox="0 0 10 10" fill="currentColor">
-            <path d="M1,1 L7,5 L1,9 Z" />
-            <rect x="7" y="1" width="2" height="8" />
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="black">
+            <path d="M4,4 L10,8 L4,12 Z" />
+            <rect x="11" y="4" width="2" height="8" />
+        </svg>
+    ),
+    SkipBack: () => (
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="black">
+            <path d="M13,4 L8,8 L13,12 Z M8,4 L3,8 L8,12 Z" />
+        </svg>
+    ),
+    SkipForward: () => (
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="black">
+            <path d="M3,4 L8,8 L3,12 Z M8,4 L13,8 L8,12 Z" />
         </svg>
     ),
     Volume: () => (
-        <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
-            <path d="M4,5 L4,11 L6,11 L10,15 L10,1 L6,5 Z" />
-            <path d="M12,4 Q14,8 12,12" stroke="currentColor" fill="none" />
-            <path d="M13,2 Q16,8 13,14" stroke="currentColor" fill="none" />
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="black">
+            <path d="M3,6 L3,10 L5,10 L8,13 L8,3 L5,6 Z" />
+            <path d="M10,5 Q12,8 10,11" stroke="black" fill="none" />
+            <path d="M12,3 Q15,8 12,13" stroke="black" fill="none" />
         </svg>
     )
 };
@@ -154,7 +154,54 @@ export const MusicPlayer: React.FC = () => {
     const currentTrack = tracks[currentTrackIndex];
 
     return (
-        <div className="flex flex-col h-full bg-win95-gray p-2 gap-2 font-win95 select-none">
+        <div className="flex flex-col h-full bg-win95-gray p-2 gap-2 font-win95 select-none win95-beveled">
+            <style jsx>{`
+                .win95-slider {
+                    -webkit-appearance: none;
+                    width: 100%;
+                    background: transparent;
+                }
+                .win95-slider:focus {
+                    outline: none;
+                }
+                /* Track */
+                .win95-slider::-webkit-slider-runnable-track {
+                    width: 100%;
+                    height: 4px;
+                    cursor: pointer;
+                    background: #808080;
+                    border-bottom: 1px solid #ffffff;
+                    border-right: 1px solid #ffffff;
+                }
+                .win95-slider::-moz-range-track {
+                    width: 100%;
+                    height: 4px;
+                    cursor: pointer;
+                    background: #808080;
+                    border-bottom: 1px solid #ffffff;
+                    border-right: 1px solid #ffffff;
+                }
+                /* Thumb */
+                .win95-slider::-webkit-slider-thumb {
+                    height: 18px;
+                    width: 10px;
+                    background: #c0c0c0;
+                    cursor: pointer;
+                    -webkit-appearance: none;
+                    margin-top: -8px;
+                    box-shadow: inset 1px 1px 0px #ffffff, inset -1px -1px 0px #000000, 1px 1px 0px #000000;
+                    border: 1px solid #808080;
+                }
+                .win95-slider::-moz-range-thumb {
+                    height: 18px;
+                    width: 10px;
+                    background: #c0c0c0;
+                    cursor: pointer;
+                    box-shadow: inset 1px 1px 0px #ffffff, inset -1px -1px 0px #000000, 1px 1px 0px #000000;
+                    border: 1px solid #808080;
+                }
+            `}</style>
+
             <audio
                 ref={audioRef}
                 src={currentTrack ? `/sfx/${currentTrack.file}` : ""}
@@ -163,88 +210,123 @@ export const MusicPlayer: React.FC = () => {
                 onEnded={nextTrack}
             />
 
-            {/* Scale Wrapper to make it look like mplayer.exe small window if needed, 
-                but for now we just make the layout compact */}
-
-            {/* Display Area */}
-            <div className="win95-beveled bg-black text-[#00FF00] p-2 flex flex-col justify-center items-center h-20 font-mono relative overflow-hidden">
-                <div className="text-[14px] truncate w-full text-center mb-1" data-testid="player-display-title">
+            {/* Display Area (Authentic LCD Display) */}
+            <div className="win95-beveled-inset bg-[#A9C3A2] text-black p-2 flex flex-col justify-center items-start h-20 font-mono relative overflow-hidden mx-1">
+                <div className="text-[20px] uppercase opacity-70 mb-1 leading-none">
+                    {isPlaying ? "Playing" : currentTime > 0 ? "Paused" : "Stopped"}
+                </div>
+                <div className="text-[32px] truncate w-full leading-tight" data-testid="player-display-title">
                     {currentTrack ? currentTrack.title : "No Track Selected"}
                 </div>
-                <div className="text-[24px] leading-none">
-                    {formatTime(currentTime)} / {formatTime(duration || 0)}
+                <div className="absolute top-2 right-2 text-[24px]">
+                    {formatTime(currentTime)}
                 </div>
             </div>
 
-            {/* Controls & Volume */}
-            <div className="flex items-center justify-between gap-2">
-                {/* Transport Buttons */}
-                <div className="flex gap-1">
-                    <button onClick={prevTrack} className="win95-button px-2 py-1 min-w-[30px] flex items-center justify-center" title="Previous">
-                        <Icons.Prev />
-                    </button>
-                    {isPlaying ? (
-                        <button onClick={pauseTrack} className="win95-button px-2 py-1 min-w-[30px] flex items-center justify-center" title="Pause">
-                            <Icons.Pause />
-                        </button>
-                    ) : (
-                        <button onClick={playTrack} className="win95-button px-2 py-1 min-w-[30px] flex items-center justify-center" title="Play">
-                            <Icons.Play />
-                        </button>
-                    )}
-                    <button onClick={stopTrack} className="win95-button px-2 py-1 min-w-[30px] flex items-center justify-center" title="Stop">
-                        <Icons.Stop />
-                    </button>
-                    <button onClick={nextTrack} className="win95-button px-2 py-1 min-w-[30px] flex items-center justify-center" title="Next">
-                        <Icons.Next />
-                    </button>
-                </div>
-
-                {/* Volume Slider */}
-                <div className="flex items-center gap-1 flex-grow justify-end">
-                    <Icons.Volume />
+            {/* Slider Area */}
+            <div className="px-2 py-1">
+                <div className="relative h-6 flex items-center">
                     <input
                         type="range"
                         min="0"
-                        max="100"
-                        value={volume}
-                        onChange={(e) => setVolume(parseInt(e.target.value))}
-                        className="w-24 accent-win95-blue h-4"
+                        max={duration || 100}
+                        value={currentTime}
+                        step="0.1"
+                        onChange={(e) => {
+                            if (audioRef.current) {
+                                audioRef.current.currentTime = parseFloat(e.target.value);
+                                setCurrentTime(audioRef.current.currentTime);
+                            }
+                        }}
+                        className="win95-slider w-full"
                     />
                 </div>
             </div>
 
-            {/* Playlist */}
-            <div className="flex-grow overflow-y-auto win95-beveled bg-white mt-1 border border-gray-500 inset-shadow">
-                <table className="w-full text-left text-[14px]">
-                    <thead className="bg-win95-gray sticky top-0">
+            {/* Controls & Volume section */}
+            <div className="flex flex-col gap-2 px-1">
+                <div className="flex items-center justify-between">
+                    {/* Transport Buttons */}
+                    <div className="flex gap-[2px]">
+                        <button onClick={prevTrack} className="win95-button p-1 min-w-[28px]" title="Previous">
+                            <Icons.Prev />
+                        </button>
+                        {isPlaying ? (
+                            <button onClick={pauseTrack} className="win95-button p-1 min-w-[28px]" title="Pause">
+                                <Icons.Pause />
+                            </button>
+                        ) : (
+                            <button onClick={playTrack} className="win95-button p-1 min-w-[28px]" title="Play">
+                                <Icons.Play />
+                            </button>
+                        )}
+                        <button onClick={stopTrack} className="win95-button p-1 min-w-[28px]" title="Stop">
+                            <Icons.Stop />
+                        </button>
+                        <button onClick={nextTrack} className="win95-button p-1 min-w-[28px]" title="Next">
+                            <Icons.Next />
+                        </button>
+                        <div className="w-1" /> {/* Spacer */}
+                        <button className="win95-button p-1 min-w-[28px]" title="Skip Back">
+                            <Icons.SkipBack />
+                        </button>
+                        <button className="win95-button p-1 min-w-[28px]" title="Skip Forward">
+                            <Icons.SkipForward />
+                        </button>
+                    </div>
+
+                    {/* Volume Slider */}
+                    <div className="flex items-center gap-1">
+                        <Icons.Volume />
+                        <input
+                            type="range"
+                            min="0"
+                            max="100"
+                            value={volume}
+                            onChange={(e) => setVolume(parseInt(e.target.value))}
+                            className="w-20 accent-win95-blue h-4"
+                        />
+                    </div>
+                </div>
+            </div>
+
+            {/* Playlist (Keep for functionality, but style it more compactly) */}
+            <div className="flex-grow overflow-y-auto win95-beveled-inset bg-white mx-1 my-1 scrollbar-win95">
+                <table className="w-full text-left text-[20px] border-collapse">
+                    <thead className="bg-win95-gray sticky top-0 shadow-sm">
                         <tr>
-                            <th className="px-2 py-0 border-b border-r border-gray-400 font-normal w-8 text-center">#</th>
-                            <th className="px-2 py-0 border-b border-gray-400 font-normal">Title</th>
+                            <th className="px-2 py-2 border-b border-r border-gray-400 font-normal w-10 text-center">#</th>
+                            <th className="px-2 py-2 border-b border-gray-400 font-normal">Title</th>
                         </tr>
                     </thead>
                     <tbody>
                         {tracks.map((track, index) => (
                             <tr
                                 key={index}
-                                className={`cursor-pointer ${index === currentTrackIndex ? "bg-win95-blue text-white" : "hover:text-black"}`}
+                                className={`cursor-pointer ${index === currentTrackIndex ? "bg-win95-blue text-white" : "hover:bg-blue-100"}`}
                                 onClick={() => {
                                     setCurrentTrackIndex(index);
                                     setIsPlaying(true);
                                     setTimeout(() => playTrack(), 0);
                                 }}
                             >
-                                <td className="px-2 py-0.5 text-center">{index + 1}</td>
-                                <td className="px-2 py-0.5 truncate">{track.title}</td>
+                                <td className="px-2 py-1.5 text-center">{index + 1}</td>
+                                <td className="px-2 py-1.5 truncate">{track.title}</td>
                             </tr>
                         ))}
                     </tbody>
                 </table>
             </div>
 
-            {/* Status Bar / Footer (Optional, like '00:00 (Stereo)') */}
-            <div className="text-[12px] text-gray-600 border-t border-white pt-1">
-                {currentTrack ? "Stereo" : "Ready"}
+            {/* Status Bar */}
+            <div className="win95-beveled-inset mx-[-4px] mb-[-4px] mt-2 px-2 py-[4px] text-[18px] flex justify-between items-center bg-win95-gray">
+                <div className="flex items-center gap-4">
+                    <span className="opacity-80 px-2 border-r border-gray-400">Track {currentTrackIndex + 1} of {tracks.length}</span>
+                    <span className="opacity-80 px-2">Stereo</span>
+                </div>
+                <div className="win95-beveled-inset px-3 py-[2px] bg-win95-gray min-w-[150px] text-center font-mono">
+                    {formatTime(currentTime)} / {formatTime(duration)}
+                </div>
             </div>
         </div>
     );
