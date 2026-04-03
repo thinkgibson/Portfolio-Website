@@ -50,9 +50,9 @@ describe('DesktopIcon', () => {
         const container = screen.getByTestId('desktop-icon-test-icon');
         expect(container).toHaveClass('overflow-hidden');
 
-        // Label should have break-all
+        // Label should have break-words
         const label = screen.getByText('Test Icon');
-        expect(label).toHaveClass('break-all');
+        expect(label).toHaveClass('break-words');
     });
     it('does not have text-shadow style by default', () => {
         render(<DesktopIcon {...defaultProps} />);

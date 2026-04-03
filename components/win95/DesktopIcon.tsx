@@ -28,7 +28,7 @@ export function DesktopIcon({ id, label, iconType, onOpen, x, y, textColor = "te
             </div>
             {/* Label */}
             <span
-                className={`${textColor} text-[18px] font-win95 mt-1 px-1 bg-transparent group-hover:bg-win95-blue-active group-hover:text-white group-focus:bg-win95-blue-active group-focus:text-white whitespace-normal break-words break-all leading-tight shadow-sm text-center`}
+                className={`${textColor} text-[18px] font-win95 mt-1 px-1 bg-transparent group-hover:bg-win95-blue-active group-hover:text-white group-focus:bg-win95-blue-active group-focus:text-white whitespace-normal break-words leading-tight shadow-sm text-center`}
                 style={showShadow ? { textShadow: '1px 1px 0px #000' } : {}}
             >
                 {label}
