@@ -8,10 +8,7 @@ type ToolType = "pencil" | "brush" | "eraser" | "stamp";
 type ColorType = string;
 
 const COLORS: ColorType[] = [
-    "#000000", "#787878", "#800000", "#808000", "#008000", "#008080", "#000080", "#800080",
-    "#808005", "#004040", "#0080FF", "#004080", "#4000FF", "#804000", "#FFFFFF", "#C0C0C0",
-    "#FF0000", "#FFFF00", "#00FF00", "#00FFFF", "#0000FF", "#FF00FF", "#FFFF80", "#00FF80",
-    "#80FFFF", "#8080FF", "#FF8000", "#FF80FF"
+  "#000000", "#FFFFFF", "#FF0000", "#FF8000", "#FFFF00", "#00FF00", "#0000FF", "#4000FF", "#FF00FF"
 ];
 
 export function Paint() {
@@ -123,7 +120,7 @@ export function Paint() {
                 </div>
 
                 {/* Colors */}
-                <div className="flex flex-wrap gap-1 w-64 p-2 border-4 border-win95-gray-shadow inset-shadow bg-white">
+                <div className="grid grid-cols-3 gap-1 w-24 p-2 border-4 border-win95-gray-shadow inset-shadow bg-white">
                     {COLORS.map((c) => (
                         <button
                             key={c}
